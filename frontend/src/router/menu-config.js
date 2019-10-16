@@ -1,4 +1,4 @@
-import Login from '../pages/loginManager';
+import Login from '../pages/login';
 import UserInfo from '../pages/userInfoManager';
 import OrderInfo from '../pages/orderInfoManager';
 import VenueInfo from '../pages/venueInfoManager';
@@ -14,7 +14,7 @@ const router = [
     notShowMenu: true,
     seq: 100
   },
-  
+
   {
     path: '/manager/userInfo',
     module: '用户信息',
