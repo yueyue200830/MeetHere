@@ -1,28 +1,21 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="page-template" v-if="$route.meta ? $route.meta.notShowMenu: false">
+    <router-view/>
   </div>
+  <div class="page-template"  v-else>
+    <menu-component>
+      <router-view/>
+    </menu-component>
+  </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import './css/publicCSS.css';
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  name: 'App',
+  created () {
+    document.title = '共享单车管理系统';
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
