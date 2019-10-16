@@ -1,10 +1,10 @@
-import Login from '../pages/login';
-import UserInfo from '../pages/userInfo';
-import OrderInfo from '../pages/orderInfo';
-import VenueInfo from '../pages/venueInfo';
+import Login from '../pages/loginManager';
+import UserInfo from '../pages/userInfoManager';
+import OrderInfo from '../pages/orderInfoManager';
+import VenueInfo from '../pages/venueInfoManager';
 import NewsManage from '../pages/newsManage';
-import MessageApprove from '../pages/messageApprove';
-import OrderInfoApprove from '../pages/orderInfoApprove';
+import MessageApprove from '../pages/messageApproveManager';
+import OrderInfoApprove from '../pages/orderInfoApproveManager';
 const router = [
   {
     path: '/',

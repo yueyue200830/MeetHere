@@ -36,7 +36,7 @@
           {
             prop: 'id',
             label: '预约订单编号',
-            width: '100'
+            width: '120'
           },
           {
             prop: 'userid',
@@ -61,7 +61,7 @@
           {
             prop: 'timesolt',
             label: '预约的时间段',
-            width: '100'
+            width: '150'
           },
           {
             prop: 'date',
