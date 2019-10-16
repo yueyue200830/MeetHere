@@ -1,11 +1,10 @@
 import Login from '../pages/login';
-import Index from '../pages/index';
-import BikeInfo from '../pages/bikeInfo';
-import SpecialBike from '../pages/specialBike';
+import UserInfo from '../pages/userInfo';
 import OrderInfo from '../pages/orderInfo';
-import RepairBike from '../pages/repairBike';
-import BikeLog from '../pages/bikeLog';
-import Backup from '../pages/backupBike';
+import VenueInfo from '../pages/venueInfo';
+import NewsManage from '../pages/newsManage';
+import MessageApprove from '../pages/messageApprove';
+import OrderInfoApprove from '../pages/orderInfoApprove';
 const router = [
   {
     path: '/',
@@ -15,47 +14,41 @@ const router = [
     notShowMenu: true,
     seq: 100
   },
+  
   {
-    path: '/index',
-    module: '首页',
-    desktop: Index,
-    seq: 200
-  },
-
-  {
-    path: '/bikeInfo',
-    module: '使用中单车信息',
-    desktop: BikeInfo,
+    path: '/manager/userInfo',
+    module: '用户信息',
+    desktop: UserInfo,
     seq: 202
   },
   {
-    path: '/backupBike',
-    module: '备用单车',
-    desktop: Backup,
+    path: '/manager/orderInfoApprove',
+    module: '预约订单审核',
+    desktop: OrderInfoApprove,
     seq: 203
   },
   {
-    path: '/specialBike',
-    module: '特殊单车',
-    desktop: SpecialBike,
+    path: '/manager/orderInfo',
+    module: '预约订单统计',
+    desktop: OrderInfo,
     seq: 204
   },
   {
-    path:'/orderInfo',
-    module: '订单信息',
-    desktop: OrderInfo,
+    path:'/manager/venueInfo',
+    module: '场馆信息管理',
+    desktop: VenueInfo,
     seq: 205
   },
   {
-    path:'/repairBike',
-    module: '定期维护单车信息',
-    desktop: RepairBike,
+    path:'/manager/newsManage',
+    module: '新闻动态管理',
+    desktop: NewsManage,
     seq: 206
   },
   {
-    path: '/bikeLog',
-    module: '单车日志',
-    desktop: BikeLog,
+    path: '/manager/messageApprove',
+    module: '留言审核',
+    desktop: MessageApprove,
     seq: 207
   }
 ];

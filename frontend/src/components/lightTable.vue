@@ -4,17 +4,17 @@
       <el-row>
         <el-col :span="9" v-if="showSearch">
           <el-row>
-            <el-col :span="16">
+            <el-col :span="16" v-if="searchable">
               <el-input v-model="searchCondition"></el-input>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8" v-if="searchable">
               <el-button type="primary" style="margin-left: 20px" @click="searchClick">搜索</el-button>
             </el-col>
           </el-row>
         </el-col>
         <el-col :span="tableHeadCol" class="table-title-button">
           <el-button type="primary" v-if="addable" @click="onAdd">添加</el-button>
-          <el-button type="primary" v-if="putable" @click="onPut">投放</el-button>
+          <el-button type="primary" v-if="putable" @click="onPut">审核通过</el-button>
           <el-button type="primary" plain v-if="refreshable" @click="onRefresh">自动生成</el-button>
           <el-button type="danger" v-if="rowSelect && deleteable" @click="onDelete">删除</el-button>
           <slot name="operateTable"></slot>
@@ -125,6 +125,12 @@ export default {
       type: Boolean,
       default: () => {
         return true;
+      }
+    },
+    searchable: {
+      type: Boolean,
+        default: () => {
+          return true;
       }
     },
     addable: {

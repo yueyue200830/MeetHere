@@ -15,7 +15,7 @@ import './css/publicCSS.css';
 export default {
   name: 'App',
   created () {
-    document.title = '共享单车管理系统';
+    document.title = 'MeetHere';
   }
 };
 </script>

@@ -6,14 +6,34 @@
           <light-table ref="table"
                        :data="searchData" @on-search="searchTable"
                        :columns="columns"
-                       :addable="true" @on-add="addType"
+                       :refreshable="true" @on-refresh="goToRefresh"
                        :rowSelect="true" @select-row="getSelectRow">
-            <!-- <template slot="operation" slot-scope="props">
-              <el-button size="mini" @click="viewTypeDetail(props.prop.id,'edit')">编辑</el-button>
-            </template> -->
+            <template slot="operation" slot-scope="props">
+              <el-button size="mini" @click="viewTypeDetail(props.prop.bike_id,'edit')">编辑</el-button>
+              <el-button size="mini" @click="spbikeOperation(props.prop.bike_id,'opt')">处理</el-button>
+            </template>
           </light-table>
         </el-col>
       </el-row>
+      <el-dialog
+        :title="dialog1Title"
+        :visible.sync="showDialog1"
+        width="50%"
+        :close-on-click-modal="false"
+        center>
+        <el-select v-model="opt" placeholder="操作选择">
+            <el-option v-for="item in options"
+              :label="item.text"
+              :key="item.value"
+              :value="item.value"
+              >
+            </el-option>
+        </el-select>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="showDialog1 = false">取消</el-button>
+          <el-button type="primary" @click="saveOptResult">确认</el-button>
+        </span>
+      </el-dialog>
       <el-dialog
         :title="dialogTypeForm.title"
         :visible.sync="showDialogType"
@@ -24,56 +44,16 @@
         <el-form :model="dialogTypeForm" :rules="dialogTypeRules" ref="dialogTypeForm" label-width="100px">
           <el-row>
             <el-col :span="12">
-              <el-form-item label="订单编号" prop="order_id">
-                <el-input v-model="dialogTypeForm.order_id" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="用户编号" prop="user_id">
-                <el-input v-model="dialogTypeForm.user_id" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
               <el-form-item label="单车编号" prop="bike_id">
                 <el-input v-model="dialogTypeForm.bike_id" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="开始时间" >
-                <el-input v-model="dialogTypeForm.startTime" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
-              </el-form-item>
-            </el-col>
+
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="起点经度" >
-                <el-input v-model="dialogTypeForm.startLon" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="起点纬度" >
-                <el-input v-model="dialogTypeForm.startLat" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="结束时间" >
-                <el-input v-model="dialogTypeForm.endTime" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="终点经度" >
-                <el-input v-model="dialogTypeForm.endLon" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="终点纬度" >
-                <el-input v-model="dialogTypeForm.endLat" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="回收位" prop="recover">
+                <el-input v-model="dialogTypeForm.recover" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -89,51 +69,66 @@
 
 <script>
   import axios from 'axios';
-  const searchCheckResult = (condition) => axios.post('/app/api/searchOrder', condition);
-  const addCheckResult = (checkResultForm) => axios.post('/app/api/addOrder', checkResultForm);
-  const getCheckResultById = (id) => axios.get('/api/checkResult', id);
-  const modifyCheckResult = (checkResultForm) => axios.post('/api/checkResult', checkResultForm);
+  const searchCheckResult = (condition) => axios.post('/app/api/searchSpbike', condition);
+  const optResult=({id,operation}) => axios.post('/app/api/optSpbike',{id,operation});
+  const addCheckResult = (checkResultForm) => axios.post('/api/checkResult', checkResultForm);
+  const getCheckResultById = (condition) => axios.post('/app/api/searchSpbike', condition);
+  const modifyCheckResult = (checkResultForm) => axios.post('/app/api/modifySpbike', checkResultForm);
   const deleteCheckResultById = (id) => axios.delete('/api/checkResult', id);
-  const getOrderInfo = () => axios.post('/app/api/getOrder');
+  const getSpecialBikeInfo= () => axios.post("/app/api/getSpecialBike");
+  const callRefresh= () => axios.post("/app/api/refreshSpbike");
 
   export default {
     name: "orderInfo",
     data () {
       return {
+        dialog1Title: '请选择操作',
         loading: false,
-        title: '订单信息',
+        title: '预约订单统计',
+        opt:0,
+        optBike:0,
+        options: [
+          {
+            value:0, 
+            text:"放入备用单车"
+          },
+          {
+            value:1,
+            text:"放入维护单车"
+          },
+          {
+            value:2,
+            text:"单车报废，删除单车"
+          }
+        ],
         columns: [
-          {
-            prop: 'order_id',
-            label: '订单编号',
-            width: '250'
-          },
-          {
-            prop: 'user_id',
-            label: '用户编号',
-            width: '300'
-          },
           {
             prop: 'bike_id',
             label: '单车编号',
-   
+            width: '350'
+          },
+          {
+            prop: 'recover',
+            label: '回收位',
+            width: '350'
+          },
+          {
+            prop: 'operation',
+            label: '操作',
+            type: {
+              operate: true
+            }
           }
         ],
         searchData:[],
         preData:[],
         dialogTypeForm: {
-          title: '添加订单',
+          title: '修改特殊单车',
           isDelete: false,
-          order_id:'',
-          user_id:'',
           bike_id:'',
-          startTime: '',
-          startLon:'',
-          startLat:'',
-          endTime:'',
-          endLon:'',
-          endLat:'',
+          recover:''
         },
+        showDialog1: false,
         showDialogType: false,
         dialogTypeRules: {
 
@@ -169,21 +164,38 @@
 
         // }
       },
+      spbikeOperation(id,action){
+        
+        this.optBike=id;
+        this.showDialog1=true;
+      },//显示操作弹窗，设置操作的单车ID
+      saveOptResult(){
+        let id = this.optBike;
+        let operation=this.opt;
+        this.loading=true
+        optResult({id,operation}).then(data => {
+          this.loading=false;
+          console.log(data);
+          if(data.data.affectedRows==0){//affectedRows是数据库返回的信息，表示sql语句影响的row数量，如果等于0说明该过程没有成功执行
+            this.onAlertError('操作失败，该单车未被回收');
+          }
+          this.showDialog1=false;
+        })
+      }, //跨域请求api
       viewTypeDetail(id, action) {
-        //this.loading = true;   调试中，调试结束后把注释符号去掉
-        this.dialogTypeForm = {
-          order_id:'31289',
-          user_id:'1229',
-          bike_id:'79699',
-        };
-        this.showDialogType=true;
-        getCheckResultById({id}).then(data => {
-          this.loading = false;
-          if (data.data.code === '000') {
-            // todo
-            this.dialogTypeForm = data.data.datas;
-            this.showDialogType = true;
+        this.loading = true;   //调试中，调试结束后把注释符号去掉
 
+        //this.showDialogType=true; //假数据
+        console.log(id);
+        let condition = id;
+        getCheckResultById({condition}).then(data => {
+          this.loading = false;
+          if (data) {
+            // todo
+            console.log(data.data);
+            this.dialogTypeForm.bike_id = data.data[0].bike_id;
+            this.dialogTypeForm.recover = data.data[0].recover; //获得后端返回的数据，显示在弹窗中
+            this.showDialogType = true;
 
           } else {
             this.onAlertError('搜索失败');
@@ -195,27 +207,34 @@
       },
       dialogTypeClose() {
         this.dialogTypeForm = {
-          title: '添加订单',
+          title: '修改特殊单车',
           isDelete: false,
-          order_id:'',
-          user_id:'',
           bike_id:'',
-          startTime: '',
-          startLon:'',
-          startLat:'',
-          endTime:'',
-          endLon:'',
-          endLat:'',
+          recover:''
         };
       },
       saveCheckResult () {
-        addCheckResult({checkResultForm: this.dialogTypeForm}).then(data => {
-          this.loading = false;
-          if (data.data.affectedRows ==0) {
-            this.onAlertError('保存失败');
-          } else {
+          this.loading = true;
+          console.log(this.dialogTypeForm);
+          modifyCheckResult({checkResultForm: this.dialogTypeForm}).then(data => {
+            this.loading=false;
+            if (data) {
+              this.showDialogType = false;
+            }
+          });
+      },
+      goToRefresh(){
+        this.loading=true;
+        callRefresh().then(data => {
+          this.loading=false;
+        });
+        getSpecialBikeInfo().then(data => {
+          console.log(data.data);
+          this.searchData=data.data;
+          this.preData=data.data;
+          if (data.data.code === '000') {
+
             this.showDialogType = false;
-            this.onAlertSuccess('保存成功');
           }
         });
       },
@@ -242,7 +261,7 @@
       }
     },
     mounted(){
-      getOrderInfo().then(data => {
+      getSpecialBikeInfo().then(data => {
         console.log(data.data);
         this.searchData=data.data;
         this.preData=data.data;
@@ -250,7 +269,7 @@
 
           this.showDialogType = false;
         }
-      })
+      });
     }
   }
 </script>

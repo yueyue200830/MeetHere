@@ -6,27 +6,17 @@ import router from './router';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import global from '../src/mixins/globalMessage';
-import BaiduMap from 'vue-baidu-map'
-//import axios from 'axios';
+
 
 import Components from './components/index';
 import Mixins from './mixins/index';
-Vue.use(BaiduMap, {
-  ak: 'BN1u4h8K2bAiKTdgmvGyj5pWgzLBzkrX'
-})
+
 Vue.config.productionTip = false;
 
 Object.keys(global).forEach(key => {
   Vue.prototype[key] = global[key];
 });
 
-// axios.interceptors.request.use(function(config,a){
-//   debugger
-//   return config;
-// }, function(error){
-//   //请求错误
-//   return Promise.reject(error);
-// });
 
 Vue.use(ElementUI);
 Vue.use(Components);
