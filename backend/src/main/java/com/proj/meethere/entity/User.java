@@ -1,9 +1,9 @@
 package com.proj.meethere.entity;
 
 import javax.persistence.Entity;
-import org.springframework.data.annotation.Id;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * @Author Tresaresa
@@ -11,12 +11,17 @@ import org.springframework.data.annotation.Id;
  */
 @Entity
 public class User {
+
     @Id
-   // @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String user_name;
+
     private String user_key;
-    private Integer type;
+
+    private Integer user_type;
+
     private String user_photo;
 
     public User(){
@@ -46,12 +51,12 @@ public class User {
         this.user_key = user_key;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getUser_type() {
+        return user_type;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setUser_type(Integer user_type) {
+        this.user_type = user_type;
     }
 
     public String getUser_photo() {
