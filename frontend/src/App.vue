@@ -1,11 +1,11 @@
 <template>
-  <div class="page-template" v-if="$route.meta ? $route.meta.notShowMenu: false">
-    <router-view/>
-  </div>
-  <div class="page-template"  v-else>
+  <div class="page-template" v-if="this.$route.meta ? this.$route.meta.showManagerMenu : false">
     <menu-component>
       <router-view/>
     </menu-component>
+  </div>
+  <div class="page-template"  v-else>
+    <router-view/>
   </div>
 
 </template>

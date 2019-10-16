@@ -1,11 +1,15 @@
 import menuComponent from './menuComponent';
 import pageMainBody from './pageMainBody';
 import lightTable from './lightTable';
+import userFooter from "./userFooter";
+import userComponent from "./userComponent";
 
 const components = {
   menuComponent,
   pageMainBody,
-  lightTable
+  lightTable,
+  userFooter,
+  userComponent,
 };
 
 export default function (Vue) {
