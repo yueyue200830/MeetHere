@@ -12,25 +12,10 @@
         <el-menu :collapse="isCollapseLeft" :default-active="defaultActive"
                @select="selectMenu($event, 'left')" unique-opened >
         <!--<div v-for="(menu, index) in totalLeftMenu" :key="setIndex(index)">-->
-        <el-menu-item style="min-width: 200px" v-for="(menu, index) in totalLeftMenu" :key="setIndex('left', index)" :index="setIndex('left',index, undefined, menu.module)" @click="goTo(menu.path)" v-if="!menu.action && !menu.notShowInMenu">
+        <el-menu-item style="min-width: 200px" v-for="(menu, index) in totalLeftMenu" :key="setIndex('left', index)" :index="setIndex('left',index, undefined, menu.module)" @click="goTo(menu.path)" v-if="!menu.action && menu.meta.showInMenu">
           <i class="el-icon-tickets"></i>
-          <span slot="title">{{menu.module}}</span>
+          <span slot="title">{{menu.name}}</span>
         </el-menu-item>
-
-        <el-submenu v-for="(menu, index) in totalLeftMenu" :key="setIndex('left',index)" :index="setIndex('left',index)" v-if="menu.action">
-          <template slot="title">
-            <i class="el-icon-tickets"></i>
-            <span slot="title">{{menu.module}}</span>
-          </template>
-          <el-menu-item-group>
-            <div v-for="(subMenu, subIndex) in menu.action" :key="setIndex('left',index,subIndex)">
-              <el-menu-item style="min-width: 200px" :index="setIndex('left',index, subIndex, subMenu.title)" @click="goTo(subMenu.path)"
-                            v-if="!subMenu.notShowInMenu">
-                {{subMenu.title}}
-              </el-menu-item>
-            </div>
-          </el-menu-item-group>
-        </el-submenu>
         <!--</div>-->
       </el-menu>
       </el-scrollbar>
@@ -60,7 +45,7 @@
 
 <script>
 import _ from 'lodash';
-import totalMenu from '../router/routerManage';
+import {routes} from '../router/router';
 import moment from 'moment';
 
 export default {
@@ -69,7 +54,7 @@ export default {
     return {
       isCollapseLeft: false,
       isCollapseRight: false,
-      totalLeftMenu: totalMenu,
+      totalLeftMenu: routes,
       menuIndex: {},
       asideWidth: '200px',
       defaultActive: '',
