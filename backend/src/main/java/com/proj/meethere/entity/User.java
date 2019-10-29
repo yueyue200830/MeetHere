@@ -1,28 +1,31 @@
 package com.proj.meethere.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
- * @Author Tresaresa
+ * @Author Tresaresa Yiqing Tao
  * @Date 2019/10/16 13:15
  */
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
-    private String user_name;
+    @Column(name = "user_name")
+    private String userName;
 
-    private String user_key;
+    @Column(name = "user_key")
+    private String userKey;
 
-    private Integer user_type;
+    @Column(name = "user_type")
+    private Integer userType;
 
-    private String user_photo;
+    @Column(name = "user_photo")
+    private String userPhoto;
 
     public User(){
     }
@@ -35,35 +38,35 @@ public class User {
         this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUser_key() {
-        return user_key;
+    public String getUserKey() {
+        return userKey;
     }
 
-    public void setUser_key(String user_key) {
-        this.user_key = user_key;
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
     }
 
-    public Integer getUser_type() {
-        return user_type;
+    public Integer getUserType() {
+        return userType;
     }
 
-    public void setUser_type(Integer user_type) {
-        this.user_type = user_type;
+    public void setUserType(Integer userType) {
+        this.userType = userType;
     }
 
-    public String getUser_photo() {
-        return user_photo;
+    public String getUserPhoto() {
+        return userPhoto;
     }
 
-    public void setUser_photo(String user_photo) {
-        this.user_photo = user_photo;
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
     }
 }

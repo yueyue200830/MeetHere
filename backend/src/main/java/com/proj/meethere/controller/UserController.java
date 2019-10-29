@@ -2,24 +2,75 @@ package com.proj.meethere.controller;
 
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Tresaresa
+ * @Author Tresaresa Yiqing Tao
  * @Date 2019/10/16 14:07
  */
-@RestController
+@org.springframework.stereotype.Controller
 public class UserController {
+    @Autowired
+    private UserRepository userRepository;
 
-    UserRepository userRepository;
+//    @RequestMapping("/")
+//    private String userList(){
+//        //return userRepository.find();
+//        return "hello";
+//    }
 
-    @RequestMapping("/")
-    private String userList(){
-        //return userRepository.find();
-        return "hello";
+    @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean checkPwd(@RequestBody String info){
+        JSONObject jsonObject = new JSONObject(info);
+        String userName = jsonObject.getString("user_name");
+        String pwd = jsonObject.getString("user_key");
+        String truePwd = userRepository.searchUserKeyByName(userName);
+        System.out.println("true pwd " + truePwd);
+        return truePwd.equals(pwd);
     }
+
+    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> getUser(){
+        System.out.println("receive getuser ");
+        List<User> allUser = userRepository.selectAllUserInfo();
+        List<String> userInfo = new ArrayList<>();
+        for(int i = 0;i < allUser.size();i++){
+            User currentUser = allUser.get(i);
+            JSONObject jo = new JSONObject(currentUser);
+            userInfo.add(jo.toString());
+        }
+        System.out.println("user info :" + userInfo);
+        return userInfo;
+    }
+
+    @RequestMapping(value = "/deleteUser",method = RequestMethod.DELETE)
+    @ResponseBody
+    public int deleteUser(@RequestParam(name = "id") int id){
+        return userRepository.deleteSpecificUser(id);
+    }
+
+    @RequestMapping(value = "/searchUser",method = RequestMethod.POST)
+    @ResponseBody
+    public String getSpecificUserInfo(@RequestParam(name = "id") int id){
+        List<User> userList = userRepository.selectSpecificUser(id);
+        String result = "";
+        if (userList.size() == 1) {
+            User currentUser = userList.get(0);
+            JSONObject jsonObject = new JSONObject(currentUser);
+            result = jsonObject.toString();
+        } else {
+            System.out.println("duplicate user");
+            result = "duplicate";
+        }
+        return result;
+    }
+
+
 }
