@@ -46,7 +46,7 @@ public class RevenueController {
         }
         return result;
     }
-    @RequestMapping(value = "/checkVenue",method = RequestMethod.GET)
+    @RequestMapping(value = "/checkVenue", method = RequestMethod.GET)
     @ResponseBody
     public String checkVenue(@RequestParam(name = "id") int id) {
         List<Revenue> revenueList = revenueRepository.getSpecificRvn(id);
@@ -62,7 +62,7 @@ public class RevenueController {
         }
     }
 
-    @RequestMapping(value = "/modifyVenue",method = RequestMethod.POST)
+    @RequestMapping(value = "/modifyVenue", method = RequestMethod.POST)
     @ResponseBody
     public int modifyVenue(@RequestBody String venueInfo) {
         JSONObject jsonObject = new JSONObject(venueInfo);
@@ -72,5 +72,10 @@ public class RevenueController {
         return revenueRepository.updateRvnInfo(rvnPrice,rvnIntro,id);
     }
 
-
+    @RequestMapping(value = "/addRevenue", method = RequestMethod.POST)
+    @ResponseBody
+    public int addNewRevenue(@RequestParam("rvn_name") String rvn_name, @RequestParam("rvn_roomnum") int rvn_roomnum,
+                             @RequestParam("rvn_price") int rvn_price, @RequestParam("rvn_intro") String rvn_intro) {
+        return revenueRepository.insertNewRevenue(rvn_name, rvn_roomnum, rvn_price, rvn_intro);
+    }
 }

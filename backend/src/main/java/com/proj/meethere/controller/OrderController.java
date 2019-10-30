@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Yiqing Tao
+ * @Author Yiqing Tao, Tresaresa
  * @Date 2019-10-29
  * Order Controller
  */
@@ -54,5 +54,11 @@ public class OrderController {
         return result;
     }
 
-
+    @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
+    @ResponseBody
+    public int addNewOrder(@RequestParam("user_id") int user_id, @RequestParam("order_phone") String order_phone, @RequestParam("rvn_id") int rvn_id,
+                           @RequestParam("rvn_roomnum") int rvn_roomnum, @RequestParam("order_timeslot") int order_timeslot,
+                           @RequestParam("order_date") String order_date){
+        return orderRepository.insertNewOrder(user_id, order_phone, rvn_id, rvn_roomnum, order_timeslot, order_date);
+    }
 }

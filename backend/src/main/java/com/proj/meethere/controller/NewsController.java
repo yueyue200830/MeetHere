@@ -4,6 +4,7 @@ import com.proj.meethere.dao.NewsRepository;
 import com.proj.meethere.entity.News;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Yiqing Tao
+ * @Author Yiqing Tao, Tresaresa
  * @Date 2019-10-29
  * News Controller
  */
@@ -23,7 +24,7 @@ public class NewsController {
     @Autowired
     private NewsRepository newsRepository;
 
-    @RequestMapping(value = "/getNews",method = RequestMethod.POST)
+    @RequestMapping(value = "/getNews", method = RequestMethod.POST)
     @ResponseBody
     List<String> getAllNews() {
         List<News> newsList = newsRepository.selectAllNews();
@@ -43,10 +44,11 @@ public class NewsController {
     int deleteNews(@RequestParam(name = "id") int id) {
         return newsRepository.deleteSpecificNews(id);
     }
+
 //
 //    @RequestMapping(value = "/modifyNews", method = RequestMethod.POST)
 //    @ResponseBody
-//    int updateNews(@RequestParam(name = "id") int id, @RequestParam(name = "content") String content,@RequestParam(name = "title") String title,
+//    public int updateNews(@RequestParam(name = "id") int id, @RequestParam(name = "content") String content,@RequestParam(name = "title") String title,
 //                   @RequestParam(name = "photo"))
 
     @RequestMapping(value = "/searchNews",method = RequestMethod.GET)
@@ -68,4 +70,10 @@ public class NewsController {
         return result;
     }
 
+ //   @RequestMapping(value = "/addNews", method = RequestMethod.POST)
+ //   @ResponseBody
+ //   public int addNewNews(@RequestParam("newsContent") String newsContent, @RequestParam("newsTitle") String newsTitle,
+ //                  @RequestParam("newsPhoto") String newsPhoto){
+ //       return newsRepository.insertNewNews(newsContent, newsTitle, newsPhoto);
+ //}
 }

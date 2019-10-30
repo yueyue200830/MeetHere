@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Yiqing Tao
+ * @Author Yiqing Tao, Tresaresa
  * @Date 2019-10-29
  * Message Controller
  */
@@ -40,6 +40,7 @@ public class MessageController {
         return result;
     }
 
+    /* search specitic message by id */
     @RequestMapping(value = "/searchUnapproveMessage",method = RequestMethod.POST)
     @ResponseBody
     String searchSpecificMessage(@RequestParam(name = "id") int id) {
@@ -60,9 +61,15 @@ public class MessageController {
         return result;
     }
 
-    @RequestMapping(value = "/approveMessage",method = RequestMethod.POST)
+    @RequestMapping(value = "/approveMessage", method = RequestMethod.POST)
     @ResponseBody
     int updateCheckStatus(@RequestParam(name = "id") int id) {
         return messageRepositroy.setMessageVisibility(id);
+    }
+
+    @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
+    @ResponseBody
+    int addNewMessage(@RequestParam("content") String content, @RequestParam("user_id") int user_id, @RequestParam("title") String title) {
+        return messageRepositroy.insertNewMessage(content, user_id, title);
     }
 }

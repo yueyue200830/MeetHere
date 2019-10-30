@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @Author Yiqing Tao
+ * @Author Yiqing Tao, Tresaresa
  * @Date 2019-10-29
  * News Repository
  */
@@ -29,5 +29,9 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
     @Query(value = "select * from news where id = :id", nativeQuery = true)
     List<News> selectSpecificNews(@Param("id") int id);
 
-
+    @Modifying
+    @Query(value = "insert into news (news_content, news_title, news_photo, news_time) " +
+            "value (:newsContent, :newsTitle, :newsPhoto, now())", nativeQuery = true)
+    int insertNewNews(@Param("newsContent") String newsContent, @Param("newsTitle") String newsTitle,
+                      @Param("newsPhoto") String newsPhoto);
 }

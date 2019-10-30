@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Tresaresa Yiqing Tao
+ * @Author Tresaresa, Yiqing Tao
  * @Date 2019/10/16 14:07
  */
 @org.springframework.stereotype.Controller
@@ -35,7 +35,7 @@ public class UserController {
         return truePwd.equals(pwd);
     }
 
-    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
+    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getUser(){
         System.out.println("receive getuser ");
@@ -50,13 +50,13 @@ public class UserController {
         return userInfo;
     }
 
-    @RequestMapping(value = "/deleteUser",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
     @ResponseBody
     public int deleteUser(@RequestParam(name = "id") int id){
         return userRepository.deleteSpecificUser(id);
     }
 
-    @RequestMapping(value = "/searchUser",method = RequestMethod.POST)
+    @RequestMapping(value = "/searchUser", method = RequestMethod.POST)
     @ResponseBody
     public String getSpecificUserInfo(@RequestParam(name = "id") int id){
         List<User> userList = userRepository.selectSpecificUser(id);
@@ -72,5 +72,17 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @ResponseBody
+    public int addNewUser(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
+                          @RequestParam("user_type") int user_type, @RequestParam("user_photo") String user_photo) {
+        return userRepository.insertNewUser(user_name, user_key, user_type, user_photo);
+    }
 
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @ResponseBody
+    public int updateUserById(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
+                              @RequestParam("user_photo") String user_photo, @RequestParam("user_id") int user_id) {
+        return userRepository.updateUserById(user_name, user_key, user_photo, user_id);
+    }
 }
