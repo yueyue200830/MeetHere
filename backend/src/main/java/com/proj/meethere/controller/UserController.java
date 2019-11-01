@@ -18,12 +18,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-//    @RequestMapping("/")
-//    private String userList(){
-//        //return userRepository.find();
-//        return "hello";
-//    }
-
     @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
     @ResponseBody
     public Boolean checkPwd(@RequestBody String info){
