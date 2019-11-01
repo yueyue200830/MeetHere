@@ -21,7 +21,7 @@
         </el-menu>
         <div class="head-name mine">我</div>
       </el-header>
-      <div>
+      <div class="user-body">
         <router-view></router-view>
       </div>
       <user-footer></user-footer>
@@ -56,5 +56,9 @@
 
   .mine {
     margin-left: auto;
+  }
+
+  .user-body {
+    min-height: calc(100vh - 120px);
   }
 </style>
