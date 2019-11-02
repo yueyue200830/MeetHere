@@ -8,6 +8,10 @@ import OrderInfoApproveManager from '../pages/orderInfoApproveManager';
 import UserComponent from "../components/userComponent";
 import UserInfo from "../pages/userInfo";
 import UserRevenue from "../pages/userRevenue"
+import UserMain from "../pages/userMain"
+import UserNews from "../pages/userNews"
+import UserOrder from "../pages/userOrder"
+import UserMessage from "../pages/userMessage"
 import Main from '../pages/mainPage';
 import VueRouter from 'vue-router';
 import Vue from 'vue';
@@ -87,6 +91,16 @@ const routes = [
     meta: {},
     children: [
       {
+        path: '',
+        component: UserMain,
+        meta: {}
+      },
+      {
+        path: 'main',
+        component: UserMain,
+        meta: {}
+      },
+      {
         path: 'info',
         component: UserInfo,
         meta: {}
@@ -94,6 +108,21 @@ const routes = [
       {
         path: 'revenue',
         component: UserRevenue,
+        meta: {}
+      },
+      {
+        path: 'news',
+        component: UserNews,
+        meta: {}
+      },
+      {
+        path: 'order',
+        component: UserOrder,
+        meta: {}
+      },
+      {
+        path: 'message',
+        component: UserMessage,
         meta: {}
       },
     ]

@@ -1,10 +1,12 @@
 <template>
-  <el-main>Revenue Info</el-main>
+    <el-main>
+      message
+    </el-main>
 </template>
 
 <script>
     export default {
-        name: "userRevenue"
+        name: "userMessage"
     }
 </script>
 

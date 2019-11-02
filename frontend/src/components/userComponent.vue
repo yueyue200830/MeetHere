@@ -6,20 +6,27 @@
           mode="horizontal"
           background-color="#409EFF"
           text-color="white"
-          active-text-color="white">
-          <el-menu-item index="1">首页</el-menu-item>
-          <el-menu-item index="2">介绍</el-menu-item>
+          active-text-color="white"
+          class="user-menu"
+          unique-opened
+          router>
+          <el-menu-item index="main">首页</el-menu-item>
+          <el-menu-item index="revenue">介绍</el-menu-item>
           <el-submenu index="3">
             <template slot="title">预约</template>
             <el-menu-item index="3-1">选项1</el-menu-item>
             <el-menu-item index="3-2">选项2</el-menu-item>
             <el-menu-item index="3-3">选项3</el-menu-item>
           </el-submenu>
-          <el-menu-item index="4">订单</el-menu-item>
-          <el-menu-item index="5">新闻</el-menu-item>
-          <el-menu-item index="6">留言</el-menu-item>
+          <el-menu-item index="order">订单</el-menu-item>
+          <el-menu-item index="news">新闻</el-menu-item>
+          <el-menu-item index="message">留言</el-menu-item>
+          <el-submenu index="7">
+            <template slot="title">我</template>
+            <el-menu-item index="info">个人信息</el-menu-item>
+            <el-menu-item index="7-3">退出</el-menu-item>
+          </el-submenu>
         </el-menu>
-        <div class="head-name mine">我</div>
       </el-header>
       <div class="user-body">
         <router-view></router-view>
@@ -50,11 +57,7 @@
     font-weight: 700;
   }
 
-  .head-name {
-    margin: 0 10px;
-  }
-
-  .mine {
+  .user-menu {
     margin-left: auto;
   }
 
