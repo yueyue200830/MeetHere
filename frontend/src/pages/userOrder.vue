@@ -1,5 +1,8 @@
 <template>
     <el-main>
+      <div class="order-title">
+        我的订单
+      </div>
       <el-table
         :data="tableData"
         border
@@ -148,6 +151,13 @@
 </script>
 
 <style scoped>
+  .order-title {
+    text-align: center;
+    font-size: 30px;
+    margin: 20px;
+    color: #303133;
+  }
+
   .order-table {
     width: 800px;
     margin: 40px auto 10px;
