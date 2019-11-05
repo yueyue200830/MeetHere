@@ -1,7 +1,10 @@
 <template>
     <el-main>
+      <div class="user-title">
+        留言
+      </div>
       <el-button type="primary" icon="el-icon-refresh-right" circle class="refresh" @click="refresh"></el-button>
-      <el-button type="primary" icon="el-icon-plus" circle class="add-comment" ></el-button>
+      <el-button type="primary" icon="el-icon-plus" circle class="add-comment" @click="addNewsButton"></el-button>
       <div class="main-card" v-for="comment in comments" :key="comment.id">
         <el-card class="box-card" shadow="hover">
           <div slot="header" class="headline">
@@ -24,6 +27,40 @@
           More
         </el-button>
       </div>
+      <el-dialog
+        title="添加留言"
+        :visible.sync="addNewsVisibility"
+        width="50%">
+        <el-form :model="addNewsForm" ref="addNewsForm">
+          <el-form-item
+            label="标题"
+            label-width="100px"
+            :rules="[
+              { required: true, message: '标题不可为空'},
+            ]"
+            prop="title">
+            <el-input type="title" v-model="addNewsForm.title" class="phone-input"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="内容"
+            label-width="100px"
+            :rules="[
+              { required: true, message: '内容不可为空'},
+            ]"
+            prop="content">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 3, maxRows: 6}"
+              placeholder="请输入内容"
+              v-model="addNewsForm.content">
+            </el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="cancelAddNews">取 消</el-button>
+          <el-button type="primary" @click="addNews">确 定</el-button>
+        </div>
+      </el-dialog>
     </el-main>
 </template>
 
@@ -37,13 +74,18 @@
                     time: '2019-9-9',
                     title: 'hello title',
                     comment: 'hello',
-                    image: 'https://img3.doubanio.com/view/photo/l/public/p2542484062.webp',
+                    image: 'https://upload.wikimedia.org/wikipedia/zh/4/44/Tenki_no_ko_Key_Visual.jpg',
                 },{
                     user: 'Tom',
                     time: '2019-9-9',
                     title: 'hello title',
                     comment: 'hello'
                 }],
+                addNewsVisibility: false,
+                addNewsForm: {
+                    title: '',
+                    content: '',
+                },
             }
         },
         methods: {
@@ -70,15 +112,36 @@
                 let date = new Date(time);
                 return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
                     + " " + date.getHours() + ":" + date.getMinutes();
+            },
+            addNews: function () {
+                // Send data to backend.
+                // Refresh comments
+                this.$refs['addNewsForm'].resetFields();
+                this.addNewsVisibility = false;
+            },
+            addNewsButton: function () {
+                this.addNewsVisibility = true;
+            },
+            cancelAddNews: function () {
+                this.$refs['addNewsForm'].resetFields();
+                this.addNewsVisibility = false;
             }
         }
     }
 </script>
 
 <style scoped>
+  .user-title {
+    text-align: center;
+    font-size: 30px;
+    margin: 20px 0 40px;
+    color: #303133;
+  }
+
   .main-card {
     margin: 0 auto;
     width: 70%;
+    min-width: 600px;
   }
 
   .more {

@@ -1,5 +1,8 @@
 <template>
   <el-main>
+    <div class="user-title">
+      个人信息
+    </div>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="self-form">
       <el-form-item label="用户名" prop="name">
         <el-input v-model.number="ruleForm.name"></el-input>
@@ -87,6 +90,13 @@
 </script>
 
 <style scoped>
+  .user-title {
+    text-align: center;
+    font-size: 30px;
+    margin: 20px 0 40px;
+    color: #303133;
+  }
+
   .self-form {
     margin: 50px auto 20px;
     width: 400px;

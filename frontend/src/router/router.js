@@ -12,6 +12,7 @@ import UserMain from "../pages/userMain"
 import UserNews from "../pages/userNews"
 import UserOrder from "../pages/userOrder"
 import UserMessage from "../pages/userMessage"
+import UserBooking from "../pages/userBooking"
 import Main from '../pages/mainPage';
 import VueRouter from 'vue-router';
 import Vue from 'vue';
@@ -123,6 +124,11 @@ const routes = [
       {
         path: 'message',
         component: UserMessage,
+        meta: {}
+      },
+      {
+        path: 'booking',
+        component: UserBooking,
         meta: {}
       },
     ]

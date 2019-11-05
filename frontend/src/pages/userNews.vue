@@ -43,6 +43,7 @@
                     date: '2016-05-01',
                     name: '进博会放假',
                     content: '11.2放假一天',
+                    image: 'https://upload.wikimedia.org/wikipedia/zh/4/44/Tenki_no_ko_Key_Visual.jpg',
                 }, {
                     date: '2016-05-03',
                     name: '进博会放假',
@@ -92,6 +93,6 @@
 
   .news-image {
     flex-shrink: 0;
-    width: 300px;
+    max-width: 300px;
   }
 </style>

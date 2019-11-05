@@ -127,21 +127,21 @@
             }
         },
         methods: {
-            handleEdit(index, row) {
+            handleEdit: function(index, row) {
                 this.changePhoneVisibility = true;
                 this.changePhoneForm.originalNumber = row.phone;
                 this.changePhoneForm.index = index;
             },
-            handleDelete(index, row) {
+            handleDelete: function(index, row) {
                 console.log(index, row);
                 this.deleteDialogVisibility = true;
                 this.deleteIndex = index;
             },
-            deleteOrder() {
+            deleteOrder: function() {
                 // Send delete index to backend.
                 this.deleteDialogVisibility = false;
             },
-            changePhone() {
+            changePhone: function() {
                 // Send new phone number to backend.
                 this.$refs['changePhoneForm'].resetFields();
                 this.changePhoneVisibility = false;
