@@ -7,7 +7,6 @@
   <div class="page-template"  v-else>
     <router-view/>
   </div>
-
 </template>
 
 <script>

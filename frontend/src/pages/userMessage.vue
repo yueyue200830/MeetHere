@@ -39,7 +39,7 @@
               { required: true, message: '标题不可为空'},
             ]"
             prop="title">
-            <el-input type="title" v-model="addNewsForm.title" class="phone-input"></el-input>
+            <el-input type="title" v-model="addNewsForm.title"></el-input>
           </el-form-item>
           <el-form-item
             label="内容"

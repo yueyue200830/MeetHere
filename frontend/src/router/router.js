@@ -13,6 +13,7 @@ import UserNews from "../pages/userNews"
 import UserOrder from "../pages/userOrder"
 import UserMessage from "../pages/userMessage"
 import UserBooking from "../pages/userBooking"
+import UserLogin from "../pages/userLogin"
 import Main from '../pages/mainPage';
 import VueRouter from 'vue-router';
 import Vue from 'vue';
@@ -132,6 +133,11 @@ const routes = [
         meta: {}
       },
     ]
+  },
+  {
+    path: '/user/login',
+    component: UserLogin,
+    meta: {}
   },
 ];
 

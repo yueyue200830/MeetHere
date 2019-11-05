@@ -12,12 +12,7 @@
           router>
           <el-menu-item index="main">首页</el-menu-item>
           <el-menu-item index="revenue">介绍</el-menu-item>
-          <el-submenu index="3">
-            <template slot="title">预约</template>
-            <el-menu-item index="booking">选项1</el-menu-item>
-            <el-menu-item index="booking">选项2</el-menu-item>
-            <el-menu-item index="booking">选项3</el-menu-item>
-          </el-submenu>
+          <el-menu-item index="booking">预约</el-menu-item>
           <el-menu-item index="order">订单</el-menu-item>
           <el-menu-item index="news">新闻</el-menu-item>
           <el-menu-item index="message">留言</el-menu-item>
