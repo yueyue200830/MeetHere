@@ -30,7 +30,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(value = "select * from user where id = :id", nativeQuery = true)
     List<User> selectSpecificUser(@Param("id") int id);
 
-
     @Modifying
     @Query(value = "insert into user (user_name, user_key, user_type, user_photo)" +
             "value (:user_name, :user_key, :user_type, :user_photo)", nativeQuery = true)
@@ -39,8 +38,11 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Transactional(rollbackFor = Exception.class)
     @Modifying
-    @Query(value = "update user set user_name=:user_name, user_key=:user_key, user_photo=:user_photo" +
+    @Query(value = "update user set user_name=:user_name, user_key=:user_key" +
             "where user_id=:user_id", nativeQuery = true)
     int updateUserById(@Param("user_name") String user_name, @Param("user_key") String user_key,
-                       @Param("user_photo") String user_photo, @Param("user_id") int user_id);
+                       @Param("user_id") int user_id);
+
+    @Query(value = "select * from user where user_name=:user_name", nativeQuery = true)
+    List<User> selectUserByName(@Param("user_name") String user_name);
 }

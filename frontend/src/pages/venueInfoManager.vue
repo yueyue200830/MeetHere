@@ -166,6 +166,13 @@
           modifyCheckResult(this.dialogTypeForm).then(data => {
             this.loading=false;
             if (data) {
+              getVenueInfo().then(data => {
+                this.searchData=data.data;
+                this.preData=data.data;
+                if (data.data.code === '000') {
+                  this.showDialogType = false;
+                }
+              })
               this.showDialogType = false;
             }
           });

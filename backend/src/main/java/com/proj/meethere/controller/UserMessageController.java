@@ -2,9 +2,7 @@ package com.proj.meethere.controller;
 
 import com.proj.meethere.dao.MessageRepositroy;
 
-import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Message;
-import com.proj.meethere.entity.Revenue;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * @Author Tresaresa
@@ -42,9 +37,7 @@ public class UserMessageController {
     @RequestMapping(value = "/getMoreMessage", method = RequestMethod.GET)
     @ResponseBody
     public String getMoreMessages(@RequestParam("lastTime") String lastTime, @RequestParam("number") int number) throws ParseException {
-        SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-        Date time = isoFormat.parse(lastTime);
-        List<Message> moreMessages = messageRepositroy.findMoreCMessagesBefore(time.toString(), number);
+        List<Message> moreMessages = messageRepositroy.findMoreMessagesBefore(lastTime, number);
 
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(moreMessages);
@@ -53,10 +46,11 @@ public class UserMessageController {
 
     @RequestMapping(value = "/addMessage", method = RequestMethod.GET)
     @ResponseBody
-    public void addNewMessage(@RequestParam("addNewsForm") String newForm, @RequestParam("id") int user_id) {
+    public int addNewMessage(@RequestParam("addNewsForm") String newForm, @RequestParam("id") int user_id) {
         JSONObject jsonObject = new JSONObject(newForm);
         String title = jsonObject.getString("title");
         String content = jsonObject.getString("content");
-//        return messageRepositroy.insertNewMessage(content, user_id, title);
+        int ret = messageRepositroy.insertNewMessage(content, user_id, title);
+        return ret;
     }
 }

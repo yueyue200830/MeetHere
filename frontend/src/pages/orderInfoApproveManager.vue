@@ -120,7 +120,6 @@
           for (i=0;i<id.length;i++) {
             let temp=id[i];
             changeResultById (temp) . then (data => {
-              console.log(temp);
               this.loading = false;
               if (data) {
                 this.onAlertError('审核通过成功');
