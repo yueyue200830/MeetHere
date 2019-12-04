@@ -68,8 +68,8 @@ public class RevenueController {
     public int modifyVenue(@RequestBody String venueInfo) {
         JSONObject jsonObject = new JSONObject(venueInfo);
         int id = jsonObject.getInt("id");
-        int rvnPrice = jsonObject.getInt("rvnPrice");
-        String rvnIntro = jsonObject.getString("rvnIntro");
+        int rvnPrice = jsonObject.getInt("rvn_price");
+        String rvnIntro = jsonObject.getString("rvn_intro");
         return revenueRepository.updateRvnInfo(rvnPrice,rvnIntro,id);
     }
 

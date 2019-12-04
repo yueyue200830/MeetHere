@@ -47,26 +47,26 @@ public class Revenue {
     }
 
     public int getRvnRoomNum() {
-        return rvnRoomNum;
+        return rvn_roomnum;
     }
 
     public void setRvnRoomNum(int rvnRoomNum) {
-        this.rvnRoomNum = rvnRoomNum;
+        this.rvn_roomnum = rvnRoomNum;
     }
 
     public String getRvnIntro() {
-        return rvnIntro;
+        return rvn_intro;
     }
 
     public void setRvnIntro(String rvnIntro) {
-        this.rvnIntro = rvnIntro;
+        this.rvn_intro = rvnIntro;
     }
 
     public int getRvnPrice() {
-        return rvnPrice;
+        return rvn_price;
     }
 
     public void setRvnPrice(int rvnPrice) {
-        this.rvnPrice = rvnPrice;
+        this.rvn_price = rvnPrice;
     }
 }
