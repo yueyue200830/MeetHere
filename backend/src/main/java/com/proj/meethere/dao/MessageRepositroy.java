@@ -38,7 +38,7 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
      * @param number The number of comments.
      * @return List of latest comments.
      */
-    @Query(value = "SELECT * FROM message ORDER BY msg_time DESC LIMIT :number where msg_visibility==1", nativeQuery = true)
+    @Query(value = "SELECT * FROM message where msg_visibility=1 ORDER BY msg_time DESC LIMIT :number ", nativeQuery = true)
     List<Message> findLatestMessages(@Param("number") int number);
 
     /**
@@ -47,7 +47,6 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
      * @param number The number of comments.
      * @return List of next comments.
      */
-    @Query(value = "SELECT * FROM message WHERE msg_time < :lastTime ORDER BY msg_time DESC LIMIT :number " +
-            "where msg_visibility==1", nativeQuery = true)
+    @Query(value = "SELECT * FROM message WHERE msg_time < :lastTime and msg_visibility=1 ORDER BY msg_time DESC LIMIT :number ", nativeQuery = true)
     List<Message> findMoreCMessagesBefore(@Param("lastTime") Date lastTime, @Param("number") int number);
 }
