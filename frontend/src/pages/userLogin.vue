@@ -42,6 +42,7 @@
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
     export default {
         name: "userLogin",
         data () {
@@ -53,8 +54,10 @@
             }
         },
         methods: {
+            ...mapMutations(['changeLogin']),
             login: function() {
-
+                this.changeLogin({ Authorization: 'testToken' });
+                this.$router.push('main');
             },
             managerLogin: function () {
                 this.$router.push('/login')

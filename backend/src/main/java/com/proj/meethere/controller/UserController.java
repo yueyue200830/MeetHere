@@ -74,10 +74,10 @@ public class UserController {
         return userRepository.insertNewUser(user_name, user_key, user_type, user_photo);
     }
 
-    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-    @ResponseBody
-    public int updateUserById(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
-                              @RequestParam("user_photo") String user_photo, @RequestParam("user_id") int user_id) {
-        return userRepository.updateUserById(user_name, user_key, user_photo, user_id);
-    }
+//    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+//    @ResponseBody
+//    public int updateUserById(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
+//                              @RequestParam("user_photo") String user_photo, @RequestParam("user_id") int user_id) {
+//        return userRepository.updateUserById(user_name, user_key, user_photo, user_id);
+//    }
 }
