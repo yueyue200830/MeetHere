@@ -6,7 +6,7 @@
           <light-table ref="table"
                        :data="searchData" @on-search="searchTable"
                        :columns="columns"
-                       
+
                        :putable="true" @on-put="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
 
@@ -19,12 +19,11 @@
 </template>
 
 <script>
-  import axios from 'axios'; 
+  import axios from 'axios';
 
-
-  const changeResultById = (temp) => axios.get(`/app/api/approveMessage/${temp}`);
-  const getOrderInfo = () => axios.post('/app/api/getUnapproveMessage')
-  const searchCheckResult = (condition) => axios.get(`/app/api/searchUnapproveMessage/${condition}`);
+  const changeResultById = (temp) => axios.get(`/app/approveMessage/${temp}`);
+  const getOrderInfo = () => axios.post('/app/getUnapproveMessage')
+  const searchCheckResult = (condition) => axios.get(`/app/searchUnapproveMessage/${condition}`);
 
   export default {
     name: "messageApprove",
@@ -76,7 +75,7 @@
           } else {
             //console.log(data.data.length);
             this.searchData=data.data;
-            if (data.data.length) { 
+            if (data.data.length) {
               // todo
             } else {
               this.onAlertError('搜索失败');
@@ -96,17 +95,17 @@
             changeResultById (temp) . then (data => {
               console.log(temp);
               this.loading = false;
-              if (data) { 
+              if (data) {
                 this.onAlertError('审核通过成功');
                 getOrderInfo().then(data => {
                     this.searchData=data.data;
                     this.preData=data.data;
-                }); 
+                });
               }
             });
           }
         }
-      }, 
+      },
       getSelectRow (val) {
         let id = [];
         _.each(val, item => {

@@ -1,8 +1,10 @@
 package com.proj.meethere.controller;
 
 
+import com.proj.meethere.Response.RevenueResponse;
 import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import java.util.List;
  * Revenue Controller
  */
 @Controller
+@CrossOrigin(origins = "*")
 public class RevenueController {
     @Autowired
     private RevenueRepository revenueRepository;
@@ -34,42 +37,40 @@ public class RevenueController {
         return result;
     }
 
-    @RequestMapping(value = "/searchVenue", method = RequestMethod.POST)
+    @RequestMapping(value = "/searchVenue/{condition}", method = RequestMethod.GET)
     @ResponseBody
-    public String searchVenue(@RequestParam(name = "id") int id) {
-        List<Revenue> revenueList = revenueRepository.getSpecificRvn(id);
-        String result = "";
-        if(revenueList.size() == 1) {
-            result = new JSONObject(revenueList.get(0)).toString();
-        } else{
-            result = "duplicate";
+    public List<RevenueResponse> searchVenue(@PathVariable String condition) {
+        List<Revenue> revenueList = revenueRepository.getSpecificRvn(Integer.parseInt(condition));
+        List<RevenueResponse> revenueResponseList = new ArrayList<>();
+        for(Revenue revenue : revenueList) {
+            RevenueResponse revenueResponse = new RevenueResponse();
+            revenueResponse.setRvnPrice(revenue.getRvnPrice());
+            revenueResponse.setRvnIntro(revenue.getRvnIntro());
+            revenueResponse.setId(revenue.getId());
+            revenueResponseList.add(revenueResponse);
         }
-        return result;
+        return revenueResponseList;
     }
-    @RequestMapping(value = "/checkVenue", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/checkVenue/{temp}", method = RequestMethod.GET)
     @ResponseBody
-    public String checkVenue(@RequestParam(name = "id") int id) {
-        List<Revenue> revenueList = revenueRepository.getSpecificRvn(id);
-        JSONObject jsonObject = new JSONObject();
-        if(revenueList.size() == 1) {
-            Revenue venue = revenueList.get(0);
-            jsonObject.put("id", venue.getId());
-            jsonObject.put("rvn_price",venue.getRvnPrice());
-            jsonObject.put("rvn_intro",venue.getRvnIntro());
-            return jsonObject.toString();
-        }else {
-            return "duplicate";
+    public List<RevenueResponse> checkVenue(@PathVariable String temp) {
+        List<Revenue> revenueList = revenueRepository.getSpecificRvn(Integer.parseInt(temp));
+        List<RevenueResponse> revenueResponsesList = new ArrayList<>();
+        for(Revenue revenue: revenueList) {
+            RevenueResponse revenueResponse = new RevenueResponse();
+            revenueResponse.setId(revenue.getId());
+            revenueResponse.setRvnIntro(revenue.getRvnIntro());
+            revenueResponse.setRvnPrice(revenue.getRvnPrice());
+            revenueResponsesList.add(revenueResponse);
         }
+        return revenueResponsesList;
     }
 
     @RequestMapping(value = "/modifyVenue", method = RequestMethod.POST)
     @ResponseBody
-    public int modifyVenue(@RequestBody String venueInfo) {
-        JSONObject jsonObject = new JSONObject(venueInfo);
-        int id = jsonObject.getInt("id");
-        int rvnPrice = jsonObject.getInt("rvnPrice");
-        String rvnIntro = jsonObject.getString("rvnIntro");
-        return revenueRepository.updateRvnInfo(rvnPrice,rvnIntro,id);
+    public int modifyVenue(@RequestBody RevenueResponse revenueResponse) {
+        return revenueRepository.updateRvnInfo(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());
     }
 
     @RequestMapping(value = "/addRevenue", method = RequestMethod.POST)

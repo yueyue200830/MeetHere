@@ -27,7 +27,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer>{
     List<Order> selectSpecificUnapprovedOrder(@Param("id") int id);
 
     @Modifying
-    @Query(value = "insert into order (user_id, order_phone, rvn_id, rvn_roomnum, order_timeslot, order_date, order_proved)" +
+    @Query(value = "insert into orderlist (user_id, order_phone, rvn_id, rvn_roomnum, order_timeslot, order_date, order_proved)" +
             "value (:user_id, :order_phone, :rvn_id, :rvn_roomnum, :order_timeslot, :order_date, false)", nativeQuery = true)
     int insertNewOrder(@Param("user_id") int user_id, @Param("order_phone") String order_phone, @Param("rvn_id") int rvn_id,
                        @Param("rvn_roomnum") int rvn_roomnum, @Param("order_timeslot") int order_timeslot,

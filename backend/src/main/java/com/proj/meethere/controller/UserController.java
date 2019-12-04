@@ -29,31 +29,32 @@ public class UserController {
         return truePwd.equals(pwd);
     }
 
-    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/getUser", method = RequestMethod.POST)
     @ResponseBody
-    public List<String> getUser(){
+    public List<User> getUser(){
         System.out.println("receive getuser ");
         List<User> allUser = userRepository.selectAllUserInfo();
-        List<String> userInfo = new ArrayList<>();
-        for(int i = 0;i < allUser.size();i++){
-            User currentUser = allUser.get(i);
-            JSONObject jo = new JSONObject(currentUser);
-            userInfo.add(jo.toString());
-        }
-        System.out.println("user info :" + userInfo);
-        return userInfo;
+//        List<String> userInfo = new ArrayList<>();
+//        for(int i = 0;i < allUser.size();i++){
+//            User currentUser = allUser.get(i);
+//            JSONObject jo = new JSONObject(currentUser);
+//            userInfo.add(jo.toString());
+//        }
+        //System.out.println("user info :" + userInfo);
+        return allUser;
     }
 
-    @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteUser/{temp}", method = RequestMethod.GET)
     @ResponseBody
-    public int deleteUser(@RequestParam(name = "id") int id){
-        return userRepository.deleteSpecificUser(id);
+    public int deleteUser(@PathVariable String temp) {
+        //System.out.println(temp);
+        return userRepository.deleteSpecificUser(Integer.parseInt(temp));
     }
 
-    @RequestMapping(value = "/searchUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/searchUser/{condition}", method = RequestMethod.GET)
     @ResponseBody
-    public String getSpecificUserInfo(@RequestParam(name = "id") int id){
-        List<User> userList = userRepository.selectSpecificUser(id);
+    public String getSpecificUserInfo(@PathVariable String condition) {
+        List<User> userList = userRepository.selectSpecificUser(Integer.parseInt(condition));
         String result = "";
         if (userList.size() == 1) {
             User currentUser = userList.get(0);

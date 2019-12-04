@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,12 +22,14 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(value = "select * from user", nativeQuery = true)
     List<User> selectAllUserInfo();
 
+    @Transactional
     @Modifying
     @Query(value = "delete from user where id = :id", nativeQuery = true)
     int deleteSpecificUser(@Param("id") int id);
 
     @Query(value = "select * from user where id = :id", nativeQuery = true)
     List<User> selectSpecificUser(@Param("id") int id);
+
 
     @Modifying
     @Query(value = "insert into user (user_name, user_key, user_type, user_photo)" +

@@ -8,16 +8,16 @@
         <template slot="title">
           <div class="news-title">
             <div class="news-name">
-              {{news.name}}
+              {{ news.newsTitle }}
             </div>
             <div class="news-time">
-              {{news.date}}
+              {{ convertTime(news.newsTime) }}
             </div>
           </div>
         </template>
         <div class="news-body">
-          <div class="news-content">{{news.content}}</div>
-          <el-image class="news-image" fit="contain" v-if="news.image != null" :src="news.image">
+          <div class="news-content">{{ news.newsContent }}</div>
+          <el-image class="news-image" fit="contain" v-if="news.newsPhoto != null" :src="news.newsPhoto">
           </el-image>
         </div>
       </el-collapse-item>
@@ -30,27 +30,23 @@
         name: "userNews",
         data() {
             return {
-                newsList: [{
-                    date: '2019-10-30',
-                    name: '进博会放假',
-                    content: '11.2放假一天',
-                    image: 'https://camo.githubusercontent.com/8708a8dcb49d365b1786a5093d8f3fd37aeb18a2/68747470733a2f2f7770696d672e77616c6c7374636e2e636f6d2f61353839346331622d663661662d343536652d383264662d3131353164613038333962662e706e67',
-                }, {
-                    date: '2016-05-04',
-                    name: '网球',
-                    content: '11.2放假一天',
-                }, {
-                    date: '2016-05-01',
-                    name: '进博会放假',
-                    content: '11.2放假一天',
-                    image: 'https://upload.wikimedia.org/wikipedia/zh/4/44/Tenki_no_ko_Key_Visual.jpg',
-                }, {
-                    date: '2016-05-03',
-                    name: '进博会放假',
-                    content: '11.2放假一天',
-                }],
+                newsList: [],
             }
         },
+        created: function () {
+            this.$http
+                .post('http://127.0.0.1:8081/getNewsUserPage')
+                .then(response => {
+                    this.newsList = response.data[0];
+                })
+        },
+        methods: {
+            convertTime: function (time) {
+                let date = new Date(time);
+                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+                    + " " + date.getHours() + ":" + date.getMinutes();
+            }
+        }
     }
 </script>
 
