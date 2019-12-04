@@ -38,11 +38,11 @@ public class Revenue {
         this.id = id;
     }
 
-    public String getRvn_name() {
+    public String getRvnName() {
         return rvn_name;
     }
 
-    public void setRvn_name(String rvn_name) {
+    public void setRvnName(String rvn_name) {
         this.rvn_name = rvn_name;
     }
 

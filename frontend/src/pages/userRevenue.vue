@@ -45,10 +45,10 @@
         },
         created: function () {
             this.$http
-                .post('http://127.0.0.1:8081/getVenue')
+                .post('http://127.0.0.1:8081/getVenueUserPage')
                 .then(response => {
-                    window.console.log(response);
-                    this.comments = response.data.comments[0];
+                    window.console.log(response.data);
+                    this.revenues = response.data;
                 })
         },
     }
