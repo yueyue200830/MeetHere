@@ -45,7 +45,7 @@
         },
         created: function () {
             this.$http
-                .post('http://127.0.0.1:8081/getVenue')
+                .post('http://127.0.0.1:8081/getVenueUserPage')
                 .then(response => {
                     window.console.log(response.data.result);
                     this.revenues = response.data.result;

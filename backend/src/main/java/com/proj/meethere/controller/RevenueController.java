@@ -3,6 +3,7 @@ package com.proj.meethere.controller;
 
 import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,5 +80,18 @@ public class RevenueController {
     public int addNewRevenue(@RequestParam("rvn_name") String rvn_name, @RequestParam("rvn_roomnum") int rvn_roomnum,
                              @RequestParam("rvn_price") int rvn_price, @RequestParam("rvn_intro") String rvn_intro) {
         return revenueRepository.insertNewRevenue(rvn_name, rvn_roomnum, rvn_price, rvn_intro);
+    }
+
+    @RequestMapping(value = "/getVenueUserPage", method = RequestMethod.POST)
+    @ResponseBody
+    public String getAllVenueUserPage() {
+        List<Revenue> revenueList = revenueRepository.getAllRvnInfo();
+
+        JSONArray result = new JSONArray();
+        result.put(revenueList);
+        String jsonstring = result.toString();
+        System.out.println(jsonstring);
+
+        return jsonstring;
     }
 }
