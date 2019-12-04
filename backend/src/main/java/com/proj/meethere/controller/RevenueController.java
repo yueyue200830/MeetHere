@@ -17,6 +17,7 @@ import java.util.List;
  * Revenue Controller
  */
 @Controller
+@CrossOrigin(origins = "*")
 public class RevenueController {
     @Autowired
     private RevenueRepository revenueRepository;
