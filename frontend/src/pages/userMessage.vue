@@ -8,13 +8,13 @@
       <div class="main-card" v-for="comment in comments" :key="comment.id">
         <el-card class="box-card" shadow="hover">
           <div slot="header" class="headline">
-            <div class="title">{{ comment.title }}</div>
+            <div class="title">{{ comment.messageTitle }}</div>
             <div class="user">{{ comment.user }}</div>
-            <div class="time">{{ comment.time }}</div>
+            <div class="time">{{ convertTime(comment.messageTime) }}</div>
           </div>
           <div class="card-content">
             <div class="text">
-              {{ comment.comment }}
+              {{ comment.messageContent }}
             </div>
             <el-image class="image" fit="contain" v-if="comment.image != null"
                       :src="comment.image">
@@ -69,18 +69,7 @@
         name: "userMessage",
         data () {
             return {
-                comments: [{
-                    user: 'Kitty',
-                    time: '2019-9-9',
-                    title: 'hello title',
-                    comment: 'hello',
-                    image: 'https://upload.wikimedia.org/wikipedia/zh/4/44/Tenki_no_ko_Key_Visual.jpg',
-                },{
-                    user: 'Tom',
-                    time: '2019-9-9',
-                    title: 'hello title',
-                    comment: 'hello'
-                }],
+                comments: [],
                 addNewsVisibility: false,
                 addNewsForm: {
                     title: '',
@@ -88,25 +77,30 @@
                 },
             }
         },
+        created: function () {
+            this.$http
+                .post('http://127.0.0.1:8081/getLatestMessage')
+                .then(response => {
+                    this.comments = response.data[0];
+                });
+        },
         methods: {
             loadMore: function() {
                 this.$http
-                    .post('http://127.0.0.1:8888/loadMore', this.comments[this.comments.length - 1])
+                    .post('http://127.0.0.1:8081/loadMore', this.comments[this.comments.length - 1])
                     .then(response => {
                         window.console.log(response);
                         for (let i = 0; i < response.data.moreComments[0].length; i++) {
                             this.comments.push(response.data.moreComments[0][i]);
                         }
-                    })
+                    });
             },
             refresh: function () {
                 this.$http
-                    .post('http://127.0.0.1:8888/refresh')
+                    .post('http://127.0.0.1:8081/getLatestMessage')
                     .then(response => {
-                        window.console.log(response);
-                        window.console.log(response.data.comments[0]);
-                        this.comments = response.data.comments[0];
-                    })
+                        this.comments = response.data[0];
+                    });
             },
             convertTime: function (time) {
                 let date = new Date(time);
@@ -115,8 +109,16 @@
             },
             addNews: function () {
                 // Send data to backend.
+                // this.$http
+                //     .post('http://127.0.0.1:8081/refresh')
+                //     .then(response => {
+                //         window.console.log(response);
+                //         window.console.log(response.data.comments[0]);
+                //         this.comments = response.data.comments[0];
+                //     });
+                window.console.log(this.addNewsForm);
                 // Refresh comments
-                this.$refs['addNewsForm'].resetFields();
+                //this.$refs['addNewsForm'].resetFields();
                 this.addNewsVisibility = false;
             },
             addNewsButton: function () {

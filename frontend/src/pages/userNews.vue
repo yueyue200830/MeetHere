@@ -30,25 +30,7 @@
         name: "userNews",
         data() {
             return {
-                newsList: [{
-                    newsTime: '2019-10-30',
-                    newsTitle: '进博会放假',
-                    newsContent: '11.2放假一天',
-                    newsPhoto: 'https://camo.githubusercontent.com/8708a8dcb49d365b1786a5093d8f3fd37aeb18a2/68747470733a2f2f7770696d672e77616c6c7374636e2e636f6d2f61353839346331622d663661662d343536652d383264662d3131353164613038333962662e706e67',
-                }, {
-                    newsTime: '2016-05-04',
-                    newsTitle: '网球',
-                    newsContent: '11.2放假一天',
-                }, {
-                    newsTime: '2016-05-01',
-                    newsTitle: '进博会放假',
-                    newsContent: '11.2放假一天',
-                    newsPhoto: 'https://upload.wikimedia.org/wikipedia/zh/4/44/Tenki_no_ko_Key_Visual.jpg',
-                }, {
-                    newsTime: '2016-05-03',
-                    newsTitle: '进博会放假',
-                    newsContent: '11.2放假一天',
-                }],
+                newsList: [],
             }
         },
         created: function () {

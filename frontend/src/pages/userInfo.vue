@@ -7,7 +7,7 @@
       <el-form-item label="用户名" prop="name">
         <el-input v-model.number="ruleForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="pass">
+      <el-form-item label="新密码" prop="pass">
         <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
