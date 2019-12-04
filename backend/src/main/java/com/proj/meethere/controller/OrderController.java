@@ -51,11 +51,4 @@ public class OrderController {
         return currentOrder;
     }
 
-    @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
-    @ResponseBody
-    public int addNewOrder(@RequestParam("user_id") int user_id, @RequestParam("order_phone") String order_phone, @RequestParam("rvn_id") int rvn_id,
-                           @RequestParam("rvn_roomnum") int rvn_roomnum, @RequestParam("order_timeslot") int order_timeslot,
-                           @RequestParam("order_date") String order_date) {
-        return orderRepository.insertNewOrder(user_id, order_phone, rvn_id, rvn_roomnum, order_timeslot, order_date);
-    }
 }

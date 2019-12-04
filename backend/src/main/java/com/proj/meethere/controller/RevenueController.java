@@ -79,17 +79,4 @@ public class RevenueController {
                              @RequestParam("rvn_price") int rvn_price, @RequestParam("rvn_intro") String rvn_intro) {
         return revenueRepository.insertNewRevenue(rvn_name, rvn_roomnum, rvn_price, rvn_intro);
     }
-
-    @RequestMapping(value = "/getVenueUserPage", method = RequestMethod.POST)
-    @ResponseBody
-    public String getAllVenueUserPage() {
-        List<Revenue> revenueList = revenueRepository.getAllRvnInfo();
-
-        JSONArray result = new JSONArray();
-        result.put(revenueList);
-        String jsonstring = result.toString();
-        System.out.println(jsonstring);
-
-        return jsonstring;
-    }
 }

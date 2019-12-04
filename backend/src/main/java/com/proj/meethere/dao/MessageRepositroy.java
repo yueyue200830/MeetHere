@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,4 +32,21 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
             "value (:content, now(), false, :user_id, :title)", nativeQuery=true)
     int insertNewMessage(@Param("content") String content, @Param("user_id") int user_id, @Param("title") String title);
 
+
+    /**
+     * Find latest number of comments.
+     * @param number The number of comments.
+     * @return List of latest comments.
+     */
+    @Query(value = "SELECT * FROM message where msg_visibility=1 ORDER BY msg_time DESC LIMIT :number ", nativeQuery = true)
+    List<Message> findLatestMessages(@Param("number") int number);
+
+    /**
+     * Get more comments based on the date time.
+     * @param lastTime The last comment's time.
+     * @param number The number of comments.
+     * @return List of next comments.
+     */
+    @Query(value = "SELECT * FROM message WHERE msg_time < :lastTime and msg_visibility=1 ORDER BY msg_time DESC LIMIT :number ", nativeQuery = true)
+    List<Message> findMoreCMessagesBefore(@Param("lastTime") String lastTime, @Param("number") int number);
 }
