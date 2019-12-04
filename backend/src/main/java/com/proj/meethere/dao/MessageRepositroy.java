@@ -48,5 +48,5 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
      * @return List of next comments.
      */
     @Query(value = "SELECT * FROM message WHERE msg_time < :lastTime and msg_visibility=1 ORDER BY msg_time DESC LIMIT :number ", nativeQuery = true)
-    List<Message> findMoreCMessagesBefore(@Param("lastTime") Date lastTime, @Param("number") int number);
+    List<Message> findMoreCMessagesBefore(@Param("lastTime") String lastTime, @Param("number") int number);
 }

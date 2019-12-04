@@ -42,13 +42,21 @@ public class UserMessageController {
     @RequestMapping(value = "/getMoreMessage", method = RequestMethod.GET)
     @ResponseBody
     public String getMoreMessages(@RequestParam("lastTime") String lastTime, @RequestParam("number") int number) throws ParseException {
-        SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         Date time = isoFormat.parse(lastTime);
-        List<Message> moreMessages = messageRepositroy.findMoreCMessagesBefore(time, number);
+        List<Message> moreMessages = messageRepositroy.findMoreCMessagesBefore(time.toString(), number);
 
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(moreMessages);
         return jsonArray.toString();
+    }
+
+    @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
+    @ResponseBody
+    int addNewMessage(@RequestParam("content") String content, @RequestParam("user_id") int user_id, @RequestParam("title") String title) {
+        int ret = messageRepositroy.insertNewMessage(content, user_id, title);
+        System.out.println("add new message " + ret);
+        return ret;
     }
 
 }

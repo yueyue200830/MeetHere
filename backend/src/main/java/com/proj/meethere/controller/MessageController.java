@@ -67,9 +67,4 @@ public class MessageController {
         return messageRepositroy.setMessageVisibility(id);
     }
 
-    @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
-    @ResponseBody
-    int addNewMessage(@RequestParam("content") String content, @RequestParam("user_id") int user_id, @RequestParam("title") String title) {
-        return messageRepositroy.insertNewMessage(content, user_id, title);
-    }
 }
