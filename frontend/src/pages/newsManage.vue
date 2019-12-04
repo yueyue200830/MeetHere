@@ -169,11 +169,10 @@
       saveCheckResult () {
         this.loading = true;
         if (this.dialogTypeForm.title == '修改新闻') {
-            modifyCheckResult({checkResultForm: this.dialogTypeForm}).then(data => {
+            modifyCheckResult(this.dialogTypeForm).then(data => {
                 this.loading=false;
                 if (data) {
                     getNewsInfo().then(data => {
-                      console.log(data.data);
                       this.searchData=data.data;
                       this.preData=data.data;
                       if (data.data.code === '000') {
@@ -184,9 +183,16 @@
                 }
             });
         } else {
-            addCheckResult({checkResultForm: this.dialogTypeForm}).then(data => {
+            addCheckResult(this.dialogTypeForm).then(data => {
                 this.loading = false;
-                if (data.data.affectedRows ==0) {
+                if (data) {
+                    getNewsInfo().then(data => {
+                      this.searchData=data.data;
+                      this.preData=data.data;
+                      if (data.data.code === '000') {
+                        this.showDialogType = false;
+                      }
+                    })
                     this.onAlertError('保存失败');
                 } else {
                     this.showDialogType = false;
@@ -206,7 +212,6 @@
           for (i=0;i<id.length;i++) {
             let temp=id[i];
             deleteCheckResultById(temp).then(data => {
-              console.log(temp);
               this.loading = false;
               if (data.data.affectedRows!=0) {
                 this.onAlertError('删除成功');

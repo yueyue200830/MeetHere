@@ -162,10 +162,16 @@
       },
       saveCheckResult () {
           this.loading = true;
-          console.log(this.dialogTypeForm);
-          modifyCheckResult({checkResultForm: this.dialogTypeForm}).then(data => {
+          modifyCheckResult(this.dialogTypeForm).then(data => {
             this.loading=false;
             if (data) {
+              getVenueInfo().then(data => {
+                this.searchData=data.data;
+                this.preData=data.data;
+                if (data.data.code === '000') {
+                  this.showDialogType = false;
+                }
+              })
               this.showDialogType = false;
             }
           });
@@ -181,7 +187,6 @@
     },
     mounted(){
       getVenueInfo().then(data => {
-        console.log(data.data);
         this.searchData=data.data;
         this.preData=data.data;
         if (data.data.code === '000') {
