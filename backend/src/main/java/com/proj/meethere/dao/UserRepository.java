@@ -37,6 +37,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     int insertNewUser(@Param("user_name") String user_name, @Param("user_key") String user_key,
                       @Param("user_type") int user_type, @Param("user_photo") String user_photo);
 
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "update user set user_name=:user_name, user_key=:user_key, user_photo=:user_photo" +
             "where user_id=:user_id", nativeQuery = true)

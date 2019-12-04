@@ -24,6 +24,7 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
     @Query(value = "delete from news where id = :id",nativeQuery = true)
     int deleteSpecificNews(@Param("id") int id);
 
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "Update news set news_content = :newsContent, news_title = :newsTitle, news_photo = :newsPhoto where id = :id",nativeQuery = true)
     int updateSpeceficNews(@Param("newsContent") String newsContent, @Param("newsTitle") String newsTitle, @Param("newsPhoto") String newsPhoto, @Param("id") int id);

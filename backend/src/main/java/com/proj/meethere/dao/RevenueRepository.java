@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,8 +22,9 @@ public interface RevenueRepository extends JpaRepository<Revenue,Integer> {
     @Query(value = "select * from revenue where id = :id",nativeQuery = true)
     List<Revenue> getSpecificRvn(@Param("id") int id);
 
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
-    @Query(value = "Update revenue set rvn_price = :rvn_price and rvn_intro = :rvn_intro where id = :id",nativeQuery = true)
+    @Query(value = "Update revenue set rvn_price = :rvn_price, rvn_intro = :rvn_intro where id = :id",nativeQuery = true)
     int updateRvnInfo(@Param("rvn_price") int rvn_price, @Param("rvn_intro") String rvn_intro, @Param("id") int id);
 
     @Modifying

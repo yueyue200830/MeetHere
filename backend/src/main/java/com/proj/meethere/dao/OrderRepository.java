@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer>{
     @Query(value = "select * from orderlist where order_approved = 0 ",nativeQuery = true)
     List<Order> selectUnapprovedOrder();
 
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "update orderlist set order_approved = 1 where id = :id",nativeQuery = true)
     int updateOrderApproved(@Param("id") int id);

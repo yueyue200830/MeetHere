@@ -46,11 +46,11 @@ public class Revenue {
         this.rvnName = rvn_name;
     }
 
-    public int getRvnRoomNum() {
+    public int getRvnRoomnum() {
         return rvnRoomnum;
     }
 
-    public void setRvnRoomNum(int rvnRoomNum) {
+    public void setRvnRoomnum(int rvnRoomNum) {
         this.rvnRoomnum = rvnRoomNum;
     }
 

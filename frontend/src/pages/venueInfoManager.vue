@@ -6,7 +6,7 @@
           <light-table ref="table"
                        :data="searchData" @on-search="searchTable"
                        :columns="columns"
-                       
+
                        :rowSelect="true" @select-row="getSelectRow">
             <template slot="operation" slot-scope="props">
               <el-button size="mini" @click="viewTypeDetail(props.prop.id,'edit')">编辑</el-button>
@@ -34,7 +34,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="showDialogType = false">取消</el-button>
@@ -50,8 +50,7 @@
   const searchCheckResult = (condition) => axios.get(`/app/searchVenue/${condition}`);
   const getCheckResultById = (id) => axios.get(`/app/checkVenue/${id}`);
   const modifyCheckResult = (checkResultForm) => axios.post('/app/modifyVenue', checkResultForm);
-  
-  const getVenueInfo = () => axios.post('/app/api/getVenue');
+  const getVenueInfo = () => axios.post('/app/getVenue');
 
   export default {
     name: "VenueInfo",
@@ -123,7 +122,7 @@
             this.searchData=data.data;
 
             if (data.data.length) {
-              
+
               // todo
             } else {
               this.onAlertError('搜索失败');
@@ -163,7 +162,8 @@
       saveCheckResult () {
           this.loading = true;
           console.log(this.dialogTypeForm);
-          modifyCheckResult({checkResultForm: this.dialogTypeForm}).then(data => {
+
+          modifyCheckResult(this.dialogTypeForm).then(data => {
             this.loading=false;
             if (data) {
               this.showDialogType = false;
@@ -181,7 +181,7 @@
     },
     mounted(){
       getVenueInfo().then(data => {
-        console.log(data.data);
+        //console.log(data.data);
         this.searchData=data.data;
         this.preData=data.data;
         if (data.data.code === '000') {

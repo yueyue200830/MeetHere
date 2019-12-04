@@ -26,36 +26,23 @@ public class RevenueController {
 
     @RequestMapping(value = "/getVenue", method = RequestMethod.POST)
     @ResponseBody
-    List<String> getAllVenue() {
+    List<Revenue> getAllVenue() {
         List<Revenue> revenueList = revenueRepository.getAllRvnInfo();
-        List<String> result = new ArrayList<>();
-
-        for(Revenue revenue:revenueList) {
-            JSONObject jsonObject = new JSONObject(revenue);
-            result.add(jsonObject.toString());
-        }
-        return result;
+       return revenueList;
     }
 
     @RequestMapping(value = "/searchVenue/{condition}", method = RequestMethod.GET)
     @ResponseBody
-    public List<RevenueResponse> searchVenue(@PathVariable String condition) {
+    public List<Revenue> searchVenue(@PathVariable String condition) {
         List<Revenue> revenueList = revenueRepository.getSpecificRvn(Integer.parseInt(condition));
-        List<RevenueResponse> revenueResponseList = new ArrayList<>();
-        for(Revenue revenue : revenueList) {
-            RevenueResponse revenueResponse = new RevenueResponse();
-            revenueResponse.setRvnPrice(revenue.getRvnPrice());
-            revenueResponse.setRvnIntro(revenue.getRvnIntro());
-            revenueResponse.setId(revenue.getId());
-            revenueResponseList.add(revenueResponse);
-        }
-        return revenueResponseList;
+        return revenueList;
     }
 
     @RequestMapping(value = "/checkVenue/{temp}", method = RequestMethod.GET)
     @ResponseBody
     public List<RevenueResponse> checkVenue(@PathVariable String temp) {
         List<Revenue> revenueList = revenueRepository.getSpecificRvn(Integer.parseInt(temp));
+
         List<RevenueResponse> revenueResponsesList = new ArrayList<>();
         for(Revenue revenue: revenueList) {
             RevenueResponse revenueResponse = new RevenueResponse();
@@ -70,6 +57,7 @@ public class RevenueController {
     @RequestMapping(value = "/modifyVenue", method = RequestMethod.POST)
     @ResponseBody
     public int modifyVenue(@RequestBody RevenueResponse revenueResponse) {
+        System.out.println(revenueResponse.getRvnPrice());
         return revenueRepository.updateRvnInfo(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());
     }
 
