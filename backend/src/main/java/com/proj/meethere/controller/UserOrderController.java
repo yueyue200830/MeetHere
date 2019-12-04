@@ -30,4 +30,20 @@ public class UserOrderController {
                            @RequestParam("order_date") String order_date){
         return orderRepository.insertNewOrder(user_id, order_phone, rvn_id, rvn_roomnum, order_timeslot, order_date);
     }
+
+    // 显示的表格
+    // 参数： 场馆id、日期
+    // 二维数组： 有预约为钱 没预约为0 slot从1开始
+
+    // add
+    // form：场馆id，日期， slot， 用户手机 ；用户id
+
+    // 我的订单
+    // 接受id 返回我的所有订单
+
+    // 修改订单手机号
+    // 接收订单id 和 新的手机号
+
+    // 删除订单
+    // 接收订单id
 }

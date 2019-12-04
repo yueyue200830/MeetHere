@@ -91,12 +91,10 @@
                         params: {
                             lastTime: this.comments[this.comments.length - 1].messageTime,
                             number: 2,
-                        }
-                    })
+                        }})
                     .then(response => {
-                        window.console.log(response);
-                        for (let i = 0; i < response.data.moreComments[0].length; i++) {
-                            this.comments.push(response.data.moreComments[0][i]);
+                        for (let i = 0; i < response.data[0].length; i++) {
+                            this.comments.push(response.data[0][i]);
                         }
                     });
             },
@@ -119,15 +117,15 @@
                         params: {
                             "addNewsForm": this.addNewsForm,
                             "id": 1
-                        }
-                    })
+                        }})
                     .then(response => {
                         window.console.log(response);
-                        // window.console.log(response.data.comments[0]);
-                        // this.comments = response.data.comments[0];
+                        if (response.data === 0) {
+                            alert("添加失败");
+                        }
                         this.$refs['addNewsForm'].resetFields();
                         this.addNewsVisibility = false;
-                        // Refresh comments
+                        this.refresh();
                     });
             },
             addNewsButton: function () {
