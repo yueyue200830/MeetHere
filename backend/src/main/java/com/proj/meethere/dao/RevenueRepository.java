@@ -22,8 +22,8 @@ public interface RevenueRepository extends JpaRepository<Revenue,Integer> {
     List<Revenue> getSpecificRvn(@Param("id") int id);
 
     @Modifying
-    @Query(value = "Update revenue set rvn_price = :rvnPrice and rvn_intro = :rvnIntro where id = :id",nativeQuery = true)
-    int updateRvnInfo(@Param("rvnPrice") int rvnPrice, @Param("rvnIntro") String rvnIntro, @Param("id") int id);
+    @Query(value = "Update revenue set rvn_price = :rvn_price and rvn_intro = :rvn_intro where id = :id",nativeQuery = true)
+    int updateRvnInfo(@Param("rvn_price") int rvn_price, @Param("rvn_intro") String rvn_intro, @Param("id") int id);
 
     @Modifying
     @Query(value = "insert into revenue (rvn_name, rvn_roomnum, rvn_price, rvn_info) " +
