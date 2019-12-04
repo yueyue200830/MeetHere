@@ -27,8 +27,8 @@ public class UserMessageController {
 
     @RequestMapping(value = "/getLatestMessage", method = RequestMethod.POST)
     @ResponseBody
-    public String getLatestMessages(@RequestParam("number") int number) {
-        List<Message> latestMessages = messageRepositroy.findLatestMessages(number);
+    public String getLatestMessages() {
+        List<Message> latestMessages = messageRepositroy.findLatestMessages(10);
 
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(latestMessages);
