@@ -87,7 +87,12 @@
         methods: {
             loadMore: function() {
                 this.$http
-                    .post('http://127.0.0.1:8081/loadMore', this.comments[this.comments.length - 1])
+                    .get('http://127.0.0.1:8081/getMoreMessage', {
+                        params:{
+                            lastTime: this.comments[this.comments.length - 1].messageTime,
+                            number: 2,
+                        }
+                    })
                     .then(response => {
                         window.console.log(response);
                         for (let i = 0; i < response.data.moreComments[0].length; i++) {
