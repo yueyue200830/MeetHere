@@ -17,14 +17,15 @@ public class Revenue {
     @Column(name="rvn_name")
     String rvn_name;
 
+    /* 总共房间数 */
     @Column(name = "rvn_roomnum")
-    int rvnRoomNum;
+    int rvn_roomnum;
 
     @Column(name = "rvn_intro")
-    String rvnIntro;
+    String rvn_intro;
 
     @Column(name = "rvn_price")
-    int rvnPrice;
+    int rvn_price;
 
     public Revenue() {
     }

@@ -47,6 +47,7 @@ public class RevenueController {
         }
         return result;
     }
+
     @RequestMapping(value = "/checkVenue", method = RequestMethod.GET)
     @ResponseBody
     public String checkVenue(@RequestParam(name = "id") int id) {
