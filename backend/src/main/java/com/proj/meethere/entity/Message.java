@@ -17,6 +17,7 @@ public class Message {
     @Column(name = "msg_content")
     String messageContent;
 
+    /* 0：留言不可见 1：留言可见 */
     @Column(name = "msg_visibility")
     int messageVisibility;
 
