@@ -17,9 +17,9 @@
 
 <script>
   import axios from 'axios';
-  const searchCheckResult = (condition) => axios.post('/app/api/searchUser', condition);
-  const deleteCheckResultById = (temp) => axios.post('/app/api/deleteUser', temp);
-  const getUserInfo = () => axios.post('/app/api/getUser')
+  const searchCheckResult = (condition) => axios.get(`/app/searchUser/${condition}`);
+  const deleteCheckResultById = (temp) => axios.get(`/app/deleteUser/${temp}`);
+  const getUserInfo = () => axios.post('/app/getUser');
 
 
   export default {
@@ -35,24 +35,24 @@
             width: '150'
           },
           {
-            prop: 'user_name',
+            prop: 'userName',
             label: '用户名',
             width: '250'
           },
           {
-            prop: 'user_type',
+            prop: 'userType',
             label: '用户类型',
             width: '250'
           },
           {
-            prop: 'order_num',
+            prop: 'orderNum',
             label: '订单数量',
           }
         ],
         searchData:[],
         preData:[],
         dialogTypeForm: {
-          title: '添加单车',
+          title: '添加用户',
           isDelete: false,
           id:'',
           user_name:'',
@@ -71,7 +71,7 @@
         this.loading = true;
         condition=this.$refs.table.searchCondition;
         //console.log(condition);
-        searchCheckResult({condition}).then(data => {
+        searchCheckResult(condition).then(data => {
           this.loading = false;
           if(condition==''){
             this.searchData=this.preData;
@@ -103,7 +103,7 @@
           let i = 0;
           for (i=0;i<id.length;i++) {
             let temp=id[i];
-            deleteCheckResultById({temp}).then(data => {
+            deleteCheckResultById(temp).then(data => {
               this.loading = false;
               if (data.data.affectedRows!=0) { 
                 this.onAlertError('删除成功');
@@ -125,7 +125,7 @@
         let id = [];
         _.each(val, item => {
           //console.log(item);
-          id.push(item.bike_id);
+          id.push(item.id);
         });
         this.selectRow = id;
         //console.log(id);

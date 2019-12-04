@@ -22,9 +22,9 @@
   import axios from 'axios'; 
 
 
-  const changeResultById = (temp) => axios.post('/app/api/approveMessage', temp);
+  const changeResultById = (temp) => axios.get(`/app/api/approveMessage/${temp}`);
   const getOrderInfo = () => axios.post('/app/api/getUnapproveMessage')
-  const searchCheckResult = (condition) => axios.post('/app/api/searchUnapproveMessage', condition);
+  const searchCheckResult = (condition) => axios.get(`/app/api/searchUnapproveMessage/${condition}`);
 
   export default {
     name: "messageApprove",
@@ -39,22 +39,22 @@
             width: '100'
           },
           {
-            prop: 'user_id',
+            prop: 'userId',
             label: '用户编号',
             width: '100'
           },
           {
-            prop: 'msg_title',
+            prop: 'messageTitle',
             label: '留言标题',
             width: '250'
           },
           {
-            prop: 'msg_content',
+            prop: 'messageContent',
             label: '留言内容',
             width: '300'
           },
           {
-            prop: 'msg_visibility',
+            prop: 'messageVisibility',
             label: '是否审核通过',
           }
 
@@ -69,7 +69,7 @@
         this.loading = true;
         condition=this.$refs.table.searchCondition;
         //console.log(condition);
-        searchCheckResult({condition}).then(data => {
+        searchCheckResult(condition).then(data => {
           this.loading = false;
           if (condition=='') {
             this.searchData=this.preData;
@@ -93,7 +93,7 @@
           let i = 0;
           for (i=0;i<id.length;i++) {
             let temp=id[i];
-            changeResultById ({temp}) . then (data => {
+            changeResultById (temp) . then (data => {
               console.log(temp);
               this.loading = false;
               if (data) { 
