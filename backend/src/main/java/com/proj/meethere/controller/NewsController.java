@@ -1,15 +1,13 @@
 package com.proj.meethere.controller;
 
+import com.proj.meethere.Request.NewsRequest;
 import com.proj.meethere.dao.NewsRepository;
 import com.proj.meethere.entity.News;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,54 +24,53 @@ public class NewsController {
 
     @RequestMapping(value = "/getNews", method = RequestMethod.POST)
     @ResponseBody
-    List<String> getAllNews() {
+    List<NewsRequest> getAllNews() {
         List<News> newsList = newsRepository.selectAllNews();
-        List<String> result = new ArrayList<>();
-        for(News news:newsList) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id",news.getId());
-            jsonObject.put("title",news.getNewsTitle());
-            jsonObject.put("content",news.getNewsContent());
-            result.add(jsonObject.toString());
+        List<NewsRequest> newsRequestList = new ArrayList<>();
+        for(News news : newsList) {
+            NewsRequest newsRequest = new NewsRequest();
+            newsRequest.setNewsPhoto(news.getNewsPhoto());
+            newsRequest.setNewsContent(news.getNewsContent());
+            newsRequest.setId(news.getId());
+            newsRequest.setNewsTitle(news.getNewsTitle());
+            newsRequestList.add(newsRequest);
         }
-        return result;
+        return newsRequestList;
     }
 
-    @RequestMapping(value = "/deleteNews", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteNews/{id}", method = RequestMethod.GET)
     @ResponseBody
-    int deleteNews(@RequestParam(name = "id") int id) {
-        return newsRepository.deleteSpecificNews(id);
+    int deleteNews(@PathVariable String id) {
+        return newsRepository.deleteSpecificNews(Integer.parseInt(id));
     }
 
-//
-//    @RequestMapping(value = "/modifyNews", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/modifyNews", method = RequestMethod.POST)
+    @ResponseBody
+    public int updateNews(@RequestBody NewsRequest newsRequest) {
+        return newsRepository.updateSpeceficNews(newsRequest.getNewsContent(), newsRequest.getTitle(), newsRequest.getNewsPhoto(), newsRequest.getId());
+    }
+
+    @RequestMapping(value = "/searchNews/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    List<NewsRequest> getSpecificNews(@PathVariable String id) {
+        List<News> newsList = newsRepository.selectSpecificNews(Integer.parseInt(id));
+        List<NewsRequest> newsRequestList = new ArrayList<>();
+        for(News news : newsList) {
+            NewsRequest newsRequest = new NewsRequest();
+            newsRequest.setId(news.getId());
+            newsRequest.setNewsContent(news.getNewsContent());
+            newsRequest.setNewsPhoto(news.getNewsPhoto());
+            newsRequest.setNewsTitle(news.getNewsTitle());
+            newsRequestList.add(newsRequest);
+        }
+        return newsRequestList;
+    }
+
+//    @RequestMapping(value = "/addNews", method = RequestMethod.POST)
 //    @ResponseBody
-//    public int updateNews(@RequestParam(name = "id") int id, @RequestParam(name = "content") String content,@RequestParam(name = "title") String title,
-//                   @RequestParam(name = "photo"))
-
-    @RequestMapping(value = "/searchNews",method = RequestMethod.GET)
-    @ResponseBody
-    String getSpecificNews(@RequestParam(name = "id") int id) {
-        List<News> newsList = newsRepository.selectSpecificNews(id);
-        String result = "";
-        if(newsList.size() == 1) {
-            News news = newsList.get(0);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id",news.getId());
-            jsonObject.put("content",news.getNewsContent());
-            jsonObject.put("title",news.getNewsTitle());
-            jsonObject.put("photo",news.getNewsPhoto());
-            result = jsonObject.toString();
-        } else{
-            result = "duplicate";
-        }
-        return result;
-    }
-
- //   @RequestMapping(value = "/addNews", method = RequestMethod.POST)
- //   @ResponseBody
- //   public int addNewNews(@RequestParam("newsContent") String newsContent, @RequestParam("newsTitle") String newsTitle,
- //                  @RequestParam("newsPhoto") String newsPhoto){
- //       return newsRepository.insertNewNews(newsContent, newsTitle, newsPhoto);
- //}
+//    public int addNewNews(@RequestParam("newsContent") String newsContent, @RequestParam("newsTitle") String newsTitle,
+//                   @RequestParam("newsPhoto") String newsPhoto){
+//        return newsRepository.insertNewNews(newsContent, newsTitle, newsPhoto);
+// }
 }

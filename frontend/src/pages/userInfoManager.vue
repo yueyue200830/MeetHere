@@ -5,7 +5,7 @@
         <el-col :span="24">
           <light-table ref="table"
                        :data="searchData" @on-search="searchTable"
-                       :columns="columns"
+                       :columns="columns"                   
                        :deleteable="true" @on-delete="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
           </light-table>
@@ -17,9 +17,9 @@
 
 <script>
   import axios from 'axios';
-  const searchCheckResult = (condition) => axios.post('/app/searchUser', condition);
+  const searchCheckResult = (condition) => axios.get(`/app/searchUser/${condition}`);
   const deleteCheckResultById = (temp) => axios.get(`/app/deleteUser/${temp}`);
-  const getUserInfo = () => axios.post('/app/getUser')
+  const getUserInfo = () => axios.post('/app/getUser');
 
 
   export default {
@@ -35,24 +35,24 @@
             width: '150'
           },
           {
-            prop: 'user_name',
+            prop: 'userName',
             label: '用户名',
             width: '250'
           },
           {
-            prop: 'user_type',
+            prop: 'userType',
             label: '用户类型',
             width: '250'
           },
           {
-            prop: 'order_num',
+            prop: 'orderNum',
             label: '订单数量',
           }
         ],
         searchData:[],
         preData:[],
         dialogTypeForm: {
-          title: '添加单车',
+          title: '添加用户',
           isDelete: false,
           id:'',
           user_name:'',
@@ -71,7 +71,7 @@
         this.loading = true;
         condition=this.$refs.table.searchCondition;
         //console.log(condition);
-        searchCheckResult({condition}).then(data => {
+        searchCheckResult(condition).then(data => {
           this.loading = false;
           if(condition==''){
             this.searchData=this.preData;
@@ -79,7 +79,7 @@
             //console.log(data.data.length);
             this.searchData=data.data;
             if (data.data.length) {
-
+              
               // todo
             } else {
               this.onAlertError('搜索失败');
@@ -103,10 +103,9 @@
           let i = 0;
           for (i=0;i<id.length;i++) {
             let temp=id[i];
-            console.log(id);
             deleteCheckResultById(temp).then(data => {
               this.loading = false;
-              if (data.data.affectedRows!=0) {
+              if (data.data.affectedRows!=0) { 
                 this.onAlertError('删除成功');
                 getUserInfo().then(data => {
                   this.searchData=data.data;

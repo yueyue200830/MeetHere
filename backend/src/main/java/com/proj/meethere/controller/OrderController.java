@@ -5,10 +5,7 @@ import com.proj.meethere.entity.Order;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,39 +23,39 @@ public class OrderController {
 
     @RequestMapping(value = "/getUnapproveOrder", method = RequestMethod.POST)
     @ResponseBody
-    public List<String> getUnapprovedOrder(){
+    public List<Order> getUnapprovedOrder(){
         List<Order> unapprovedOrder = orderRepository.selectUnapprovedOrder();
-        List<String> result = new ArrayList<>();
-        for (Order order : unapprovedOrder) {
-            JSONObject jsonObject = new JSONObject(order);
-            result.add(jsonObject.toString());
-        }
-        return result;
+//        List<String> result = new ArrayList<>();
+//        for (Order order : unapprovedOrder) {
+//            JSONObject jsonObject = new JSONObject(order);
+//            result.add(jsonObject.toString());
+//        }
+        return unapprovedOrder;
     }
 
-    @RequestMapping(value = "/approveOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/approveOrder/{temp}", method = RequestMethod.GET)
     @ResponseBody
-    public int approveOrder(@RequestParam(name = "id") int id) {
-        return orderRepository.updateOrderApproved(id);
+    public int approveOrder(@PathVariable String temp) {
+        return orderRepository.updateOrderApproved(Integer.parseInt(temp));
     }
 
-    @RequestMapping(value = "/seaechUnapproveOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/searchUnapproveOrder/{condition}", method = RequestMethod.GET)
     @ResponseBody
-    public List<String> searchUnapproveOrder(@RequestParam(name = "id") int id) {
-        List<Order> currentOrder = orderRepository.selectSpecificUnapprovedOrder(id);
-        List<String> result = new ArrayList<>();
-        for(Order order:currentOrder) {
-            JSONObject jsonObject = new JSONObject(order);
-            result.add(jsonObject.toString());
-        }
-        return result;
+    public List<Order> searchUnapproveOrder(@PathVariable String condition) {
+        List<Order> currentOrder = orderRepository.selectSpecificUnapprovedOrder(Integer.parseInt(condition));
+//        List<String> result = new ArrayList<>();
+//        for(Order order:currentOrder) {
+//            JSONObject jsonObject = new JSONObject(order);
+//            result.add(jsonObject.toString());
+//        }
+        return currentOrder;
     }
 
     @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
     @ResponseBody
     public int addNewOrder(@RequestParam("user_id") int user_id, @RequestParam("order_phone") String order_phone, @RequestParam("rvn_id") int rvn_id,
                            @RequestParam("rvn_roomnum") int rvn_roomnum, @RequestParam("order_timeslot") int order_timeslot,
-                           @RequestParam("order_date") String order_date){
+                           @RequestParam("order_date") String order_date) {
         return orderRepository.insertNewOrder(user_id, order_phone, rvn_id, rvn_roomnum, order_timeslot, order_date);
     }
 }

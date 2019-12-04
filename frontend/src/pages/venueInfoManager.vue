@@ -24,13 +24,13 @@
         <el-form :model="dialogTypeForm" :rules="dialogTypeRules" ref="dialogTypeForm" label-width="100px">
           <el-row>
             <el-col :span="12">
-              <el-form-item label="场馆价格" prop="rvn_price">
-                <el-input v-model="dialogTypeForm.rvn_price" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="场馆价格" prop="rvnPrice">
+                <el-input v-model="dialogTypeForm.rvnPrice" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="场馆介绍" prop="rvn_intro">
-                <el-input v-model="dialogTypeForm.rvn_intro" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="场馆介绍" prop="rvnIntro">
+                <el-input v-model="dialogTypeForm.rvnIntro" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -47,9 +47,9 @@
 
 <script>
   import axios from 'axios';
-  const searchCheckResult = (condition) => axios.post('/app/api/searchVenue', condition);
-  const getCheckResultById = (id) => axios.get('/app/api/checkVenue', id);
-  const modifyCheckResult = (checkResultForm) => axios.post('/app/api/modifyVenue', checkResultForm);
+  const searchCheckResult = (condition) => axios.get(`/app/searchVenue/${condition}`);
+  const getCheckResultById = (id) => axios.get(`/app/checkVenue/${id}`);
+  const modifyCheckResult = (checkResultForm) => axios.post('/app/modifyVenue', checkResultForm);
   
   const getVenueInfo = () => axios.post('/app/api/getVenue');
 
@@ -66,22 +66,22 @@
             width: '100'
           },
           {
-            prop: 'rvn_name',
+            prop: 'rvnName',
             label: '场馆名',
             width: '100'
           },
           {
-            prop: 'rvn_roomnum',
+            prop: 'rvnRoomnum',
             label: '场馆房间号',
             width: '100',
           },
           {
-            prop: 'rvn_price',
+            prop: 'rvnPrice',
             label: '场馆价格',
             width: '100'
           },
           {
-            prop: 'rvn_intro',
+            prop: 'rvnIntro',
             label: '场馆介绍',
             width: '200'
           },
@@ -96,11 +96,11 @@
         searchData:[],
         preData:[],
         dialogTypeForm: {
-          title: '添加订单',
+          title: '修改场馆信息',
           isDelete: false,
           id: '',
-          rvn_price: '',
-          rvn_intro: ''
+          rvnPrice: '',
+          rvnIntro: ''
         },
         showDialogType: false,
         dialogTypeRules: {
@@ -114,7 +114,7 @@
         this.loading = true;
         condition=this.$refs.table.searchCondition;
         console.log(condition);
-        searchCheckResult({condition}).then(data => {
+        searchCheckResult(condition).then(data => {
           this.loading = false;
           if(condition==''){
             this.searchData=this.preData;
@@ -135,13 +135,13 @@
       },
       viewTypeDetail(id, action) {
         this.loading = true;   //调试中，调试结束后把注释符号去掉
-        getCheckResultById({id}).then(data => {
+        getCheckResultById(id).then(data => {
           this.loading = false;
           if (data) {
             // todo
-            this.dialogTypeForm.rvn_price = data.data[0].id;
-            this.dialogTypeForm.rvn_price = data.data[0].rvn_price;
-            this.dialogTypeForm.rvn_intro = data.data[0].rvn_intro;
+            this.dialogTypeForm.id = data.data[0].id;
+            this.dialogTypeForm.rvnPrice = data.data[0].rvnPrice;
+            this.dialogTypeForm.rvnIntro = data.data[0].rvnIntro;
             this.showDialogType = true;
           } else {
             this.onAlertError('搜索失败');
@@ -153,11 +153,11 @@
       },
       dialogTypeClose() {
         this.dialogTypeForm = {
-          title: '添加订单',
+          title: '修改场馆信息',
           isDelete: false,
           id: '',
-          rvn_price: '',
-          rvn_intro: ''
+          rvnPrice: '',
+          rvnIntro: ''
         };
       },
       saveCheckResult () {

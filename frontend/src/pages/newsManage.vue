@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="24">
           <light-table ref="table"
-                       :data="searchData" 
+                       :data="searchData"
                        :columns="columns"
                        :searchable= "false"
                        :addable="true" @on-add="addType"
@@ -25,21 +25,34 @@
         <el-form :model="dialogTypeForm" :rules="dialogTypeRules" ref="dialogTypeForm" label-width="100px">
           <el-row>
             <el-col :span="12">
-              <el-form-item label="内容" prop="content">
-                <el-input v-model="dialogTypeForm.content" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="内容" prop="newsContent">
+                <el-input v-model="dialogTypeForm.newsContent" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="新闻标题" prop="bike_id">
-                <el-input v-model="dialogTypeForm.bike_id" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="新闻标题" prop="newsTitle">
+                <el-input v-model="dialogTypeForm.newsTitle" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="图片" >
-                <el-input v-model="dialogTypeForm.photo" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="图片" prop="newsPhoto">
+                <el-upload
+                  class="upload-demo"
+                  enctype = "multipart/form-data"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :on-change="handleChange"
+                  :on-remove="handleRemove" 
+                  :on-preview="handlePreview"  
+                  :file-list="photoList"
+                  list-type="picture"
+                  v-model="dialogTypeForm.newsPhoto">
+                  <el-button size="small" type="primary">点击上传</el-button>
+                  <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+                </el-upload>
               </el-form-item>
+              
             </el-col>
           </el-row>
         </el-form>
@@ -55,11 +68,11 @@
 
 <script>
   import axios from 'axios';
-  const addCheckResult = (checkResultForm) => axios.post('/app/api/addNews', checkResultForm);
-  const getCheckResultById = (id) => axios.get('/app/api/searchNews', id);
-  const modifyCheckResult = (checkResultForm) => axios.post('/app/api/modifyNews', checkResultForm);
-  const deleteCheckResultById = (id) => axios.delete('/app/api/deleteNews', id);
-  const getOrderInfo = () => axios.post('/app/api/getOrder');
+  const addCheckResult = (checkResultForm) => axios.post('/app/addNews', checkResultForm);
+  const getCheckResultById = (id) => axios.get(`/app/searchNews/${id}`);
+  const modifyCheckResult = (checkResultForm) => axios.post('/app/modifyNews', checkResultForm);
+  const deleteCheckResultById = (id) => axios.get(`/app/deleteNews/${id}`);
+  const getNewsInfo = () => axios.post('/app/getNews');
 
   export default {
     name: "newsManage",
@@ -74,12 +87,12 @@
             width: '150'
           },
           {
-            prop: 'title',
+            prop: 'newsTitle',
             label: '新闻标题',
             width: '250'
           },
           {
-            prop: 'content',
+            prop: 'newsContent',
             label: '内容',
             width: '400'
           },
@@ -91,15 +104,16 @@
             }
           }
         ],
+        photoList:[],
         searchData:[],
         preData:[],
         dialogTypeForm: {
           title: '添加新闻',
           isDelete: false,
           id: '',
-          content: '',
-          title: '',
-          photo: ''
+          newsContent: '',
+          newsTitle: '',
+          newsPhoto:''
         },
         showDialogType: false,
         dialogTypeRules: {
@@ -109,12 +123,22 @@
       };
     },
     methods:{
+      handleRemove(file,fileList) {
+        console.log(this.dialogTypeForm);
+      },
+      handleChange(file) {
+        this.dialogTypeForm.newsPhoto = file.raw;
+        console.log(this.dialogTypeForm);
+      },
+      handlePreview(file) {
+        //console.log(file);
+      },
       //点击编辑按钮时，出现弹窗，表格中填充该行新闻的内容
       viewTypeDetail(id, action) {
         this.loading = true;   //调试中，调试结束后把注释符号去掉
         this.dialogTypeForm.title = '修改新闻';
         //通过ID搜索，填充内容（id,content,title,photo)
-        getCheckResultById({id}).then(data => {
+        getCheckResultById(id).then(data => {
           this.loading = false;
           if (data.data.code === '000') {
             // todo
@@ -136,9 +160,9 @@
           title: '添加新闻',
           isDelete: false,
           id:'',
-          content: '',
-          title: '',
-          photo: ''
+          newsContent: '',
+          newsTitle: '',
+          newsPhoto:''
         };
       },
       //点击保存按钮之后，如果是修改新闻，则后端API为update，如果是添加新闻则后端API为添加
@@ -173,10 +197,10 @@
           let i = 0;
           for (i=0;i<id.length;i++) {
             let temp=id[i];
-            deleteCheckResultById({temp}).then(data => {
+            deleteCheckResultById(temp).then(data => {
               console.log(temp);
               this.loading = false;
-              if (data.data.affectedRows!=0) { 
+              if (data.data.affectedRows!=0) {
                 this.onAlertError('删除成功');
                 getUserInfo().then(data => {
                   this.searchData=data.data;
@@ -203,7 +227,7 @@
     },
     mounted(){
       //渲染表格数据
-      getOrderInfo().then(data => {
+      getNewsInfo().then(data => {
         console.log(data.data);
         this.searchData=data.data;
         this.preData=data.data;

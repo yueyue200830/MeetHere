@@ -6,7 +6,7 @@
           <light-table ref="table"
                        :data="searchData" @on-search="searchTable"
                        :columns="columns"
-                       
+
                        :putable="true" @on-put="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
 
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-  import axios from 'axios'; 
+  import axios from 'axios';
 
 
-  const changeResultById = (temp) => axios.post('/app/api/approveMessage', temp);
-  const getOrderInfo = () => axios.post('/app/api/getUnapproveMessage')
-  const searchCheckResult = (condition) => axios.post('/app/api/searchUnapproveMessage', condition);
+  const changeResultById = (temp) => axios.get(`/app/approveMessage/${temp}`);
+  const getOrderInfo = () => axios.post('/app/getUnapproveMessage')
+  const searchCheckResult = (condition) => axios.get(`/app/searchUnapproveMessage/${condition}`);
 
   export default {
     name: "messageApprove",
@@ -39,22 +39,22 @@
             width: '100'
           },
           {
-            prop: 'user_id',
+            prop: 'userId',
             label: '用户编号',
             width: '100'
           },
           {
-            prop: 'msg_title',
+            prop: 'messageTitle',
             label: '留言标题',
             width: '250'
           },
           {
-            prop: 'msg_content',
+            prop: 'messageContent',
             label: '留言内容',
             width: '300'
           },
           {
-            prop: 'msg_visibility',
+            prop: 'messageVisibility',
             label: '是否审核通过',
           }
 
@@ -69,14 +69,14 @@
         this.loading = true;
         condition=this.$refs.table.searchCondition;
         //console.log(condition);
-        searchCheckResult({condition}).then(data => {
+        searchCheckResult(condition).then(data => {
           this.loading = false;
           if (condition=='') {
             this.searchData=this.preData;
           } else {
             //console.log(data.data.length);
             this.searchData=data.data;
-            if (data.data.length) { 
+            if (data.data.length) {
               // todo
             } else {
               this.onAlertError('搜索失败');
@@ -93,20 +93,20 @@
           let i = 0;
           for (i=0;i<id.length;i++) {
             let temp=id[i];
-            changeResultById ({temp}) . then (data => {
+            changeResultById (temp) . then (data => {
               console.log(temp);
               this.loading = false;
-              if (data) { 
+              if (data) {
                 this.onAlertError('审核通过成功');
                 getOrderInfo().then(data => {
                     this.searchData=data.data;
                     this.preData=data.data;
-                }); 
+                });
               }
             });
           }
         }
-      }, 
+      },
       getSelectRow (val) {
         let id = [];
         _.each(val, item => {

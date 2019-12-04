@@ -6,7 +6,7 @@
           <light-table ref="table"
                        :data="searchData" @on-search="searchTable"
                        :columns="columns"
-                       
+
                        :putable="true" @on-put="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
 
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-  import axios from 'axios'; 
+  import axios from 'axios';
 
 
-  const changeResultById = (temp) => axios.post('/app/api/approveOrder', temp);
-  const getOrderInfo = () => axios.post('/app/api/getUnapproveOrder')
-  const searchCheckResult = (condition) => axios.post('/app/api/searchUnapproveOrder', condition);
+  const changeResultById = (temp) => axios.get(`/app/approveOrder/${temp}`);
+  const getOrderInfo = () => axios.post('/app/getUnapproveOrder')
+  const searchCheckResult = (condition) => axios.get(`/app/searchUnapproveOrder${condition}`);
 
   export default {
     name: "orderInfoApprove",
@@ -39,37 +39,37 @@
             width: '120'
           },
           {
-            prop: 'userid',
+            prop: 'userId',
             label: '用户编号',
             width: '100'
           },
           {
-            prop: 'phone',
+            prop: 'orderPhone',
             label: '联系电话',
             width: '150'
           },
           {
-            prop: 'rvnid',
+            prop: 'rvnId',
             label: '场馆ID号',
             width: '100'
           },
           {
-            prop: 'rvn_roomnum',
+            prop: 'rvnRoomNum',
             label: '场地房间号',
             width: '100'
           },
           {
-            prop: 'timesolt',
+            prop: 'timeSlot',
             label: '预约的时间段',
             width: '150'
           },
           {
-            prop: 'date',
+            prop: 'orderDate',
             label: '预约时间',
             width: '100'
           },
           {
-            prop: 'order_approved',
+            prop: 'orderApproved',
             label: '是否审核通过',
           }
 
@@ -77,7 +77,7 @@
         searchData:[],
         preData:[],
 
-        
+
         selectRow: []
       };
     },
@@ -86,7 +86,7 @@
         this.loading = true;
         condition=this.$refs.table.searchCondition;
         //console.log(condition);
-        searchCheckResult({condition}).then(data => {
+        searchCheckResult(condition).then(data => {
           this.loading = false;
           if(condition==''){
             this.searchData=this.preData;
@@ -95,7 +95,7 @@
             this.searchData=data.data;
 
             if (data.data.length) {
-              
+
               // todo
             } else {
               this.onAlertError('搜索失败');
@@ -104,7 +104,7 @@
 
         });
       },
- 
+
       addType() {
         this.showDialogType = true;
       },
@@ -119,20 +119,20 @@
           let i = 0;
           for (i=0;i<id.length;i++) {
             let temp=id[i];
-            changeResultById ({temp}) . then (data => {
+            changeResultById (temp) . then (data => {
               console.log(temp);
               this.loading = false;
-              if (data) { 
+              if (data) {
                 this.onAlertError('审核通过成功');
                 getOrderInfo().then(data => {
                     this.searchData=data.data;
                     this.preData=data.data;
-                }); 
+                });
               }
             });
           }
         }
-      }, 
+      },
       getSelectRow (val) {
         let id = [];
         _.each(val, item => {
