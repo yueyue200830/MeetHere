@@ -7,7 +7,7 @@
       <div class="user-title">
         用户登录
       </div>
-      <el-form :model="loginForm" ref="addNewsForm" class="login-form">
+      <el-form :model="loginForm" ref="loginForm" class="login-form">
         <el-form-item
           label="用户名"
           label-width="100px"
@@ -56,8 +56,22 @@
         methods: {
             ...mapMutations(['changeLogin']),
             login: function() {
-                this.changeLogin({ Authorization: 'testToken' });
-                this.$router.push('main');
+                this.$refs['loginForm'].validate((valid) => {
+                    if (valid) {
+                        alert("hello");
+                        this.$http
+                            .get('http://127.0.0.1:8081/userLogin', {
+                                params: {
+                                    login: this.loginForm,
+                                }})
+                            .then(response => {
+                                window.console.log(response);
+                                this.changeLogin({ Authorization: 'testToken' });
+                                this.$router.push('main');
+                            });
+                    }
+                });
+
             },
             managerLogin: function () {
                 this.$router.push('/login')

@@ -88,12 +88,16 @@
             return {
                 revenues: [{
                     value: '篮球',
+                    id: 1,
                 }, {
                     value: '排球',
+                    id: 2,
                 }, {
                     value: '乒乓球',
+                    id: 3,
                 }, {
                     value: '羽毛球',
+                    id: 4,
                 }],
                 revenue: '篮球',
                 date: '2019-11-6',
@@ -149,9 +153,19 @@
             },
             orderRevenue: function () {
                 // Send data to backend.
-                // Go to my order
-                this.$refs['addOrderForm'].resetFields();
-                this.addOrderVisibility = false;
+                this.$http
+                    .get('http://127.0.0.1:8081/addOrder', {
+                        params: {
+                            "addOrderForm": this.addOrderForm,
+                            "id": 1
+                        }})
+                    .then(response => {
+                        window.console.log(response);
+                        // Go to my order
+                        this.$refs['addOrderForm'].resetFields();
+                        this.addOrderVisibility = false;
+                    });
+
             },
             cancelOrder: function () {
                 this.$refs['addOrderForm'].resetFields();
@@ -159,6 +173,16 @@
             },
             searchOrder: function () {
                 // Send search data to backend
+                this.$http
+                    .get('http://127.0.0.1:8081/searchOrder', {
+                        params: {
+                            "revenueId": this.revenue,
+                            "date": this.date
+                        }})
+                    .then(response => {
+                        window.console.log(response);
+                        // this.cost = response.data.cost;
+                    });
             }
         }
     }

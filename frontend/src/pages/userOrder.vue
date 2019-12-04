@@ -126,6 +126,14 @@
                 },
             }
         },
+        created: function () {
+            this.$http
+                .post('http://127.0.0.1:8081/getUserOrder')
+                .then(response => {
+                    window.console.log(response);
+                    // this.tableData = response.data[0];
+                });
+        },
         methods: {
             handleEdit: function(index, row) {
                 this.changePhoneVisibility = true;
@@ -139,10 +147,30 @@
             },
             deleteOrder: function() {
                 // Send delete index to backend.
+                this.$http
+                    .get('http://127.0.0.1:8081/deleteUserOrder', {
+                        params: {
+                            "deleteOrderId": this.tableData[this.deleteIndex].id
+                        }})
+                    .then(response => {
+                        window.console.log(response);
+                      this.deleteDialogVisibility = false;
+                    });
                 this.deleteDialogVisibility = false;
             },
             changePhone: function() {
                 // Send new phone number to backend.
+                this.$http
+                    .get('http://127.0.0.1:8081/changePhoneNumber', {
+                        params: {
+                            "changePhoneForm": this.changePhoneForm,
+                            "id": 1
+                        }})
+                    .then(response => {
+                        window.console.log(response);
+                        this.$refs['changePhoneForm'].resetFields();
+                        this.changePhoneVisibility = false;
+                    });
                 this.$refs['changePhoneForm'].resetFields();
                 this.changePhoneVisibility = false;
             }

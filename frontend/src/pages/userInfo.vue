@@ -3,7 +3,7 @@
     <div class="user-title">
       个人信息
     </div>
-    <el-form :model="userForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="self-form">
+    <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="100px" class="self-form">
       <el-form-item label="用户名" prop="name">
         <el-input v-model.number="userForm.name"></el-input>
       </el-form-item>
@@ -17,8 +17,8 @@
         <el-input type="password" v-model="userForm.checkPass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
+        <el-button @click="resetForm('userForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </el-main>
@@ -41,7 +41,7 @@
                     callback(new Error('请输入密码'));
                 } else {
                     if (this.userForm.checkPass !== '') {
-                        this.$refs.ruleForm.validateField('checkPass');
+                        this.$refs.userForm.validateField('checkPass');
                     }
                     callback();
                 }
@@ -51,7 +51,7 @@
                     callback(new Error('请输入密码'));
                 } else {
                     if (this.userForm.checkPass !== '') {
-                        this.$refs.ruleForm.validateField('checkPass');
+                        this.$refs.userForm.validateField('checkPass');
                     }
                     callback();
                 }
@@ -93,17 +93,15 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         alert("change name");
-                        // this.$http
-                        //     .get('http://127.0.0.1:8081/getMoreMessage', {
-                        //         params: {
-                        //             id: 3,
-                        //             form: this.userForm,
-                        //         }})
-                        //     .then(response => {
-                        //         for (let i = 0; i < response.data[0].length; i++) {
-                        //             this.comments.push(response.data[0][i]);
-                        //         }
-                        //     });
+                        this.$http
+                            .get('http://127.0.0.1:8081/updateUserById', {
+                                params: {
+                                    id: 3,
+                                    updateForm: this.userForm,
+                                }})
+                            .then(response => {
+                                window.console.loe(response);
+                            });
                     } else {
                         console.log('error submit!!');
                         return false;
