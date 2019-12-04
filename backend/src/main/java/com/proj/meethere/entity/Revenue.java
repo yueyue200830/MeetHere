@@ -15,17 +15,17 @@ public class Revenue {
     private int id;
 
     @Column(name="rvn_name")
-    String rvn_name;
+    String rvnName;
 
     /* 总共房间数 */
     @Column(name = "rvn_roomnum")
-    int rvn_roomnum;
+    int rvnRoomnum;
 
     @Column(name = "rvn_intro")
-    String rvn_intro;
+    String rvnIntro;
 
     @Column(name = "rvn_price")
-    int rvn_price;
+    int rvnPrice;
 
     public Revenue() {
     }
@@ -39,34 +39,34 @@ public class Revenue {
     }
 
     public String getRvnName() {
-        return rvn_name;
+        return rvnName;
     }
 
     public void setRvnName(String rvn_name) {
-        this.rvn_name = rvn_name;
+        this.rvnName = rvn_name;
     }
 
     public int getRvnRoomNum() {
-        return rvn_roomnum;
+        return rvnRoomnum;
     }
 
     public void setRvnRoomNum(int rvnRoomNum) {
-        this.rvn_roomnum = rvnRoomNum;
+        this.rvnRoomnum = rvnRoomNum;
     }
 
     public String getRvnIntro() {
-        return rvn_intro;
+        return rvnIntro;
     }
 
     public void setRvnIntro(String rvnIntro) {
-        this.rvn_intro = rvnIntro;
+        this.rvnIntro = rvnIntro;
     }
 
     public int getRvnPrice() {
-        return rvn_price;
+        return rvnPrice;
     }
 
     public void setRvnPrice(int rvnPrice) {
-        this.rvn_price = rvnPrice;
+        this.rvnPrice = rvnPrice;
     }
 }

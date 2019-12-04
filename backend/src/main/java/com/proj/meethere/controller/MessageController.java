@@ -5,10 +5,7 @@ import com.proj.meethere.entity.Message;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,46 +22,23 @@ public class MessageController {
 
     @RequestMapping(value = "/getUnapproveMessage",method = RequestMethod.POST)
     @ResponseBody
-    List<String> getUnapprovedMessage() {
+    List<Message> getUnapprovedMessage() {
         List<Message> messagesList = messageRepositroy.selectAllMessage();
-        List<String> result = new ArrayList<>();
-        for(Message msg:messagesList) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id",msg.getId());
-            jsonObject.put("user_id",msg.getUserId());
-            jsonObject.put("msg_title",msg.getMessageTitle());
-            jsonObject.put("msg_content",msg.getMessageContent());
-            jsonObject.put("msg_visibility",msg.getMessageVisibility());
-            result.add(jsonObject.toString());
-        }
-        return result;
+        return messagesList;
     }
 
     /* search specitic message by id */
-    @RequestMapping(value = "/searchUnapproveMessage",method = RequestMethod.POST)
+    @RequestMapping(value = "/searchUnapproveMessage/{condition}",method = RequestMethod.GET)
     @ResponseBody
-    String searchSpecificMessage(@RequestParam(name = "id") int id) {
-        List<Message> msgList = messageRepositroy.selectSpecificMessage(id);
-        String result = "";
-        if(msgList.size() == 1) {
-            Message msg = msgList.get(0);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id",msg.getId());
-            jsonObject.put("user_id",msg.getUserId());
-            jsonObject.put("msg_title",msg.getMessageTitle());
-            jsonObject.put("msg_content",msg.getMessageContent());
-            jsonObject.put("msg_visibility",msg.getMessageVisibility());
-            result = jsonObject.toString();
-        }else {
-            result = "duplicate";
-        }
-        return result;
+    List<Message> searchSpecificMessage(@PathVariable String condition) {
+        List<Message> msgList = messageRepositroy.selectSpecificMessage(Integer.parseInt(condition));
+        return msgList;
     }
 
-    @RequestMapping(value = "/approveMessage", method = RequestMethod.POST)
+    @RequestMapping(value = "/approveMessage/{temp}", method = RequestMethod.GET)
     @ResponseBody
-    int updateCheckStatus(@RequestParam(name = "id") int id) {
-        return messageRepositroy.setMessageVisibility(id);
+    int updateCheckStatus(@PathVariable String temp) {
+        return messageRepositroy.setMessageVisibility(Integer.parseInt(temp));
     }
 
 }

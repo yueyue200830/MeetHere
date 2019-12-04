@@ -46,15 +46,15 @@ public class UserController {
 
     @RequestMapping(value = "/deleteUser/{temp}", method = RequestMethod.GET)
     @ResponseBody
-    public int deleteUser(@PathVariable String temp){
+    public int deleteUser(@PathVariable String temp) {
         //System.out.println(temp);
         return userRepository.deleteSpecificUser(Integer.parseInt(temp));
     }
 
-    @RequestMapping(value = "/searchUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/searchUser/{condition}", method = RequestMethod.GET)
     @ResponseBody
-    public String getSpecificUserInfo(@RequestBody int id){
-        List<User> userList = userRepository.selectSpecificUser(id);
+    public String getSpecificUserInfo(@PathVariable String condition) {
+        List<User> userList = userRepository.selectSpecificUser(Integer.parseInt(condition));
         String result = "";
         if (userList.size() == 1) {
             User currentUser = userList.get(0);
@@ -74,7 +74,7 @@ public class UserController {
         return userRepository.insertNewUser(user_name, user_key, user_type, user_photo);
     }
 
-    @RequestMapping(value = "/api/updateUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public int updateUserById(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
                               @RequestParam("user_photo") String user_photo, @RequestParam("user_id") int user_id) {
