@@ -27,7 +27,7 @@ public class UserMessageController {
 
     @RequestMapping(value = "/getLatestMessage", method = RequestMethod.POST)
     @ResponseBody
-    public String getLatestMessages(int number) {
+    public String getLatestMessages(@RequestParam("number") int number) {
         List<Message> latestMessages = messageRepositroy.findLatestMessages(number);
 
         JSONArray jsonArray = new JSONArray();
@@ -38,7 +38,7 @@ public class UserMessageController {
 
     @RequestMapping(value = "/getMoreMessage", method = RequestMethod.POST)
     @ResponseBody
-    public String getMoreMessages(Date lastTime, int number) {
+    public String getMoreMessages(@RequestParam("lastTime") Date lastTime, @RequestParam("number") int number) {
         List<Message> moreMessages = messageRepositroy.findMoreCMessagesBefore(lastTime, number);
 
         JSONArray jsonArray = new JSONArray();
