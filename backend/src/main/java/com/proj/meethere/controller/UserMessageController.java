@@ -42,21 +42,24 @@ public class UserMessageController {
     @RequestMapping(value = "/getMoreMessage", method = RequestMethod.GET)
     @ResponseBody
     public String getMoreMessages(@RequestParam("lastTime") String lastTime, @RequestParam("number") int number) throws ParseException {
-        SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-        Date time = isoFormat.parse(lastTime);
-        List<Message> moreMessages = messageRepositroy.findMoreCMessagesBefore(time.toString(), number);
+        //SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        //Date time = isoFormat.parse(lastTime);
+        List<Message> moreMessages = messageRepositroy.findMoreMessagesBefore(lastTime, number);
 
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(moreMessages);
+        //System.out.println("more:"+jsonArray.toString());
         return jsonArray.toString();
     }
 
     @RequestMapping(value = "/addMessage", method = RequestMethod.GET)
     @ResponseBody
-    public void addNewMessage(@RequestParam("addNewsForm") String newForm, @RequestParam("id") int user_id) {
+    public int addNewMessage(@RequestParam("addNewsForm") String newForm, @RequestParam("id") int user_id) {
         JSONObject jsonObject = new JSONObject(newForm);
         String title = jsonObject.getString("title");
         String content = jsonObject.getString("content");
-//        return messageRepositroy.insertNewMessage(content, user_id, title);
+        int ret = messageRepositroy.insertNewMessage(content, user_id, title);
+        System.out.println("add new msg "+ret);
+        return ret;
     }
 }
