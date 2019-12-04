@@ -88,7 +88,7 @@
             loadMore: function() {
                 this.$http
                     .get('http://127.0.0.1:8081/getMoreMessage', {
-                        params:{
+                        params: {
                             lastTime: this.comments[this.comments.length - 1].messageTime,
                             number: 2,
                         }
@@ -114,17 +114,21 @@
             },
             addNews: function () {
                 // Send data to backend.
-                // this.$http
-                //     .post('http://127.0.0.1:8081/refresh')
-                //     .then(response => {
-                //         window.console.log(response);
-                //         window.console.log(response.data.comments[0]);
-                //         this.comments = response.data.comments[0];
-                //     });
-                window.console.log(this.addNewsForm);
-                // Refresh comments
-                //this.$refs['addNewsForm'].resetFields();
-                this.addNewsVisibility = false;
+                this.$http
+                    .get('http://127.0.0.1:8081/addMessage', {
+                        params: {
+                            "addNewsForm": this.addNewsForm,
+                            "id": 1
+                        }
+                    })
+                    .then(response => {
+                        window.console.log(response);
+                        // window.console.log(response.data.comments[0]);
+                        // this.comments = response.data.comments[0];
+                        this.$refs['addNewsForm'].resetFields();
+                        this.addNewsVisibility = false;
+                        // Refresh comments
+                    });
             },
             addNewsButton: function () {
                 this.addNewsVisibility = true;
