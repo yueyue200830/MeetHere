@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @Author Tresaresa
  * @Date 2019-10-29
- * Revenue Controller
+ * User Revenue Controller
  */
 @Controller
 @CrossOrigin(origins = "*")
