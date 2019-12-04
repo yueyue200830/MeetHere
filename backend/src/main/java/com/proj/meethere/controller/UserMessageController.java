@@ -52,4 +52,12 @@ public class UserMessageController {
         return jsonArray.toString();
     }
 
+    @RequestMapping(value = "/addMessage", method = RequestMethod.GET)
+    @ResponseBody
+    public void addNewMessage(@RequestParam("addNewsForm") String newForm, @RequestParam("id") int user_id) {
+        JSONObject jsonObject = new JSONObject(newForm);
+        String title = jsonObject.getString("title");
+        String content = jsonObject.getString("content");
+//        return messageRepositroy.insertNewMessage(content, user_id, title);
+    }
 }
