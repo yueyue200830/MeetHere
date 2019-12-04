@@ -5,7 +5,7 @@
         <el-col :span="24">
           <light-table ref="table"
                        :data="searchData" @on-search="searchTable"
-                       :columns="columns"                   
+                       :columns="columns"
                        :deleteable="true" @on-delete="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
           </light-table>
@@ -17,9 +17,9 @@
 
 <script>
   import axios from 'axios';
-  const searchCheckResult = (condition) => axios.post('/app/api/searchUser', condition);
-  const deleteCheckResultById = (temp) => axios.post('/app/api/deleteUser', temp);
-  const getUserInfo = () => axios.post('/app/api/getUser')
+  const searchCheckResult = (condition) => axios.post('/app/searchUser', condition);
+  const deleteCheckResultById = (temp) => axios.get(`/app/deleteUser/${temp}`);
+  const getUserInfo = () => axios.post('/app/getUser')
 
 
   export default {
@@ -79,7 +79,7 @@
             //console.log(data.data.length);
             this.searchData=data.data;
             if (data.data.length) {
-              
+
               // todo
             } else {
               this.onAlertError('搜索失败');
@@ -103,9 +103,10 @@
           let i = 0;
           for (i=0;i<id.length;i++) {
             let temp=id[i];
-            deleteCheckResultById({temp}).then(data => {
+            console.log(id);
+            deleteCheckResultById(temp).then(data => {
               this.loading = false;
-              if (data.data.affectedRows!=0) { 
+              if (data.data.affectedRows!=0) {
                 this.onAlertError('删除成功');
                 getUserInfo().then(data => {
                   this.searchData=data.data;
@@ -125,7 +126,7 @@
         let id = [];
         _.each(val, item => {
           //console.log(item);
-          id.push(item.bike_id);
+          id.push(item.id);
         });
         this.selectRow = id;
         //console.log(id);
