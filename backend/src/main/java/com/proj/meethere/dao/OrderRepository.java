@@ -39,7 +39,9 @@ public interface OrderRepository extends JpaRepository<Order,Integer>{
     @Query(value = "select * from orderlist where user_id=:id", nativeQuery = true)
     List<Order> selectOrderById(@Param("id") int id);
 
-    @Query(value = "update orderlist set order_phone=:phone where user_id=:id", nativeQuery = true)
+    @Modifying
+    @Transactional(rollbackFor = Exception.class)
+    @Query(value = "update orderlist set order_phone=:phone where id=:id", nativeQuery = true)
     int updatePhoneById(@Param("phone") String phone, @Param("id") int id);
 
     @Query(value = "select * from orderlist where rvn_id=:rvn_id and order_date=:date", nativeQuery = true)

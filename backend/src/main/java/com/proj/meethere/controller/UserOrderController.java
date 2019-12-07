@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.plaf.SeparatorUI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,16 +108,16 @@ public class UserOrderController {
 
     // 我的订单
     // 接受id 返回我的所有订单
-    @RequestMapping(value = "/getMyOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/getMyOrder", method = RequestMethod.GET)
     @ResponseBody
     public String getMyOrder(@RequestParam("id") int id) {
         System.out.println("getall");
         List<Order> myOrders = orderRepository.selectOrderById(id);
 
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.put(myOrders);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("orders", myOrders);
 
-        return jsonArray.toString();
+        return jsonObject.toString();
     }
 
     // 修改订单手机号
