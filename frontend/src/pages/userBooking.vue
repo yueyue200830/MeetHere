@@ -174,7 +174,7 @@
             searchOrder: function () {
                 // Send search data to backend
                 this.$http
-                    .get('http://127.0.0.1:8081/searchOrder', {
+                    .get('http://127.0.0.1:8081/getAvailable', {
                         params: {
                             "revenueId": this.revenue,
                             "date": this.date

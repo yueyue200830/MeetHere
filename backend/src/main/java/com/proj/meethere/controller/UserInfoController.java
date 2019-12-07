@@ -44,4 +44,18 @@ public class UserInfoController {
 
     // 登陆
     // 返回id，错误-1
+    @RequestMapping(value = "/Login", method = RequestMethod.GET)
+    @ResponseBody
+    public int login(@RequestParam("login") String login) {
+        System.out.println("login");
+        JSONObject jsonObject = new JSONObject(login);
+        String userName = jsonObject.getString("name");
+        String userKey = jsonObject.getString("password");
+        List<User> user = userRepository.selectUserByNameAndId(userName, userKey);
+        if (user.isEmpty()) {
+            return -1;
+        } else {
+            return user.get(0).getId();
+        }
+    }
 }

@@ -128,7 +128,7 @@
         },
         created: function () {
             this.$http
-                .post('http://127.0.0.1:8081/getUserOrder')
+                .post('http://127.0.0.1:8081/getMyOrder')
                 .then(response => {
                     window.console.log(response);
                     // this.tableData = response.data[0];
@@ -148,9 +148,10 @@
             deleteOrder: function() {
                 // Send delete index to backend.
                 this.$http
-                    .get('http://127.0.0.1:8081/deleteUserOrder', {
+                    .get('http://127.0.0.1:8081/deleteOrder', {
                         params: {
-                            "deleteOrderId": this.tableData[this.deleteIndex].id
+                            // "deleteOrderId": this.tableData[this.deleteIndex].id
+                            "deleteOrderId": 1
                         }})
                     .then(response => {
                         window.console.log(response);
@@ -161,7 +162,7 @@
             changePhone: function() {
                 // Send new phone number to backend.
                 this.$http
-                    .get('http://127.0.0.1:8081/changePhoneNumber', {
+                    .get('http://127.0.0.1:8081/updatePhone', {
                         params: {
                             "changePhoneForm": this.changePhoneForm,
                             "id": 1

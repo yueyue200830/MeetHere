@@ -37,4 +37,7 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
             "value (:newsContent, :newsTitle, :newsPhoto, now())", nativeQuery = true)
     int insertNewNews(@Param("newsContent") String newsContent, @Param("newsTitle") String newsTitle,
                       @Param("newsPhoto") String newsPhoto);
+
+    @Query(value = "select * form news where id>=:first and id<=:last order by news_time desc", nativeQuery = true)
+    List<News> findNewsByScope(@Param("first") int first, @Param("last") int last);
 }

@@ -32,6 +32,13 @@ public class UserNewsController {
         return jsonArray.toString();
     }
 
-    // 接受页码
-    // 返回10条
+    // 接受页码，返回对应的10条新闻
+    @RequestMapping(value = "/getTenNews", method = RequestMethod.POST)
+    @ResponseBody
+    public String getTenNewsByPageId(@RequestParam("page_id") int page_id) {
+        List<News> newsList = newsRepository.findNewsByScope(page_id*10, (page_id+1)*10-1);
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(newsList);
+        return jsonArray.toString();
+    }
 }
