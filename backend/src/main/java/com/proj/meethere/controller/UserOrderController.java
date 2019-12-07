@@ -133,7 +133,7 @@ public class UserOrderController {
             jsonArray.put(jsonObject);
         }
 
-        return jsonObject.toString();
+        return jsonArray.toString();
     }
 
     // 修改订单手机号
