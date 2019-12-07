@@ -41,14 +41,14 @@ public class UserOrderController {
         System.out.println("addd");
         JSONObject jsonObject = new JSONObject(addOrderForm);
         String rvnName = jsonObject.getString("revenue");
-        String phone = jsonObject.getString("phoneNumber");
+        String phone = String.valueOf(jsonObject.getInt("phoneNumber"));
         String date = jsonObject.getString("date");
-        int slot = jsonObject.getInt("time");
+        int slot = jsonObject.getInt("timeSlot");
         int room = jsonObject.getInt("room");
         int price = jsonObject.getInt("price");
 
         int rvnId = revenueRepository.searchIdByName(rvnName);
-        //String newDate = "2019-12-09";
+
         // 使用 yyyy-MM-dd 格式的日期
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //Date d = sdf.parse(date);
@@ -71,18 +71,13 @@ public class UserOrderController {
         int revenueId = revenueRepository.searchIdByName(revenueName);
         List<Order> orders = orderRepository.selectByRevenueAndDate(revenueId, newDate);
 
-        // 如果没有已预约的订单，返回空
-        if (orders.isEmpty()) {
-            return "";
-        }
-
         Revenue revenue = revenueRepository.getSpecificRvn(revenueId).get(0);
 
         int price = revenue.getRvnPrice();
 
         // 行数为timeslot 列数为总房间数
         int rows = 12, cols = revenue.getRvnRoomnum();
-        Integer available[][] = new Integer[rows][cols];
+        Integer[][] available = new Integer[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 available[i][j] = price;
@@ -90,19 +85,16 @@ public class UserOrderController {
         }
 
         // 假设数据库中的timeslot和room都从1开始编号
-        for(int i = 0; i < orders.size(); i++) {
+        for (int i = 0; i < orders.size(); i++) {
             int timeslot = orders.get(i).getTimeSlot();
             int room = orders.get(i).getRvnRoomNum();
             available[timeslot - 1][room - 1] = 0;
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("availble", available);
+        jsonObject.put("available", available);
 
         return jsonObject.toString();
-
-        //return "";
-
     }
 
 
