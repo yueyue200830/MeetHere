@@ -4,7 +4,7 @@
         我的订单
       </div>
       <el-table
-        :data="tableData"
+        :data="orderList"
         border
         class="order-table">
         <el-table-column
@@ -12,9 +12,18 @@
           width="50">
         </el-table-column>
         <el-table-column
-          prop="date"
           label="日期"
-          width="180">
+          width="120">
+          <template slot-scope="scope">
+            {{ convertTime(scope.row.orderDate) }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="时间"
+          width="120">
+          <template slot-scope="scope">
+            {{ convertTimeSlot(scope.row.timeSlot) }}
+          </template>
         </el-table-column>
         <el-table-column
           prop="revenue"
@@ -22,19 +31,31 @@
           width="80">
         </el-table-column>
         <el-table-column
-          prop="number"
+          prop="rvnRoomNum"
           label="场地号"
           width="80">
         </el-table-column>
         <el-table-column
-          prop="price"
+          prop="orderPrice"
           label="价格"
           width="80">
         </el-table-column>
         <el-table-column
-          prop="phone"
+          prop="orderPhone"
           label="手机号"
           width="140">
+        </el-table-column>
+        <el-table-column
+          label="审核情况"
+          width="85">
+          <template slot-scope="scope">
+            <el-tag type="success" v-if="scope.row.orderApproved === 1">
+              通过
+            </el-tag>
+            <el-tag type="info" v-else>
+              待审核
+            </el-tag>
+          </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -64,7 +85,7 @@
         width="450px">
         <el-form :model="changePhoneForm" ref="changePhoneForm">
           <el-form-item label="原手机号" label-width="100px">
-            <el-input v-model="changePhoneForm.originalNumber" class="phone-input" disabled></el-input>
+            <el-input v-model="changePhoneForm.originalNumber" class="phone-input" disabled/>
           </el-form-item>
           <el-form-item
             label="新手机号"
@@ -75,7 +96,8 @@
               { type: 'number', message: '手机号必须为数字'}
             ]"
           >
-            <el-input type="newNumber" v-model.number="changePhoneForm.newNumber" autocomplete="off" class="phone-input"></el-input>
+            <el-input type="newNumber" v-model.number="changePhoneForm.newNumber" autocomplete="off"
+                      class="phone-input"/>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -87,96 +109,95 @@
 </template>
 
 <script>
-    export default {
-        name: "userOrder",
-        data() {
-            return {
-                tableData: [{
-                    date: '2016-05-02',
-                    revenue: '篮球',
-                    number: '1',
-                    price: '50',
-                    phone: '12312312312',
-                }, {
-                    date: '2016-05-04',
-                    revenue: '网球',
-                    number: '7',
-                    price: '55',
-                    phone: '12312312312',
-                }, {
-                    date: '2016-05-01',
-                    revenue: '乒乓球',
-                    number: '2',
-                    price: '30',
-                    phone: '12312312312',
-                }, {
-                    date: '2016-05-03',
-                    revenue: '足球',
-                    number: '4',
-                    price: '100',
-                    phone: '12312312312',
-                }],
-                deleteDialogVisibility: false,
-                changePhoneVisibility: false,
-                deleteIndex: -1,
-                changePhoneForm: {
-                    index: '',
-                    originalNumber: '123',
-                    newNumber: '',
-                },
-            }
+  export default {
+    name: "userOrder",
+    data() {
+      return {
+        orderList: [],
+        deleteDialogVisibility: false,
+        changePhoneVisibility: false,
+        deleteId: -1,
+        changePhoneForm: {
+          index: null,
+          originalNumber: null,
+          newNumber: null,
+          orderId: null,
         },
-        created: function () {
-            this.$http
-                .post('http://127.0.0.1:8081/getMyOrder')
-                .then(response => {
-                    window.console.log(response);
-                    // this.tableData = response.data[0];
-                });
-        },
-        methods: {
-            handleEdit: function(index, row) {
-                this.changePhoneVisibility = true;
-                this.changePhoneForm.originalNumber = row.phone;
-                this.changePhoneForm.index = index;
-            },
-            handleDelete: function(index, row) {
-                console.log(index, row);
-                this.deleteDialogVisibility = true;
-                this.deleteIndex = index;
-            },
-            deleteOrder: function() {
-                // Send delete index to backend.
-                this.$http
-                    .get('http://127.0.0.1:8081/deleteOrder', {
-                        params: {
-                            // "deleteOrderId": this.tableData[this.deleteIndex].id
-                            "deleteOrderId": 1
-                        }})
-                    .then(response => {
-                        window.console.log(response);
-                      this.deleteDialogVisibility = false;
-                    });
-                this.deleteDialogVisibility = false;
-            },
-            changePhone: function() {
-                // Send new phone number to backend.
-                this.$http
-                    .get('http://127.0.0.1:8081/updatePhone', {
-                        params: {
-                            "changePhoneForm": this.changePhoneForm,
-                            "id": 1
-                        }})
-                    .then(response => {
-                        window.console.log(response);
-                        this.$refs['changePhoneForm'].resetFields();
-                        this.changePhoneVisibility = false;
-                    });
-                this.$refs['changePhoneForm'].resetFields();
-                this.changePhoneVisibility = false;
+      }
+    },
+    created: function () {
+      this.getMyOrder();
+    },
+    methods: {
+      getMyOrder: function() {
+        this.$http
+          .get('http://127.0.0.1:8081/getMyOrder', {
+            params: {
+              "id": 1
+            }})
+          .then(response => {
+            this.orderList = response.data;
+          });
+      },
+      handleEdit: function(index, row) {
+        this.changePhoneVisibility = true;
+        this.changePhoneForm.originalNumber = row.orderPhone;
+        this.changePhoneForm.index = index;
+        this.changePhoneForm.orderId = row.orderId;
+      },
+      handleDelete: function(index, row) {
+        this.deleteDialogVisibility = true;
+        this.deleteId = row.orderId;
+      },
+      deleteOrder: function() {
+        this.$http
+          .get('http://127.0.0.1:8081/deleteOrder', {
+            params: {
+              "deleteOrderId": this.deleteId
+            }})
+          .then(response => {
+            this.deleteDialogVisibility = false;
+            this.getMyOrder();
+            if (response.data === 1) {
+              this.$message({
+                message: '删除订单成功',
+                type: 'success'
+              });
+            } else {
+              this.$message.error('删除订单失败，请重试！');
             }
-        }
+          });
+      },
+      changePhone: function() {
+        this.$http
+          .get('http://127.0.0.1:8081/updatePhone', {
+            params: {
+              "phone": this.changePhoneForm.newNumber,
+              "id": this.changePhoneForm.orderId,
+            }})
+          .then(response => {
+            this.$refs['changePhoneForm'].resetFields();
+            this.changePhoneVisibility = false;
+            this.getMyOrder();
+            if (response.data === 1) {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              });
+            } else {
+              this.$message.error('修改失败，请重试！');
+            }
+          });
+      },
+      convertTime: function (time) {
+        let date = new Date(time);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      },
+      convertTimeSlot: function (time) {
+        return (time+9) + "点 - " + (time+10) + "点";
+      }
     }
+  }
 </script>
 
 <style scoped>
@@ -188,7 +209,7 @@
   }
 
   .order-table {
-    width: 800px;
+    width: 940px;
     margin: 40px auto 10px;
   }
 

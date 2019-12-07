@@ -6,13 +6,13 @@
 </template>
 
 <script>
-    let token = localStorage.getItem('Authorization');
-    export default {
-        name: "userMain",
-        created: function () {
-            window.console.log(token);
-        }
+  let token = localStorage.getItem('Authorization');
+  export default {
+    name: "userMain",
+    created: function () {
+      window.console.log(token);
     }
+  }
 </script>
 
 <style scoped>

@@ -26,28 +26,28 @@
 </template>
 
 <script>
-    export default {
-        name: "userNews",
-        data() {
-            return {
-                newsList: [],
-            }
-        },
-        created: function () {
-            this.$http
-                .post('http://127.0.0.1:8081/getNewsUserPage')
-                .then(response => {
-                    this.newsList = response.data[0];
-                })
-        },
-        methods: {
-            convertTime: function (time) {
-                let date = new Date(time);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-                    + " " + date.getHours() + ":" + date.getMinutes();
-            }
-        }
+  export default {
+    name: "userNews",
+    data() {
+      return {
+        newsList: [],
+      }
+    },
+    created: function () {
+      this.$http
+        .post('http://127.0.0.1:8081/getNewsUserPage')
+        .then(response => {
+          this.newsList = response.data[0];
+        })
+    },
+    methods: {
+      convertTime: function (time) {
+        let date = new Date(time);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+          + " " + date.getHours() + ":" + date.getMinutes();
+      }
     }
+  }
 </script>
 
 <style scoped>

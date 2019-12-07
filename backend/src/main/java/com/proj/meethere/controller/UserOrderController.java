@@ -103,24 +103,24 @@ public class UserOrderController {
         System.out.println("getall");
         List<Order> myOrders = orderRepository.selectOrderById(id);
         List<Revenue> revenues = revenueRepository.getAllRvnInfo();
-        String[] rvnMap = new String[]{};
+        Map<Integer, String> rvnMap = new HashMap<>();
 
-        for (int i = 0; i < revenues.size(); i++) {
-            rvnMap[revenues.get(i).getId()] = revenues.get(i).getRvnName();
+        for (Revenue revenue : revenues) {
+            rvnMap.put(revenue.getId(), revenue.getRvnName());
         }
 
         JSONArray jsonArray = new JSONArray();
 
-        for (int i = 0; i < myOrders.size(); i++) {
+        for (Order myOrder : myOrders) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("orderDate", myOrders.get(i).getOrderDate());
-            jsonObject.put("timeslot", myOrders.get(i).getTimeSlot());
-            jsonObject.put("revenue", revenues.get(i));
-            jsonObject.put("rvnRoomNum", myOrders.get(i).getRvnRoomNum());
-            jsonObject.put("orderPrice", myOrders.get(i).getOrderPrice());
-            jsonObject.put("orderPhone", myOrders.get(i).getOrderPhone());
-            jsonObject.put("orderApproved", myOrders.get(i).getOrderApproved());
-            jsonObject.put("orderId", myOrders.get(i).getOrderApproved());
+            jsonObject.put("orderDate", myOrder.getOrderDate());
+            jsonObject.put("timeSlot", myOrder.getTimeSlot());
+            jsonObject.put("revenue", rvnMap.get(myOrder.getRvnId()));
+            jsonObject.put("rvnRoomNum", myOrder.getRvnRoomNum());
+            jsonObject.put("orderPrice", myOrder.getOrderPrice());
+            jsonObject.put("orderPhone", myOrder.getOrderPhone());
+            jsonObject.put("orderApproved", myOrder.getOrderApproved());
+            jsonObject.put("orderId", myOrder.getId());
             jsonArray.put(jsonObject);
         }
 
