@@ -38,6 +38,9 @@ public class Order {
     @Column(name = "order_approved")
     int orderApproved;
 
+    @Column(name = "order_price")
+    int orderPrice;
+
     public Order() {
     }
 
@@ -103,5 +106,13 @@ public class Order {
 
     public void setOrderApproved(int orderApproved) {
         this.orderApproved = orderApproved;
+    }
+
+    public int getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(int orderPrice) {
+        this.orderPrice = orderPrice;
     }
 }

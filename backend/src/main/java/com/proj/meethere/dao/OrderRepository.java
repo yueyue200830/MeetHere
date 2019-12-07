@@ -30,11 +30,11 @@ public interface OrderRepository extends JpaRepository<Order,Integer>{
 
     @Modifying
     @Transactional(rollbackFor = Exception.class)
-    @Query(value = "insert into orderlist (user_id, order_phone, rvn_id, rvn_room, order_timeslot, order_date, order_approved)" +
-            " value (:user_id, :order_phone, :rvn_id, :rvn_room, :order_timeslot, :order_date, false)", nativeQuery = true)
+    @Query(value = "insert into orderlist (user_id, order_phone, rvn_id, rvn_room, order_timeslot, order_date, order_approved, order_price)" +
+            " value (:user_id, :order_phone, :rvn_id, :rvn_room, :order_timeslot, :order_date, false, :order_price)", nativeQuery = true)
     int insertNewOrder(@Param("user_id") int user_id, @Param("order_phone") String order_phone, @Param("rvn_id") int rvn_id,
                        @Param("rvn_room") int rvn_room, @Param("order_timeslot") int order_timeslot,
-                       @Param("order_date") String order_date);
+                       @Param("order_date") String order_date, @Param("order_price") int order_price);
 
     @Query(value = "select * from orderlist where user_id=:id", nativeQuery = true)
     List<Order> selectOrderById(@Param("id") int id);
