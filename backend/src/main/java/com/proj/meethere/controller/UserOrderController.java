@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * @Author Tresaresa
@@ -35,25 +36,23 @@ public class UserOrderController {
     // form：场馆id，日期， slot， 用户手机 ；用户id
     @RequestMapping(value = "/addOrder", method = RequestMethod.GET)
     @ResponseBody
-    public int addNewOrder(@RequestParam("addOrderForm") String addOrderForm, @RequestParam("id") String cid) throws ParseException {
+    public int addNewOrder(@RequestParam("addOrderForm") String addOrderForm, @RequestParam("id") int id) throws ParseException {
         System.out.println("addd");
         JSONObject jsonObject = new JSONObject(addOrderForm);
-        //int rvnId = jsonObject.getInt("revenue");
-        //String phone = jsonObject.getString("phoneNumber");
-        //String date = jsonObject.getString("date");
-        //int slot = jsonObject.getInt("time");
-        //int room = jsonObject.getInt("room");
-        int id = 1;
-        int rvnId = 1;
-        String phone = "1234";
-        int room = 1;
-        int slot = 1;
-        String newDate = "2019-12-09";
+        String rvnName = jsonObject.getString("revenue");
+        String phone = jsonObject.getString("phoneNumber");
+        String date = jsonObject.getString("date");
+        int slot = jsonObject.getInt("time");
+        int room = jsonObject.getInt("room");
+        int price = jsonObject.getInt("price");
+
+        int rvnId = revenueRepository.searchIdByName(rvnName);
+        //String newDate = "2019-12-09";
         // 使用 yyyy-MM-dd 格式的日期
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //Date d = sdf.parse(date);
         //String newDate = sdf.format(d);
-        return orderRepository.insertNewOrder(id, phone, rvnId, room, slot, newDate);
+        return orderRepository.insertNewOrder(id, phone, rvnId, room, slot, date, price);
     }
 
     // 显示的表格
@@ -61,13 +60,14 @@ public class UserOrderController {
     // 二维数组： 有预约为钱 没预约为0 slot从1开始
     @RequestMapping(value = "/getAvailable", method = RequestMethod.GET)
     @ResponseBody
-    public String getAvailable(@RequestParam("revenueId") String crevenue, @RequestParam("date") String date) throws ParseException {
+    public String getAvailable(@RequestParam("revenueName") String revenueName, @RequestParam("date") String date) throws ParseException {
         // 使用 yyyy-MM-dd 格式的日期
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         Date d = sdf.parse(date);
         String newDate = sdf.format(d);
-
-        int revenueId = 1;
+        System.out.println(newDate);
+        int revenueId = revenueRepository.searchIdByName(revenueName);
         List<Order> orders = orderRepository.selectByRevenueAndDate(revenueId, newDate);
 
         // 如果没有已预约的订单，返回空
