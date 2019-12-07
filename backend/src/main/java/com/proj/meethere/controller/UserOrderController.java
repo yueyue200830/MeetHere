@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  * @Author Tresaresa
@@ -40,7 +37,8 @@ public class UserOrderController {
         System.out.println("addd");
         JSONObject jsonObject = new JSONObject(addOrderForm);
         String rvnName = jsonObject.getString("revenue");
-        String phone = jsonObject.getString("phoneNumber");
+        int phoneNumber = jsonObject.getInt("phoneNumber");
+        String phone = String.valueOf(phoneNumber);
         String date = jsonObject.getString("date");
         int slot = jsonObject.getInt("time");
         int room = jsonObject.getInt("room");
@@ -112,9 +110,27 @@ public class UserOrderController {
     public String getMyOrder(@RequestParam("id") int id) {
         System.out.println("getall");
         List<Order> myOrders = orderRepository.selectOrderById(id);
+        List<Revenue> revenues = revenueRepository.getAllRvnInfo();
+        String[] rvnMap = new String[]{};
+
+        for (int i = 0; i < revenues.size(); i++) {
+            rvnMap[revenues.get(i).getId()] = revenues.get(i).getRvnName();
+        }
 
         JSONArray jsonArray = new JSONArray();
-        jsonArray.put(myOrders);
+
+        for (int i = 0; i < myOrders.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("orderDate", myOrders.get(i).getOrderDate());
+            jsonObject.put("timeslot", myOrders.get(i).getTimeSlot());
+            jsonObject.put("revenue", revenues.get(i));
+            jsonObject.put("rvnRoomNum", myOrders.get(i).getRvnRoomNum());
+            jsonObject.put("orderPrice", myOrders.get(i).getOrderPrice());
+            jsonObject.put("orderPhone", myOrders.get(i).getOrderPhone());
+            jsonObject.put("orderApproved", myOrders.get(i).getOrderApproved());
+            jsonObject.put("orderId", myOrders.get(i).getOrderApproved());
+            jsonArray.put(jsonObject);
+        }
 
         return jsonArray.toString();
     }

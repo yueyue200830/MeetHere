@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Repository
 public interface RevenueRepository extends JpaRepository<Revenue, Integer> {
-    @Query(value = "select * from revenue", nativeQuery = true)
+    @Query(value = "select * from revenue order by id", nativeQuery = true)
     List<Revenue> getAllRvnInfo();
 
     @Query(value = "select rvn_name from revenue", nativeQuery = true)
