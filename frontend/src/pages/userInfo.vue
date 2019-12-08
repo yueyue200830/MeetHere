@@ -102,7 +102,6 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert("change name");
             this.$http
               .get('http://127.0.0.1:8081/updateUserById', {
                 params: {
@@ -110,7 +109,15 @@
                   updateForm: this.userForm,
                 }})
               .then(response => {
-                window.console.log(response);
+                if (response.data === 1) {
+                  this.$message({
+                    message: '修改成功',
+                    type: 'success'
+                  });
+                  this.resetForm(formName);
+                } else {
+                  this.$message.error('修改失败，请重试！');
+                }
               });
           } else {
             console.log('error submit!!');

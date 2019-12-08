@@ -39,7 +39,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "update user set user_name=:user_name, user_key=:user_key" +
-            "where id=:user_id", nativeQuery = true)
+            " where id=:user_id", nativeQuery = true)
     int updateUserById(@Param("user_name") String user_name, @Param("user_key") String user_key,
                        @Param("user_id") int user_id);
 
