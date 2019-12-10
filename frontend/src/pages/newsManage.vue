@@ -40,15 +40,14 @@
             <el-col :span="12">
               <el-form-item label="图片" prop="newsPhoto">
                 <el-upload
+                  
                   class="upload-demo"
-                  enctype = "multipart/form-data"
                   action="https://jsonplaceholder.typicode.com/posts/"
                   :on-change="handleChange"
                   :on-remove="handleRemove" 
                   :on-preview="handlePreview"  
                   :file-list="photoList"
-                  list-type="picture"
-                  v-model="dialogTypeForm.newsPhoto">
+                  list-type="picture">
                   <el-button size="small" type="primary">点击上传</el-button>
                   <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
                 </el-upload>
@@ -116,6 +115,7 @@
             }
           }
         ],
+        fileObj: '',
         photoList:[],
         searchData:[],
         preData:[],
@@ -140,20 +140,19 @@
         //console.log(this.dialogTypeForm);
       },
       handleChange(file) {
-        this.dialogTypeForm.newsPhoto = file.raw;
-        //this.readPhoto(file.raw);
-        
+        this.fileObj = file.raw;
+        var reader = new FileReader();
+        reader.readAsDataURL(this.fileObj);
+        var temp = this.dialogTypeForm;
+        reader.onload = function(e){
+          temp.newsPhoto = this.result;        
+        }
+        this.dialogTypeForm = temp;
+        //console.log(this.dialogTypeForm);
       },
-      readPhoto(file){         
-          var reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = function(){
-            document.getElementById("imgs").src = reader.result;
-          }
-          this.showPhoto = true;
-      },
+
       handlePreview(file) {
-        //console.log(file);
+        //console.log(file.response);
       },
       //点击编辑按钮时，出现弹窗，表格中填充该行新闻的内容
       viewTypeDetail(id, action) {
@@ -175,13 +174,13 @@
       viewPhoto(id) {
         this.loading = true;
         getPhotoById(id).then(data => {
-          this.loading = false;
+          this.loading = false;        
           if(data){
-            this.readPhoto(data.data[0]);
+            document.getElementById("imgs").src = data.data[0];
+            this.showPhoto = true; //显示弹窗
           }else{
             this.onAlertError('该条新闻没有图片');
           }
-          
         })
       },
       //点击添加按钮时，将表格的标题改成添加新闻，展现表格
