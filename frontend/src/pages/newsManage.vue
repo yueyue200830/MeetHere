@@ -44,8 +44,8 @@
                   enctype = "multipart/form-data"
                   action="https://jsonplaceholder.typicode.com/posts/"
                   :on-change="handleChange"
-                  :on-remove="handleRemove" 
-                  :on-preview="handlePreview"  
+                  :on-remove="handleRemove"
+                  :on-preview="handlePreview"
                   :file-list="photoList"
                   list-type="picture"
                   v-model="dialogTypeForm.newsPhoto">
@@ -53,7 +53,7 @@
                   <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
                 </el-upload>
               </el-form-item>
-              
+
             </el-col>
           </el-row>
         </el-form>
@@ -140,11 +140,12 @@
         //console.log(this.dialogTypeForm);
       },
       handleChange(file) {
-        this.dialogTypeForm.newsPhoto = file.raw;
+          var reader = new FileReader();
+        this.dialogTypeForm.newsPhoto = reader.readAsDataURL(file.raw);
         //this.readPhoto(file.raw);
-        
+
       },
-      readPhoto(file){         
+      readPhoto(file){
           var reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = function(){
@@ -163,7 +164,7 @@
         getCheckResultById(id).then(data => {
           this.loading = false;
           if (data) {
-            // todo
+            console.log(data);
             this.dialogTypeForm = data.data[0];
             this.showDialogType = true;
           } else {
@@ -181,7 +182,7 @@
           }else{
             this.onAlertError('该条新闻没有图片');
           }
-          
+
         })
       },
       //点击添加按钮时，将表格的标题改成添加新闻，展现表格
@@ -203,6 +204,7 @@
       //点击保存按钮之后，如果是修改新闻，则后端API为update，如果是添加新闻则后端API为添加
       saveCheckResult () {
         this.loading = true;
+        console.log(typeof(this.dialogTypeForm.newsPhoto));
         if (this.dialogTypeForm.title == '修改新闻') {
             modifyCheckResult(this.dialogTypeForm).then(data => {
                 this.loading=false;
@@ -218,6 +220,7 @@
                 }
             });
         } else {
+            console.log(this.dialogTypeForm.newsPhoto);
             addCheckResult(this.dialogTypeForm).then(data => {
                 this.loading = false;
                 if (data) {

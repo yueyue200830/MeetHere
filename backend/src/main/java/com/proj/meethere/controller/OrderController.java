@@ -1,5 +1,6 @@
 package com.proj.meethere.controller;
 
+import com.proj.meethere.Service.OrderService;
 import com.proj.meethere.dao.OrderRepository;
 import com.proj.meethere.entity.Order;
 import org.json.JSONObject;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Yiqing Tao, Tresaresa
+ * @Author Yiqing Tao
  * @Date 2019-10-29
  * Order Controller
  */
@@ -19,36 +20,24 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderService orderService;
 
     @RequestMapping(value = "/getUnapproveOrder", method = RequestMethod.POST)
     @ResponseBody
     public List<Order> getUnapprovedOrder(){
-        List<Order> unapprovedOrder = orderRepository.selectUnapprovedOrder();
-//        List<String> result = new ArrayList<>();
-//        for (Order order : unapprovedOrder) {
-//            JSONObject jsonObject = new JSONObject(order);
-//            result.add(jsonObject.toString());
-//        }
-        return unapprovedOrder;
+        return orderService.getUnapprovedOrder();
     }
 
     @RequestMapping(value = "/approveOrder/{temp}", method = RequestMethod.GET)
     @ResponseBody
     public int approveOrder(@PathVariable String temp) {
-        return orderRepository.updateOrderApproved(Integer.parseInt(temp));
+        return orderService.approveOrder(Integer.parseInt(temp));
     }
 
     @RequestMapping(value = "/searchUnapproveOrder/{condition}", method = RequestMethod.GET)
     @ResponseBody
     public List<Order> searchUnapproveOrder(@PathVariable String condition) {
-        List<Order> currentOrder = orderRepository.selectSpecificUnapprovedOrder(Integer.parseInt(condition));
-//        List<String> result = new ArrayList<>();
-//        for(Order order:currentOrder) {
-//            JSONObject jsonObject = new JSONObject(order);
-//            result.add(jsonObject.toString());
-//        }
-        return currentOrder;
+       return orderService.searchUnapprovedOrder(Integer.parseInt(condition));
     }
 
 
