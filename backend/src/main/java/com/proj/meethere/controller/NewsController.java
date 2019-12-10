@@ -55,6 +55,7 @@ public class NewsController {
     @ResponseBody
     List<NewsRequest> getSpecificNews(@PathVariable String id) {
         List<News> newsList = newsRepository.selectSpecificNews(Integer.parseInt(id));
+        System.out.println(newsList.get(0).getId());
         List<NewsRequest> newsRequestList = new ArrayList<>();
         for(News news : newsList) {
             NewsRequest newsRequest = new NewsRequest();
