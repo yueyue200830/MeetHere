@@ -2,6 +2,7 @@ package com.proj.meethere.controller;
 
 
 import com.proj.meethere.Response.RevenueResponse;
+import com.proj.meethere.Service.RevenueService;
 import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
 import org.json.JSONArray;
@@ -22,49 +23,37 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class RevenueController {
     @Autowired
-    private RevenueRepository revenueRepository;
+    private RevenueService revenueService;
 
     @RequestMapping(value = "/getVenue", method = RequestMethod.POST)
     @ResponseBody
     List<Revenue> getAllVenue() {
-        List<Revenue> revenueList = revenueRepository.getAllRvnInfo();
-       return revenueList;
+       return revenueService.getAllRevenue();
     }
 
     @RequestMapping(value = "/searchVenue/{condition}", method = RequestMethod.GET)
     @ResponseBody
     public List<Revenue> searchVenue(@PathVariable String condition) {
-        List<Revenue> revenueList = revenueRepository.getSpecificRvn(Integer.parseInt(condition));
-        return revenueList;
+        return revenueService.searchRevenue(Integer.parseInt(condition));
     }
 
     @RequestMapping(value = "/checkVenue/{temp}", method = RequestMethod.GET)
     @ResponseBody
     public List<RevenueResponse> checkVenue(@PathVariable String temp) {
-        List<Revenue> revenueList = revenueRepository.getSpecificRvn(Integer.parseInt(temp));
-
-        List<RevenueResponse> revenueResponsesList = new ArrayList<>();
-        for(Revenue revenue: revenueList) {
-            RevenueResponse revenueResponse = new RevenueResponse();
-            revenueResponse.setId(revenue.getId());
-            revenueResponse.setRvnIntro(revenue.getRvnIntro());
-            revenueResponse.setRvnPrice(revenue.getRvnPrice());
-            revenueResponsesList.add(revenueResponse);
-        }
-        return revenueResponsesList;
+       return revenueService.getRevenue(Integer.parseInt(temp));
     }
 
     @RequestMapping(value = "/modifyVenue", method = RequestMethod.POST)
     @ResponseBody
     public int modifyVenue(@RequestBody RevenueResponse revenueResponse) {
         System.out.println(revenueResponse.getRvnPrice());
-        return revenueRepository.updateRvnInfo(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());
+        return revenueService.modifyRevenue(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());
     }
-
-    @RequestMapping(value = "/addRevenue", method = RequestMethod.POST)
-    @ResponseBody
-    public int addNewRevenue(@RequestParam("rvn_name") String rvn_name, @RequestParam("rvn_roomnum") int rvn_roomnum,
-                             @RequestParam("rvn_price") int rvn_price, @RequestParam("rvn_intro") String rvn_intro) {
-        return revenueRepository.insertNewRevenue(rvn_name, rvn_roomnum, rvn_price, rvn_intro);
-    }
+//
+//    @RequestMapping(value = "/addRevenue", method = RequestMethod.POST)
+//    @ResponseBody
+//    public int addNewRevenue(@RequestParam("rvn_name") String rvn_name, @RequestParam("rvn_roomnum") int rvn_roomnum,
+//                             @RequestParam("rvn_price") int rvn_price, @RequestParam("rvn_intro") String rvn_intro) {
+//        return revenueRepository.insertNewRevenue(rvn_name, rvn_roomnum, rvn_price, rvn_intro);
+//    }
 }

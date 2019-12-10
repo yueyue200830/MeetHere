@@ -44,15 +44,15 @@
                   class="upload-demo"
                   action="https://jsonplaceholder.typicode.com/posts/"
                   :on-change="handleChange"
-                  :on-remove="handleRemove" 
-                  :on-preview="handlePreview"  
+                  :on-remove="handleRemove"
+                  :on-preview="handlePreview"
                   :file-list="photoList"
                   list-type="picture">
                   <el-button size="small" type="primary">点击上传</el-button>
                   <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
                 </el-upload>
               </el-form-item>
-              
+
             </el-col>
           </el-row>
         </el-form>
@@ -151,6 +151,7 @@
         //console.log(this.dialogTypeForm);
       },
 
+
       handlePreview(file) {
         //console.log(file.response);
       },
@@ -162,7 +163,7 @@
         getCheckResultById(id).then(data => {
           this.loading = false;
           if (data) {
-            // todo
+            console.log(data);
             this.dialogTypeForm = data.data[0];
             this.showDialogType = true;
           } else {
@@ -202,6 +203,7 @@
       //点击保存按钮之后，如果是修改新闻，则后端API为update，如果是添加新闻则后端API为添加
       saveCheckResult () {
         this.loading = true;
+        console.log(typeof(this.dialogTypeForm.newsPhoto));
         if (this.dialogTypeForm.title == '修改新闻') {
             modifyCheckResult(this.dialogTypeForm).then(data => {
                 this.loading=false;
@@ -217,6 +219,7 @@
                 }
             });
         } else {
+            console.log(this.dialogTypeForm.newsPhoto);
             addCheckResult(this.dialogTypeForm).then(data => {
                 this.loading = false;
                 if (data) {
