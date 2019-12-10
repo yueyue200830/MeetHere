@@ -16,21 +16,21 @@
 </template>
 
 <script>
-    export default {
-        name: "userRevenue",
-        data () {
-            return {
-                revenues: [],
-            }
-        },
-        created: function () {
-            this.$http
-                .post('http://127.0.0.1:8081/getVenueUserPage')
-                .then(response => {
-                    this.revenues = response.data[0];
-                })
-        },
-    }
+  export default {
+    name: "userRevenue",
+    data () {
+      return {
+        revenues: [],
+      }
+    },
+    created: function () {
+      this.$http
+        .post('http://127.0.0.1:8081/getVenueUserPage')
+        .then(response => {
+          this.revenues = response.data[0];
+        })
+    },
+  }
 </script>
 
 <style scoped>

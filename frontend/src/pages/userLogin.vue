@@ -15,7 +15,7 @@
               { required: true, message: '用户名不可为空'},
             ]"
           prop="name">
-          <el-input type="name" v-model="loginForm.name" placeholder="请输入用户名"></el-input>
+          <el-input type="name" v-model="loginForm.name" placeholder="请输入用户名"/>
         </el-form-item>
         <el-form-item
           label="密码"
@@ -37,47 +37,49 @@
         </el-form-item>
       </el-form>
     </el-main>
-    <user-footer></user-footer>
+    <user-footer/>
   </div>
 </template>
 
 <script>
-    import { mapMutations } from 'vuex'
-    export default {
-        name: "userLogin",
-        data () {
-            return {
-                loginForm: {
-                    name: '',
-                    password: '',
-                },
-            }
+  import { mapMutations } from 'vuex'
+  export default {
+    name: "userLogin",
+    data () {
+      return {
+        loginForm: {
+          name: '',
+          password: '',
         },
-        methods: {
-            ...mapMutations(['changeLogin']),
-            login: function() {
-                this.$refs['loginForm'].validate((valid) => {
-                    if (valid) {
-                        alert("hello");
-                        this.$http
-                            .get('http://127.0.0.1:8081/userLogin', {
-                                params: {
-                                    login: this.loginForm,
-                                }})
-                            .then(response => {
-                                window.console.log(response);
-                                this.changeLogin({ Authorization: 'testToken' });
-                                this.$router.push('main');
-                            });
-                    }
-                });
+      }
+    },
+    methods: {
+      ...mapMutations(['changeLogin']),
+      login: function() {
+        this.$refs['loginForm'].validate((valid) => {
+          if (valid) {
+            this.$http
+              .get('http://127.0.0.1:8081/Login', {
+                params: {
+                  login: this.loginForm,
+                }})
+              .then(response => {
+                if (response.data !== -1) {
+                  this.changeLogin({ Authorization: response.data });
+                  this.$router.push('main');
+                } else {
+                  this.$message.error('用户名或密码错误，请重试！');
+                }
+              });
+          }
+        });
 
-            },
-            managerLogin: function () {
-                this.$router.push('/login')
-            }
-        }
+      },
+      managerLogin: function () {
+        this.$router.push('/login')
+      }
     }
+  }
 </script>
 
 <style scoped>

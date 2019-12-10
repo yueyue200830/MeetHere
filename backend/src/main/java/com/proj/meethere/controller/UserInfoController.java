@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class UserInfoController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/getUserIdByName", method = RequestMethod.POST)
+    @RequestMapping(value = "/getUserIdByName", method = RequestMethod.GET)
     @ResponseBody
     public int getUserIdByName(@RequestParam("user_name") String user_name) {
         List<User> users = userRepository.selectUserByName(user_name);
@@ -31,12 +30,12 @@ public class UserInfoController {
         }
     }
 
-    @RequestMapping(value = "/updateUserById", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateUserById", method = RequestMethod.GET)
     @ResponseBody
     public int updateUserById(@RequestParam("id") int id, @RequestParam("updateForm") String updateForm) {
-       JSONObject jsonObject = new JSONObject(updateForm);
-        String userName = jsonObject.getString("userName");
-        String userKey = jsonObject.getString("userKey");
+        JSONObject jsonObject = new JSONObject(updateForm);
+        String userName = jsonObject.getString("name");
+        String userKey = jsonObject.getString("pass");
         return userRepository.updateUserById(userName, userKey, id);
     }
 
@@ -44,4 +43,18 @@ public class UserInfoController {
 
     // 登陆
     // 返回id，错误-1
+    @RequestMapping(value = "/Login", method = RequestMethod.GET)
+    @ResponseBody
+    public int login(@RequestParam("login") String login) {
+        System.out.println("login");
+        JSONObject jsonObject = new JSONObject(login);
+        String userName = jsonObject.getString("name");
+        String userKey = jsonObject.getString("password");
+        List<User> user = userRepository.selectUserByNameAndId(userName, userKey);
+        if (user.isEmpty()) {
+            return -1;
+        } else {
+            return user.get(0).getId();
+        }
+    }
 }
