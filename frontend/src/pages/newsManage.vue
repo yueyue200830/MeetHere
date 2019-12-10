@@ -11,6 +11,7 @@
                        :rowSelect="true" @select-row="getSelectRow">
             <template slot="operation" slot-scope="props">
               <el-button size="mini" @click="viewTypeDetail(props.prop.id,'edit')">编辑</el-button>
+              <el-button size="mini" @click="viewPhoto(props.prop.id)">查看图片</el-button>
             </template>
           </light-table>
         </el-col>
@@ -62,6 +63,15 @@
         </span>
 
       </el-dialog>
+      <el-dialog
+        :title="this.dialogTitle"
+        :visible.sync="showPhoto"
+        width="50%"
+        :close-on-click-modal="false"
+
+        center>
+        <img src="$!img" width="132" height="132" id="imgs"/>
+      </el-dialog>
     </div>
   </page-main-body>
 </template>
@@ -72,6 +82,7 @@
   const getCheckResultById = (id) => axios.get(`/app/searchNews/${id}`);
   const modifyCheckResult = (checkResultForm) => axios.post('/app/modifyNews', checkResultForm);
   const deleteCheckResultById = (id) => axios.get(`/app/deleteNews/${id}`);
+  const getPhotoById = (id) => axios.get(`/app/getPhoto/${id}`);
   const getNewsInfo = () => axios.post('/app/getNews');
 
   export default {
@@ -80,6 +91,7 @@
       return {
         loading: false,
         title: '新闻动态管理',
+        dialogTitle: '新闻图片',
         columns: [
           {
             prop: 'id',
@@ -116,6 +128,7 @@
           newsPhoto:''
         },
         showDialogType: false,
+        showPhoto: false,
         dialogTypeRules: {
 
         },
@@ -124,11 +137,20 @@
     },
     methods:{
       handleRemove(file,fileList) {
-        console.log(this.dialogTypeForm);
+        //console.log(this.dialogTypeForm);
       },
       handleChange(file) {
         this.dialogTypeForm.newsPhoto = file.raw;
-        console.log(this.dialogTypeForm);
+        //this.readPhoto(file.raw);
+        
+      },
+      readPhoto(file){         
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = function(){
+            document.getElementById("imgs").src = reader.result;
+          }
+          this.showPhoto = true;
       },
       handlePreview(file) {
         //console.log(file);
@@ -140,14 +162,27 @@
         //通过ID搜索，填充内容（id,content,title,photo)
         getCheckResultById(id).then(data => {
           this.loading = false;
-          if (data.data.code === '000') {
+          if (data) {
             // todo
-            this.dialogTypeForm = data.data.datas;
+            this.dialogTypeForm = data.data[0];
             this.showDialogType = true;
           } else {
             this.onAlertError('搜索失败');
           }
         });
+      },
+      //点击查看图片后，出现弹窗，显示图片
+      viewPhoto(id) {
+        this.loading = true;
+        getPhotoById(id).then(data => {
+          this.loading = false;
+          if(data){
+            this.readPhoto(data.data[0]);
+          }else{
+            this.onAlertError('该条新闻没有图片');
+          }
+          
+        })
       },
       //点击添加按钮时，将表格的标题改成添加新闻，展现表格
       addType() {
