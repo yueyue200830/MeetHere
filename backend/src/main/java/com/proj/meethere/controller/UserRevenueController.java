@@ -30,4 +30,15 @@ public class UserRevenueController {
 
         return jsonArray.toString();
     }
+
+    @RequestMapping(value = "/getVenueName", method = RequestMethod.POST)
+    @ResponseBody
+    public String getVenueName() {
+        List<String> revenueList = revenueRepository.getRvnName();
+
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(revenueList);
+
+        return jsonArray.toString();
+    }
 }

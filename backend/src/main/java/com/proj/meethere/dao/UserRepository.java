@@ -36,12 +36,16 @@ public interface UserRepository extends JpaRepository<User,Long> {
     int insertNewUser(@Param("user_name") String user_name, @Param("user_key") String user_key,
                       @Param("user_type") int user_type, @Param("user_photo") String user_photo);
 
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "update user set user_name=:user_name, user_key=:user_key" +
-            "where user_id=:user_id", nativeQuery = true)
+            " where id=:user_id", nativeQuery = true)
     int updateUserById(@Param("user_name") String user_name, @Param("user_key") String user_key,
                        @Param("user_id") int user_id);
 
     @Query(value = "select * from user where user_name=:user_name", nativeQuery = true)
     List<User> selectUserByName(@Param("user_name") String user_name);
+
+    @Query(value = "select * from user where user_name=:name and user_key=:key", nativeQuery = true)
+    List<User> selectUserByNameAndId(@Param("name") String name, @Param("key") String key);
 }

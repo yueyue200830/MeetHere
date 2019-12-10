@@ -33,15 +33,7 @@ public class UserController {
     @ResponseBody
     public List<User> getUser(){
         System.out.println("receive getuser ");
-        List<User> allUser = userRepository.selectAllUserInfo();
-//        List<String> userInfo = new ArrayList<>();
-//        for(int i = 0;i < allUser.size();i++){
-//            User currentUser = allUser.get(i);
-//            JSONObject jo = new JSONObject(currentUser);
-//            userInfo.add(jo.toString());
-//        }
-        //System.out.println("user info :" + userInfo);
-        return allUser;
+        return userRepository.selectAllUserInfo();
     }
 
     @RequestMapping(value = "/deleteUser/{temp}", method = RequestMethod.GET)
@@ -53,18 +45,8 @@ public class UserController {
 
     @RequestMapping(value = "/searchUser/{condition}", method = RequestMethod.GET)
     @ResponseBody
-    public String getSpecificUserInfo(@PathVariable String condition) {
-        List<User> userList = userRepository.selectSpecificUser(Integer.parseInt(condition));
-        String result = "";
-        if (userList.size() == 1) {
-            User currentUser = userList.get(0);
-            JSONObject jsonObject = new JSONObject(currentUser);
-            result = jsonObject.toString();
-        } else {
-            System.out.println("duplicate user");
-            result = "duplicate";
-        }
-        return result;
+    public List<User> getSpecificUserInfo(@PathVariable String condition) {
+        return userRepository.selectSpecificUser(Integer.parseInt(condition));
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
@@ -74,10 +56,10 @@ public class UserController {
         return userRepository.insertNewUser(user_name, user_key, user_type, user_photo);
     }
 
-    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-    @ResponseBody
-    public int updateUserById(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
-                              @RequestParam("user_photo") String user_photo, @RequestParam("user_id") int user_id) {
-        return userRepository.updateUserById(user_name, user_key, user_photo, user_id);
-    }
+//    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+//    @ResponseBody
+//    public int updateUserById(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
+//                              @RequestParam("user_photo") String user_photo, @RequestParam("user_id") int user_id) {
+//        return userRepository.updateUserById(user_name, user_key, user_photo, user_id);
+//    }
 }

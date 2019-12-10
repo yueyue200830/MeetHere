@@ -36,7 +36,7 @@ public class UserMessageController {
 
     @RequestMapping(value = "/getMoreMessage", method = RequestMethod.GET)
     @ResponseBody
-    public String getMoreMessages(@RequestParam("lastTime") String lastTime, @RequestParam("number") int number) throws ParseException {
+    public String getMoreMessages(@RequestParam("lastTime") String lastTime, @RequestParam("number") int number) {
         List<Message> moreMessages = messageRepositroy.findMoreMessagesBefore(lastTime, number);
 
         JSONArray jsonArray = new JSONArray();

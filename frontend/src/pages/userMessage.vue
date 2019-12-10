@@ -3,8 +3,8 @@
       <div class="user-title">
         留言
       </div>
-      <el-button type="primary" icon="el-icon-refresh-right" circle class="refresh" @click="refresh"></el-button>
-      <el-button type="primary" icon="el-icon-plus" circle class="add-comment" @click="addNewsButton"></el-button>
+      <el-button type="primary" icon="el-icon-refresh-right" circle class="refresh" @click="refresh"/>
+      <el-button type="primary" icon="el-icon-plus" circle class="add-comment" @click="addNewsButton"/>
       <div class="main-card" v-for="comment in comments" :key="comment.id">
         <el-card class="box-card" shadow="hover">
           <div slot="header" class="headline">
@@ -39,7 +39,7 @@
               { required: true, message: '标题不可为空'},
             ]"
             prop="title">
-            <el-input type="title" v-model="addNewsForm.title"></el-input>
+            <el-input type="title" v-model="addNewsForm.title"/>
           </el-form-item>
           <el-form-item
             label="内容"
@@ -65,78 +65,76 @@
 </template>
 
 <script>
-    export default {
-        name: "userMessage",
-        data () {
-            return {
-                comments: [],
-                addNewsVisibility: false,
-                addNewsForm: {
-                    title: '',
-                    content: '',
-                },
-            }
+  export default {
+    name: "userMessage",
+    data () {
+      return {
+        comments: [],
+        addNewsVisibility: false,
+        addNewsForm: {
+          title: '',
+          content: '',
         },
-        created: function () {
-            this.$http
-                .post('http://127.0.0.1:8081/getLatestMessage')
-                .then(response => {
-                    this.comments = response.data[0];
-                });
-        },
-        methods: {
-            loadMore: function() {
-                this.$http
-                    .get('http://127.0.0.1:8081/getMoreMessage', {
-                        params: {
-                            lastTime: this.comments[this.comments.length - 1].messageTime,
-                            number: 2,
-                        }})
-                    .then(response => {
-                        for (let i = 0; i < response.data[0].length; i++) {
-                            this.comments.push(response.data[0][i]);
-                        }
-                    });
-            },
-            refresh: function () {
-                this.$http
-                    .post('http://127.0.0.1:8081/getLatestMessage')
-                    .then(response => {
-                        this.comments = response.data[0];
-                    });
-            },
-            convertTime: function (time) {
-                let date = new Date(time);
-                return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-                    + " " + date.getHours() + ":" + date.getMinutes();
-            },
-            addNews: function () {
-                // Send data to backend.
-                this.$http
-                    .get('http://127.0.0.1:8081/addMessage', {
-                        params: {
-                            "addNewsForm": this.addNewsForm,
-                            "id": 1
-                        }})
-                    .then(response => {
-                        window.console.log(response);
-                        if (response.data === 0) {
-                            alert("添加失败");
-                        }
-                        this.$refs['addNewsForm'].resetFields();
-                        this.addNewsVisibility = false;
-                        this.refresh();
-                    });
-            },
-            addNewsButton: function () {
-                this.addNewsVisibility = true;
-            },
-            cancelAddNews: function () {
-                this.$refs['addNewsForm'].resetFields();
-                this.addNewsVisibility = false;
+      }
+    },
+    created: function () {
+      this.$http
+        .post('http://127.0.0.1:8081/getLatestMessage')
+        .then(response => {
+          this.comments = response.data[0];
+        });
+    },
+    methods: {
+      loadMore: function() {
+        this.$http
+          .get('http://127.0.0.1:8081/getMoreMessage', {
+            params: {
+              lastTime: this.comments[this.comments.length - 1].messageTime,
+              number: 2,
+            }})
+          .then(response => {
+            for (let i = 0; i < response.data[0].length; i++) {
+              this.comments.push(response.data[0][i]);
             }
-        }
+          });
+      },
+      refresh: function () {
+        this.$http
+          .post('http://127.0.0.1:8081/getLatestMessage')
+          .then(response => {
+            this.comments = response.data[0];
+          });
+      },
+      convertTime: function (time) {
+        let date = new Date(time);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+          + " " + date.getHours() + ":" + date.getMinutes();
+      },
+      addNews: function () {
+        this.$http
+          .get('http://127.0.0.1:8081/addMessage', {
+            params: {
+              "addNewsForm": this.addNewsForm,
+              "id": 1
+            }})
+          .then(response => {
+            if (response.data === 0) {
+              this.$message.error('添加失败');
+            }
+            this.$refs['addNewsForm'].resetFields();
+            this.addNewsVisibility = false;
+            this.refresh();
+          });
+      },
+      addNewsButton: function () {
+        this.addNewsVisibility = true;
+      },
+      cancelAddNews: function () {
+        this.$refs['addNewsForm'].resetFields();
+        this.addNewsVisibility = false;
+      }
     }
+  }
 </script>
 
 <style scoped>

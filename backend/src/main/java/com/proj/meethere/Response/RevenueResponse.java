@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class RevenueResponse {
     private String title;
-    private int isDelete;
+    private boolean isDelete;
     private int id;
     private int rvnPrice;
     private  String rvnIntro;

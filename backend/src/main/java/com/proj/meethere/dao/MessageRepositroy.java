@@ -24,6 +24,7 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
     @Query(value = "select * from message where id = :id",nativeQuery = true)
     List<Message> selectSpecificMessage(@Param("id") int id);
 
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "Update message set msg_visibility = 1 where id = :id",nativeQuery = true)
     int setMessageVisibility(@Param("id") int id);
@@ -50,4 +51,5 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
      */
     @Query(value = "SELECT * FROM message WHERE msg_time < :lastTime and msg_visibility=1 ORDER BY msg_time DESC LIMIT :number ", nativeQuery = true)
     List<Message> findMoreMessagesBefore(@Param("lastTime") String lastTime, @Param("number") int number);
+
 }

@@ -24,9 +24,9 @@
         </el-menu>
       </el-header>
       <div class="user-body">
-        <router-view></router-view>
+        <router-view/>
       </div>
-      <user-footer></user-footer>
+      <user-footer/>
     </div>
 </template>
 

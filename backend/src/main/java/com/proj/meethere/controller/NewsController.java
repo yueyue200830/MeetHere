@@ -1,8 +1,10 @@
 package com.proj.meethere.controller;
 
+import com.proj.meethere.Request.NewsAddRequest;
 import com.proj.meethere.Request.NewsRequest;
 import com.proj.meethere.dao.NewsRepository;
 import com.proj.meethere.entity.News;
+import java.io.File;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -38,6 +40,7 @@ public class NewsController {
         return newsRequestList;
     }
 
+
     @RequestMapping(value = "/deleteNews/{id}", method = RequestMethod.GET)
     @ResponseBody
     int deleteNews(@PathVariable String id) {
@@ -55,6 +58,7 @@ public class NewsController {
     @ResponseBody
     List<NewsRequest> getSpecificNews(@PathVariable String id) {
         List<News> newsList = newsRepository.selectSpecificNews(Integer.parseInt(id));
+        System.out.println(newsList.get(0).getId());
         List<NewsRequest> newsRequestList = new ArrayList<>();
         for(News news : newsList) {
             NewsRequest newsRequest = new NewsRequest();
@@ -67,10 +71,13 @@ public class NewsController {
         return newsRequestList;
     }
 
-//    @RequestMapping(value = "/addNews", method = RequestMethod.POST)
-//    @ResponseBody
-//    public int addNewNews(@RequestParam("newsContent") String newsContent, @RequestParam("newsTitle") String newsTitle,
-//                   @RequestParam("newsPhoto") String newsPhoto){
-//        return newsRepository.insertNewNews(newsContent, newsTitle, newsPhoto);
-// }
+    @RequestMapping(value = "/addNews", method = RequestMethod.POST)
+    @ResponseBody
+    public int addNewNews(@RequestBody NewsAddRequest newsAddRequest) {
+        System.out.println(newsAddRequest);
+        File currentPhoto = newsAddRequest.getNewsPhoto();
+        System.out.println(currentPhoto.getName());
+
+        return 1;
+ }
 }

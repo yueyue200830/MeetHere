@@ -24,6 +24,7 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
     @Query(value = "delete from news where id = :id",nativeQuery = true)
     int deleteSpecificNews(@Param("id") int id);
 
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "Update news set news_content = :newsContent, news_title = :newsTitle, news_photo = :newsPhoto where id = :id",nativeQuery = true)
     int updateSpeceficNews(@Param("newsContent") String newsContent, @Param("newsTitle") String newsTitle, @Param("newsPhoto") String newsPhoto, @Param("id") int id);
@@ -36,4 +37,7 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
             "value (:newsContent, :newsTitle, :newsPhoto, now())", nativeQuery = true)
     int insertNewNews(@Param("newsContent") String newsContent, @Param("newsTitle") String newsTitle,
                       @Param("newsPhoto") String newsPhoto);
+
+    @Query(value = "select * form news where id>=:first and id<=:last order by news_time desc", nativeQuery = true)
+    List<News> findNewsByScope(@Param("first") int first, @Param("last") int last);
 }

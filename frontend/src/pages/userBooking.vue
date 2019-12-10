@@ -7,9 +7,9 @@
       <el-select v-model="revenue" placeholder="请选择场馆" class="select-revenue">
         <el-option
           v-for="item in revenues"
-          :key="item.value"
-          :label="item.value"
-          :value="item.value">
+          :key="item"
+          :label="item"
+          :value="item">
         </el-option>
       </el-select>
       <div class="select-date">
@@ -24,15 +24,15 @@
     </div>
     <table class="booking-table">
       <tr>
-        <th></th>
+        <th class="table-th">时间段</th>
         <th v-for="i in revenueNumber" class="table-th">{{ i }}号场</th>
       </tr>
       <tr v-for="time in timeSlot">
         <th class="table-time">{{ time+9 }}点 - {{ time+10 }}点</th>
         <td v-for="i in revenueNumber" class="table-td">
-          <div v-if="cost[time][i-1] > 0" class="booking-td">
+          <div v-if="cost[time-1][i-1] > 0" class="booking-td">
             <el-button type="text" class="booking-inner" @click="clickOrder(time, i)">
-              ￥{{ cost[time][i-1] }}
+              ￥{{ cost[time-1][i-1] }}
             </el-button>
           </div>
           <div v-else class="reserved">
@@ -49,17 +49,27 @@
         <el-form-item
           label="场馆"
           label-width="100px">
-          <el-input v-model="addOrderForm.revenue" disabled></el-input>
+          <el-input v-model="addOrderForm.revenue" disabled/>
+        </el-form-item>
+        <el-form-item
+          label="场地号"
+          label-width="100px">
+          <el-input v-model="addOrderForm.room" disabled/>
         </el-form-item>
         <el-form-item
           label="日期"
           label-width="100px">
-          <el-input v-model="addOrderForm.date" disabled></el-input>
+          <el-input v-model="addOrderForm.date" disabled/>
         </el-form-item>
         <el-form-item
           label="时间"
           label-width="100px">
-          <el-input v-model="addOrderForm.time" disabled></el-input>
+          <el-input v-model="addOrderForm.time" disabled/>
+        </el-form-item>
+        <el-form-item
+          label="价格"
+          label-width="100px">
+          <el-input v-model="addOrderForm.price" disabled/>
         </el-form-item>
         <el-form-item
           label="手机号"
@@ -70,7 +80,7 @@
               { type: 'number', message: '手机号必须为数字'}
             ]"
         >
-          <el-input type="phoneNumber" v-model.number="addOrderForm.phoneNumber"></el-input>
+          <el-input type="phoneNumber" v-model.number="addOrderForm.phoneNumber"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -82,86 +92,98 @@
 </template>
 
 <script>
-    export default {
-        name: "userBooking",
-        data() {
-            return {
-                revenues: [{
-                    value: '篮球',
-                }, {
-                    value: '排球',
-                }, {
-                    value: '乒乓球',
-                }, {
-                    value: '羽毛球',
-                }],
-                revenue: '篮球',
-                date: '2019-11-6',
-                pickerOptions: {
-                    disabledDate(time) {
-                        return time.getTime() < Date.now();
-                    },
-                },
-                timeSlot: 12,
-                revenueNumber: 4,
-                cost: [[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 0, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ],[
-                    50, 50, 50, 50
-                ]],
-                addOrderVisibility: false,
-                addOrderForm: {
-                    revenue: '',
-                    date: '',
-                    time: '',
-                    phoneNumber: '',
-                },
-            }
+  export default {
+    name: "userBooking",
+    data() {
+      return {
+        revenues: [],
+        revenue: null,
+        date: this.getTomorrow(),
+        pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() < Date.now();
+          },
         },
-        methods: {
-            clickOrder: function (time, num) {
-                this.addOrderVisibility = true;
-                this.addOrderForm.revenue = this.revenue;
-                this.addOrderForm.date = this.date;
-                this.addOrderForm.time = (time+9) + "点 - " + (time+10) + "点";
-            },
-            orderRevenue: function () {
-                // Send data to backend.
-                // Go to my order
-                this.$refs['addOrderForm'].resetFields();
-                this.addOrderVisibility = false;
-            },
-            cancelOrder: function () {
-                this.$refs['addOrderForm'].resetFields();
-                this.addOrderVisibility = false;
-            },
-            searchOrder: function () {
-                // Send search data to backend
+        timeSlot: 0,
+        revenueNumber: 4,
+        cost: [],
+        addOrderVisibility: false,
+        addOrderForm: {
+          revenue: null,
+          room: null,
+          date: null,
+          price: null,
+          time: null,
+          timeSlot: null,
+          phoneNumber: null,
+        },
+      }
+    },
+    created: function () {
+      this.$http
+        .post('http://127.0.0.1:8081/getVenueName')
+        .then(response => {
+          this.revenues = response.data[0];
+          this.revenue = this.revenues[0];
+          this.searchOrder();
+        });
+    },
+    methods: {
+      clickOrder: function (time, num) {
+        this.addOrderVisibility = true;
+        this.addOrderForm.revenue = this.revenue;
+        this.addOrderForm.room = num;
+        this.addOrderForm.date = this.convertTime(this.date);
+        this.addOrderForm.time = (time+9) + "点 - " + (time+10) + "点";
+        this.addOrderForm.timeSlot = time;
+        this.addOrderForm.price = this.cost[time - 1][num - 1];
+      },
+      orderRevenue: function () {
+        this.$http
+          .get('http://127.0.0.1:8081/addOrder', {
+            params: {
+              "addOrderForm": this.addOrderForm,
+              "id": 1
+            }})
+          .then(response => {
+            this.$refs['addOrderForm'].resetFields();
+            this.addOrderVisibility = false;
+            if (response.data === 1) {
+              this.$router.push('order');
+            } else {
+              // Error
+              this.$message.error('预定失败，请重试！');
+              this.searchOrder();
             }
-        }
+          });
+      },
+      cancelOrder: function () {
+        this.$refs['addOrderForm'].resetFields();
+        this.addOrderVisibility = false;
+      },
+      searchOrder: function () {
+        this.$http
+          .get('http://127.0.0.1:8081/getAvailable', {
+            params: {
+              "revenueName": this.revenue,
+              "date": this.convertTime(this.date)
+            }})
+          .then(response => {
+            this.cost = response.data.available;
+            this.timeSlot = response.data.available.length;
+            this.revenueNumber = response.data.available[0].length;
+          });
+      },
+      convertTime: function (time) {
+        let date = new Date(time);
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      },
+      getTomorrow: function () {
+        let date = new Date();
+        return date.setDate(date.getDate() + 1)
+      },
     }
+  }
 </script>
 
 <style scoped>

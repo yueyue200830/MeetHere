@@ -3,118 +3,133 @@
     <div class="user-title">
       个人信息
     </div>
-    <el-form :model="userForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="self-form">
+    <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="100px" class="self-form">
       <el-form-item label="用户名" prop="name">
-        <el-input v-model.number="userForm.name"></el-input>
+        <el-input v-model.number="userForm.name"/>
       </el-form-item>
       <el-form-item label="原密码" prop="originalPass">
-        <el-input type="password" v-model="userForm.originalPass" autocomplete="off"></el-input>
+        <el-input type="password" v-model="userForm.originalPass" autocomplete="off"/>
       </el-form-item>
       <el-form-item label="新密码" prop="pass">
-        <el-input type="password" v-model="userForm.pass" autocomplete="off"></el-input>
+        <el-input type="password" v-model="userForm.pass" autocomplete="off"/>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input type="password" v-model="userForm.checkPass" autocomplete="off"></el-input>
+        <el-input type="password" v-model="userForm.checkPass" autocomplete="off"/>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
+        <el-button @click="resetForm('userForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </el-main>
 </template>
 
 <script>
-    export default {
-        name: "userInfo",
-        data() {
-            // 发送请求查询用户名
-            const checkName = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入用户名'));
-                } else {
-                    callback();
-                }
-            };
-            const validateOriginalPass = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入密码'));
-                } else {
-                    if (this.userForm.checkPass !== '') {
-                        this.$refs.ruleForm.validateField('checkPass');
-                    }
-                    callback();
-                }
-            };
-            const validatePass = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入密码'));
-                } else {
-                    if (this.userForm.checkPass !== '') {
-                        this.$refs.ruleForm.validateField('checkPass');
-                    }
-                    callback();
-                }
-            };
-            const validatePass2 = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请再次输入密码'));
-                } else if (value !== this.userForm.pass) {
-                    callback(new Error('两次输入密码不一致!'));
-                } else {
-                    callback();
-                }
-            };
-            return {
-                userForm: {
-                    name: 'my name',
-                    originalPass: '',
-                    pass: '',
-                    checkPass: '',
-                },
-                rules: {
-                    name: [
-                        { validator: checkName, trigger: 'blur' }
-                    ],
-                    originalPass: [
-                        { validator: validateOriginalPass, trigger: 'blur' }
-                    ],
-                    pass: [
-                        { validator: validatePass, trigger: 'blur' }
-                    ],
-                    checkPass: [
-                        { validator: validatePass2, trigger: 'blur' }
-                    ],
-                }
-            };
-        },
-        methods: {
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert("change name");
-                        // this.$http
-                        //     .get('http://127.0.0.1:8081/getMoreMessage', {
-                        //         params: {
-                        //             id: 3,
-                        //             form: this.userForm,
-                        //         }})
-                        //     .then(response => {
-                        //         for (let i = 0; i < response.data[0].length; i++) {
-                        //             this.comments.push(response.data[0][i]);
-                        //         }
-                        //     });
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
-            }
+  export default {
+    name: "userInfo",
+    data() {
+      const checkName = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入用户名'));
+        } else {
+          this.$http
+            .get('http://127.0.0.1:8081/getUserIdByName', {
+              params: {
+                user_name: value,
+              }})
+            .then(response => {
+              if (response.data === 0) {
+                callback();
+              } else {
+                callback(new Error('用户名已存在'));
+              }
+            });
         }
+      };
+      const validateOriginalPass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.userForm.checkPass !== '') {
+            this.$refs.userForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      const validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.userForm.checkPass !== '') {
+            this.$refs.userForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      const validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.userForm.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
+      return {
+        userForm: {
+          name: 'my name',
+          originalPass: '',
+          pass: '',
+          checkPass: '',
+        },
+        rules: {
+          name: [
+            { validator: checkName, trigger: 'blur' }
+          ],
+          originalPass: [
+            { validator: validateOriginalPass, trigger: 'blur' }
+          ],
+          pass: [
+            { validator: validatePass, trigger: 'blur' }
+          ],
+          checkPass: [
+            { validator: validatePass2, trigger: 'blur' }
+          ],
+        }
+      };
+    },
+    methods: {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.$http
+              .get('http://127.0.0.1:8081/updateUserById', {
+                params: {
+                  id: 2,
+                  updateForm: this.userForm,
+                }})
+              .then(response => {
+                if (response.data === 1) {
+                  this.$message({
+                    message: '修改成功',
+                    type: 'success'
+                  });
+                  this.resetForm(formName);
+                } else {
+                  this.$message.error('修改失败，请重试！');
+                }
+              });
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
     }
+  }
 </script>
 
 <style scoped>

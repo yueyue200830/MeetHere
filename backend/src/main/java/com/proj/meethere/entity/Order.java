@@ -20,20 +20,26 @@ public class Order {
     @Column(name = "order_phone")
     String orderPhone;
 
+    // 所预约具体房间
     @Column(name = "rvn_room")
     int rvnRoomNum;
 
     @Column(name = "rvn_id")
     int rvnId;
 
+    // 1-12
     @Column(name = "order_timeslot")
     int timeSlot;
 
     @Column(name = "order_date")
     String orderDate;
 
+    // 1：通过 0：未通过
     @Column(name = "order_approved")
     int orderApproved;
+
+    @Column(name = "order_price")
+    int orderPrice;
 
     public Order() {
     }
@@ -100,5 +106,13 @@ public class Order {
 
     public void setOrderApproved(int orderApproved) {
         this.orderApproved = orderApproved;
+    }
+
+    public int getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(int orderPrice) {
+        this.orderPrice = orderPrice;
     }
 }
