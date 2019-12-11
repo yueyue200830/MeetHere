@@ -1,5 +1,6 @@
 package com.proj.meethere.entity;
 import javax.persistence.*;
+import java.sql.Blob;
 
 
 /**
@@ -19,7 +20,7 @@ public class News {
     String newsContent;
 
     @Column(name = "news_photo")
-    String newsPhoto;
+    Blob newsPhoto;
 
     @Column(name = "news_title")
     String newsTitle;
@@ -28,6 +29,13 @@ public class News {
     String newsTime;
 
     public News() {
+    }
+
+    public News(String newsContent, Blob newsPhoto, String newsTitle, String newsTime) {
+        this.newsContent = newsContent;
+        this.newsPhoto = newsPhoto;
+        this.newsTitle = newsTitle;
+        this.newsTime = newsTime;
     }
 
     public int getId() {
@@ -46,11 +54,11 @@ public class News {
         this.newsContent = newsContent;
     }
 
-    public String getNewsPhoto() {
+    public Blob getNewsPhoto() {
         return newsPhoto;
     }
 
-    public void setNewsPhoto(String newsPhoto) {
+    public void setNewsPhoto(Blob newsPhoto) {
         this.newsPhoto = newsPhoto;
     }
 

@@ -1,19 +1,15 @@
 package com.proj.meethere.controller;
 
-import com.proj.meethere.Request.NewsAddRequest;
 import com.proj.meethere.Request.NewsRequest;
 import com.proj.meethere.Service.NewsService;
-import com.proj.meethere.dao.NewsRepository;
-import com.proj.meethere.entity.News;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.UnsupportedEncodingException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -28,7 +24,7 @@ public class NewsController {
 
     @RequestMapping(value = "/getNews", method = RequestMethod.POST)
     @ResponseBody
-    List<NewsRequest> getAllNews() {
+    List<NewsRequest> getAllNews() throws UnsupportedEncodingException, SQLException {
         return newsService.getNews();
     }
 
@@ -42,20 +38,31 @@ public class NewsController {
 
     @RequestMapping(value = "/modifyNews", method = RequestMethod.POST)
     @ResponseBody
-    public int updateNews(@RequestBody NewsRequest newsRequest) {
-        return newsService.updateNews(newsRequest.getNewsContent(), newsRequest.getTitle(), newsRequest.getNewsPhoto(), newsRequest.getId());
+    public int updateNews(@RequestBody NewsRequest newsRequest) throws SQLException {
+        System.out.println("noe modify news" );
+        Blob newsPhoto = new SerialBlob(newsRequest.getNewsPhoto().getBytes());
+        return newsService.updateNews(newsRequest.getNewsContent(), newsRequest.getTitle(), newsPhoto, newsRequest.getId());
     }
 
     @RequestMapping(value = "/searchNews/{id}",method = RequestMethod.GET)
     @ResponseBody
-    List<NewsRequest> getSpecificNews(@PathVariable String id) {
+    List<NewsRequest> getSpecificNews(@PathVariable String id) throws UnsupportedEncodingException, SQLException {
         return  newsService.searchSpecificNews(Integer.parseInt(id));
     }
 
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
     @ResponseBody
-    public int addNewNews(@RequestBody NewsAddRequest newsAddRequest) {
+    public int addNewNews(@RequestBody NewsRequest newsRequest) throws SQLException {
         //todo: fix photo string problem.
-        return newsService.addNews(newsAddRequest.getNewsContent(), newsAddRequest.getTitle(), newsAddRequest.getNewsPhoto().toString());
+
+        Blob newsPhoto = new SerialBlob(newsRequest.getNewsPhoto().getBytes());
+        System.out.println(newsPhoto);
+        return newsService.addNews(newsRequest.getNewsContent(), newsRequest.getNewsTitle(), newsPhoto);
  }
+
+    @RequestMapping(value = "/getPhoto/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getPhotoById(@PathVariable String id) throws UnsupportedEncodingException, SQLException {
+        return newsService.getPhotoById(Integer.parseInt(id));
+    }
 }
