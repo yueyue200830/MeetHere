@@ -147,7 +147,7 @@
         reader.onload = function(e){
           temp.newsPhoto = this.result;        
         }
-        this.dialogTypeForm = temp;
+        this.dialogTypeForm = temp;        
         //console.log(this.dialogTypeForm);
       },
 
@@ -164,7 +164,10 @@
           this.loading = false;
           if (data) {
             console.log(data);
-            this.dialogTypeForm = data.data[0];
+            this.dialogTypeForm.newsContent = data.data[0].newsContent;
+            this.dialogTypeForm.newsPhoto = data.data[0].newsPhoto;
+            this.dialogTypeForm.newsTitle = data.data[0].newsTitle;
+            this.dialogTypeForm.title = '修改新闻';
             this.showDialogType = true;
           } else {
             this.onAlertError('搜索失败');
@@ -174,15 +177,21 @@
       //点击查看图片后，出现弹窗，显示图片
       viewPhoto(id) {
         this.loading = true;
+        var temp;
         getPhotoById(id).then(data => {
-          this.loading = false;        
+          this.loading = false;
+          temp = data.data;        
           if(data){
-            this.showPhoto = true; //显示弹窗
-            document.getElementById("imgs").src = data.data;   
+            
           }else{
             this.onAlertError('该条新闻没有图片');
           }
         })
+        if(temp){
+          this.showPhoto = true; //显示弹窗
+          document.getElementById("imgs").src = temp;
+        }
+        
       },
       //点击添加按钮时，将表格的标题改成添加新闻，展现表格
       addType() {
@@ -228,10 +237,10 @@
                       this.searchData=data.data;
                       this.preData=data.data;
                     })
-                    this.onAlertError('保存成功');
+                    this.onAlertSuccess('添加成功');
                 } else {
                     
-                    this.onAlertSuccess('保存失败');
+                    this.onAlertError('添加失败');
                 }
             });
         }
@@ -253,9 +262,6 @@
                 getNewsInfo().then(data => {
                   this.searchData=data.data;
                   this.preData=data.data;
-                  if (data.data.code === '000') {
-                    this.showDialogType = false;
-                  }
                 });
               } else {
                 this.onAlertError('删除失败');
