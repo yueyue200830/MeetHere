@@ -147,7 +147,7 @@
         reader.onload = function(e){
           temp.newsPhoto = this.result;        
         }
-        this.dialogTypeForm = temp;
+        this.dialogTypeForm = temp;        
         //console.log(this.dialogTypeForm);
       },
 
@@ -157,14 +157,17 @@
       },
       //点击编辑按钮时，出现弹窗，表格中填充该行新闻的内容
       viewTypeDetail(id, action) {
-        this.loading = true;   //调试中，调试结束后把注释符号去掉
         this.dialogTypeForm.title = '修改新闻';
+        this.loading = true;   //调试中，调试结束后把注释符号去掉
         //通过ID搜索，填充内容（id,content,title,photo)
         getCheckResultById(id).then(data => {
           this.loading = false;
           if (data) {
             console.log(data);
-            this.dialogTypeForm = data.data[0];
+            this.dialogTypeForm.newsContent = data.data[0].newsContent;
+            this.dialogTypeForm.newsPhoto = data.data[0].newsPhoto;
+            this.dialogTypeForm.newsTitle = data.data[0].newsTitle;
+            this.dialogTypeForm.title = '修改新闻';
             this.showDialogType = true;
           } else {
             this.onAlertError('搜索失败');
@@ -174,15 +177,21 @@
       //点击查看图片后，出现弹窗，显示图片
       viewPhoto(id) {
         this.loading = true;
+        var temp;
         getPhotoById(id).then(data => {
-          this.loading = false;        
+          this.loading = false;
+          temp = data.data;        
           if(data){
-            document.getElementById("imgs").src = data.data[0];
-            this.showPhoto = true; //显示弹窗
+            
           }else{
             this.onAlertError('该条新闻没有图片');
           }
         })
+        if(temp){
+          this.showPhoto = true; //显示弹窗
+          document.getElementById("imgs").src = temp;
+        }
+        
       },
       //点击添加按钮时，将表格的标题改成添加新闻，展现表格
       addType() {
@@ -203,37 +212,35 @@
       //点击保存按钮之后，如果是修改新闻，则后端API为update，如果是添加新闻则后端API为添加
       saveCheckResult () {
         this.loading = true;
-        console.log(typeof(this.dialogTypeForm.newsPhoto));
+        
         if (this.dialogTypeForm.title == '修改新闻') {
             modifyCheckResult(this.dialogTypeForm).then(data => {
                 this.loading=false;
-                if (data) {
+                this.showDialogType = false;
+                if (data.data) {
                     getNewsInfo().then(data => {
                       this.searchData=data.data;
                       this.preData=data.data;
-                      if (data.data.code === '000') {
-                        this.showDialogType = false;
-                      }
                     })
-                    this.showDialogType = false;
+                  this.onAlertSuccess('修改成功');  
+                }else{
+                  this.onAlertError('修改失败')
                 }
             });
         } else {
             console.log(this.dialogTypeForm.newsPhoto);
             addCheckResult(this.dialogTypeForm).then(data => {
                 this.loading = false;
-                if (data) {
+                this.showDialogType = false;
+                if (data.data) {
                     getNewsInfo().then(data => {
                       this.searchData=data.data;
                       this.preData=data.data;
-                      if (data.data.code === '000') {
-                        this.showDialogType = false;
-                      }
                     })
-                    this.onAlertError('保存失败');
+                    this.onAlertSuccess('添加成功');
                 } else {
-                    this.showDialogType = false;
-                    this.onAlertSuccess('保存成功');
+                    
+                    this.onAlertError('添加失败');
                 }
             });
         }
@@ -250,14 +257,11 @@
             let temp=id[i];
             deleteCheckResultById(temp).then(data => {
               this.loading = false;
-              if (data.data.affectedRows!=0) {
-                this.onAlertError('删除成功');
+              if (data.data) {
+                this.onAlertSuccess('删除成功');
                 getNewsInfo().then(data => {
                   this.searchData=data.data;
                   this.preData=data.data;
-                  if (data.data.code === '000') {
-                    this.showDialogType = false;
-                  }
                 });
               } else {
                 this.onAlertError('删除失败');
@@ -278,12 +282,8 @@
     mounted(){
       //渲染表格数据
       getNewsInfo().then(data => {
-        console.log(data.data);
         this.searchData=data.data;
         this.preData=data.data;
-        if (data.data.code === '000') {
-          this.showDialogType = false;
-        }
       })
     }
   }

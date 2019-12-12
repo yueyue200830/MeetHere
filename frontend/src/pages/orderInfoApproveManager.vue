@@ -122,7 +122,7 @@
             changeResultById (temp) . then (data => {
               this.loading = false;
               if (data) {
-                this.onAlertError('审核通过成功');
+                this.onAlertSuccess('审核通过成功');
                 getOrderInfo().then(data => {
                     this.searchData=data.data;
                     this.preData=data.data;
