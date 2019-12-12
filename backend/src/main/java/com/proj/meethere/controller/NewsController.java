@@ -5,6 +5,7 @@ import com.proj.meethere.Request.NewsRequest;
 import com.proj.meethere.Service.NewsService;
 import com.proj.meethere.dao.NewsRepository;
 import com.proj.meethere.entity.News;
+import org.hibernate.Hibernate;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +58,8 @@ public class NewsController {
     @ResponseBody
     public int addNewNews(@RequestBody NewsAddRequest newsAddRequest) {
         //todo: fix photo string problem.
+        System.out.println(newsAddRequest.getNewsPhoto().length());
+
         return newsService.addNews(newsAddRequest.getNewsContent(), newsAddRequest.getTitle(), newsAddRequest.getNewsPhoto().toString());
  }
 }

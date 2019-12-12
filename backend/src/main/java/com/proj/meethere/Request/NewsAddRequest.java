@@ -15,5 +15,5 @@ public class NewsAddRequest {
     private int id;
     private String newsContent;
     private String newsTitle;
-    private File newsPhoto;
+    private String newsPhoto;
 }
