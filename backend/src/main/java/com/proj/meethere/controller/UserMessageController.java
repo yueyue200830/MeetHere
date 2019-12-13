@@ -46,7 +46,7 @@ public class UserMessageController {
 
     @RequestMapping(value = "/addMessage", method = RequestMethod.GET)
     @ResponseBody
-    public int addNewMessage(@RequestParam("addNewsForm") String newForm, @RequestParam("id") int user_id) {
+    public int addNewMessage(@RequestParam("addMessageForm") String newForm, @RequestParam("id") int user_id) {
         JSONObject jsonObject = new JSONObject(newForm);
         String title = jsonObject.getString("title");
         String content = jsonObject.getString("content");

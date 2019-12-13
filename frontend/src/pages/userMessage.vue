@@ -4,7 +4,7 @@
         留言
       </div>
       <el-button type="primary" icon="el-icon-refresh-right" circle class="refresh" @click="refresh"/>
-      <el-button type="primary" icon="el-icon-plus" circle class="add-comment" @click="addNewsButton"/>
+      <el-button type="primary" icon="el-icon-plus" circle class="add-comment" @click="addMessageButton"/>
       <div class="main-card" v-for="comment in comments" :key="comment.id">
         <el-card class="box-card" shadow="hover">
           <div slot="header" class="headline">
@@ -29,9 +29,9 @@
       </div>
       <el-dialog
         title="添加留言"
-        :visible.sync="addNewsVisibility"
+        :visible.sync="addMessageVisibility"
         width="50%">
-        <el-form :model="addNewsForm" ref="addNewsForm">
+        <el-form :model="addMessageForm" ref="addMessageForm">
           <el-form-item
             label="标题"
             label-width="100px"
@@ -39,7 +39,7 @@
               { required: true, message: '标题不可为空'},
             ]"
             prop="title">
-            <el-input type="title" v-model="addNewsForm.title"/>
+            <el-input type="title" v-model="addMessageForm.title"/>
           </el-form-item>
           <el-form-item
             label="内容"
@@ -52,13 +52,13 @@
               type="textarea"
               :autosize="{ minRows: 3, maxRows: 6}"
               placeholder="请输入内容"
-              v-model="addNewsForm.content">
+              v-model="addMessageForm.content">
             </el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cancelAddNews">取 消</el-button>
-          <el-button type="primary" @click="addNews">确 定</el-button>
+          <el-button @click="cancelAddMessage">取 消</el-button>
+          <el-button type="primary" @click="addMessage">确 定</el-button>
         </div>
       </el-dialog>
     </el-main>
@@ -70,8 +70,8 @@
     data () {
       return {
         comments: [],
-        addNewsVisibility: false,
-        addNewsForm: {
+        addMessageVisibility: false,
+        addMessageForm: {
           title: '',
           content: '',
         },
@@ -110,28 +110,28 @@
         return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
           + " " + date.getHours() + ":" + date.getMinutes();
       },
-      addNews: function () {
+      addMessage: function () {
         this.$http
           .get('http://127.0.0.1:8081/addMessage', {
             params: {
-              "addNewsForm": this.addNewsForm,
+              "addMessageForm": this.addMessageForm,
               "id": 1
             }})
           .then(response => {
             if (response.data === 0) {
               this.$message.error('添加失败');
             }
-            this.$refs['addNewsForm'].resetFields();
-            this.addNewsVisibility = false;
+            this.$refs['addMessageForm'].resetFields();
+            this.addMessageVisibility = false;
             this.refresh();
           });
       },
-      addNewsButton: function () {
-        this.addNewsVisibility = true;
+      addMessageButton: function () {
+        this.addMessageVisibility = true;
       },
-      cancelAddNews: function () {
-        this.$refs['addNewsForm'].resetFields();
-        this.addNewsVisibility = false;
+      cancelAddMessage: function () {
+        this.$refs['addMessageForm'].resetFields();
+        this.addMessageVisibility = false;
       }
     }
   }

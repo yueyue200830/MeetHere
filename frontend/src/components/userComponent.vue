@@ -8,6 +8,8 @@
           text-color="white"
           active-text-color="white"
           class="user-menu"
+          :default-active="activePath"
+          @select="handleSelect"
           unique-opened
           router>
           <el-menu-item index="main">首页</el-menu-item>
@@ -32,7 +34,25 @@
 
 <script>
     export default {
-        name: "userComponent"
+        name: "userComponent",
+        data() {
+            return {
+                activePath: ''
+            };
+        },
+        created() {
+            let p = this.$route.path;
+            this.activePath = p.split('/')[2];
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
+                this.activeIndex = key;
+                if (key === '7-3') {
+                    console.log("yes");
+                }
+            }
+        }
     }
 </script>
 

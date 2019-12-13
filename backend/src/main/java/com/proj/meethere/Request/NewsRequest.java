@@ -1,6 +1,5 @@
 package com.proj.meethere.Request;
 import lombok.Data;
-import org.apache.tomcat.jni.File;
 
 /**
  * @author Yiqing Tao

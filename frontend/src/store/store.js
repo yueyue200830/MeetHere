@@ -16,7 +16,8 @@ const store = new Vuex.Store({
     // 修改token，并将token存入localStorage
     changeLogin (state, user) {
       state.Authorization = user.Authorization;
-      localStorage.setItem('Authorization', user.Authorization);
+      let time = new Date().getTime();
+      localStorage.setItem('Authorization', JSON.stringify({key: user.Authorization, time: time}));
     }
   }
 });
