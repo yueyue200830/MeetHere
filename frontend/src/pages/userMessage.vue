@@ -114,8 +114,19 @@
       },
       convertTime: function (time) {
         let date = new Date(time);
-        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-          + " " + date.getHours() + ":" + date.getMinutes();
+        let mon = date.getMonth() + 1;
+        if (mon < 10)
+          mon = "0" + mon;
+        let day = date.getDate();
+        if (day < 10)
+          day = "0" + day;
+        let hour = date.getHours();
+        if (hour < 10)
+          hour = "0" + hour;
+        let min = date.getMinutes();
+        if (min < 10)
+          min = "0" + min;
+        return date.getFullYear() + "-" + mon + "-" + day + " " + hour + ":" + min;
       },
       addMessage: function () {
         this.$http
