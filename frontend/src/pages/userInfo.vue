@@ -77,7 +77,7 @@
       };
       return {
         userForm: {
-          name: 'my name',
+          name: '',
           originalPass: '',
           pass: '',
           checkPass: '',
@@ -98,6 +98,20 @@
         }
       };
     },
+    computed:{
+      hasLoggedIn () {
+        return this.$store.getters.hasLoggedIn;
+      },
+      userId () {
+        return this.$store.getters.getUserId;
+      },
+      userName () {
+        return this.$store.getters.getUserName;
+      }
+    },
+    created() {
+      this.userForm.name = this.userName;
+    },
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -105,7 +119,7 @@
             this.$http
               .get('http://127.0.0.1:8081/updateUserById', {
                 params: {
-                  id: 2,
+                  id: this.userId,
                   updateForm: this.userForm,
                 }})
               .then(response => {

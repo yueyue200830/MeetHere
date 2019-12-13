@@ -83,6 +83,14 @@
           this.comments = response.data[0];
         });
     },
+    computed: {
+      hasLoggedIn() {
+        return this.$store.getters.hasLoggedIn;
+      },
+      userId () {
+        return this.$store.getters.getUserId;
+      },
+    },
     methods: {
       loadMore: function() {
         this.$http
@@ -114,7 +122,7 @@
           .get('http://127.0.0.1:8081/addMessage', {
             params: {
               "addMessageForm": this.addMessageForm,
-              "id": 1
+              "id": this.userId,
             }})
           .then(response => {
             if (response.data === 0) {
@@ -126,7 +134,12 @@
           });
       },
       addMessageButton: function () {
-        this.addMessageVisibility = true;
+        if (this.hasLoggedIn) {
+          this.addMessageVisibility = true;
+        } else {
+          this.$message.error('您未登录，不可留言');
+        }
+
       },
       cancelAddMessage: function () {
         this.$refs['addMessageForm'].resetFields();

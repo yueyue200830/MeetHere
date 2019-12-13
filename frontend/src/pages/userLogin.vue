@@ -54,7 +54,7 @@
       }
     },
     methods: {
-      ...mapMutations(['changeLogin']),
+      ...mapMutations(['userLogin']),
       login: function() {
         this.$refs['loginForm'].validate((valid) => {
           if (valid) {
@@ -65,7 +65,7 @@
                 }})
               .then(response => {
                 if (response.data !== -1) {
-                  this.changeLogin({ Authorization: response.data });
+                  this.userLogin({ Authorization: response.data, name: this.loginForm.name });
                   this.$router.push('main');
                 } else {
                   this.$message.error('用户名或密码错误，请重试！');

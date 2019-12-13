@@ -17,11 +17,12 @@
           <el-menu-item index="order">订单</el-menu-item>
           <el-menu-item index="news">新闻</el-menu-item>
           <el-menu-item index="message">留言</el-menu-item>
-          <el-submenu index="7">
-            <template slot="title">我</template>
+          <el-submenu index="7" v-if="hasLoggedIn">
+            <template slot="title">{{ userName }}</template>
             <el-menu-item index="info">个人信息</el-menu-item>
             <el-menu-item @click="logOut">退出</el-menu-item>
           </el-submenu>
+          <el-menu-item v-else index="login">登录</el-menu-item>
         </el-menu>
       </el-header>
       <div class="user-body">
@@ -37,8 +38,20 @@
     name: "userComponent",
     data() {
       return {
-        activePath: ''
+        activePath: '',
+        // userName: 'apple',
       };
+    },
+    computed:{
+      hasLoggedIn () {
+        return this.$store.getters.hasLoggedIn;
+      },
+      userId () {
+        return this.$store.getters.getUserId;
+      },
+      userName () {
+        return this.$store.getters.getUserName;
+      }
     },
     created() {
       let p = this.$route.path;
@@ -49,7 +62,7 @@
       ...mapMutations(['userLogOut', 'checkLogin']),
       logOut() {
         this.userLogOut();
-      }
+      },
     }
   }
 </script>

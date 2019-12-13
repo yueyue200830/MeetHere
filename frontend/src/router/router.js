@@ -105,7 +105,14 @@ const routes = [
       {
         path: 'info',
         component: UserInfo,
-        meta: {}
+        meta: {},
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('Authorization') == null) {
+            next('/user/login');
+          } else {
+            next();
+          }
+        }
       },
       {
         path: 'revenue',

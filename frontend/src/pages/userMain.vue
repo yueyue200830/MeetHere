@@ -10,7 +10,7 @@
   export default {
     name: "userMain",
     created: function () {
-      window.console.log(token);
+      // window.console.log(token);
     }
   }
 </script>

@@ -2,10 +2,6 @@ package com.proj.meethere.controller;
 
 import com.proj.meethere.Request.NewsRequest;
 import com.proj.meethere.Service.NewsService;
-import com.proj.meethere.dao.NewsRepository;
-import com.proj.meethere.entity.News;
-import org.hibernate.Hibernate;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

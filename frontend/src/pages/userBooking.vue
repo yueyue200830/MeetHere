@@ -119,6 +119,14 @@
         },
       }
     },
+    computed:{
+      hasLoggedIn () {
+        return this.$store.getters.hasLoggedIn;
+      },
+      userId () {
+        return this.$store.getters.getUserId;
+      },
+    },
     created: function () {
       this.$http
         .post('http://127.0.0.1:8081/getVenueName')
@@ -130,6 +138,10 @@
     },
     methods: {
       clickOrder: function (time, num) {
+        if (!this.hasLoggedIn) {
+          this.$message.error('您未登录，请登录后预约！');
+          return;
+        }
         this.addOrderVisibility = true;
         this.addOrderForm.revenue = this.revenue;
         this.addOrderForm.room = num;
@@ -143,7 +155,7 @@
           .get('http://127.0.0.1:8081/addOrder', {
             params: {
               "addOrderForm": this.addOrderForm,
-              "id": 1
+              "id": this.userId,
             }})
           .then(response => {
             this.$refs['addOrderForm'].resetFields();
