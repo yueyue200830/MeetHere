@@ -16,8 +16,7 @@
             <div class="text">
               {{ comment.messageContent }}
             </div>
-            <el-image class="image" fit="contain" v-if="comment.image != null"
-                      :src="comment.image">
+            <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image">
             </el-image>
           </div>
         </el-card>

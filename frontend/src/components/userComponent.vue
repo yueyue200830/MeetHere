@@ -9,7 +9,6 @@
           active-text-color="white"
           class="user-menu"
           :default-active="activePath"
-          @select="handleSelect"
           unique-opened
           router>
           <el-menu-item index="main">首页</el-menu-item>
@@ -21,7 +20,7 @@
           <el-submenu index="7">
             <template slot="title">我</template>
             <el-menu-item index="info">个人信息</el-menu-item>
-            <el-menu-item index="7-3">退出</el-menu-item>
+            <el-menu-item @click="logOut">退出</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-header>
@@ -33,27 +32,26 @@
 </template>
 
 <script>
-    export default {
-        name: "userComponent",
-        data() {
-            return {
-                activePath: ''
-            };
-        },
-        created() {
-            let p = this.$route.path;
-            this.activePath = p.split('/')[2];
-        },
-        methods: {
-            handleSelect(key, keyPath) {
-                console.log(key, keyPath);
-                this.activeIndex = key;
-                if (key === '7-3') {
-                    console.log("yes");
-                }
-            }
-        }
+  import { mapMutations } from 'vuex'
+  export default {
+    name: "userComponent",
+    data() {
+      return {
+        activePath: ''
+      };
+    },
+    created() {
+      let p = this.$route.path;
+      this.activePath = p.split('/')[2];
+      this.checkLogin();
+    },
+    methods: {
+      ...mapMutations(['userLogOut', 'checkLogin']),
+      logOut() {
+        this.userLogOut();
+      }
     }
+  }
 </script>
 
 <style scoped>

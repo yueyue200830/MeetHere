@@ -109,6 +109,7 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex'
   export default {
     name: "userOrder",
     data() {
@@ -126,9 +127,14 @@
       }
     },
     created: function () {
-      this.getMyOrder();
+      if (this.hasLoggedIn() === false) {
+        this.$message.error('您未登录！');
+      } else {
+        this.getMyOrder();
+      }
     },
     methods: {
+      ...mapMutations(['hasLoggedIn']),
       getMyOrder: function() {
         this.$http
           .get('http://127.0.0.1:8081/getMyOrder', {
