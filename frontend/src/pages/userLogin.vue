@@ -32,7 +32,7 @@
         </el-form-item>
         <el-form-item class="login-button">
           <el-button type="primary" @click="login" class="login-button-submit">登录</el-button>
-          <el-button>注册</el-button>
+          <el-button @click="register">注册</el-button>
           <el-button type="text" @click="managerLogin">管理员登录</el-button>
         </el-form-item>
       </el-form>
@@ -73,10 +73,12 @@
               });
           }
         });
-
       },
       managerLogin: function () {
-        this.$router.push('/login')
+        this.$router.push('/login');
+      },
+      register: function () {
+        this.$router.push('register');
       }
     }
   }

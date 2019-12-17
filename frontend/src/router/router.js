@@ -14,6 +14,7 @@ import UserOrder from "../pages/userOrder"
 import UserMessage from "../pages/userMessage"
 import UserBooking from "../pages/userBooking"
 import UserLogin from "../pages/userLogin"
+import UserRegister from "../pages/userRegister"
 import Main from '../pages/mainPage';
 import VueRouter from 'vue-router';
 import Vue from 'vue';
@@ -144,6 +145,11 @@ const routes = [
   {
     path: '/user/login',
     component: UserLogin,
+    meta: {}
+  },
+  {
+    path: '/user/register',
+    component: UserRegister,
     meta: {}
   },
 ];
