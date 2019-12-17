@@ -26,7 +26,10 @@ const routes = [
     path: '/',
     name: '主页',
     component: Main,
-    meta: {}
+    meta: {},
+    beforeEnter: (to, from, next) => {
+      next('/user/main');
+    }
   },
   {
     path: '/login',
@@ -96,7 +99,10 @@ const routes = [
       {
         path: '',
         component: UserMain,
-        meta: {}
+        meta: {},
+        beforeEnter: (to, from, next) => {
+          next('/user/main');
+        }
       },
       {
         path: 'main',
@@ -145,12 +151,26 @@ const routes = [
   {
     path: '/user/login',
     component: UserLogin,
-    meta: {}
+    meta: {},
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('Authorization') == null) {
+        next();
+      } else {
+        next('/user/info');
+      }
+    }
   },
   {
     path: '/user/register',
     component: UserRegister,
-    meta: {}
+    meta: {},
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('Authorization') == null) {
+        next();
+      } else {
+        next('/user/info');
+      }
+    }
   },
 ];
 
