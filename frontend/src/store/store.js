@@ -51,7 +51,8 @@ const store = new Vuex.Store({
       let expireTime = authorization.time;
       let time = new Date().getTime();
       if (time - expireTime > 1000 * 60 * 60 * 2) {
-        this.userLogOut(state);
+        state.Authorization = null;
+        localStorage.removeItem('Authorization');
       }
     },
   }

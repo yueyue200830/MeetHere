@@ -5,13 +5,19 @@
           <el-image src="https://www.bing.com/th?id=OHR.Seidenschwanz_ZH-CN7486965726_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"/>
         </el-carousel-item>
       </el-carousel>
-      <el-row :gutter="10" class="revenue">
+      <div class="main-title">
+        <div class="main-title-text">
+          场馆
+        </div>
+      </div>
+      <el-row :gutter="10">
         <el-col
           :xs="24"
           :sm="{span: 8, offset: 1}"
           :md="{span: 8, offset: 1}"
           :lg="{span: 6, offset: 2}"
-          :xl="{span: 5, offset: 3}">
+          :xl="{span: 5, offset: 3}"
+        >
           <div class="revenue-name">
             <div class="revenue-card" v-for="r in revenue" :key="r" v-on:click="clickTest(r)">
               <div class="revenue-card-body">
@@ -30,6 +36,43 @@
           </div>
         </el-col>
       </el-row>
+      <div class="main-title">
+        <div class="main-title-text">
+          新闻
+        </div>
+      </div>
+      <el-row class="news-row">
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="{span: 22, offset: 1}"
+          :lg="{span: 18, offset: 3}"
+          :xl="{span: 14, offset: 5}"
+        >
+          <el-row :gutter="20">
+            <el-col
+              :xs="24"
+              :sm="{span: 8, offset: 0}"
+              :md="{span: 8, offset: 0}"
+              :lg="{span: 8, offset: 0}"
+              :xl="{span: 8, offset: 0}"
+              v-for="news in newsList"
+              :key="news.id"
+            >
+              <div class="news-card">
+                <div class="news-headline">
+                  <div class="news-headline-text">
+                    {{ news.newsTitle }}
+                  </div>
+                </div>
+                <div class="news-content">
+                  {{ news.newsContent }}
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
     </el-main>
 </template>
 
@@ -38,11 +81,21 @@
     name: "userMain",
     data () {
       return {
-        revenue: ['篮球馆', '足球馆', '乒乓球馆', '羽毛球馆']
+        revenue: ['篮球馆', '足球馆', '乒乓球馆', '羽毛球馆'],
+        newsList: []
       }
     },
     created: function () {
-      // window.console.log(token);
+      this.$http
+        .post('http://127.0.0.1:8081/getVenueName')
+        .then(response => {
+          this.revenue = response.data[0];
+        });
+      this.$http
+        .post('http://127.0.0.1:8081/getNewsUserPage')
+        .then(response => {
+          this.newsList = response.data[0];
+        })
     },
     methods: {
       clickTest: function (r) {
@@ -53,10 +106,6 @@
 </script>
 
 <style scoped>
-  .revenue {
-    margin-top: 40px;
-  }
-
   .revenue-name {
     margin-right: 40px;
   }
@@ -86,4 +135,49 @@
     width: 100%;
     height: 280px;
   }
+
+  .main-title {
+    font-size: 42px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .main-title-text {
+    margin: 40px auto 20px;
+  }
+
+  .news-row {
+    margin: 20px auto;
+  }
+
+  .news-card {
+    margin: 8px;
+    border: 1px solid #EBEEF5;
+    border-radius: 4px;
+    color: #303133;
+    transition: .3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .04), 0 0 6px rgba(0, 0, 0, .04);
+    padding: 10px;
+  }
+
+  .news-card:hover {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .news-headline {
+    margin: 10px auto;
+    font-size: 22px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .news-headline-text {
+    margin: 0 auto;
+  }
+
+  .news-content {
+    margin: 0 20px 20px;
+    min-height: 100px;
+  }
+
 </style>
