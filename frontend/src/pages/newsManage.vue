@@ -40,7 +40,7 @@
             <el-col :span="12">
               <el-form-item label="图片" prop="newsPhoto">
                 <el-upload
-                  
+
                   class="upload-demo"
                   action="https://jsonplaceholder.typicode.com/posts/"
                   :on-change="handleChange"
@@ -69,7 +69,7 @@
         :close-on-click-modal="false"
 
         center>
-        <img src="$!img" width="132" height="132" id="imgs"/>
+        <img :src=photoSrc width="132" height="132" id="imgs"/>
       </el-dialog>
     </div>
   </page-main-body>
@@ -116,6 +116,7 @@
           }
         ],
         fileObj: '',
+        temp: '',
         photoList:[],
         searchData:[],
         preData:[],
@@ -129,6 +130,7 @@
         },
         showDialogType: false,
         showPhoto: false,
+        photoSrc:'',
         dialogTypeRules: {
 
         },
@@ -145,10 +147,13 @@
         reader.readAsDataURL(this.fileObj);
         var temp = this.dialogTypeForm;
         reader.onload = function(e){
-          temp.newsPhoto = this.result;        
+          temp.newsPhoto = this.result;
         }
-        this.dialogTypeForm = temp;        
+        this.dialogTypeForm = temp;
+        this.showPhoto = true;
+        document.getElementById("imgs").src = this.dialogTypeForm.newsPhoto;
         //console.log(this.dialogTypeForm);
+        console.log(document.getElementById("imgs"));
       },
 
 
@@ -177,21 +182,18 @@
       //点击查看图片后，出现弹窗，显示图片
       viewPhoto(id) {
         this.loading = true;
-        var temp;
         getPhotoById(id).then(data => {
           this.loading = false;
-          temp = data.data;        
           if(data){
-            
+            this.photoSrc = data.data;
+            this.showPhoto = true;
+            console.log(this.photoSrc);
           }else{
             this.onAlertError('该条新闻没有图片');
           }
         })
-        if(temp){
-          this.showPhoto = true; //显示弹窗
-          document.getElementById("imgs").src = temp;
-        }
-        
+
+
       },
       //点击添加按钮时，将表格的标题改成添加新闻，展现表格
       addType() {
@@ -212,7 +214,7 @@
       //点击保存按钮之后，如果是修改新闻，则后端API为update，如果是添加新闻则后端API为添加
       saveCheckResult () {
         this.loading = true;
-        
+
         if (this.dialogTypeForm.title == '修改新闻') {
             modifyCheckResult(this.dialogTypeForm).then(data => {
                 this.loading=false;
@@ -222,7 +224,7 @@
                       this.searchData=data.data;
                       this.preData=data.data;
                     })
-                  this.onAlertSuccess('修改成功');  
+                  this.onAlertSuccess('修改成功');
                 }else{
                   this.onAlertError('修改失败')
                 }
@@ -239,7 +241,7 @@
                     })
                     this.onAlertSuccess('添加成功');
                 } else {
-                    
+
                     this.onAlertError('添加失败');
                 }
             });
