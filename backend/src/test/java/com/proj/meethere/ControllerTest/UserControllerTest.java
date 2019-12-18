@@ -1,6 +1,6 @@
 package com.proj.meethere.ControllerTest;
 
-import com.proj.meethere.Service.UserService;
+import com.proj.meethere.service.UserService;
 import com.proj.meethere.controller.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
