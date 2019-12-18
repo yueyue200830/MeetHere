@@ -40,7 +40,7 @@
             <el-col :span="12">
               <el-form-item label="图片" prop="newsPhoto">
                 <el-upload
-                  
+
                   class="upload-demo"
                   action="https://jsonplaceholder.typicode.com/posts/"
                   :on-change="handleChange"
@@ -116,6 +116,7 @@
           }
         ],
         fileObj: '',
+        temp: '',
         photoList:[],
         searchData:[],
         preData:[],
@@ -146,10 +147,13 @@
         reader.readAsDataURL(this.fileObj);
         var temp = this.dialogTypeForm;
         reader.onload = function(e){
-          temp.newsPhoto = this.result;        
+          temp.newsPhoto = this.result;
         }
-        this.dialogTypeForm = temp;        
+        this.dialogTypeForm = temp;
+        this.showPhoto = true;
+        document.getElementById("imgs").src = this.dialogTypeForm.newsPhoto;
         //console.log(this.dialogTypeForm);
+        console.log(document.getElementById("imgs"));
       },
 
 
@@ -179,7 +183,7 @@
       viewPhoto(id) {
         this.loading = true;
         getPhotoById(id).then(data => {
-          this.loading = false;    
+          this.loading = false;
           if(data){
             this.photoSrc = data.data;
             this.showPhoto = true;
@@ -189,7 +193,7 @@
           }
         })
 
-        
+
       },
       //点击添加按钮时，将表格的标题改成添加新闻，展现表格
       addType() {
@@ -210,7 +214,7 @@
       //点击保存按钮之后，如果是修改新闻，则后端API为update，如果是添加新闻则后端API为添加
       saveCheckResult () {
         this.loading = true;
-        
+
         if (this.dialogTypeForm.title == '修改新闻') {
             modifyCheckResult(this.dialogTypeForm).then(data => {
                 this.loading=false;
@@ -220,7 +224,7 @@
                       this.searchData=data.data;
                       this.preData=data.data;
                     })
-                  this.onAlertSuccess('修改成功');  
+                  this.onAlertSuccess('修改成功');
                 }else{
                   this.onAlertError('修改失败')
                 }
@@ -237,7 +241,7 @@
                     })
                     this.onAlertSuccess('添加成功');
                 } else {
-                    
+
                     this.onAlertError('添加失败');
                 }
             });

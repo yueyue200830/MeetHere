@@ -23,11 +23,11 @@ public class RevenueService {
     }
 
     public List<Revenue> searchRevenue(int id) {
-        return revenueRepository.getSpecificRvn(id);
+        return revenueRepository.getRevenueById(id);
     }
 
     public List<RevenueResponse> getRevenue(int id) {
-        List<Revenue> revenueList = revenueRepository.getSpecificRvn(id);
+        List<Revenue> revenueList = revenueRepository.getRevenueById(id);
 
         List<RevenueResponse> revenueResponsesList = new ArrayList<>();
         for(Revenue revenue: revenueList) {

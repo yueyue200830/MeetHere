@@ -1,9 +1,9 @@
 package com.proj.meethere.controller;
 
-import com.proj.meethere.dao.OrderRepository;
-import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Order;
 import com.proj.meethere.entity.Revenue;
+import com.proj.meethere.service.UserOrderService;
+import com.proj.meethere.service.UserRevenueService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -25,16 +24,19 @@ import java.util.*;
 public class UserOrderController {
 
     @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private RevenueRepository revenueRepository;
+    private UserOrderService userOrderService;
 
-    // add
-    // form：场馆id，日期， slot， 用户手机 ；用户id
+    @Autowired
+    private UserRevenueService userRevenueService;
+
+    /**
+     * @param addOrderForm 订单信息，包括 用户信息(phone), 订单信息(date, price, slot), 场馆信息(rvnName, room)
+     * @param userId 用户id
+     * @return 返回受影响的行数
+     */
     @RequestMapping(value = "/addOrder", method = RequestMethod.GET)
     @ResponseBody
-    public int addNewOrder(@RequestParam("addOrderForm") String addOrderForm, @RequestParam("id") int id) throws ParseException {
-        System.out.println("addd");
+    public int addNewOrder(@RequestParam("addOrderForm") String addOrderForm, @RequestParam("id") int userId) {
         JSONObject jsonObject = new JSONObject(addOrderForm);
         String rvnName = jsonObject.getString("revenue");
         String phone = String.valueOf(jsonObject.getInt("phoneNumber"));
@@ -43,31 +45,24 @@ public class UserOrderController {
         int room = jsonObject.getInt("room");
         int price = jsonObject.getInt("price");
 
-        int rvnId = revenueRepository.searchIdByName(rvnName);
+        int rvnId = userRevenueService.searchIdByName(rvnName);
 
-        // 使用 yyyy-MM-dd 格式的日期
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //Date d = sdf.parse(date);
-        //String newDate = sdf.format(d);
-        return orderRepository.insertNewOrder(id, phone, rvnId, room, slot, date, price);
+        return userOrderService.addNewOrder(userId, phone, rvnId, room, slot, date, price);
     }
 
-    // 显示的表格
-    // 参数： 场馆id、日期
-    // 二维数组： 有预约为钱 没预约为0 slot从1开始
+    /**
+     * @param rvnName 场馆名称
+     * @param date 日期
+     * @return 返回二维数组，每行代表一个slot，每列代表一个场馆；若无预约，元素值为该订单价格，若有预约，为0
+     * @throws ParseException
+     */
     @RequestMapping(value = "/getAvailable", method = RequestMethod.GET)
     @ResponseBody
-    public String getAvailable(@RequestParam("revenueName") String revenueName, @RequestParam("date") String date) throws ParseException {
-        // 使用 yyyy-MM-dd 格式的日期
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        Date d = sdf.parse(date);
-        String newDate = sdf.format(d);
-        System.out.println(newDate);
-        int revenueId = revenueRepository.searchIdByName(revenueName);
-        List<Order> orders = orderRepository.selectByRevenueAndDate(revenueId, newDate);
+    public String getAvailable(@RequestParam("revenueName") String rvnName, @RequestParam("date") String date) {
+        int rvnId = userRevenueService.searchIdByName(rvnName);
+        List<Order> orders = userOrderService.selectOrderByRevenueAndDate(rvnId, date);
 
-        Revenue revenue = revenueRepository.getSpecificRvn(revenueId).get(0);
+        Revenue revenue = userRevenueService.getRevenueById(rvnId).get(0);
 
         int price = revenue.getRvnPrice();
 
@@ -93,15 +88,16 @@ public class UserOrderController {
         return jsonObject.toString();
     }
 
-
-    // 我的订单
-    // 接受id 返回我的所有订单
+    /**
+     * @param id 用户id
+     * @return 返回当前用户的所有订单
+     */
     @RequestMapping(value = "/getMyOrder", method = RequestMethod.GET)
     @ResponseBody
     public String getMyOrder(@RequestParam("id") int id) {
         System.out.println("getall");
-        List<Order> myOrders = orderRepository.selectOrderById(id);
-        List<Revenue> revenues = revenueRepository.getAllRvnInfo();
+        List<Order> myOrders = userOrderService.selectOrderById(id);
+        List<Revenue> revenues = userRevenueService.getAllVenue();
         Map<Integer, String> rvnMap = new HashMap<>();
 
         for (Revenue revenue : revenues) {
@@ -126,21 +122,24 @@ public class UserOrderController {
         return jsonArray.toString();
     }
 
-    // 修改订单手机号
-    // 接收订单id 和 新的手机号
+    /**
+     * @param phone 新手机号
+     * @param id 订单id
+     * @return 返回受影响行数
+     */
     @RequestMapping(value = "/updatePhone", method = RequestMethod.GET)
     @ResponseBody
     public int updatePhone(@RequestParam("phone") String phone, @RequestParam("id") int id) {
-        System.out.println("update");
-        return orderRepository.updatePhoneById(phone, id);
+        return userOrderService.updatePhone(phone, id);
     }
 
-    // 删除订单
-    // 接收订单id
+    /**
+     * @param deleteOrderId 需要删除的订单id
+     * @return 返回受影响行数
+     */
     @RequestMapping(value = "/deleteOrder", method = RequestMethod.GET)
     @ResponseBody
     public int deleteOrder(@RequestParam("deleteOrderId") int deleteOrderId) {
-        System.out.println("delete");
-        return orderRepository.deleteById(deleteOrderId);
+        return userOrderService.deleteOrder(deleteOrderId);
     }
 }

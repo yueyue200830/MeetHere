@@ -1,14 +1,10 @@
 package com.proj.meethere.controller;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.proj.meethere.dao.UserRepository;
-import com.proj.meethere.entity.User;
+import com.proj.meethere.service.UserInfoService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @Author Tresaresa
@@ -17,18 +13,14 @@ import java.util.List;
 @Controller
 @CrossOrigin(origins = "*")
 public class UserInfoController {
+
     @Autowired
-    private UserRepository userRepository;
+    private UserInfoService userInfoService;
 
     @RequestMapping(value = "/getUserIdByName", method = RequestMethod.GET)
     @ResponseBody
     public int getUserIdByName(@RequestParam("user_name") String user_name) {
-        List<User> users = userRepository.selectUserByName(user_name);
-        if (users.isEmpty()) {
-            return 0;
-        } else {
-            return 1;
-        }
+        return userInfoService.getUserIdByName(user_name);
     }
 
     @RequestMapping(value = "/updateUserById", method = RequestMethod.GET)
@@ -37,35 +29,33 @@ public class UserInfoController {
         JSONObject jsonObject = new JSONObject(updateForm);
         String userName = jsonObject.getString("name");
         String userKey = jsonObject.getString("pass");
-        return userRepository.updateUserById(userName, userKey, id);
+        return userInfoService.updateUserById(id, userKey, userName);
     }
 
-    // 注册
-    // 失败返回-1
-    // 默认头像 default.jpg
-    @RequestMapping(value = "Register", method = RequestMethod.GET)
+    /**
+     * @param form 注册用户的userName，userKey
+     * @return 失败返回-1
+     */
+    @RequestMapping(value = "/Register", method = RequestMethod.GET)
     @ResponseBody
-    public int userRegister(@RequestParam("form") String form) {
+    public int register(@RequestParam("form") String form) {
         JSONObject jsonObject = new JSONObject(form);
         String userName = jsonObject.getString("name");
         String userPass = jsonObject.getString("password");
-        return userRepository.insertNewUser(userName, userPass, 0, "default.jpg");
+        // 默认注册用户类型为0（普通用户），头像为default.jpg
+        return userInfoService.insertNewUser(userName, userPass, 0, "default.jpg");
     }
 
-    // 登陆
-    // 返回id，错误-1
+    /**
+     * @param login 用户登陆时输入的信息，包含userName，userKey
+     * @return 成功返回id，失败返回-1
+     */
     @RequestMapping(value = "/Login", method = RequestMethod.GET)
     @ResponseBody
     public int login(@RequestParam("login") String login) {
-        System.out.println("login");
         JSONObject jsonObject = new JSONObject(login);
         String userName = jsonObject.getString("name");
         String userKey = jsonObject.getString("password");
-        List<User> user = userRepository.selectUserByNameAndId(userName, userKey);
-        if (user.isEmpty()) {
-            return -1;
-        } else {
-            return user.get(0).getId();
-        }
+        return userInfoService.loginValidation(userName, userKey);
     }
 }

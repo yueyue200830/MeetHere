@@ -1,6 +1,6 @@
 package com.proj.meethere.controller;
 
-import com.proj.meethere.Service.UserService;
+import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
 import org.json.JSONObject;
@@ -49,12 +49,12 @@ public class UserController {
         return userService.selectSpecificUserInfo(Integer.parseInt(condition));
     }
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    @ResponseBody
-    public int addNewUser(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
-                          @RequestParam("user_type") int user_type, @RequestParam("user_photo") String user_photo) {
-        return userService.addUser(user_name, user_key, user_type, user_photo);
-    }
+//    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+//    @ResponseBody
+//    public int addNewUser(@RequestParam("user_name") String user_name, @RequestParam("user_key") String user_key,
+//                          @RequestParam("user_type") int user_type, @RequestParam("user_photo") String user_photo) {
+//        return userService.addUser(user_name, user_key, user_type, user_photo);
+//    }
 
 //    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 //    @ResponseBody

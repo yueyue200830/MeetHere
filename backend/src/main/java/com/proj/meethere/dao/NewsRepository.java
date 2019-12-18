@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Repository
 public interface NewsRepository extends JpaRepository<News,Integer>{
-    @Query(value = "select * from news",nativeQuery = true)
+    @Query(value = "select * from news order by news_time desc",nativeQuery = true)
     List<News> selectAllNews();
 
     @Transactional
@@ -37,11 +38,12 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
     @Query(value = "insert into news (news_content, news_title, news_photo, news_time) " +
             "value (:newsContent, :newsTitle, :newsPhoto, now())", nativeQuery = true)
     int insertNewNews(@Param("newsContent") String newsContent, @Param("newsTitle") String newsTitle,
-                      @Param("newsPhoto") Blob newsPhoto);
+                      @Param("newsPhoto") Blob newsPhoto) throws SQLException;
 
     @Query(value = "select * form news where id>=:first and id<=:last order by news_time desc", nativeQuery = true)
     List<News> findNewsByScope(@Param("first") int first, @Param("last") int last);
 
     @Query(value = "select * from news where id = :id", nativeQuery = true)
     List<News> findNewsPhotoById(@Param("id") int id);
+
 }
