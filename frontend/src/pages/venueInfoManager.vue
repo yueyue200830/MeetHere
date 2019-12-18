@@ -82,7 +82,7 @@
           {
             prop: 'rvnIntro',
             label: '场馆介绍',
-            width: '200'
+            width: '500'
           },
           {
             prop: 'operation',

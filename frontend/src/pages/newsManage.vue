@@ -26,15 +26,15 @@
         <el-form :model="dialogTypeForm" :rules="dialogTypeRules" ref="dialogTypeForm" label-width="100px">
           <el-row>
             <el-col :span="12">
-              <el-form-item label="内容" prop="newsContent">
-                <el-input v-model="dialogTypeForm.newsContent" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="新闻标题" prop="newsTitle">
+                <el-input v-model="dialogTypeForm.newsTitle" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="12">
-              <el-form-item label="新闻标题" prop="newsTitle">
-                <el-input v-model="dialogTypeForm.newsTitle" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+            <el-col :span="20">
+              <el-form-item label="新闻内容" prop="newsContent" style="height:150px;">
+                <el-input v-model="dialogTypeForm.newsContent" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -105,7 +105,7 @@
           {
             prop: 'newsContent',
             label: '内容',
-            width: '400'
+            width: '500'
           },
           {
             prop: 'operation',

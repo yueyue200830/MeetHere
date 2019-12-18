@@ -108,6 +108,15 @@
               if (data) { 
                 this.onAlertError('删除成功');
                 getUserInfo().then(data => {
+                  var l = data.data.length;
+                  for(var i =0;i < l;i++){
+                    if(data.data[i].userType == 1){
+                      data.data[i].userType = "Admin";
+                    }else{
+                      data.data[i].userType = "User";
+                    }
+                      
+                  }
                   this.searchData=data.data;
                   this.preData=data.data;
                 });
@@ -130,13 +139,18 @@
     },
     created(){
       getUserInfo().then(data => {
-        //console.log(data.data);
+        var l = data.data.length;
+        for(var i =0;i < l;i++){
+          if(data.data[i].userType == 1){
+            data.data[i].userType = "Admin";
+          }else{
+            data.data[i].userType = "User";
+          }
+                      
+        }
         this.searchData=data.data;
         this.preData=data.data;
-        if (data.data.code === '000') {
 
-          this.showDialogType = false;
-        }
       });
     }
   }
