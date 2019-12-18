@@ -1,5 +1,6 @@
 package com.proj.meethere.controller;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
 import org.json.JSONObject;
@@ -39,7 +40,17 @@ public class UserInfoController {
         return userRepository.updateUserById(userName, userKey, id);
     }
 
-    // 注册（上传图片待定）
+    // 注册
+    // 失败返回-1
+    // 默认头像 default.jpg
+    @RequestMapping(value = "Register", method = RequestMethod.GET)
+    @ResponseBody
+    public int userRegister(@RequestParam("form") String form) {
+        JSONObject jsonObject = new JSONObject(form);
+        String userName = jsonObject.getString("name");
+        String userPass = jsonObject.getString("password");
+        return userRepository.insertNewUser(userName, userPass, 0, "default.jpg");
+    }
 
     // 登陆
     // 返回id，错误-1

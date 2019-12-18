@@ -1,6 +1,6 @@
-package com.proj.meethere.Service;
+package com.proj.meethere.service;
 
-import com.proj.meethere.Response.RevenueResponse;
+import com.proj.meethere.response.RevenueResponse;
 import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
 import org.springframework.beans.factory.annotation.Autowired;
