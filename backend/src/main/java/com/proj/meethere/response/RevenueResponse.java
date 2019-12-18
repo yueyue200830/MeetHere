@@ -1,4 +1,4 @@
-package com.proj.meethere.Response;
+package com.proj.meethere.response;
 import lombok.Data;
 /**
  * @author Yiqing Tao
