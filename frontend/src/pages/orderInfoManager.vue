@@ -11,7 +11,7 @@
   import ECharts from 'vue-echarts/components/ECharts';
   require('echarts/lib/chart/bar');
   const getStatistic= () => axios.post("/app/getStatistic");
-  const getVenueName= () => axios.post("/app/getVenueName");
+  const getVenueNameForChart= () => axios.post("/app/getVenueNameForChart");
   export default {
     name: "orderInfo",
     components: {ECharts},
@@ -86,7 +86,7 @@
         this.chartOption.series[0].data=data.data;
       });
 
-      getVenueName().then(data => {
+      getVenueNameForChart().then(data => {
         //console.log(data.data);
         this.chartOption.xAxis.data = data.data;
       });
