@@ -78,7 +78,7 @@
           }else{
             //console.log(data.data.length);
             this.searchData=data.data;
-            if (data.data.length) {
+            if (data) {
               
               // todo
             } else {
@@ -105,14 +105,11 @@
             let temp=id[i];
             deleteCheckResultById(temp).then(data => {
               this.loading = false;
-              if (data.data.affectedRows!=0) { 
+              if (data) { 
                 this.onAlertError('删除成功');
                 getUserInfo().then(data => {
                   this.searchData=data.data;
                   this.preData=data.data;
-                  if (data.data.code === '000') {
-                    this.showDialogType = false;
-                  }
                 });
               }else{
                 this.onAlertError('删除失败');

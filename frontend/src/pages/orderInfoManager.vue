@@ -84,19 +84,11 @@
       getStatistic().then(data => {
         //console.log(data.data);
         this.chartOption.series[0].data=data.data;
-        if (data.data.code === '000') {
-
-          this.showDialogType = false;
-        }
       });
 
       getVenue().then(data => {
         //console.log(data.data);
         this.chartOption.xAxis.data = data.data;
-        if (data.data.code === '000') {
-
-          this.showDialogType = false;
-        }
       });
     }
   }

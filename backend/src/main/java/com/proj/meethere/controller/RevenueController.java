@@ -1,17 +1,13 @@
 package com.proj.meethere.controller;
 
 
-import com.proj.meethere.Response.RevenueResponse;
+import com.proj.meethere.response.RevenueResponse;
 import com.proj.meethere.Service.RevenueService;
-import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,6 +1,6 @@
-package com.proj.meethere.Service;
+package com.proj.meethere.service;
 
-import com.proj.meethere.Request.NewsRequest;
+import com.proj.meethere.request.NewsRequest;
 import com.proj.meethere.dao.NewsRepository;
 import com.proj.meethere.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;

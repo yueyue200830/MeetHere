@@ -117,9 +117,6 @@
       getOrderInfo().then(data => {
         this.searchData=data.data;
         this.preData=data.data;
-        if (data.data.code === '000') {
-          this.showDialogType = false;
-        }
       });
     }
   }

@@ -69,7 +69,7 @@
         :close-on-click-modal="false"
 
         center>
-        <img :src="temp" width="132" height="132" id="imgs"/>
+        <img :src=photoSrc width="132" height="132" id="imgs"/>
       </el-dialog>
     </div>
   </page-main-body>
@@ -130,6 +130,7 @@
         },
         showDialogType: false,
         showPhoto: false,
+        photoSrc:'',
         dialogTypeRules: {
 
         },
@@ -181,21 +182,18 @@
       //点击查看图片后，出现弹窗，显示图片
       viewPhoto(id) {
         this.loading = true;
-        //this.showPhoto = true;
-        //this.temp = document.getElementById("imgs");
         getPhotoById(id).then(data => {
           this.loading = false;
-
           if(data){
-            //console.log(this.temp);
-
-            this.temp = data.data;
+            this.photoSrc = data.data;
             this.showPhoto = true;
-            console.log(this.temp);
+            console.log(this.photoSrc);
           }else{
             this.onAlertError('该条新闻没有图片');
           }
         })
+
+
       },
       //点击添加按钮时，将表格的标题改成添加新闻，展现表格
       addType() {
