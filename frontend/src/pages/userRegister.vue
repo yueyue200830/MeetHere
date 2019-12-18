@@ -85,7 +85,7 @@
         this.$refs['registerForm'].validate((valid) => {
           if (valid) {
             this.$http
-              .get('http://127.0.0.1:8081/register', {
+              .get('http://127.0.0.1:8081/Register', {
                 params: {
                   form: this.registerForm,
                 }})
