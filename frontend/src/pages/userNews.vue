@@ -17,8 +17,7 @@
         </template>
         <div class="news-body">
           <div class="news-content">{{ news.newsContent }}</div>
-          <el-image class="news-image" fit="contain" v-if="news.newsPhoto != null" :src="news.newsPhoto">
-          </el-image>
+          <el-image class="news-image" fit="contain" v-if="news.newsPhoto != null" :src="news.newsPhoto" />
         </div>
       </el-collapse-item>
     </el-collapse>
@@ -38,6 +37,7 @@
         .post('http://127.0.0.1:8081/getNewsUserPage')
         .then(response => {
           this.newsList = response.data[0];
+          console.log(this.newsList);
         })
     },
     methods: {
