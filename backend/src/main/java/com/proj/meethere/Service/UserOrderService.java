@@ -1,20 +1,10 @@
 package com.proj.meethere.service;
 
 import com.proj.meethere.dao.OrderRepository;
-import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Order;
-import com.proj.meethere.entity.Revenue;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
