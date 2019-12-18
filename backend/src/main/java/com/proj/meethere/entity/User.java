@@ -31,6 +31,13 @@ public class User {
     public User(){
     }
 
+    public User(String userName, String userKey, Integer userType, String userPhoto) {
+        this.userName = userName;
+        this.userKey = userKey;
+        this.userType = userType;
+        this.userPhoto = userPhoto;
+    }
+
     public Integer getId() {
         return id;
     }
