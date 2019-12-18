@@ -25,6 +25,6 @@ public class UserServiceTest {
 
     @Test
     public void get_user_info_should_be_executed() {
-        ]
+
     }
 }

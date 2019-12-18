@@ -68,11 +68,16 @@ public class NewsService {
     }
 
     public int addNews(String content, String title, Blob photo) {
-        Date currentTime = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String newsTime = format.format(currentTime);
-        News news = new News(content, photo,title,  newsTime);
-        newsRepository.save(news);
+        try {
+            Date currentTime = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String newsTime = format.format(currentTime);
+            System.out.println(content);
+            News news = new News(content, photo, title, newsTime);
+            newsRepository.save(news);
+        }catch (Exception e) {
+                e.printStackTrace();
+        }
         return 1;
     }
 
@@ -81,7 +86,7 @@ public class NewsService {
         System.out.println(newsList);
         Blob newsPhoto = newsList.get(0).getNewsPhoto();
         String photo = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()),"GBK");
-        System.out.println(photo);
+        System.out.println("photo " + photo);
         return photo;
     }
 
