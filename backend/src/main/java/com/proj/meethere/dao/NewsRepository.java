@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Repository
 public interface NewsRepository extends JpaRepository<News,Integer>{
-    @Query(value = "select * from news",nativeQuery = true)
+    @Query(value = "select * from news order by news_time desc",nativeQuery = true)
     List<News> selectAllNews();
 
     @Transactional
@@ -44,4 +44,5 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
 
     @Query(value = "select * from news where id = :id", nativeQuery = true)
     List<News> findNewsPhotoById(@Param("id") int id);
+
 }

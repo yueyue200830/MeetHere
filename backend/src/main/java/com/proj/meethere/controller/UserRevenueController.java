@@ -1,7 +1,7 @@
 package com.proj.meethere.controller;
 
-import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
+import com.proj.meethere.service.UserRevenueService;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,27 +18,29 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class UserRevenueController {
     @Autowired
-    private RevenueRepository revenueRepository;
+    private UserRevenueService userRevenueService;
 
+    /**
+     * @return 获取所有场馆信息，按照id排序
+     */
     @RequestMapping(value = "/getVenueUserPage", method = RequestMethod.POST)
     @ResponseBody
     public String getAllVenueUserPage() {
-        List<Revenue> revenueList = revenueRepository.getAllRvnInfo();
-
+        List<Revenue> revenueList = userRevenueService.getAllVenue();
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(revenueList);
-
         return jsonArray.toString();
     }
 
+    /**
+     * @return 返回所有场馆的名称，按照id排序
+     */
     @RequestMapping(value = "/getVenueName", method = RequestMethod.POST)
     @ResponseBody
     public String getVenueName() {
-        List<String> revenueList = revenueRepository.getRvnName();
-
+        List<String> revenueList = userRevenueService.getAllenueName();
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(revenueList);
-
         return jsonArray.toString();
     }
 }
