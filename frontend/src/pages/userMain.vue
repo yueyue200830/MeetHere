@@ -94,7 +94,7 @@
       this.$http
         .post('http://127.0.0.1:8081/getNewsThree')
         .then(response => {
-          this.newsList = response.data[0];
+          this.newsList = response.data;
         })
     },
     methods: {
