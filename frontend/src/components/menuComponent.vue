@@ -168,6 +168,11 @@ export default {
 </script>
 
 <style scoped>
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
   .el-header {
     background-color: #B3C0D1;
     color: #333;
