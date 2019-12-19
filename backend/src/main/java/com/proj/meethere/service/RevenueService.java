@@ -43,4 +43,15 @@ public class RevenueService {
     public int modifyRevenue(int price, String intro, int id) {
         return revenueRepository.updateRvnInfo(price, intro, id);
     }
+
+    public List<String> getVenueName() {
+        List<String> result = revenueRepository.selectRevenueName();
+        System.out.println(result);
+        return result;
+    }
+
+    public List<Integer> getOrderNum() {
+        List<Integer> revenueCount = revenueRepository.selectStatistic();
+        return revenueCount;
+    }
 }

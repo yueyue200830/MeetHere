@@ -1,7 +1,6 @@
 package com.proj.meethere.controller;
 
-import com.proj.meethere.Service.MessageService;
-import com.proj.meethere.dao.MessageRepositroy;
+import com.proj.meethere.service.MessageService;
 import com.proj.meethere.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

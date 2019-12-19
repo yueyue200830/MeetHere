@@ -1,6 +1,6 @@
-package com.proj.meethere.ControllerTest;
+package com.proj.meethere;
 
-import com.proj.meethere.Service.UserService;
+import com.proj.meethere.service.*;
 import com.proj.meethere.controller.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +29,17 @@ public class UserControllerTest {
     @MockBean
     UserService userService;
 
+    @MockBean
+    MessageService messageService;
+
+    @MockBean
+    NewsService newsService;
+
+    @MockBean
+    OrderService orderService;
+
+    @MockBean
+    RevenueService revenueService;
     UserController userController;
     @Test
     public void should_get_user() throws Exception{

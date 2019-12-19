@@ -1,7 +1,6 @@
 package com.proj.meethere;
-
-import com.proj.meethere.Service.UserService;
 import com.proj.meethere.dao.UserRepository;
+import com.proj.meethere.service.UserService;
 import com.proj.meethere.entity.User;
 import org.junit.After;
 import org.junit.Assert;

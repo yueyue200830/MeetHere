@@ -43,11 +43,13 @@ public class UserRepositoryTest {
     @Test
     public void select_specific_user_should_be_exact_the_same_as_init() {
         this.testEntityManager.persist(user);
-        List<User> users = userRepository.selectSpecificUser(1);
+        List<User> users = userRepository.selectSpecificUser(user.getId());
+        System.out.println("here");
         Assert.assertEquals(1,users.size());
         User onlyUser = users.get(0);
         Assert.assertEquals("Jack",onlyUser.getUserName());
         Assert.assertEquals("passwordIsSecret", onlyUser.getUserKey());
+        System.out.println("clear");
         Assert.assertEquals(new Integer(1),onlyUser.getUserType());
         Assert.assertEquals("mockUserPhoto", onlyUser.getUserPhoto());
     }
@@ -55,10 +57,10 @@ public class UserRepositoryTest {
     @Test
     public void delete_user_should_return_null() {
         this.testEntityManager.persist(user);
-        int result = userRepository.deleteSpecificUser(1);
+        int result = userRepository.deleteSpecificUser(user.getId());
         Assert.assertEquals(1,result);
         List<User> users = userRepository.selectSpecificUser(1);
-        Assert.assertNull(users);
+        Assert.assertEquals(0,users.size());
     }
 
     @Test

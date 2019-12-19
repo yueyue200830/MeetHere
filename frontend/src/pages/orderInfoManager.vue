@@ -11,11 +11,11 @@
   import ECharts from 'vue-echarts/components/ECharts';
   require('echarts/lib/chart/bar');
   const getStatistic= () => axios.post("/app/getStatistic");
-  const getVenue= () => axios.post("/app/getVenue");
+  const getVenue= () => axios.post("/app/getVenueNameForChart");
   export default {
     name: "orderInfo",
     components: {ECharts},
-    data () { 
+    data () {
       return {
         loading: false,
         title: '预约订单统计信息',
@@ -82,12 +82,12 @@
     },
     mounted(){
       getStatistic().then(data => {
-        //console.log(data.data);
+        console.log(data.data);
         this.chartOption.series[0].data=data.data;
       });
 
       getVenue().then(data => {
-        //console.log(data.data);
+        console.log(data.data);
         this.chartOption.xAxis.data = data.data;
       });
     }

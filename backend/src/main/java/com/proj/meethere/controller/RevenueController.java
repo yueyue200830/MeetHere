@@ -2,8 +2,8 @@ package com.proj.meethere.controller;
 
 
 import com.proj.meethere.response.RevenueResponse;
-import com.proj.meethere.Service.RevenueService;
 import com.proj.meethere.entity.Revenue;
+import com.proj.meethere.service.RevenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +44,18 @@ public class RevenueController {
     public int modifyVenue(@RequestBody RevenueResponse revenueResponse) {
         System.out.println(revenueResponse.getRvnPrice());
         return revenueService.modifyRevenue(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());
+    }
+
+    @RequestMapping(value = "/getVenueNameForChart", method = RequestMethod.POST)
+    @ResponseBody
+    public List<String> getVenueName() {
+        return revenueService.getVenueName();
+    }
+
+    @RequestMapping(value = "/getStatistic", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Integer> getOrderNum() {
+        return revenueService.getOrderNum();
     }
 //
 //    @RequestMapping(value = "/addRevenue", method = RequestMethod.POST)

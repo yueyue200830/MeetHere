@@ -1,6 +1,6 @@
 package com.proj.meethere.controller;
 
-import com.proj.meethere.Service.OrderService;
+import com.proj.meethere.service.OrderService;
 import com.proj.meethere.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
