@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @date 2019-12-18 13:23
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest(UserController.class)
 public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -29,28 +29,17 @@ public class UserControllerTest {
     @MockBean
     UserService userService;
 
-    @MockBean
-    MessageService messageService;
-
-    @MockBean
-    NewsService newsService;
-
-    @MockBean
-    OrderService orderService;
-
-    @MockBean
-    RevenueService revenueService;
     UserController userController;
     @Test
     public void should_get_user() throws Exception{
-        ResultActions perform = mockMvc.perform(get("/getUser"));
+        ResultActions perform = mockMvc.perform(post("/getUser"));
         perform.andExpect(status().isOk());
         verify(userService,times(1)).getUserInfo();
     }
 
     @Test
     public void should_delete_user() throws Exception{
-        ResultActions perform = mockMvc.perform(get("/deleteUser").param("1"));
+        ResultActions perform = mockMvc.perform(get("/deleteUser/{temp}","1"));
         perform.andExpect(status().isOk());
         verify(userService, times(1)).deleteSpecificUser(1);
 
@@ -58,7 +47,7 @@ public class UserControllerTest {
 
     @Test
     public void should_select_specific_user() throws Exception {
-        ResultActions perform = mockMvc.perform(get("/searchUser").param("1"));
+        ResultActions perform = mockMvc.perform(get("/searchUser/{condition}","1"));
         perform.andExpect(status().isOk());
         verify(userService,times(1)).selectSpecificUserInfo(1);
     }
