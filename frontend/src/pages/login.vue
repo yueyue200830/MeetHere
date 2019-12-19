@@ -6,7 +6,7 @@
         <el-col  class="login-right-body">
           <el-row style="width: 95%">
             <el-row class="login-row" style="margin-top: 3%">
-              <h2>登录</h2>
+              <h2>管理员登录</h2>
             </el-row>
             <el-row class="login-row">
               <el-form ref="form" :model="form" :rules="loginRules" label-width="80px" style="width: 90%">
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import '../css/loginCSS.css';
 import axios from 'axios';
 const loginValid =(condition)=> axios.post('/app/api/loginCheck', condition);
@@ -56,16 +57,20 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['managerLogin']),
     login () {
       let condition = this.form;
-      // loginValid({condition}).then(data => {
-      //     this.loading = false;
-      //     if (data) {
-      //       this.$router.push('/index');
-      //     } else {
-      //       this.onAlertError('用户名与密码不匹配');
-      //     }
-      // });
+      loginValid(condition).then(data => {
+          this.loading = false;
+          if (data) {
+            this.managerLogin({ Authorization: data, name: this.form.user_name });
+            this.$router.push('/manager/userInfo');
+          } else {
+            this.onAlertError('用户名与密码不匹配');
+          }
+      });
+      let data = 1;
+      this.managerLogin({ Authorization: data, name: this.form.user_name });
       this.$router.push('/manager/userInfo');
     },
     goToLink (action) {

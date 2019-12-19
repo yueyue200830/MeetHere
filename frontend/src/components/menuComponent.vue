@@ -24,12 +24,12 @@
       <el-header style="text-align: right; font-size: 12px">
         <span class="head-time">{{now}}</span>
         <el-dropdown>
-          <span class="hear-user">
-            ballballtang<i class="el-icon-arrow-down el-icon--right"></i>
+          <span v-if="hasLoggedIn" class="hear-user">
+            {{managerName}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>修改密码</el-dropdown-item>
-            <el-dropdown-item>注销</el-dropdown-item>
+            <el-dropdown-item >修改密码</el-dropdown-item>
+            <el-dropdown-item @click.native="logout">注销</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -44,9 +44,12 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import _ from 'lodash';
 import {routes} from '../router/router';
 import moment from 'moment';
+//todo
+//const modifyManagerPassword = (form) => axios.post('/app/modifyManagerPassword', form);
 
 export default {
   name: 'menuComponent',
@@ -59,8 +62,23 @@ export default {
       asideWidth: '200px',
       defaultActive: '',
       now: '',
-      timer: ''
+      timer: '',
+      // form:{
+      //   formalPassword:'',
+      //   newPassword:'',
+      // }
     };
+  },
+  computed:{
+    managerName () {
+      return this.$store.getters.getManagerName;
+    },
+    managerId(){
+      return this.$store.getters.getManagerId;
+    },
+    hasLoggedIn(){
+      return this.$store.getters.hasManagerLoggedIn;
+    }
   },
   beforeMount () {
     // 设置定时器，每3秒刷新一次
@@ -71,6 +89,7 @@ export default {
     self.now = moment().format('YYYY-MM-DD HH:mm:ss');
   },
   mounted () {
+    this.checkManagerLogin();
     const pageName = this.$route.name;
     const findLi = document.getElementsByTagName('li');
     _.each(findLi, item => {
@@ -88,6 +107,14 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['managerLogOut', 'checkManagerLogin']),
+    logout(){
+      this.managerLogOut();
+      this.$router.push('/login');
+    },
+    // modifyPassword(){
+
+    // },
     goTo (path) {
       this.$router.push(`${path}`);
     },

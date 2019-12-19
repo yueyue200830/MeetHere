@@ -44,6 +44,13 @@ const routes = [
     meta: {
       showInMenu: true,
       showManagerMenu: true,
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('ManagerAuthorization') == null) {
+        next('/login');
+      } else {
+        next();
+      }
     }
   },
   {
@@ -53,6 +60,13 @@ const routes = [
     meta: {
       showInMenu: true,
       showManagerMenu: true,
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('ManagerAuthorization') == null) {
+        next('/login');
+      } else {
+        next();
+      }
     }
   },
   {
@@ -62,6 +76,13 @@ const routes = [
     meta: {
       showInMenu: true,
       showManagerMenu: true,
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('ManagerAuthorization') == null) {
+        next('/login');
+      } else {
+        next();
+      }
     }
   },
   {
@@ -71,6 +92,13 @@ const routes = [
     meta: {
       showInMenu: true,
       showManagerMenu: true,
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('ManagerAuthorization') == null) {
+        next('/login');
+      } else {
+        next();
+      }
     }
   },
   {
@@ -80,6 +108,13 @@ const routes = [
     meta: {
       showInMenu: true,
       showManagerMenu: true,
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('ManagerAuthorization') == null) {
+        next('/login');
+      } else {
+        next();
+      }
     }
   },
   {
@@ -89,6 +124,13 @@ const routes = [
     meta: {
       showInMenu: true,
       showManagerMenu: true,
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('ManagerAuthorization') == null) {
+        next('/login');
+      } else {
+        next();
+      }
     }
   },
   {
