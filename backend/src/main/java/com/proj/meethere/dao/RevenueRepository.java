@@ -19,11 +19,11 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer> {
     @Query(value = "select * from revenue order by id", nativeQuery = true)
     List<Revenue> getAllRvnInfo();
 
-    @Query(value = "select rvn_name from revenue", nativeQuery = true)
+    @Query(value = "select rvn_name from revenue order by id", nativeQuery = true)
     List<String> getRvnName();
 
     @Query(value = "select * from revenue where id = :id",nativeQuery = true)
-    List<Revenue> getSpecificRvn(@Param("id") int id);
+    List<Revenue> getRevenueById(@Param("id") int id);
 
     @Query(value = "select id from revenue where rvn_name=:name", nativeQuery = true)
     int searchIdByName(@Param("name") String name);

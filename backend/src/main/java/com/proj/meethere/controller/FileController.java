@@ -1,10 +1,8 @@
 package com.proj.meethere.controller;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -17,6 +15,8 @@ import java.util.UUID;
  * @Author Tresaresa
  * @Date 2019/11/1 12:18
  */
+@Controller
+@CrossOrigin(origins = "*")
 public class FileController {
 
     public static final String BASE_PATH = "/upload/";

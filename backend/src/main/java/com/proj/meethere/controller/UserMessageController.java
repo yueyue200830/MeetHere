@@ -1,8 +1,7 @@
 package com.proj.meethere.controller;
 
-import com.proj.meethere.dao.MessageRepositroy;
-
 import com.proj.meethere.entity.Message;
+import com.proj.meethere.service.UserMessageService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,37 +18,48 @@ import java.util.List;
 @Controller
 @CrossOrigin(origins = "*")
 public class UserMessageController {
-    @Autowired
-    private MessageRepositroy messageRepositroy;
 
+    @Autowired
+    private UserMessageService userMessageService;
+
+    /**
+     *
+     * @return 获取最新的10条消息
+     */
     @RequestMapping(value = "/getLatestMessage", method = RequestMethod.POST)
     @ResponseBody
-    public String getLatestMessages() {
-        List<Message> latestMessages = messageRepositroy.findLatestMessages(10);
-
+    public String getLatestMessagesTen() {
+        List<Message> latestMessages = userMessageService.selectMessagesPartial(10);
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(latestMessages);
-
         return jsonArray.toString();
     }
 
+    /**
+     * @param lastTime 当前页面显示的最新message的时间
+     * @param number 获取的message条数
+     * @return 返回最新未显示的最多10条消息
+     */
     @RequestMapping(value = "/getMoreMessage", method = RequestMethod.GET)
     @ResponseBody
     public String getMoreMessages(@RequestParam("lastTime") String lastTime, @RequestParam("number") int number) {
-        List<Message> moreMessages = messageRepositroy.findMoreMessagesBefore(lastTime, number);
-
+        List<Message> moreMessages = userMessageService.selectMoreMessagesBeforePartial(lastTime, number);
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(moreMessages);
         return jsonArray.toString();
     }
 
+    /**
+     * @param newForm 用户输入的消息title和content
+     * @param userId 用户id
+     * @return 返回受影响行数
+     */
     @RequestMapping(value = "/addMessage", method = RequestMethod.GET)
     @ResponseBody
-    public int addNewMessage(@RequestParam("addMessageForm") String newForm, @RequestParam("id") int user_id) {
+    public int addNewMessage(@RequestParam("addMessageForm") String newForm, @RequestParam("id") int userId) {
         JSONObject jsonObject = new JSONObject(newForm);
         String title = jsonObject.getString("title");
         String content = jsonObject.getString("content");
-        int ret = messageRepositroy.insertNewMessage(content, user_id, title);
-        return ret;
+        return userMessageService.addNewMessage(title, content, userId);
     }
 }

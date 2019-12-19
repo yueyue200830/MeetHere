@@ -46,7 +46,7 @@
           {
             prop: 'orderPhone',
             label: '联系电话',
-            width: '100'
+            width: '150'
           },
           {
             prop: 'rvnId',
@@ -123,7 +123,16 @@
               this.loading = false;
               if (data) {
                 this.onAlertSuccess('审核通过成功');
-                getOrderInfo().then(data => {
+                getOrderInfo().then(data => { 
+                    var l = data.data.length;
+                    for(var i =0;i < l;i++){
+                      if(data.data[i].orderApproved == 1){
+                        data.data[i].orderApproved = "Yes";
+                      }else{
+                        data.data[i].orderApproved = "No";
+                      }
+                      
+                    }
                     this.searchData=data.data;
                     this.preData=data.data;
                 });
@@ -142,6 +151,15 @@
     },
     created(){
       getOrderInfo().then(data => {
+        var l = data.data.length;
+        for(var i =0;i < l;i++){
+          if(data.data[i].orderApproved == 1){
+            data.data[i].orderApproved = "Yes";
+          }else{
+            data.data[i].orderApproved = "No";
+          }
+                      
+        }
         this.searchData=data.data;
         this.preData=data.data;
       });

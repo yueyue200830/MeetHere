@@ -1,5 +1,6 @@
 package com.proj.meethere.dao;
 import com.proj.meethere.entity.Order;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -45,7 +46,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer>{
     int updatePhoneById(@Param("phone") String phone, @Param("id") int id);
 
     @Query(value = "select * from orderlist where rvn_id=:rvn_id and order_date=:date", nativeQuery = true)
-    List<Order> selectByRevenueAndDate(@Param("rvn_id") int rvn_id, @Param("date") String date);
+    List<Order> selectOrderByRevenueAndDate(@Param("rvn_id") int rvn_id, @Param("date") String date);
 
     @Transactional(rollbackFor = Exception.class)
     @Modifying

@@ -1,4 +1,6 @@
 package com.proj.meethere;
+
+import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.service.UserService;
 import com.proj.meethere.entity.User;
