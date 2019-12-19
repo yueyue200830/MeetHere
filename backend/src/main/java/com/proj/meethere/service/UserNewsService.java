@@ -21,11 +21,6 @@ public class UserNewsService {
         return newsRepository.selectAllNews();
     }
 
-    public List<News> getNewsPartial(int count) {
-        List<News> newsList = newsRepository.selectAllNews();
-        return newsList.subList(0, count);
-    }
-
     public List<News> getTenNewsByPageId(int start, int end) {
         return newsRepository.findNewsByScope(start, end);
     }

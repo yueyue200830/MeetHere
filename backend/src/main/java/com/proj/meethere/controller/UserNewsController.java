@@ -53,7 +53,11 @@ public class UserNewsController {
     @RequestMapping(value = "/getNewsThree", method = RequestMethod.POST)
     @ResponseBody
     public String getNewsThree() throws SQLException {
-        List<News> newsList = userNewsService.getNewsPartial(3);
+        List<News> newsList = userNewsService.selectAllNews();
+        if (newsList.size() >= 3) {
+            newsList = newsList.subList(0, 3);
+        }
+
         JSONArray jsonArray = new JSONArray();
         for(News news : newsList) {
             JSONObject jsonObject = new JSONObject();
@@ -76,7 +80,7 @@ public class UserNewsController {
      */
     @RequestMapping(value = "/getTenNews", method = RequestMethod.POST)
     @ResponseBody
-    public String getTenNewsByPageId(@RequestParam("page_id") int pageId) {
+    public String getTenNewsByPageId(@RequestParam("page_id") int pageId) throws SQLException {
         int start = pageId*10;
         int end = (pageId + 1)*10 - 1;
 
