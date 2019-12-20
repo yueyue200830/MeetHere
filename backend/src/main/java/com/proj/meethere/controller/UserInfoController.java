@@ -79,7 +79,8 @@ public class UserInfoController {
 
     @RequestMapping(value = "/GetPhoto", method = RequestMethod.POST)
     @ResponseBody
-    public Blob selectPhoto(@RequestParam("id") int id) {
-        return userInfoService.selectUserPhoto(id);
+    public String selectPhoto(@RequestParam("id") int id) throws SQLException {
+        Blob blob = userInfoService.selectUserPhoto(id);
+        return new String(blob.getBytes((long)1, (int)blob.length()));
     }
 }

@@ -111,6 +111,6 @@ public class UserMessageController {
         String title = jsonObject.getString("messageTitle");
         String content = jsonObject.getString("messageContent");
         int id = jsonObject.getInt("id");
-        return userMessageService.updateMessage(title, content, id);
+        return userMessageService.updateMessage(content, title, id);
     }
 }
