@@ -5,6 +5,7 @@ import com.proj.meethere.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Blob;
 import java.util.List;
 
 /**
@@ -30,8 +31,8 @@ public class UserInfoService {
         return userRepository.updateUserById(userName, userKey, id);
     }
 
-    public int insertNewUser(String userName, String userPass, int userType, String userPhoto) {
-        return userRepository.insertNewUser(userName, userPass, userType, userPhoto);
+    public int insertNewUser(String userName, String userPass, int userType) {
+        return userRepository.insertNewUser(userName, userPass, userType, null);
     }
 
     public int loginValidation(String userName, String userKey) {
@@ -42,4 +43,12 @@ public class UserInfoService {
             return user.get(0).getId();
         }
     }
-}
+
+    public int updateUserPhoto(Blob userPhoto, int id) {
+        return userRepository.updateUserPhotoById(userPhoto, id);
+    }
+
+    public Blob selectUserPhoto(int id) {
+        return userRepository.selectUserPhotoById(id);
+    }
+ }

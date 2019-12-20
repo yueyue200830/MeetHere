@@ -1,13 +1,21 @@
 package com.proj.meethere.controller;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.hibernate.Hibernate;
+import org.hibernate.LobHelper;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -21,9 +29,13 @@ public class FileController {
 
     public static final String BASE_PATH = "/upload/";
 
-    @RequestMapping(value = "/UploadPhoto", method = RequestMethod.POST)
-    @ResponseBody
-    public String uploadNewPhoto(@RequestParam("file") MultipartFile file) {
+    //@RequestMapping(value = "/UploadPhoto", method = RequestMethod.POST)
+    //@ResponseBody
+    public String uploadNewPhoto(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) throws IOException, SQLException {
+        byte[] byteFile = file.getBytes();
+
+        Blob blob = new SerialBlob(byteFile);
+        /*
         if(file.isEmpty()) {
             System.out.println("upload photo failed");
             return null;
@@ -61,7 +73,8 @@ public class FileController {
             e.printStackTrace();
         }
 
-        return "/" + filePath;
+        return "/" + filePath;*/
+        return "";
 
     }
 }

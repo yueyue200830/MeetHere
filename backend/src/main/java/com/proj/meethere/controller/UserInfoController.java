@@ -5,6 +5,12 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 
 /**
  * @Author Tresaresa
@@ -42,8 +48,8 @@ public class UserInfoController {
         JSONObject jsonObject = new JSONObject(form);
         String userName = jsonObject.getString("name");
         String userPass = jsonObject.getString("password");
-        // 默认注册用户类型为0（普通用户），头像为default.jpg
-        return userInfoService.insertNewUser(userName, userPass, 0, "default.jpg");
+        // 默认注册用户类型为0（普通用户），头像为空
+        return userInfoService.insertNewUser(userName, userPass, 0);
     }
 
     /**
@@ -57,5 +63,23 @@ public class UserInfoController {
         String userName = jsonObject.getString("name");
         String userKey = jsonObject.getString("password");
         return userInfoService.loginValidation(userName, userKey);
+    }
+
+    /**
+     * @param file 头像文件
+     * @param id 用户id
+     * @return 返回受影响行数
+     */
+    @RequestMapping(value = "/UploadPhoto", method = RequestMethod.POST)
+    @ResponseBody
+    public int uploadNewPhoto(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) throws IOException, SQLException {
+        Blob blob = new SerialBlob(file.getBytes());
+        return userInfoService.updateUserPhoto(blob, id);
+    }
+
+    @RequestMapping(value = "/GetPhoto", method = RequestMethod.POST)
+    @ResponseBody
+    public Blob selectPhoto(@RequestParam("id") int id) {
+        return userInfoService.selectUserPhoto(id);
     }
 }

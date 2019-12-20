@@ -29,9 +29,9 @@ public class UserService {
         return userRepository.selectSpecificUser(userId);
     }
 
-    public int addUser(String name, String key, int type, String photo) {
-        return userRepository.insertNewUser(name, key, type, photo);
-    }
+    //public int addUser(String name, String key, int type, String photo) {
+    //    return userRepository.insertNewUser(name, key, type, photo);
+    //}
 
     public String checkUser(String userName) {
         return userRepository.searchUserKeyByName(userName);
