@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
+
 import java.sql.Blob;
 import java.sql.SQLException;
 
@@ -70,7 +71,7 @@ public class UserInfoController {
      * @param id 用户id
      * @return 返回受影响行数
      */
-    @RequestMapping(value = "/UploadPhoto", method = RequestMethod.GET)
+    @RequestMapping(value = "/UploadPhoto", method = RequestMethod.POST)
     @ResponseBody
     public int uploadNewPhoto(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) throws IOException, SQLException {
         Blob blob = new SerialBlob(file.getBytes());
@@ -81,6 +82,6 @@ public class UserInfoController {
     @ResponseBody
     public String selectPhoto(@RequestParam("id") int id) throws SQLException {
         Blob blob = userInfoService.selectUserPhoto(id);
-        return new String(blob.getBytes((long)1, (int)blob.length()));
+        return new String(blob.getBytes(1, (int) blob.length()));
     }
 }

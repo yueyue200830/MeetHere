@@ -75,7 +75,7 @@ public class NewsService {
             System.out.println(content);
             News news = new News(content, photo, title, newsTime);
             newsRepository.save(news);
-        }catch (Exception e) {
+        } catch (Exception e) {
                 e.printStackTrace();
         }
         return 1;

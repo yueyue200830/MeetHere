@@ -159,6 +159,14 @@
     created() {
       this.userForm.name = this.userName;
       this.params.id = this.userId;
+      this.$http
+        .get('http://127.0.0.1:8081/GetPhoto', {
+          params: {
+            id: this.userId,
+          }})
+        .then(response => {
+          console.log(response);
+        });
     },
     methods: {
       submitForm(formName) {

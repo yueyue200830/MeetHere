@@ -35,7 +35,7 @@
           :rules="[
               { required: true, message: '标题不可为空'},
             ]"
-          prop="title">
+          prop="messageTitle">
           <el-input type="title" v-model="editMessageForm.messageTitle"/>
         </el-form-item>
         <el-form-item
@@ -44,7 +44,7 @@
           :rules="[
               { required: true, message: '内容不可为空'},
             ]"
-          prop="content">
+          prop="messageContent">
           <el-input
             type="textarea"
             :autosize="{ minRows: 3, maxRows: 6}"
@@ -126,8 +126,9 @@
           });
       },
       editMessage: function (comment) {
-        console.log(comment);
-        this.editMessageForm = comment;
+        this.editMessageForm.messageTitle = comment.messageTitle;
+        this.editMessageForm.messageContent = comment.messageContent;
+        this.editMessageForm.id = comment.id;
         this.editMessageVisibility = true;
       },
       loadMore: function() {
