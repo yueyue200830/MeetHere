@@ -70,14 +70,14 @@ public class UserInfoController {
      * @param id 用户id
      * @return 返回受影响行数
      */
-    @RequestMapping(value = "/UploadPhoto", method = RequestMethod.POST)
+    @RequestMapping(value = "/UploadPhoto", method = RequestMethod.GET)
     @ResponseBody
     public int uploadNewPhoto(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) throws IOException, SQLException {
         Blob blob = new SerialBlob(file.getBytes());
         return userInfoService.updateUserPhoto(blob, id);
     }
 
-    @RequestMapping(value = "/GetPhoto", method = RequestMethod.POST)
+    @RequestMapping(value = "/GetPhoto", method = RequestMethod.GET)
     @ResponseBody
     public Blob selectPhoto(@RequestParam("id") int id) {
         return userInfoService.selectUserPhoto(id);
