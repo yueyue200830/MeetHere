@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Blob;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(value = "insert into user (user_name, user_key, user_type, user_photo)" +
             " value (:user_name, :user_key, :user_type, :user_photo)", nativeQuery = true)
     int insertNewUser(@Param("user_name") String user_name, @Param("user_key") String user_key,
-                      @Param("user_type") int user_type, @Param("user_photo") String user_photo);
+                      @Param("user_type") int user_type, @Param("user_photo") Blob user_photo);
 
     @Transactional(rollbackFor = Exception.class)
     @Modifying
@@ -49,4 +50,12 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select * from user where user_name=:name and user_key=:key", nativeQuery = true)
     List<User> selectUserByNameAndId(@Param("name") String name, @Param("key") String key);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update user set user_photo=:user_photo where id=:user_id", nativeQuery = true)
+    int updateUserPhotoById(@Param("user_photo") Blob user_photo, @Param("user_id") int user_id);
+
+    @Query(value = "select user_photo from user where id=:user_id", nativeQuery = true)
+    Blob selectUserPhotoById(@Param("user_id") int user_id);
 }

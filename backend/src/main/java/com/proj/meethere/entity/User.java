@@ -1,6 +1,7 @@
 package com.proj.meethere.entity;
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 /**
  * @Author Tresaresa Yiqing Tao
@@ -26,12 +27,12 @@ public class User {
     private Integer userType;
 
     @Column(name = "user_photo")
-    private String userPhoto;
+    private Blob userPhoto;
 
     public User(){
     }
 
-    public User(String userName, String userKey, Integer userType, String userPhoto) {
+    public User(String userName, String userKey, Integer userType, Blob userPhoto) {
         this.userName = userName;
         this.userKey = userKey;
         this.userType = userType;
@@ -70,11 +71,11 @@ public class User {
         this.userType = userType;
     }
 
-    public String getUserPhoto() {
+    public Blob getUserPhoto() {
         return userPhoto;
     }
 
-    public void setUserPhoto(String userPhoto) {
+    public void setUserPhoto(Blob userPhoto) {
         this.userPhoto = userPhoto;
     }
 }

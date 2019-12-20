@@ -16,14 +16,13 @@
             <div class="text">
               {{ comment.messageContent }}
             </div>
-            <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image">
-            </el-image>
+            <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
           </div>
         </el-card>
       </div>
       <div class="more">
         <el-button type="primary" :loading="false" @click="loadMore">
-          More
+          更多
         </el-button>
       </div>
       <el-dialog
@@ -77,11 +76,7 @@
       }
     },
     created: function () {
-      this.$http
-        .post('http://127.0.0.1:8081/getLatestMessage')
-        .then(response => {
-          this.comments = response.data[0];
-        });
+      this.refresh();
     },
     computed: {
       hasLoggedIn() {

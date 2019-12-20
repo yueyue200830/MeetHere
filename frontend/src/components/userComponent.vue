@@ -20,6 +20,7 @@
           <el-submenu index="7" v-if="hasLoggedIn">
             <template slot="title">{{ userName }}</template>
             <el-menu-item index="info">个人信息</el-menu-item>
+            <el-menu-item index="myMessage">我的留言</el-menu-item>
             <el-menu-item @click="logOut">退出</el-menu-item>
           </el-submenu>
           <el-menu-item v-else index="login">登录</el-menu-item>

@@ -44,6 +44,17 @@ public class Order {
     public Order() {
     }
 
+    public Order(int userId, String orderPhone, int rvnRoomNum, int rvnId, int timeSlot, String orderDate, int orderApproved, int orderPrice) {
+        this.userId = userId;
+        this.orderPhone = orderPhone;
+        this.rvnRoomNum = rvnRoomNum;
+        this.rvnId = rvnId;
+        this.timeSlot = timeSlot;
+        this.orderDate = orderDate;
+        this.orderApproved = orderApproved;
+        this.orderPrice = orderPrice;
+    }
+
     public int getId() {
         return id;
     }

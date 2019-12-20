@@ -1,4 +1,4 @@
-package com.proj.meethere;
+package com.proj.meethere.repositoryTest;
 
 import com.mysql.cj.exceptions.AssertionFailedException;
 import com.proj.meethere.dao.UserRepository;

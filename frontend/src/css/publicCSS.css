@@ -3,7 +3,6 @@ body,html {
   height: 100%;
   width: 100%;
   padding: 0;
-  /*overflow: hidden;*/
 }
 
 a:link {color: black}
@@ -28,8 +27,6 @@ a:active {color: black}
 img {
   width: auto;
   height: auto;
-  max-width: 100%;
-  max-height: 100%;
   vertical-align: middle;
 }
 .el-select {

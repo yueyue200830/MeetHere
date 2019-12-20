@@ -60,6 +60,7 @@
               :key="news.id"
             >
               <div class="news-card">
+                <el-image class="news-image" :src="news.newsPhoto"/>
                 <div class="news-headline">
                   <div class="news-headline-text">
                     {{ news.newsTitle }}
@@ -94,7 +95,7 @@
       this.$http
         .post('http://127.0.0.1:8081/getNewsThree')
         .then(response => {
-          this.newsList = response.data[0];
+          this.newsList = response.data;
         })
     },
     methods: {
@@ -162,6 +163,11 @@
 
   .news-card:hover {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .news-image {
+    margin: 15px 20px 10px;
+    border-radius: 4px;
   }
 
   .news-headline {
