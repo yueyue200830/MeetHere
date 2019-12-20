@@ -96,7 +96,7 @@ public class UserMessageController {
      */
     @RequestMapping(value = "/deleteMessage", method = RequestMethod.GET)
     @ResponseBody
-    public int deleteMessage(@RequestParam("id")int id) {
+    public int deleteMessage(@RequestParam("id") int id) {
         return userMessageService.deleteMessage(id);
     }
 
