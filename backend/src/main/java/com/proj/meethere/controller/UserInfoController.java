@@ -82,6 +82,6 @@ public class UserInfoController {
     @ResponseBody
     public String selectPhoto(@RequestParam("id") int id) throws SQLException {
         Blob blob = userInfoService.selectUserPhoto(id);
-        return new String(blob.getBytes(1, (int) blob.length()));
+        return new String(blob.getBytes(1, (int)blob.length()));
     }
 }

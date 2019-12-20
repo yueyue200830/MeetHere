@@ -3,15 +3,12 @@ package com.proj.meethere.controllerTest;
 import com.proj.meethere.controller.UserRevenueController;
 import com.proj.meethere.entity.Revenue;
 import com.proj.meethere.service.UserRevenueService;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -28,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @Date 2019/12/20 14:23
  */
 @WebMvcTest(UserRevenueController.class)
-public class UserRevenueControllerTest {
+class UserRevenueControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,10 +33,8 @@ public class UserRevenueControllerTest {
     @MockBean
     private UserRevenueService userRevenueService;
 
-    private UserRevenueController userRevenueController;
-
     @BeforeEach
-    public void before() {
+    void init() {
         List<Revenue> revenueList = new ArrayList<>();
         given(userRevenueService.getAllVenue()).willReturn(revenueList);
         List<String> names = new ArrayList<>();
@@ -58,7 +53,4 @@ public class UserRevenueControllerTest {
         mockMvc.perform(post("/getVenueName")).andExpect(status().isOk());
         verify(userRevenueService, times(1)).getAllenueName();
     }
-
-
-
 }

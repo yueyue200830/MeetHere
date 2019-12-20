@@ -24,4 +24,8 @@ public class UserNewsService {
     public List<News> getTenNewsByPageId(int start, int end) {
         return newsRepository.findNewsByScope(start, end);
     }
+
+    public List<News> selectNewsPartial(int count) {
+        return newsRepository.findNewsPartial(count);
+    }
 }

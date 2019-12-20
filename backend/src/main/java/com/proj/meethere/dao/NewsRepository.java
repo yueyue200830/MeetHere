@@ -34,16 +34,19 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
     @Query(value = "select * from news where id = :id", nativeQuery = true)
     List<News> selectSpecificNews(@Param("id") int id);
 
-    @Modifying
-    @Query(value = "insert into news (news_content, news_title, news_photo, news_time) " +
-            "value (:newsContent, :newsTitle, :newsPhoto, now())", nativeQuery = true)
-    int insertNewNews(@Param("newsContent") String newsContent, @Param("newsTitle") String newsTitle,
-                      @Param("newsPhoto") Blob newsPhoto) throws SQLException;
+   // @Modifying
+    //@Query(value = "insert into news (news_content, news_title, news_photo, news_time) " +
+     //       "value (:newsContent, :newsTitle, :newsPhoto, now())", nativeQuery = true)
+    //int insertNewNews(@Param("newsContent") String newsContent, @Param("newsTitle") String newsTitle,
+      //                @Param("newsPhoto") Blob newsPhoto) throws SQLException;
 
     @Query(value = "select * form news where id>=:first and id<=:last order by news_time desc", nativeQuery = true)
     List<News> findNewsByScope(@Param("first") int first, @Param("last") int last);
 
     @Query(value = "select * from news where id = :id", nativeQuery = true)
     List<News> findNewsPhotoById(@Param("id") int id);
+
+    @Query(value = "select * from news order by news_time limit :count", nativeQuery = true)
+    List<News> findNewsPartial(@Param("count") int count);
 
 }
