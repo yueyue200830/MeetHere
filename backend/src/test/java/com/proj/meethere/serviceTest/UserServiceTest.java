@@ -1,4 +1,4 @@
-package com.proj.meethere;
+package com.proj.meethere.serviceTest;
 
 import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
