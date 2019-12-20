@@ -28,7 +28,7 @@
             {{managerName}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item >修改密码</el-dropdown-item>
+            <el-dropdown-item @click.native="showDialog = true">修改密码</el-dropdown-item>
             <el-dropdown-item @click.native="logout">注销</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -39,7 +39,39 @@
         </el-main>
       </el-scrollbar>
     </el-container>
+    <el-dialog
+      :title="this.dialogTitle"
+      :visible.sync="showDialog"
+      width="50%"
+      :close-on-click-modal="false"
 
+      center>
+      <el-form :model="passwordForm" ref="passwordForm" label-width="100px">
+        <el-row>
+          <el-form-item label="用户名" prop="userName">
+            <el-input v-model="passwordForm.userName" :placeholder="$placeholder.input" disabled></el-input>
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item label="原先密码" prop="oldPassword">
+            <el-input v-model="passwordForm.oldPassword" :placeholder="$placeholder.input"></el-input>
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item label="新密码" prop="newPassword">
+            <el-input v-model="passwordForm.newPassword" :placeholder="$placeholder.input"></el-input>
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item label="确认密码" prop="confirmPassword">
+            <el-input v-model="passwordForm.confirmPassword" :placeholder="$placeholder.input"></el-input>
+          </el-form-item>
+        </el-row>
+      </el-form>
+      <div slot="footer">
+        <el-button type="primary" @click="saveResult">保存</el-button>
+      </div>
+    </el-dialog>
   </el-container>
 </template>
 
@@ -49,12 +81,13 @@ import _ from 'lodash';
 import {routes} from '../router/router';
 import moment from 'moment';
 //todo
-//const modifyManagerPassword = (form) => axios.post('/app/modifyManagerPassword', form);
+const modifyManagerPassword = (passwordForm) => axios.post('/app/modifyManagerPassword', passwordForm);
 
 export default {
   name: 'menuComponent',
   data () {
     return {
+      dialogTitle: "修改密码",
       isCollapseLeft: false,
       isCollapseRight: false,
       totalLeftMenu: routes,
@@ -63,10 +96,13 @@ export default {
       defaultActive: '',
       now: '',
       timer: '',
-      // form:{
-      //   formalPassword:'',
-      //   newPassword:'',
-      // }
+      showDialog: false,
+      passwordForm:{
+        userName:'',
+        oldPassword:'',
+        newPassword:'',
+        confirmPassword:''
+      }
     };
   },
   computed:{
@@ -89,6 +125,7 @@ export default {
     self.now = moment().format('YYYY-MM-DD HH:mm:ss');
   },
   mounted () {
+    this.passwordForm.userName = this.$store.getters.getManagerName;
     this.checkManagerLogin();
     const pageName = this.$route.name;
     const findLi = document.getElementsByTagName('li');
@@ -112,9 +149,20 @@ export default {
       this.managerLogOut();
       this.$router.push('/login');
     },
-    // modifyPassword(){
-
-    // },
+    saveResult(){
+      if(this.passwordForm.newPassword != this.confirmPassword){
+        this.onAlertError("两次密码不一致");
+      }else{
+        modifyManagerPassword(this.passwordForm).then(data => {
+          if(data.data){
+            this.onAlertSuccess("修改密码成功");
+          }else{
+            this.onAlertError("修改密码失败，用户名与密码不匹配");
+          }
+        })
+        this.showDialog = false;
+      }
+    },
     goTo (path) {
       this.$router.push(`${path}`);
     },

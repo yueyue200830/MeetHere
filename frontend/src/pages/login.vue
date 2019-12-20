@@ -36,7 +36,7 @@
 import { mapMutations } from 'vuex'
 import '../css/loginCSS.css';
 import axios from 'axios';
-const loginValid =(condition)=> axios.post('/app/api/loginCheck', condition);
+const loginValid =(condition)=> axios.post('/app/managerLoginCheck', condition);
 export default {
   name: 'login',
   data () {
@@ -62,13 +62,14 @@ export default {
       let condition = this.form;
       loginValid(condition).then(data => {
           this.loading = false;
-          if (data) {
-            this.managerLogin({ Authorization: data, name: this.form.user_name });
+          if (data.data) {
+            this.managerLogin({ Authorization: data.data, name: this.form.user_name });
             this.$router.push('/manager/userInfo');
           } else {
             this.onAlertError('用户名与密码不匹配');
           }
       });
+      //正式版本要注释掉
       let data = 1;
       this.managerLogin({ Authorization: data, name: this.form.user_name });
       this.$router.push('/manager/userInfo');
