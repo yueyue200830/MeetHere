@@ -1,6 +1,15 @@
 <template>
   <page-main-body :title="title" :loading="loading">
-    <div style="width: 90%">
+    <div style="width: 50%;position: absolute;top:15%;left:6%">
+      <el-date-picker
+        v-model="value"
+        type="date"
+        placeholder="选择日期"
+        value-format="yyyy-MM-dd"
+        @change="getValue">
+      </el-date-picker>
+    </div>
+    <div style="width: 90%; top: 200px;position: absolute">
       <e-charts :options="chartOption"></e-charts>
     </div>
   </page-main-body>
@@ -10,14 +19,15 @@
   import axios from 'axios';
   import ECharts from 'vue-echarts/components/ECharts';
   require('echarts/lib/chart/bar');
-  const getStatistic= () => axios.post("/app/getStatistic");
-  const getVenueNameForChart= () => axios.post("/app/getVenueNameForChart");
+  const getStatistic= (value) => axios.get(`/app/getStatistic/${value}`);
+  const getVenueNameForChart= (value) => axios.get(`/app/getVenueNameForChart/${value}`);
   export default {
     name: "orderInfo",
     components: {ECharts},
     data () {
       return {
         loading: false,
+        value: '',
         title: '预约订单统计信息',
         chartOption: {
           grid: {left: 30, top: 30, right: 30, bottom: 30},
@@ -78,15 +88,40 @@
       };
     },
     methods:{
+      getValue(){
+        console.log(this.value);
+        if(this.value){
+          getStatistic(this.value).then(data => {
+            console.log(data.data);
+            this.chartOption.series[0].data=data.data;
+          });
 
+          getVenueNameForChart(this.value).then(data => {
+            //console.log(data.data);
+            this.chartOption.xAxis.data = data.data;
+          });
+        }else{
+          this.onAlertError("请选择日期");
+        }
+
+      }
     },
     mounted(){
-      getStatistic().then(data => {
+      var nowDate = new Date();
+      
+      var mdata = {
+        year: nowDate.getFullYear(),
+        month: nowDate.getMonth() + 1,
+        date: nowDate.getDate(),
+      }
+      this.value = mdata.year + '-' + mdata.month + '-' + mdata.date; //获取当天日期，默认为当天日期
+      //console.log(this.value);
+      getStatistic(this.value).then(data => {
         console.log(data.data);
         this.chartOption.series[0].data=data.data;
       });
 
-      getVenueNameForChart().then(data => {
+      getVenueNameForChart(this.value).then(data => {
         //console.log(data.data);
         this.chartOption.xAxis.data = data.data;
       });

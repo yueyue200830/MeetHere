@@ -9,7 +9,9 @@
 
                        :putable="true" @on-put="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
-
+            <!-- <template slot="operation" slot-scope="props">
+              <el-button size="mini" @click="viewPhoto(props.prop.id)">查看图片</el-button>
+            </template> -->
           </light-table>
         </el-col>
       </el-row>
@@ -55,7 +57,14 @@
           {
             prop: 'messageVisibility',
             label: '是否审核通过',
-          }
+          },
+          // {
+          //   prop: 'operation',
+          //   label: '操作',
+          //   type: {
+          //     operate: true
+          //   }
+          // }
 
         ],
         searchData:[],

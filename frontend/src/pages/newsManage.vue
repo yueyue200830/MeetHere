@@ -8,6 +8,7 @@
                        :columns="columns"
                        :searchable= "false"
                        :addable="true" @on-add="addType"
+                       :deleteable="true" @on-delete="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
             <template slot="operation" slot-scope="props">
               <el-button size="mini" @click="viewTypeDetail(props.prop.id,'edit')">编辑</el-button>
