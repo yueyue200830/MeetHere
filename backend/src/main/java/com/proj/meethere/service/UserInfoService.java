@@ -49,6 +49,6 @@ public class UserInfoService {
     }
 
     public Blob selectUserPhoto(int id) {
-        return userRepository.selectUserPhotoById(id);
+        return userRepository.selectSpecificUser(id).get(0).getUserPhoto();
     }
  }
