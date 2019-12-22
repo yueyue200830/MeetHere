@@ -5,6 +5,7 @@ import com.proj.meethere.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Blob;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class UserInfoService {
     @Autowired
     UserRepository userRepository;
 
-    public int getUserIdByName(String user_name) {
+    public int checkUserNameExist(String user_name) {
         List<User> users = userRepository.selectUserByName(user_name);
         if (users.isEmpty()) {
             return 0;
@@ -47,7 +48,7 @@ public class UserInfoService {
         return userRepository.updateUserPhotoById(userPhoto, id);
     }
 
-    public List<User> selectUserPhoto(int id) {
-        return userRepository.selectSpecificUser(id);
+    public Blob selectUserPhoto(int id) {
+        return userRepository.selectSpecificUser(id).get(0).getUserPhoto();
     }
  }

@@ -26,10 +26,10 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
-    @RequestMapping(value = "/getUserIdByName", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkUserNameExist", method = RequestMethod.GET)
     @ResponseBody
     public int getUserIdByName(@RequestParam("user_name") String user_name) {
-        return userInfoService.getUserIdByName(user_name);
+        return userInfoService.checkUserNameExist(user_name);
     }
 
     @RequestMapping(value = "/updateUserById", method = RequestMethod.GET)
@@ -82,10 +82,14 @@ public class UserInfoController {
         return userInfoService.updateUserPhoto(base64, id);
     }
 
+    /**
+     * @param id 用户id
+     * @return 用户头像(base64编码)
+     */
     @RequestMapping(value = "/GetPhoto", method = RequestMethod.GET)
     @ResponseBody
     public String selectPhoto(@RequestParam("id") int id) throws SQLException, UnsupportedEncodingException {
-        Blob blob = userInfoService.selectUserPhoto(id).get(0).getUserPhoto();
+        Blob blob = userInfoService.selectUserPhoto(id);
         String s = new String(blob.getBytes(1, (int)blob.length()),"UTF-8");
         return s;
     }

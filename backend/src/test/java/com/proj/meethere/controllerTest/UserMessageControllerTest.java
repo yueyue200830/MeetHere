@@ -46,6 +46,7 @@ class UserMessageControllerTest {
         given(userMessageService.selectMessagesPartialById(anyInt(), anyInt())).willReturn(messageList);
         given(userMessageService.selectMoreMessagesBeforePartial(anyString(), anyInt())).willReturn(messageList);
         given(userMessageService.selectMoreMessagesBeforePartialById(anyString(), anyInt(), anyInt())).willReturn(messageList);
+        given(userMessageService.addNewMessage(anyString(), anyString(), anyInt())).willReturn(0);
     }
 
     @Test
