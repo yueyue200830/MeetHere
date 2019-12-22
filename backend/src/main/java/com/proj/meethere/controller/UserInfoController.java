@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.SQLException;
+
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * @Author Tresaresa
@@ -74,14 +76,17 @@ public class UserInfoController {
     @RequestMapping(value = "/UploadPhoto", method = RequestMethod.POST)
     @ResponseBody
     public int uploadNewPhoto(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) throws IOException, SQLException {
-        Blob blob = new SerialBlob(file.getBytes());
-        return userInfoService.updateUserPhoto(blob, id);
+        // convert to base64 string
+        String base64 = Base64.encodeBase64String(file.getBytes());
+        base64 = "data:image/png;base64," + base64;
+        return userInfoService.updateUserPhoto(base64, id);
     }
 
     @RequestMapping(value = "/GetPhoto", method = RequestMethod.GET)
     @ResponseBody
-    public String selectPhoto(@RequestParam("id") int id) throws SQLException {
-        Blob blob = userInfoService.selectUserPhoto(id);
-        return new String(blob.getBytes(1, (int)blob.length()));
+    public String selectPhoto(@RequestParam("id") int id) throws SQLException, UnsupportedEncodingException {
+        Blob blob = userInfoService.selectUserPhoto(id).get(0).getUserPhoto();
+        String s = new String(blob.getBytes(1, (int)blob.length()),"UTF-8");
+        return s;
     }
 }

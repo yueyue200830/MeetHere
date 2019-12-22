@@ -159,13 +159,16 @@
     created() {
       this.userForm.name = this.userName;
       this.params.id = this.userId;
+
       this.$http
         .get('http://127.0.0.1:8081/GetPhoto', {
           params: {
             id: this.userId,
           }})
         .then(response => {
-          console.log(response);
+          console.log(response.data);
+          this.userAvatar = response.data
+
         });
     },
     methods: {
@@ -208,6 +211,7 @@
         console.log(jsonData);
         // this.userAvatar = jsonData.data.img;
         this.userAvatar = this.imgDataUrl;
+        console.log(this.imgDataUrl);
         this.showAvatarCrop = false;
       },
       cropUploadFail(status, field) {

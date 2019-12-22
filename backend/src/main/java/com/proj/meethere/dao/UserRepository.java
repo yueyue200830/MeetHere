@@ -54,7 +54,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Transactional
     @Modifying
     @Query(value = "update user set user_photo=:user_photo where id=:user_id", nativeQuery = true)
-    int updateUserPhotoById(@Param("user_photo") Blob user_photo, @Param("user_id") int user_id);
+    int updateUserPhotoById(@Param("user_photo") String user_photo, @Param("user_id") int user_id);
 
     @Query(value = "select user_photo from user where id=:user_id", nativeQuery = true)
     Blob selectUserPhotoById(@Param("user_id") int user_id);
