@@ -86,7 +86,6 @@ public class NewsService {
         System.out.println(newsList);
         Blob newsPhoto = newsList.get(0).getNewsPhoto();
         String photo = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()),"GBK");
-        System.out.println("photo " + photo);
         return photo;
     }
 
