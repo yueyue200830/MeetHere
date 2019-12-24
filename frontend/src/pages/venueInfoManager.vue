@@ -24,14 +24,14 @@
         <el-form :model="dialogTypeForm" :rules="dialogTypeRules" ref="dialogTypeForm" label-width="100px">
           <el-row>
             <el-col :span="12">
-              <el-form-item label="场馆价格" prop="rvnPrice">
+              <el-form-item label="场馆价格" prop="rvnPrice" :rules="{required:true,message:'场馆价格不可为空'}">
                 <el-input v-model="dialogTypeForm.rvnPrice" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="12">
-              <el-form-item label="场馆介绍" prop="rvnIntro">
+            <el-col :span="24">
+              <el-form-item label="场馆介绍" prop="rvnIntro" :rules="{required:true,message:'场馆介绍不可为空'}">
                 <el-input v-model="dialogTypeForm.rvnIntro" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
@@ -53,20 +53,20 @@
         <el-form :model="addDialogForm" :rules="dialogTypeRules" ref="addDialogForm" label-width="100px">
           <el-row>
             <el-col :span="12">
-              <el-form-item label="场馆名" prop="rvnName">
+              <el-form-item label="场馆名" prop="rvnName" :rules="{required:true,message:'场馆名不可为空'}">
                 <el-input v-model="addDialogForm.rvnName" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="场馆价格" prop="rvnPrice">
+              <el-form-item label="场馆价格" prop="rvnPrice" :rules="{required:true,message:'场馆价格不可为空'}">
                 <el-input v-model="addDialogForm.rvnPrice" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
 
-            <el-col :span="12">
-              <el-form-item label="场馆介绍" prop="rvnIntro">
+            <el-col :span="24">
+              <el-form-item label="场馆介绍" prop="rvnIntro"  :rules="{required:true,message:'场馆介绍不可为空'}">
                 <el-input v-model="addDialogForm.rvnIntro" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
@@ -208,35 +208,46 @@
         };
       },
       saveCheckResult () {
-        this.loading = true;
-        console.log(this.dialogTypeForm);
+        this.$refs['dialogTypeForm'].validate((valid) => {
+          if(valid){
+            this.loading = true;
 
-        modifyCheckResult(this.dialogTypeForm).then(data => {
-          this.loading=false;
-          if (data.data) {
-            getVenueInfo().then(data => {
-              this.searchData=data.data;
-              this.preData=data.data;
-            })
+            modifyCheckResult(this.dialogTypeForm).then(data => {
+              this.loading=false;
+              if (data.data) {
+                getVenueInfo().then(data => {
+                  this.searchData=data.data;
+                  this.preData=data.data;
+                })
+              }else{
+                this.onAlertError("修改失败");
+              }
+              this.showDialogType = false;
+            });
           }else{
-            this.onAlertError("修改失败");
+            this.onAlertError("输入格式不正确！");
           }
-          this.showDialogType = false;
-        });
+        })
       },
       addVenue(){
-        this.loading = true;
-        addVenueManager(this.addDialogForm).then(data => {
-          this.loading = false;
-          if(data.data){
-            getVenueInfo().then(data => {
-              this.searchData=data.data;
-              this.preData=data.data;
+        this.$refs['addDialogForm'].validate((valid) => {
+          if(valid){
+            this.loading = true;
+            addVenueManager(this.addDialogForm).then(data => {
+              this.loading = false;
+              if(data.data){
+                getVenueInfo().then(data => {
+                  this.searchData=data.data;
+                  this.preData=data.data;
+                })
+              }else{
+                this.onAlertError("添加失败");
+              }
+              this.showAddDialogForm = false;
             })
           }else{
-            this.onAlertError("添加失败");
+            this.onAlertError("输入格式不正确！");
           }
-          this.showAddDialogForm = false;
         })
       },
       getSelectRow (val) {

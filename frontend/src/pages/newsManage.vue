@@ -27,19 +27,19 @@
         <el-form :model="dialogTypeForm" :rules="dialogTypeRules" ref="dialogTypeForm" label-width="100px">
           <el-row>
             <el-col :span="12">
-              <el-form-item label="新闻标题" prop="newsTitle">
+              <el-form-item label="新闻标题" prop="newsTitle" :rules="{required:true,message:'新闻标题不可为空'}">
                 <el-input v-model="dialogTypeForm.newsTitle" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="20">
-              <el-form-item label="新闻内容" prop="newsContent" style="height:150px;">
+            <el-col :span="24">
+              <el-form-item label="新闻内容" prop="newsContent" style="height:150px;" :rules="{required:true,message:'新闻内容不可为空'}">
                 <el-input v-model="dialogTypeForm.newsContent" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="图片" prop="newsPhoto">
+              <el-form-item label="图片" prop="newsPhoto" >
                 <el-upload
 
                   class="upload-demo"
@@ -213,40 +213,46 @@
       },
       //点击保存按钮之后，如果是修改新闻，则后端API为update，如果是添加新闻则后端API为添加
       saveCheckResult () {
-        this.loading = true;
+        this.$refs['dialogTypeForm'].validate((valid) => {
+          if(valid){
+            this.loading = true;
 
-        if (this.dialogTypeForm.title == '修改新闻') {
-            console.log(this.dialogTypeForm.id);
-            modifyCheckResult(this.dialogTypeForm).then(data => {
-                this.loading=false;
-                this.showDialogType = false;
-                if (data.data) {
-                    getNewsInfo().then(data => {
-                      this.searchData=data.data;
-                      this.preData=data.data;
-                    })
-                  this.onAlertSuccess('修改成功');
-                }else{
-                  this.onAlertError('修改失败')
-                }
-            });
-        } else {
-            console.log(this.dialogTypeForm.newsPhoto);
-            addCheckResult(this.dialogTypeForm).then(data => {
-                this.loading = false;
-                this.showDialogType = false;
-                if (data.data) {
-                    getNewsInfo().then(data => {
-                      this.searchData=data.data;
-                      this.preData=data.data;
-                    })
-                    this.onAlertSuccess('添加成功');
-                } else {
+            if (this.dialogTypeForm.title == '修改新闻') {
+                console.log(this.dialogTypeForm.id);
+                modifyCheckResult(this.dialogTypeForm).then(data => {
+                    this.loading=false;
+                    this.showDialogType = false;
+                    if (data.data) {
+                        getNewsInfo().then(data => {
+                          this.searchData=data.data;
+                          this.preData=data.data;
+                        })
+                      this.onAlertSuccess('修改成功');
+                    }else{
+                      this.onAlertError('修改失败')
+                    }
+                });
+            } else {
+                console.log(this.dialogTypeForm.newsPhoto);
+                addCheckResult(this.dialogTypeForm).then(data => {
+                    this.loading = false;
+                    this.showDialogType = false;
+                    if (data.data) {
+                        getNewsInfo().then(data => {
+                          this.searchData=data.data;
+                          this.preData=data.data;
+                        })
+                        this.onAlertSuccess('添加成功');
+                    } else {
 
-                    this.onAlertError('添加失败');
-                }
-            });
-        }
+                        this.onAlertError('添加失败');
+                    }
+                });
+            }
+          }else{
+            this.onAlertError("输入格式不正确！");
+          }
+        })
       },
       //删除新闻
       goToDelete (id) {
