@@ -30,7 +30,7 @@
     data () {
       return {
         loading: false,
-        title: '用户管理',
+        title: '用户信息',
         columns: [
           {
             prop: 'id',
