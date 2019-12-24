@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.UnsupportedEncodingException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 

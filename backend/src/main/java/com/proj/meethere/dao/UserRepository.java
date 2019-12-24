@@ -34,12 +34,12 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "update user set user_key=:user_key,where user_name=:user_name", nativeQuery = true)
+    @Query(value = "update user set user_key=:user_key where user_name=:user_name", nativeQuery = true)
     int updateUserKey(@Param("user_key") String userKey, @Param("user_name") String userName );
 
     @Modifying
     @Transactional
-    @Query(value = "update user set user_type=:user_type,where id=:id", nativeQuery = true)
+    @Query(value = "update user set user_type=:user_type where id=:id", nativeQuery = true)
     int updateUserRole(@Param("user_type") int userType, @Param("id") int userId );
 
     @Modifying

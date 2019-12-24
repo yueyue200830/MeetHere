@@ -34,6 +34,7 @@ public class UserService {
     //}
 
     public int updateUserRole(String userId) {
+        System.out.println(userId);
         return userRepository.updateUserRole(1, Integer.parseInt(userId));
     }
 
