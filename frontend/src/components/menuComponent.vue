@@ -168,7 +168,7 @@ export default {
       this.$router.push('/login');
     },
     saveResult(){
-      if(this.passwordForm.newPassword != this.confirmPassword){
+      if(this.passwordForm.newPassword != this.passwordForm.confirmPassword){
         this.onAlertError("两次密码不一致");
       }else{
         modifyManagerPassword(this.passwordForm).then(data => {

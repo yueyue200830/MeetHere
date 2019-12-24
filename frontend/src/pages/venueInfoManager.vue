@@ -28,12 +28,15 @@
                 <el-input v-model="dialogTypeForm.rvnPrice" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="12">
               <el-form-item label="场馆介绍" prop="rvnIntro">
                 <el-input v-model="dialogTypeForm.rvnIntro" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
+          
 
         </el-form>
         <span slot="footer" class="dialog-footer">
