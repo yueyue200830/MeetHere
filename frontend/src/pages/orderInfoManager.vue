@@ -100,7 +100,7 @@
           });
 
           getVenueNameForChart(this.value).then(data => {
-            //console.log(data.data);
+            console.log(data.data);
             this.chartOption.xAxis.data = data.data;
           });
         }else{

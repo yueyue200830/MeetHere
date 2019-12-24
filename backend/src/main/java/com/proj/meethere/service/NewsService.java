@@ -47,8 +47,11 @@ public class NewsService {
         return newsRepository.deleteSpecificNews(id);
     }
 
-    public int updateNews(String content, String title, Blob photo, int id) {
-        return newsRepository.updateSpeceficNews(content, title, photo, id);
+    public int updateNews(String content, String title, String photo, int id) {
+        int result = newsRepository.updateSpeceficNews(content, title, photo, id);
+        System.out.println(result);
+        System.out.println("test id" + id);
+        return result;
     }
 
     public List<NewsRequest> searchSpecificNews(int id) throws SQLException, UnsupportedEncodingException {
@@ -67,14 +70,13 @@ public class NewsService {
         return newsRequestList;
     }
 
-    public int addNews(String content, String title, Blob photo) {
+    public int addNews(String content, String title, String photo) {
         try {
             Date currentTime = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String newsTime = format.format(currentTime);
             System.out.println(content);
-            News news = new News(content, photo, title, newsTime);
-            newsRepository.save(news);
+            newsRepository.insertNews(content, photo, title);
         } catch (Exception e) {
                 e.printStackTrace();
         }
@@ -82,7 +84,7 @@ public class NewsService {
     }
 
     public String getPhotoById(int id) throws SQLException, UnsupportedEncodingException {
-        List<News> newsList = newsRepository.findNewsPhotoById(id);
+        List<News> newsList = newsRepository.selectSpecificNews(id);
         System.out.println(newsList);
         Blob newsPhoto = newsList.get(0).getNewsPhoto();
         String photo = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()),"GBK");

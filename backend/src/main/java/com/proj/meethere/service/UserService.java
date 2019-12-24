@@ -33,8 +33,38 @@ public class UserService {
     //    return userRepository.insertNewUser(name, key, type, photo);
     //}
 
-    public String checkUser(String userName) {
-        return userRepository.searchUserKeyByName(userName);
+    public int updateUserRole(String userId) {
+        return userRepository.updateUserRole(1, Integer.parseInt(userId));
+    }
+
+    public int checkManagerValid(String userName, String userKey) {
+        if(userRepository.selectUserType(userName) == 1) {
+            System.out.println("user name exists");
+            String key = userRepository.searchUserKeyByName(userName);
+            if(key.equals(userKey)) {
+                System.out.println("key good");
+                return 1;
+            } else {
+                System.out.println("key wrong");
+                return 0;
+            }
+        } else {
+            System.out.println("name wrong");
+            return 0;
+        }
+    }
+
+    public int changeUserKey(String oldUserKey, String userName, String newUserKey) {
+        String orginKey = userRepository.searchUserKeyByName(userName);
+        if(! "".equals(orginKey)) {
+            if(oldUserKey.equals(orginKey)) {
+               return userRepository.updateUserKey(newUserKey, userName);
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
     
 }

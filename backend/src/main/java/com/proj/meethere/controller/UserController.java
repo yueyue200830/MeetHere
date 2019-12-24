@@ -1,5 +1,7 @@
 package com.proj.meethere.controller;
 
+import com.proj.meethere.request.UserModifyPassword;
+import com.proj.meethere.request.UserRequest;
 import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
@@ -18,15 +20,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
+    @RequestMapping(value = "/changeUserRole/{id}",  method = RequestMethod.GET)
     @ResponseBody
-    public Boolean checkPwd(@RequestBody String info){
-        JSONObject jsonObject = new JSONObject(info);
-        String userName = jsonObject.getString("user_name");
-        String pwd = jsonObject.getString("user_key");
-        String truePwd = userService.checkUser(userName);
-        System.out.println("true pwd " + truePwd);
-        return truePwd.equals(pwd);
+    public int changeUserRole(@PathVariable String id) {
+        return userService.updateUserRole(id);
+    }
+    @RequestMapping(value = "/managerLoginCheck", method = RequestMethod.POST)
+    @ResponseBody
+    public int checkPwd(@RequestBody UserRequest userRequest){
+        System.out.println("user check");
+        return userService.checkManagerValid(userRequest.getUser_name(), userRequest.getUser_key());
+    }
+
+    @RequestMapping(value = "/modifyManagerPassword", method = RequestMethod.POST)
+    @ResponseBody
+    public int modifyPassword(@RequestBody UserModifyPassword userModifyPassword) {
+        return userService.changeUserKey(userModifyPassword.getOldPassword(), userModifyPassword.getUserName(), userModifyPassword.getNewPassword());
     }
 
     @RequestMapping(value = "/getUser", method = RequestMethod.POST)

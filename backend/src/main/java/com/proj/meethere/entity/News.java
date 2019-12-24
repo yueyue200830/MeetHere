@@ -38,6 +38,12 @@ public class News {
         this.newsTime = newsTime;
     }
 
+    public News(String newsContent, String newsTitle, String newsTime) {
+        this.newsContent = newsContent;
+        this.newsTitle = newsTitle;
+        this.newsTime = newsTime;
+    }
+
     public int getId() {
         return id;
     }

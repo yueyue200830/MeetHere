@@ -6,6 +6,7 @@ import com.proj.meethere.service.RevenueService;
 import com.proj.meethere.entity.Revenue;
 import com.proj.meethere.service.RevenueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,22 +48,18 @@ public class RevenueController {
         return revenueService.modifyRevenue(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());
     }
 
-    @RequestMapping(value = "/getVenueNameForChart", method = RequestMethod.POST)
+    @RequestMapping(value = "/getVenueNameForChart/{value}", method = RequestMethod.GET)
     @ResponseBody
-    public List<String> getVenueName() {
+    public List<String> getVenueName(@PathVariable String value) {
+        System.out.println(value);
         return revenueService.getVenueName();
     }
 
-    @RequestMapping(value = "/getStatistic", method = RequestMethod.POST)
+    @RequestMapping(value = "/getStatistic/{value}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Integer> getOrderNum() {
-        return revenueService.getOrderNum();
+    public List<Integer> getOrderNum(@PathVariable String value) {
+        System.out.println("orderNum");
+        return revenueService.getOrderNum(value);
     }
-//
-//    @RequestMapping(value = "/addRevenue", method = RequestMethod.POST)
-//    @ResponseBody
-//    public int addNewRevenue(@RequestParam("rvn_name") String rvn_name, @RequestParam("rvn_roomnum") int rvn_roomnum,
-//                             @RequestParam("rvn_price") int rvn_price, @RequestParam("rvn_intro") String rvn_intro) {
-//        return revenueRepository.insertNewRevenue(rvn_name, rvn_roomnum, rvn_price, rvn_intro);
-//    }
+
 }
