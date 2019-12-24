@@ -101,7 +101,7 @@
         date: this.getTomorrow(),
         pickerOptions: {
           disabledDate(time) {
-            return time.getTime() < Date.now();
+            return time.getTime() < Date.now() || time.getTime() > Date.now() + 1000*60*60*24*30;
           },
         },
         timeSlot: 0,
@@ -151,23 +151,27 @@
         this.addOrderForm.price = this.cost[time - 1][num - 1];
       },
       orderRevenue: function () {
-        this.$http
-          .get('http://127.0.0.1:8081/addOrder', {
-            params: {
-              "addOrderForm": this.addOrderForm,
-              "id": this.userId,
-            }})
-          .then(response => {
-            this.$refs['addOrderForm'].resetFields();
-            this.addOrderVisibility = false;
-            if (response.data === 1) {
-              this.$router.push('order');
-            } else {
-              // Error
-              this.$message.error('预定失败，请重试！');
-              this.searchOrder();
-            }
-          });
+        this.$refs['addOrderForm'].validate((valid) => {
+          if (valid) {
+            this.$http
+              .get('http://127.0.0.1:8081/addOrder', {
+                params: {
+                  "addOrderForm": this.addOrderForm,
+                  "id": this.userId,
+                }})
+              .then(response => {
+                this.$refs['addOrderForm'].resetFields();
+                this.addOrderVisibility = false;
+                if (response.data === 1) {
+                  this.$router.push('order');
+                } else {
+                  this.$message.error('预定失败，请重试！');
+                  this.searchOrder();
+                }
+              });
+          }
+        });
+
       },
       cancelOrder: function () {
         this.$refs['addOrderForm'].resetFields();

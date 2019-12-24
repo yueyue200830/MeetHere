@@ -40,7 +40,6 @@
     data() {
       return {
         activePath: '',
-        // userName: 'apple',
       };
     },
     computed:{

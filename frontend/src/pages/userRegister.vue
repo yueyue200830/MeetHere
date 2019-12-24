@@ -52,6 +52,13 @@
             });
         }
       };
+      const checkPassword = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          callback();
+        }
+      };
       const validatePassword = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
@@ -72,7 +79,7 @@
             { validator: checkName, trigger: 'blur', required: true }
           ],
           password: [
-            { validator: true, trigger: 'blur', required: true }
+            { validator: checkPassword, trigger: 'blur', required: true }
           ],
           confirmPassword: [
             { validator: validatePassword, trigger: 'blur', required: true }
