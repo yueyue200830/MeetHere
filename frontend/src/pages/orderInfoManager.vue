@@ -29,6 +29,8 @@
         loading: false,
         value: '',
         title: '预约订单统计信息',
+        nameData: [],
+        valueData:[],
         chartOption: {
           grid: {left: 30, top: 30, right: 30, bottom: 30},
           xAxis: {
@@ -36,7 +38,7 @@
             axisLine: {show: false},
             axisTick: {show: false},
             axisLabel: {color: '#7383A2'},
-            data: ['足球场', '游泳馆', '篮球场', '乒乓球馆', '羽毛球馆']
+            data: [],
           },
           yAxis: [
             {
@@ -53,6 +55,7 @@
                 color: 'rgba(255,255,255,0.6)',
                 align: 'left'
               },
+              min:0,
               nameGap: 30,
               axisLabel: {formatter: '{value}', color: '#999'}
             }
@@ -79,7 +82,7 @@
                     }]
                   }}},
               barWidth: 18,
-              data: [7, 2, 20, 8, 31]
+              data: [],
             },
           ]
         },
@@ -93,7 +96,7 @@
         if(this.value){
           getStatistic(this.value).then(data => {
             console.log(data.data);
-            this.chartOption.series[0].data=data.data;
+            this.chartOption.series[0].data = data.data;
           });
 
           getVenueNameForChart(this.value).then(data => {
@@ -108,7 +111,7 @@
     },
     mounted(){
       var nowDate = new Date();
-      
+
       var mdata = {
         year: nowDate.getFullYear(),
         month: nowDate.getMonth() + 1,
@@ -118,13 +121,16 @@
       //console.log(this.value);
       getStatistic(this.value).then(data => {
         console.log(data.data);
-        this.chartOption.series[0].data=data.data;
+        this.chartOption.series[0].data = data.data;
       });
 
       getVenueNameForChart(this.value).then(data => {
         //console.log(data.data);
         this.chartOption.xAxis.data = data.data;
       });
+      //this.chartOption.series[0].data = [2,1,1];
+      //this.chartOption.xAxis.data = ["足球场","篮球场","游泳馆"];
+      //console.log(this.chartOption.series[0].data[1]);
     }
   }
 </script>
