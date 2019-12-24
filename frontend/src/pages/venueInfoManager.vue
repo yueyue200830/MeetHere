@@ -30,7 +30,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="场馆介绍" prop="rvnIntro">
-                <el-input v-model="dialogTypeForm.rvnIntro" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+                <el-input v-model="dialogTypeForm.rvnIntro" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -54,16 +54,17 @@
                 <el-input v-model="addDialogForm.rvnName" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="12">
               <el-form-item label="场馆价格" prop="rvnPrice">
                 <el-input v-model="addDialogForm.rvnPrice" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
+
             <el-col :span="12">
               <el-form-item label="场馆介绍" prop="rvnIntro">
-                <el-input v-model="addDialogForm.rvnIntro" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
+                <el-input v-model="addDialogForm.rvnIntro" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
