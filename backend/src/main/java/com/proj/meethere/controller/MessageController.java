@@ -29,13 +29,25 @@ public class MessageController {
     @RequestMapping(value = "/searchUnapproveMessage/{condition}",method = RequestMethod.GET)
     @ResponseBody
     List<Message> searchSpecificMessage(@PathVariable String condition) {
-        return messageService.searchSpecificMessage(Integer.parseInt(condition));
+        try {
+            int id = Integer.parseInt("abcd");
+            return messageService.searchSpecificMessage(id);
+        } catch(NumberFormatException e) {
+            System.out.println("catch");
+            throw e;
+        }
     }
 
     @RequestMapping(value = "/approveMessage/{temp}", method = RequestMethod.GET)
     @ResponseBody
     int updateCheckStatus(@PathVariable String temp) {
-       return messageService.approveMessage(Integer.parseInt(temp));
+       try {
+           int id = Integer.parseInt(temp);
+           return messageService.approveMessage(Integer.parseInt(temp));
+       }catch (NumberFormatException e) {
+           throw e;
+       }
+
     }
 
 }

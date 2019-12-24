@@ -32,17 +32,27 @@ public class UserService {
         return userRepository.deleteSpecificUser(userId);
     }
 
-    public List<User> selectSpecificUserInfo(int userId) {
-        return userRepository.selectSpecificUser(userId);
+    public List<UserResponse> selectSpecificUserInfo(int userId) {
+        List<UserResponse> uList = new ArrayList<>();
+        if(userId < 0) {
+            return uList;
+        } else {
+            List<User> userList = userRepository.selectSpecificUser(userId);
+            for (User user: userList) {
+                UserResponse userResponse = new UserResponse(user.getId(), user.getUserName(), user.getUserType());
+                uList.add(userResponse);
+            }
+            return uList;
+        }
     }
 
     //public int addUser(String name, String key, int type, String photo) {
     //    return userRepository.insertNewUser(name, key, type, photo);
     //}
 
-    public int updateUserRole(String userId) {
+    public int updateUserRole(int userId) {
         System.out.println(userId);
-        return userRepository.updateUserRole(1, Integer.parseInt(userId));
+        return userRepository.updateUserRole(1, userId);
     }
 
     public int checkManagerValid(String userName, String userKey) {

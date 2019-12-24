@@ -32,7 +32,13 @@ public class RevenueController {
     @RequestMapping(value = "/searchVenue/{condition}", method = RequestMethod.GET)
     @ResponseBody
     public List<Revenue> searchVenue(@PathVariable String condition) {
-        return revenueService.searchRevenue(Integer.parseInt(condition));
+        try{
+            int id = Integer.parseInt(condition);
+            return revenueService.searchRevenue(Integer.parseInt(condition));
+        } catch (NumberFormatException e) {
+            throw e;
+        }
+
     }
 
     @RequestMapping(value = "/checkVenue/{temp}", method = RequestMethod.GET)
@@ -51,15 +57,19 @@ public class RevenueController {
     @RequestMapping(value = "/getVenueNameForChart/{value}", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getVenueName(@PathVariable String value) {
-        System.out.println(value);
         return revenueService.getVenueName();
     }
 
     @RequestMapping(value = "/getStatistic/{value}", method = RequestMethod.GET)
     @ResponseBody
     public List<Integer> getOrderNum(@PathVariable String value) {
-        System.out.println("orderNum");
-        return revenueService.getOrderNum(value);
+        try {
+            int id = Integer.parseInt(value);
+            return revenueService.getOrderNum(value);
+        } catch (NumberFormatException e) {
+            throw e;
+        }
+
     }
 
 }
