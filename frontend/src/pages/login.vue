@@ -14,7 +14,10 @@
                   <el-input v-model="form.user_name"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="user_key">
-                  <el-input v-model="form.user_key"></el-input>
+                  <el-input :type="passw" v-model="form.user_key">
+                    <i slot="suffix" :class="icon" @click="showPass"></i>
+                  </el-input>
+                  
                 </el-form-item>
               </el-form>
             </el-row>
@@ -42,6 +45,8 @@ export default {
   data () {
     return {
       loading: false,
+      passw:"password",
+      icon:"el-input__icon el-icon-view",
       form: {
         user_name: '',
         user_key: ''
@@ -58,6 +63,16 @@ export default {
   },
   methods: {
     ...mapMutations(['managerLogin']),
+    showPass(){
+　　　//点击图标是密码隐藏或显示
+      if( this.passw=="text"){
+        this.passw="password";
+        this.icon="el-input__icon el-icon-view";
+      }else {
+        this.passw="text";
+        this.icon="el-input__icon el-icon-loading";
+      };
+    },
     login () {
       let condition = this.form;
       loginValid(condition).then(data => {
