@@ -244,7 +244,6 @@
   }
 
   .avatar-img {
-    height: 220px;
     margin: 30px 30px 40px;
     display: block;
     border-radius: 4px;

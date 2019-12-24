@@ -39,7 +39,7 @@ public class UserOrderController {
     public int addNewOrder(@RequestParam("addOrderForm") String addOrderForm, @RequestParam("id") int userId) {
         JSONObject jsonObject = new JSONObject(addOrderForm);
         String rvnName = jsonObject.getString("revenue");
-        String phone = String.valueOf(jsonObject.getInt("phoneNumber"));
+        String phone = String.valueOf(jsonObject.getLong("phoneNumber"));
         String date = jsonObject.getString("date");
         int slot = jsonObject.getInt("timeSlot");
         int room = jsonObject.getInt("room");
