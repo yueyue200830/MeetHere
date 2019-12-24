@@ -2,9 +2,11 @@ package com.proj.meethere.service;
 
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
+import com.proj.meethere.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +19,13 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> getUserInfo() {
-        return userRepository.selectAllUserInfo();
+    public List<UserResponse> getUserInfo() {
+        List<User> uList = userRepository.selectAllUserInfo();
+        List<UserResponse> urList = new ArrayList<>();
+        for(User user: uList) {
+            urList.add(new UserResponse(user.getId(), user.getUserName(), user.getUserType()));
+        }
+        return urList;
     }
 
     public int deleteSpecificUser(int userId) {
