@@ -54,17 +54,23 @@
         </el-row>
         <el-row>
           <el-form-item label="原先密码" prop="oldPassword">
-            <el-input v-model="passwordForm.oldPassword" :placeholder="$placeholder.input"></el-input>
+            <el-input :type="passw" v-model="passwordForm.oldPassword" :placeholder="$placeholder.input">
+              <i slot="suffix" :class="icon" @click="showPass"></i>
+            </el-input>
           </el-form-item>
         </el-row>
         <el-row>
           <el-form-item label="新密码" prop="newPassword">
-            <el-input v-model="passwordForm.newPassword" :placeholder="$placeholder.input"></el-input>
+            <el-input :type="passw" v-model="passwordForm.newPassword" :placeholder="$placeholder.input">
+              <i slot="suffix" :class="icon" @click="showPass"></i>
+            </el-input>
           </el-form-item>
         </el-row>
         <el-row>
           <el-form-item label="确认密码" prop="confirmPassword">
-            <el-input v-model="passwordForm.confirmPassword" :placeholder="$placeholder.input"></el-input>
+            <el-input :type="passw" v-model="passwordForm.confirmPassword" :placeholder="$placeholder.input">
+              <i slot="suffix" :class="icon" @click="showPass"></i>
+            </el-input>
           </el-form-item>
         </el-row>
       </el-form>
@@ -91,6 +97,8 @@ export default {
       isCollapseLeft: false,
       isCollapseRight: false,
       totalLeftMenu: routes,
+      passw:"password",
+      icon:"el-input__icon el-icon-view",
       menuIndex: {},
       asideWidth: '200px',
       defaultActive: '',
@@ -145,6 +153,16 @@ export default {
   },
   methods: {
     ...mapMutations(['managerLogOut', 'checkManagerLogin']),
+    showPass(){
+　　　//点击图标是密码隐藏或显示
+      if( this.passw=="text"){
+        this.passw="password";
+        this.icon="el-input__icon el-icon-view";
+      }else {
+        this.passw="text";
+        this.icon="el-input__icon el-icon-loading";
+      };
+    },
     logout(){
       this.managerLogOut();
       this.$router.push('/login');

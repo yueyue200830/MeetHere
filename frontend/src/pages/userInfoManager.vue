@@ -48,8 +48,11 @@
             width: '250'
           },
           {
-            prop: 'orderNum',
-            label: '订单数量',
+            prop: 'operation',
+            label: '操作',
+            type: {
+              operate: true
+            }
           }
         ],
         searchData:[],

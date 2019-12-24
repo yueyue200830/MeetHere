@@ -42,6 +42,6 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer> {
     @Query(value = "select distinct rvn_name from revenue ORDER BY revenue.id", nativeQuery = true)
     List<String> selectRevenueName();
 
-    @Query(value = "select COUNT(*) from orderlist inner join revenue on orderlist.rvn_id = revenue.id group by rvn_name ORDER BY revenue.id ", nativeQuery = true)
-    List<Integer> selectStatistic();
+    @Query(value = "select COUNT(*) from orderlist inner join revenue on orderlist.rvn_id = revenue.id where orderlist.order_date = :orderDate group by orderlist.rvn_id ORDER BY orderlist.rvn_id\n ", nativeQuery = true)
+    List<Integer> selectStatistic(@Param("orderDate") String orderDate);
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Blob;
 import java.util.List;
@@ -30,6 +31,16 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select * from user where id = :id", nativeQuery = true)
     List<User> selectSpecificUser(@Param("id") int id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update user set user_key=:user_key where user_name=:user_name", nativeQuery = true)
+    int updateUserKey(@Param("user_key") String userKey, @Param("user_name") String userName );
+
+    @Modifying
+    @Transactional
+    @Query(value = "update user set user_type=:user_type where id=:id", nativeQuery = true)
+    int updateUserRole(@Param("user_type") int userType, @Param("id") int userId );
 
     @Modifying
     @Transactional(rollbackFor = Exception.class)
@@ -58,4 +69,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select user_photo from user where id=:user_id", nativeQuery = true)
     Blob selectUserPhotoById(@Param("user_id") int user_id);
+
+    @Query(value = "select user_type from user where user_name =:user_name", nativeQuery = true)
+    int selectUserType(@Param("user_name") String userName);
 }

@@ -50,8 +50,8 @@ public class RevenueService {
         return result;
     }
 
-    public List<Integer> getOrderNum() {
-        List<Integer> revenueCount = revenueRepository.selectStatistic();
+    public List<Integer> getOrderNum(String date) {
+        List<Integer> revenueCount = revenueRepository.selectStatistic(date);
         return revenueCount;
     }
 }
