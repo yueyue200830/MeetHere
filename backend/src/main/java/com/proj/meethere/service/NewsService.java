@@ -48,7 +48,10 @@ public class NewsService {
     }
 
     public int updateNews(String content, String title, Blob photo, int id) {
-        return newsRepository.updateSpeceficNews(content, title, photo, id);
+        int result = newsRepository.updateSpeceficNews(content, title, photo, 97);
+        System.out.println(result);
+        System.out.println("test id" + id);
+        return result;
     }
 
     public List<NewsRequest> searchSpecificNews(int id) throws SQLException, UnsupportedEncodingException {
@@ -82,7 +85,7 @@ public class NewsService {
     }
 
     public String getPhotoById(int id) throws SQLException, UnsupportedEncodingException {
-        List<News> newsList = newsRepository.findNewsPhotoById(id);
+        List<News> newsList = newsRepository.selectSpecificNews(id);
         System.out.println(newsList);
         Blob newsPhoto = newsList.get(0).getNewsPhoto();
         String photo = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()),"GBK");

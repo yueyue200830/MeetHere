@@ -53,8 +53,6 @@ public class NewsController {
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
     @ResponseBody
     public int addNewNews(@RequestBody NewsRequest newsRequest) throws SQLException {
-        //todo: fix photo string problem.
-
         Blob newsPhoto = new SerialBlob(newsRequest.getNewsPhoto().getBytes());
         System.out.println(newsPhoto);
         return newsService.addNews(newsRequest.getNewsContent(), newsRequest.getNewsTitle(), newsPhoto);

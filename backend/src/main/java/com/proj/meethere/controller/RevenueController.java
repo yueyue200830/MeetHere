@@ -58,11 +58,5 @@ public class RevenueController {
     public List<Integer> getOrderNum() {
         return revenueService.getOrderNum();
     }
-//
-//    @RequestMapping(value = "/addRevenue", method = RequestMethod.POST)
-//    @ResponseBody
-//    public int addNewRevenue(@RequestParam("rvn_name") String rvn_name, @RequestParam("rvn_roomnum") int rvn_roomnum,
-//                             @RequestParam("rvn_price") int rvn_price, @RequestParam("rvn_intro") String rvn_intro) {
-//        return revenueRepository.insertNewRevenue(rvn_name, rvn_roomnum, rvn_price, rvn_intro);
-//    }
+
 }
