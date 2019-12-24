@@ -2,6 +2,7 @@ package com.proj.meethere.controller;
 
 import com.proj.meethere.request.UserModifyPassword;
 import com.proj.meethere.request.UserRequest;
+import com.proj.meethere.response.UserResponse;
 import com.proj.meethere.service.UserService;
 import com.proj.meethere.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class UserController {
 
     @RequestMapping(value = "/getUser", method = RequestMethod.POST)
     @ResponseBody
-    public List<User> getUser(){
+    public List<UserResponse> getUser(){
         System.out.println("receive get user");
         return userService.getUserInfo();
     }
