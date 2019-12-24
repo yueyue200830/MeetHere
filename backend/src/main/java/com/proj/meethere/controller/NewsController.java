@@ -40,8 +40,7 @@ public class NewsController {
     @ResponseBody
     public int updateNews(@RequestBody NewsRequest newsRequest) throws SQLException {
         System.out.println("noe modify news" );
-        Blob newsPhoto = new SerialBlob(newsRequest.getNewsPhoto().getBytes());
-        return newsService.updateNews(newsRequest.getNewsContent(), newsRequest.getTitle(), newsPhoto, newsRequest.getId());
+        return newsService.updateNews(newsRequest.getNewsContent(), newsRequest.getNewsTitle(), newsRequest.getNewsPhoto(), newsRequest.getId());
     }
 
     @RequestMapping(value = "/searchNews/{id}",method = RequestMethod.GET)
@@ -53,9 +52,7 @@ public class NewsController {
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
     @ResponseBody
     public int addNewNews(@RequestBody NewsRequest newsRequest) throws SQLException {
-        Blob newsPhoto = new SerialBlob(newsRequest.getNewsPhoto().getBytes());
-        System.out.println(newsPhoto);
-        return newsService.addNews(newsRequest.getNewsContent(), newsRequest.getNewsTitle(), newsPhoto);
+        return newsService.addNews(newsRequest.getNewsContent(), newsRequest.getNewsTitle(), newsRequest.getNewsPhoto());
  }
 
     @RequestMapping(value = "/getPhoto/{id}", method = RequestMethod.GET)

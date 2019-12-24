@@ -47,8 +47,8 @@ public class NewsService {
         return newsRepository.deleteSpecificNews(id);
     }
 
-    public int updateNews(String content, String title, Blob photo, int id) {
-        int result = newsRepository.updateSpeceficNews(content, title, photo, 97);
+    public int updateNews(String content, String title, String photo, int id) {
+        int result = newsRepository.updateSpeceficNews(content, title, photo, id);
         System.out.println(result);
         System.out.println("test id" + id);
         return result;
@@ -70,14 +70,13 @@ public class NewsService {
         return newsRequestList;
     }
 
-    public int addNews(String content, String title, Blob photo) {
+    public int addNews(String content, String title, String photo) {
         try {
             Date currentTime = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String newsTime = format.format(currentTime);
             System.out.println(content);
-            News news = new News(content, photo, title, newsTime);
-            newsRepository.save(news);
+            newsRepository.insertNews(content, photo, title);
         } catch (Exception e) {
                 e.printStackTrace();
         }

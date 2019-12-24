@@ -97,7 +97,7 @@
           });
 
           getVenueNameForChart(this.value).then(data => {
-            //console.log(data.data);
+            console.log(data.data);
             this.chartOption.xAxis.data = data.data;
           });
         }else{
@@ -108,7 +108,7 @@
     },
     mounted(){
       var nowDate = new Date();
-      
+
       var mdata = {
         year: nowDate.getFullYear(),
         month: nowDate.getMonth() + 1,
