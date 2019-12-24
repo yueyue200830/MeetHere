@@ -24,7 +24,7 @@
 
   const changeResultById = (temp) => axios.get(`/app/approveOrder/${temp}`);
   const getOrderInfo = () => axios.post('/app/getUnapproveOrder')
-  const searchCheckResult = (condition) => axios.get(`/app/searchUnapproveOrder${condition}`);
+  const searchCheckResult = (condition) => axios.get(`/app/searchUnapproveOrder/${condition}`);
 
   export default {
     name: "orderInfoApprove",
@@ -85,24 +85,20 @@
       searchTable (condition) {
         this.loading = true;
         condition=this.$refs.table.searchCondition;
-        //console.log(condition);
-        searchCheckResult(condition).then(data => {
+        if(condition == ''){
           this.loading = false;
-          if(condition==''){
-            this.searchData=this.preData;
-          }else{
-            //console.log(data.data.length);
+          this.searchData=this.preData;
+          this.onAlertError("请输入搜索内容！");
+        }else{
+          searchCheckResult(condition).then(data => {
+            this.loading = false;
             this.searchData=data.data;
-
             if (data.data.length) {
-
-              // todo
             } else {
               this.onAlertError('搜索失败');
             }
-          }
-
-        });
+          });
+        }
       },
 
       addType() {
