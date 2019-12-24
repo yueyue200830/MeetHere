@@ -137,7 +137,7 @@
             { validator: validatePass2, trigger: 'blur' }
           ],
         },
-        userAvatar: 'https://avatars0.githubusercontent.com/u/1472352?s=460&v=4',
+        userAvatar: require('../assets/avatar.png'),
         showAvatarCrop: false,
         params: {
           id: null,
@@ -166,9 +166,9 @@
             id: this.userId,
           }})
         .then(response => {
-          console.log(response.data);
-          this.userAvatar = response.data
-
+          if (response.data !== '') {
+            this.userAvatar = response.data
+          }
         });
     },
     methods: {
