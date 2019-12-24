@@ -1,8 +1,17 @@
 <template>
     <el-main>
       <el-carousel height="50vw" >
-        <el-carousel-item v-for="item in 4" :key="item" >
-          <el-image src="https://www.bing.com/th?id=OHR.Seidenschwanz_ZH-CN7486965726_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"/>
+        <el-carousel-item>
+          <el-image :src="require('../assets/mainPage0.jpg')"/>
+        </el-carousel-item>
+        <el-carousel-item>
+          <el-image :src="require('../assets/mainPage1.jpg')"/>
+        </el-carousel-item>
+        <el-carousel-item>
+          <el-image :src="require('../assets/mainPage2.jpg')"/>
+        </el-carousel-item>
+        <el-carousel-item>
+          <el-image :src="require('../assets/mainPage3.jpg')"/>
         </el-carousel-item>
       </el-carousel>
       <div class="main-title">

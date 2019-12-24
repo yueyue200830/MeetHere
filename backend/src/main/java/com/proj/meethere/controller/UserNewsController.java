@@ -53,10 +53,7 @@ public class UserNewsController {
     @RequestMapping(value = "/getNewsThree", method = RequestMethod.POST)
     @ResponseBody
     public String getNewsThree() throws SQLException {
-        List<News> newsList = userNewsService.selectAllNews();
-        if (newsList.size() >= 3) {
-            newsList = newsList.subList(0, 3);
-        }
+        List<News> newsList = userNewsService.selectNewsPartial(3);
 
         JSONArray jsonArray = new JSONArray();
         for(News news : newsList) {

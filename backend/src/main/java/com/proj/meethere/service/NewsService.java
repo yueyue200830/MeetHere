@@ -78,7 +78,7 @@ public class NewsService {
             System.out.println(content);
             News news = new News(content, photo, title, newsTime);
             newsRepository.save(news);
-        }catch (Exception e) {
+        } catch (Exception e) {
                 e.printStackTrace();
         }
         return 1;
@@ -89,7 +89,6 @@ public class NewsService {
         System.out.println(newsList);
         Blob newsPhoto = newsList.get(0).getNewsPhoto();
         String photo = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()),"GBK");
-        System.out.println("photo " + photo);
         return photo;
     }
 

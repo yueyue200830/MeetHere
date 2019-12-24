@@ -36,6 +36,7 @@
       this.$http
         .post('http://127.0.0.1:8081/getNewsUserPage')
         .then(response => {
+          console.log(response);
           this.newsList = response.data;
         })
     },

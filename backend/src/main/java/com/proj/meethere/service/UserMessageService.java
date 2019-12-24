@@ -21,11 +21,27 @@ public class UserMessageService {
         return messageRepositroy.findLatestMessages(count);
     }
 
+    public List<Message> selectMessagesPartialById(int count, int id) {
+        return messageRepositroy.findLatestMessagesById(count, id);
+    }
+
     public List<Message> selectMoreMessagesBeforePartial(String lastTime, int count) {
         return messageRepositroy.findMoreMessagesBefore(lastTime, count);
     }
 
+    public List<Message> selectMoreMessagesBeforePartialById(String lastTime, int count, int id) {
+        return messageRepositroy.findMoreMessagesBeforeById(lastTime, count, id);
+    }
+
     public int addNewMessage(String title, String content, int userId) {
         return messageRepositroy.insertNewMessage(content, userId, title);
+    }
+
+    public int deleteMessage(int id) {
+        return messageRepositroy.deleteMessage(id);
+    }
+
+    public int updateMessage(String title, String content, int id) {
+        return messageRepositroy.updateMessageById(title, content, id);
     }
 }

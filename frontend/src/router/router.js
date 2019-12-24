@@ -15,6 +15,7 @@ import UserMessage from "../pages/userMessage"
 import UserBooking from "../pages/userBooking"
 import UserLogin from "../pages/userLogin"
 import UserRegister from "../pages/userRegister"
+import UserMyMessage from "../pages/userMyMessage"
 import Main from '../pages/mainPage';
 import VueRouter from 'vue-router';
 import Vue from 'vue';
@@ -187,6 +188,18 @@ const routes = [
         path: 'booking',
         component: UserBooking,
         meta: {}
+      },
+      {
+        path: 'myMessage',
+        component: UserMyMessage,
+        meat: {},
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('Authorization') == null) {
+            next('/user/login');
+          } else {
+            next();
+          }
+        }
       },
     ]
   },

@@ -8,6 +8,7 @@
                        :columns="columns"
                        :searchable= "false"
                        :addable="true" @on-add="addType"
+                       :deleteable="true" @on-delete="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
             <template slot="operation" slot-scope="props">
               <el-button size="mini" @click="viewTypeDetail(props.prop.id,'edit')">编辑</el-button>
@@ -47,7 +48,7 @@
                   :on-remove="handleRemove"
                   :on-preview="handlePreview"
                   :file-list="photoList"
-                  limit="1"
+                  limit=1
                   list-type="picture">
                   <el-button size="small" type="primary">点击上传</el-button>
                   <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
@@ -151,9 +152,7 @@
           temp.newsPhoto = this.result;
         }
         this.dialogTypeForm = temp;
-        // this.showPhoto = true;
-        // document.getElementById("imgs").src = this.dialogTypeForm.newsPhoto;
-        //console.log(this.dialogTypeForm);
+
       },
 
 
@@ -169,6 +168,7 @@
           this.loading = false;
           if (data) {
             console.log(data);
+            this.dialogTypeForm.id = data.data[0].id;
             this.dialogTypeForm.newsContent = data.data[0].newsContent;
             this.dialogTypeForm.newsPhoto = data.data[0].newsPhoto;
             this.dialogTypeForm.newsTitle = data.data[0].newsTitle;
@@ -216,6 +216,7 @@
         this.loading = true;
 
         if (this.dialogTypeForm.title == '修改新闻') {
+            console.log(this.dialogTypeForm.id);
             modifyCheckResult(this.dialogTypeForm).then(data => {
                 this.loading=false;
                 this.showDialogType = false;
@@ -292,5 +293,8 @@
 </script>
 
 <style scoped>
-
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
 </style>

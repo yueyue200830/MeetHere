@@ -8,6 +8,9 @@
                        :columns="columns"                   
                        :deleteable="true" @on-delete="goToDelete"
                        :rowSelect="true" @select-row="getSelectRow">
+            <template slot="operation" slot-scope="props">
+              <el-button size="mini" @click="assignManager(props.prop)">升级用户为管理员</el-button>
+            </template>
           </light-table>
         </el-col>
       </el-row>
@@ -20,7 +23,7 @@
   const searchCheckResult = (condition) => axios.get(`/app/searchUser/${condition}`);
   const deleteCheckResultById = (temp) => axios.get(`/app/deleteUser/${temp}`);
   const getUserInfo = () => axios.post('/app/getUser');
-
+  const changeUserRole = (id) => axios.get(`/app/changeUserRole/${id}`);
 
   export default {
     name: "userInfo",
@@ -67,6 +70,34 @@
       };
     },
     methods:{
+      assignManager(temp){
+        console.log("用户id"+temp.id+" 用户角色:"+temp.userType);
+        if(temp.userType == "Admin"){
+          this.onAlertError("该用户已经是管理员！")
+        }else{
+          changeUserRole(temp.id).then(data => {
+            if(data.data){
+              this.onAlertSuccess("升级用户为管理员成功")
+            }else{
+              this.onAlertError("升级用户为管理员失败")
+            }
+          })
+          getUserInfo().then(data => {
+            var l = data.data.length;
+            for(var i =0;i < l;i++){
+              if(data.data[i].userType == 1){
+                data.data[i].userType = "Admin";
+              }else{
+                data.data[i].userType = "User";
+              }
+                          
+            }
+            this.searchData=data.data;
+            this.preData=data.data;
+
+          });
+        }
+      },
       searchTable (condition) {
         this.loading = true;
         condition=this.$refs.table.searchCondition;
@@ -78,7 +109,7 @@
           }else{
             //console.log(data.data.length);
             this.searchData=data.data;
-            if (data) {
+            if (data.data) {
               
               // todo
             } else {
@@ -105,8 +136,8 @@
             let temp=id[i];
             deleteCheckResultById(temp).then(data => {
               this.loading = false;
-              if (data) { 
-                this.onAlertError('删除成功');
+              if (data.data) { 
+                this.onAlertSuccess('删除成功');
                 getUserInfo().then(data => {
                   var l = data.data.length;
                   for(var i =0;i < l;i++){
