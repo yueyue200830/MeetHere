@@ -39,7 +39,7 @@
           callback(new Error('请输入用户名'));
         } else {
           this.$http
-            .get('http://127.0.0.1:8081/getUserIdByName', {
+            .get('http://127.0.0.1:8081/checkUserNameExist', {
               params: {
                 user_name: value,
               }})
