@@ -22,7 +22,7 @@
               </el-form>
             </el-row>
             <el-row class="login-forget login-row">
-              <span><a :href="goToLink('register')">立即注册</a></span>
+              <!-- <span><a :href="goToLink('register')">立即注册</a></span> -->
               <!-- <span><a :href="goToLink('forget')">忘记密码</a></span> -->
             </el-row>
             <el-row style="margin-top: 3%">
@@ -75,19 +75,24 @@ export default {
     },
     login () {
       let condition = this.form;
-      loginValid(condition).then(data => {
-          this.loading = false;
-          if (data.data) {
-            this.managerLogin({ Authorization: data.data, name: this.form.user_name });
-            this.$router.push('/manager/userInfo');
-          } else {
-            this.onAlertError('用户名与密码不匹配');
-          }
-      });
+      if(condition.user_name && condition.user_key){
+        loginValid(condition).then(data => {
+            this.loading = false;
+            if (data.data) {
+              this.managerLogin({ Authorization: data.data, name: this.form.user_name });
+              this.$router.push('/manager/userInfo');
+            } else {
+              this.onAlertError('用户名与密码不匹配');
+            }
+        });
+      }else{
+        this.onAlertError("用户名和密码不能为空！");
+      }
+
       //正式版本要注释掉
-      let data = 1;
-      this.managerLogin({ Authorization: data, name: this.form.user_name });
-      this.$router.push('/manager/userInfo');
+      // let data = 1;
+      // this.managerLogin({ Authorization: data, name: this.form.user_name });
+      // this.$router.push('/manager/userInfo');
     },
     goToLink (action) {
       return `/#/register?action=${action}`;

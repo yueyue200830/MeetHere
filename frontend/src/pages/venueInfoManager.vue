@@ -28,12 +28,15 @@
                 <el-input v-model="dialogTypeForm.rvnPrice" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="12">
               <el-form-item label="场馆介绍" prop="rvnIntro">
-                <el-input v-model="dialogTypeForm.rvnIntro" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input"></el-input>
+                <el-input v-model="dialogTypeForm.rvnIntro" :disabled="dialogTypeForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
+          
 
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -54,16 +57,17 @@
                 <el-input v-model="addDialogForm.rvnName" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="12">
               <el-form-item label="场馆价格" prop="rvnPrice">
                 <el-input v-model="addDialogForm.rvnPrice" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
+
             <el-col :span="12">
               <el-form-item label="场馆介绍" prop="rvnIntro">
-                <el-input v-model="addDialogForm.rvnIntro" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
+                <el-input v-model="addDialogForm.rvnIntro" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input" type="textarea" rows="7"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -159,23 +163,21 @@
         this.loading = true;
         condition=this.$refs.table.searchCondition;
         console.log(condition);
-        searchCheckResult(condition).then(data => {
+        if(condition == ''){
           this.loading = false;
-          if(condition==''){
-            this.searchData=this.preData;
-          }else{
-            //console.log(data.data.length);
+          this.searchData=this.preData;
+          this.onAlertError("请输入搜索内容！");
+        }else{
+          searchCheckResult(condition).then(data => {
+            this.loading = false;
             this.searchData=data.data;
-
             if (data.data.length) {
-
-              // todo
             } else {
               this.onAlertError('搜索失败');
             }
-          }
+          });
+        }
 
-        });
 
       },
       viewTypeDetail(id, action) {

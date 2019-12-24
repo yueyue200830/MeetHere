@@ -5,7 +5,7 @@
         <el-col :span="9" v-if="showSearch">
           <el-row>
             <el-col :span="16" v-if="searchable">
-              <el-input v-model="searchCondition"></el-input>
+              <el-input v-model="searchCondition" type="text" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入编号"></el-input>
             </el-col>
             <el-col :span="8" v-if="searchable">
               <el-button type="primary" style="margin-left: 20px" @click="searchClick">搜索</el-button>
