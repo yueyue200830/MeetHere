@@ -90,7 +90,10 @@ public class UserInfoController {
     @ResponseBody
     public String selectPhoto(@RequestParam("id") int id) throws SQLException, UnsupportedEncodingException {
         Blob blob = userInfoService.selectUserPhoto(id);
-        String s = new String(blob.getBytes(1, (int)blob.length()),"UTF-8");
-        return s;
+        if(blob == null) {
+            return "";
+        } else {
+            return new String(blob.getBytes(1, (int) blob.length()), "UTF-8");
+        }
     }
 }
