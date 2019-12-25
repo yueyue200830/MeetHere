@@ -33,12 +33,6 @@ class UserNewsControllerTest {
     @MockBean
     private UserNewsService userNewsService;
 
-    @BeforeEach
-    void init() {
-        List<News> newsList = new ArrayList<>();
-        given(userNewsService.selectAllNews()).willReturn(newsList);
-    }
-
     @Test
     void should_return_all_news_info() throws Exception {
         mockMvc.perform(post("/getNewsUserPage")).andExpect(status().isOk());

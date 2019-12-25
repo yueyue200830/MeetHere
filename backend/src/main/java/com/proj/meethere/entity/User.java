@@ -39,6 +39,12 @@ public class User {
         this.userPhoto = userPhoto;
     }
 
+    public User(String userName, String userKey, Integer userType) {
+        this.userName = userName;
+        this.userKey = userKey;
+        this.userType = userType;
+    }
+
     public Integer getId() {
         return id;
     }

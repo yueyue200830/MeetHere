@@ -2,8 +2,7 @@ package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.controller.UserOrderController;
 import com.proj.meethere.service.UserOrderService;
-import com.proj.meethere.service.UserRevenueService;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -32,12 +31,13 @@ class UserOrderControllerTest {
     @MockBean
     private UserOrderService userOrderService;
 
-    @MockBean
-    private UserRevenueService userRevenueService;
-
-    @BeforeEach
-    void init() {
-
+    @ParameterizedTest
+    @MethodSource("addFormIdProvider")
+    void should_add_one_order(String form, int userId, String phone, String rvnName, int room, int slot, String date, int price) throws Exception {
+        mockMvc.perform(get("/addOrder")
+                .param("addOrderForm", form).param("id", String.valueOf(userId)))
+                .andExpect(status().isOk());
+        verify(userOrderService, times(1)).addNewOrder(userId, phone, rvnName, room, slot, date, price);
     }
 
     @ParameterizedTest
@@ -56,6 +56,30 @@ class UserOrderControllerTest {
                 .param("deleteOrderId", String.valueOf(id)))
                 .andExpect(status().isOk());
         verify(userOrderService, times(1)).deleteOrder(id);
+    }
+
+    @Test
+    void should_return_available_table(String rvnName, String date) throws Exception {
+        mockMvc.perform(get("/getAvailable")
+                .param("revenueName", rvnName).param("date", date))
+                .andExpect(status().isOk());
+        verify(userOrderService, times(1)).getAvailable(rvnName, date);
+    }
+
+    @Test
+    void should_return_specific_user_order() throws Exception {
+        int id = 5;
+        mockMvc.perform(get("/getMyOrder")
+                .param("id", String.valueOf(id)))
+                .andExpect(status().isOk());
+        verify(userOrderService, times(1)).selectOrderById(id);
+    }
+
+    static Stream<Arguments> addFormIdProvider() {
+        return Stream.of(
+                Arguments.of("{\"revenue\":\"篮球馆\",\"phoneNumber\":\"12312312312\"," +
+                        "\"date\":\"2019-12-10\",\"timeSlot\":\"2\"," +
+                        "\"room\":\"4\",\"price\":\"30\"}", 5, "12312312312", "篮球馆", 4, 2, "2019-12-10", 30));
     }
 
     static Stream<Arguments> orderIdProvider() {

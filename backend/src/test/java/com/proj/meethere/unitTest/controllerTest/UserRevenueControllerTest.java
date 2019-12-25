@@ -33,15 +33,6 @@ class UserRevenueControllerTest {
     @MockBean
     private UserRevenueService userRevenueService;
 
-    @BeforeEach
-    void init() {
-        List<Revenue> revenueList = new ArrayList<>();
-        given(userRevenueService.getAllVenue()).willReturn(revenueList);
-        List<String> names = new ArrayList<>();
-        given(userRevenueService.getAllenueName()).willReturn(names);
-
-    }
-
     @Test
     public void should_return_all_revenue_info() throws Exception {
         mockMvc.perform(post("/getVenueUserPage")).andExpect(status().isOk());

@@ -34,7 +34,7 @@ public class UserMessageService {
     }
 
     public int addNewMessage(String title, String content, int userId) {
-        return messageRepositroy.insertNewMessage(content, userId, title);
+        return messageRepositroy.insertNewMessage(title, content, userId);
     }
 
     public int deleteMessage(int id) {
