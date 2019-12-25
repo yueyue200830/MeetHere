@@ -1,4 +1,4 @@
-package com.proj.meethere.repositoryTest;
+package com.proj.meethere.unitTest.repositoryTest;
 
 import com.proj.meethere.dao.OrderRepository;
 import com.proj.meethere.entity.Order;
@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
@@ -23,7 +22,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @DirtiesContext
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class OrderRepositoryTest {
     @Autowired
     TestEntityManager testEntityManager;

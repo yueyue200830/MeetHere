@@ -1,17 +1,18 @@
-package com.proj.meethere.repositoryTest;
+package com.proj.meethere.unitTest.repositoryTest;
 
-import com.mysql.cj.exceptions.AssertionFailedException;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -21,7 +22,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @DirtiesContext
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserRepositoryTest {
     @Autowired
     private TestEntityManager testEntityManager;
@@ -65,8 +65,9 @@ public class UserRepositoryTest {
 
     @Ignore
     @Test
-    public void select_all_users_should_be_exact_the_same() {
-        User user2 = new User("test2","passwd",0,"fakePhoto");
+    public void select_all_users_should_be_exact_the_same() throws SQLException {
+        Blob mockBlob = new SerialBlob("1010101".getBytes());
+        User user2 = new User("test2","passwd",0,mockBlob);
         this.testEntityManager.persist(user);
         this.testEntityManager.persist(user2);
         List<User> users = userRepository.selectAllUserInfo();

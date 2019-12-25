@@ -1,13 +1,10 @@
-package com.proj.meethere.repositoryTest;
+package com.proj.meethere.unitTest.repositoryTest;
 
-import com.alibaba.druid.mock.MockBlob;
 import com.proj.meethere.dao.NewsRepository;
 import com.proj.meethere.entity.News;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
@@ -20,7 +17,6 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockingDetails;
 
 /**
  * @author Yiqing Tao
@@ -30,7 +26,6 @@ import static org.mockito.Mockito.mockingDetails;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @DirtiesContext
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class NewsRepositoryTest {
     @Autowired
     TestEntityManager testEntityManager;
@@ -42,8 +37,6 @@ public class NewsRepositoryTest {
     Blob mockBlob;
     @Before
     public void init() throws SQLException {
-       // mockBlob = mock(Blob.class);
-        //System.out.println(mockBlob);
         mockBlob = new SerialBlob("1010101".getBytes());
         mockNews = new News("test News content",  mockBlob, "mock title", "2019-10-29");
         System.out.println("cena " + mockNews.getId());
@@ -75,12 +68,11 @@ public class NewsRepositoryTest {
     }
 
     @Test
-    public void news_should_be_updated() {
+    public void news_should_be_updated() throws Exception {
         System.out.println(mockNews.getId());
         this.testEntityManager.persist(mockNews);
         System.out.println(mockNews.getId());
-      //  Blob blob2 = mock(Blob.class);
-        int result = newsRepository.updateSpeceficNews("change News content","change news Title", mockBlob, mockNews.getId());
+        int result = newsRepository.updateSpeceficNews("change News content","change news Title", "fake photo", mockNews.getId());
         Assert.assertEquals(1, result);
         System.out.println(mockNews.getId());
         List<News> newsFind = newsRepository.selectSpecificNews(mockNews.getId());

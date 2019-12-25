@@ -1,8 +1,8 @@
-package com.proj.meethere.serviceTest;
+package com.proj.meethere.unitTest.serviceTest;
 
+import com.proj.meethere.response.UserResponse;
 import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
-import com.proj.meethere.service.UserService;
 import com.proj.meethere.entity.User;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +32,14 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     private List<User> userList;
-//
-//    @Before
-//    public void init() {
-//        User user1 = new User("Jack","passwordIsSecret",1,"mockUserPhoto");
-//        userList = new ArrayList<>();
-//        userList.add(user1);
-//    }
+
+    @Before
+    public void init() throws Exception {
+        Blob blob = new SerialBlob("1010101".getBytes());
+        User user1 = new User("Jack","passwordIsSecret",1,blob);
+        userList = new ArrayList<>();
+        userList.add(user1);
+    }
     @After
     public void cleanUp() {
         this.userList.clear();
@@ -44,18 +47,19 @@ public class UserServiceTest {
 
     @Ignore
     @Test
-    public void get_user_info_should_be_executed() {
-        User user2 = new User("test2","passwd",0,"fakePhoto");
+    public void get_user_info_should_be_executed() throws Exception {
+        Blob blob2 = new SerialBlob("101110101".getBytes());
+        User user2 = new User("test2","passwd",0,blob2);
         userList.add(user2);
         when(userRepository.selectAllUserInfo()).thenReturn(userList);
-        List<User> users = userService.getUserInfo();
+        List<UserResponse> users = userService.getUserInfo();
         verify(userRepository,times(1)).selectAllUserInfo();
     }
 
     @Test
     public void get_specific_user_should_be_executed() {
         when(userRepository.selectSpecificUser(1)).thenReturn(userList);
-        List<User> userResult = userService.selectSpecificUserInfo(1);
+        List<UserResponse> userResult = userService.selectSpecificUserInfo(1);
         verify(userRepository,times(1)).selectSpecificUser(1);
     }
 

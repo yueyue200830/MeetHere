@@ -1,7 +1,6 @@
-package com.proj.meethere.controllerTest;
+package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.controller.UserOrderController;
-import com.proj.meethere.controller.UserRevenueController;
 import com.proj.meethere.service.UserOrderService;
 import com.proj.meethere.service.UserRevenueService;
 import org.junit.jupiter.api.BeforeEach;

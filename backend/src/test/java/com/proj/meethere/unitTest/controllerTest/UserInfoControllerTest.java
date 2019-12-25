@@ -1,4 +1,4 @@
-package com.proj.meethere.controllerTest;
+package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.controller.UserInfoController;
 import com.proj.meethere.service.UserInfoService;

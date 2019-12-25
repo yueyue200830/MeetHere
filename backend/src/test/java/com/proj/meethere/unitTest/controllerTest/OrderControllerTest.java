@@ -1,10 +1,8 @@
-package com.proj.meethere.controllerTest;
+package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.controller.OrderController;
-import com.proj.meethere.controller.UserController;
 import com.proj.meethere.service.OrderService;
 import org.junit.Test;
-import org.junit.runner.Result;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,6 +15,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 /**
  * @author Yiqing Tao
  * @date 2019-12-20 8:20

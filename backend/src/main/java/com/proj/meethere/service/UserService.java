@@ -56,19 +56,24 @@ public class UserService {
     }
 
     public int checkManagerValid(String userName, String userKey) {
-        if(userRepository.selectUserType(userName) == 1) {
-            System.out.println("user name exists");
-            String key = userRepository.searchUserKeyByName(userName);
-            if(key.equals(userKey)) {
-                System.out.println("key good");
-                return 1;
+        List<User> uList = userRepository.selectUserAll(userName);
+        if(uList.size() == 0) {
+            return 0;
+        } else {
+            if (userRepository.selectUserType(userName) == 1) {
+                System.out.println("user name exists");
+                String key = userRepository.searchUserKeyByName(userName);
+                if (key.equals(userKey)) {
+                    System.out.println("key good");
+                    return 1;
+                } else {
+                    System.out.println("key wrong");
+                    return 0;
+                }
             } else {
-                System.out.println("key wrong");
+                System.out.println("type wrong");
                 return 0;
             }
-        } else {
-            System.out.println("name wrong");
-            return 0;
         }
     }
 
