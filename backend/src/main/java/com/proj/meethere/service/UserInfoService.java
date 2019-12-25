@@ -45,7 +45,7 @@ public class UserInfoService {
     }
 
     public int loginValidation(String userName, String userKey) {
-        List<User> user = userRepository.selectUserByNameAndId(userName, userKey);
+        List<User> user = userRepository.selectUserByNameAndKey(userName, userKey);
         if (user.isEmpty()) {
             return -1;
         } else {
