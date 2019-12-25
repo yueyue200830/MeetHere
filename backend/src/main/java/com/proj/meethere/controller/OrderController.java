@@ -28,13 +28,25 @@ public class OrderController {
     @RequestMapping(value = "/approveOrder/{temp}", method = RequestMethod.GET)
     @ResponseBody
     public int approveOrder(@PathVariable String temp) {
-        return orderService.approveOrder(Integer.parseInt(temp));
+        try{
+            int id = Integer.parseInt(temp);
+            return orderService.approveOrder(id);
+        } catch (NumberFormatException e) {
+            throw e;
+        }
+
     }
 
     @RequestMapping(value = "/searchUnapproveOrder/{condition}", method = RequestMethod.GET)
     @ResponseBody
     public List<Order> searchUnapproveOrder(@PathVariable String condition) {
-       return orderService.searchUnapprovedOrder(Integer.parseInt(condition));
+        try{
+            int id = Integer.parseInt(condition);
+            return orderService.searchUnapprovedOrder(id);
+        } catch (NumberFormatException e) {
+            throw e;
+        }
+
     }
 
 

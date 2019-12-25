@@ -124,20 +124,24 @@
         return date.getFullYear() + "-" + mon + "-" + day + " " + hour + ":" + min;
       },
       addMessage: function () {
-        this.$http
-          .get('http://127.0.0.1:8081/addMessage', {
-            params: {
-              "addMessageForm": this.addMessageForm,
-              "id": this.userId,
-            }})
-          .then(response => {
-            if (response.data === 0) {
-              this.$message.error('添加失败');
-            }
-            this.$refs['addMessageForm'].resetFields();
-            this.addMessageVisibility = false;
-            this.refresh();
-          });
+        this.$refs['addMessageForm'].validate((valid) => {
+          if (valid) {
+            this.$http
+              .get('http://127.0.0.1:8081/addMessage', {
+                params: {
+                  "addMessageForm": this.addMessageForm,
+                  "id": this.userId,
+                }})
+              .then(response => {
+                if (response.data === 0) {
+                  this.$message.error('添加失败');
+                }
+                this.$refs['addMessageForm'].resetFields();
+                this.addMessageVisibility = false;
+                this.refresh();
+              });
+          }
+        });
       },
       addMessageButton: function () {
         if (this.hasLoggedIn) {

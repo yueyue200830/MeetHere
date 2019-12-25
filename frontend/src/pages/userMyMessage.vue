@@ -150,19 +150,23 @@
         this.editMessageVisibility = false;
       },
       sendEditMessage: function() {
-        this.$http
-          .get('http://127.0.0.1:8081/editMessage', {
-            params: {
-              "editMessageForm": this.editMessageForm,
-            }})
-          .then(response => {
-            if (response.data === 0) {
-              this.$message.error('添加失败');
-            }
-            this.$refs['editMessageForm'].resetFields();
-            this.editMessageVisibility = false;
-            this.refresh();
-          });
+        this.$refs['editMessageForm'].validate((valid) => {
+          if (valid) {
+            this.$http
+              .get('http://127.0.0.1:8081/editMessage', {
+                params: {
+                  "editMessageForm": this.editMessageForm,
+                }})
+              .then(response => {
+                if (response.data === 0) {
+                  this.$message.error('添加失败');
+                }
+                this.$refs['editMessageForm'].resetFields();
+                this.editMessageVisibility = false;
+                this.refresh();
+              });
+          }
+        });
       }
     }
   }

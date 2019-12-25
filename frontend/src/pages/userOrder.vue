@@ -181,25 +181,30 @@
           });
       },
       changePhone: function() {
-        this.$http
-          .get('http://127.0.0.1:8081/updatePhone', {
-            params: {
-              "phone": this.changePhoneForm.newNumber,
-              "id": this.changePhoneForm.orderId,
-            }})
-          .then(response => {
-            this.$refs['changePhoneForm'].resetFields();
-            this.changePhoneVisibility = false;
-            this.getMyOrder();
-            if (response.data === 1) {
-              this.$message({
-                message: '修改成功',
-                type: 'success'
+        this.$refs['changePhoneForm'].validate((valid) => {
+          if (valid) {
+            this.$http
+              .get('http://127.0.0.1:8081/updatePhone', {
+                params: {
+                  "phone": this.changePhoneForm.newNumber,
+                  "id": this.changePhoneForm.orderId,
+                }})
+              .then(response => {
+                this.$refs['changePhoneForm'].resetFields();
+                this.changePhoneVisibility = false;
+                this.getMyOrder();
+                if (response.data === 1) {
+                  this.$message({
+                    message: '修改成功',
+                    type: 'success'
+                  });
+                } else {
+                  this.$message.error('修改失败，请重试！');
+                }
               });
-            } else {
-              this.$message.error('修改失败，请重试！');
-            }
-          });
+          }
+        });
+
       },
       convertTime: function (time) {
         let date = new Date(time);

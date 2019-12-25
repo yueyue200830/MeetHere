@@ -86,6 +86,7 @@ import { mapMutations } from 'vuex'
 import _ from 'lodash';
 import {routes} from '../router/router';
 import moment from 'moment';
+import axios from 'axios';
 //todo
 const modifyManagerPassword = (passwordForm) => axios.post('/app/modifyManagerPassword', passwordForm);
 
@@ -168,9 +169,10 @@ export default {
       this.$router.push('/login');
     },
     saveResult(){
-      if(this.passwordForm.newPassword != this.confirmPassword){
+      if(this.passwordForm.newPassword != this.passwordForm.confirmPassword){
         this.onAlertError("两次密码不一致");
       }else{
+        console.log("change manager");
         modifyManagerPassword(this.passwordForm).then(data => {
           if(data.data){
             this.onAlertSuccess("修改密码成功");

@@ -5,6 +5,7 @@ import com.proj.meethere.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,12 @@ public class MessageService {
     }
 
     public List<Message> searchSpecificMessage(int id) {
-        return messageRepositroy.selectSpecificMessage(id);
+        if(id < 0 ){
+            return new ArrayList<Message>();
+        } else {
+            return messageRepositroy.selectSpecificMessage(id);
+        }
+
     }
 
     public int approveMessage(int id) {

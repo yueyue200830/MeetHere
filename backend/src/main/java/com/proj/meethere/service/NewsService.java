@@ -55,19 +55,23 @@ public class NewsService {
     }
 
     public List<NewsRequest> searchSpecificNews(int id) throws SQLException, UnsupportedEncodingException {
-        List<News> newsList = newsRepository.selectSpecificNews(id);
-        System.out.println(newsList.get(0).getId());
-        List<NewsRequest> newsRequestList = new ArrayList<>();
-        for(News news : newsList) {
-            NewsRequest newsRequest = new NewsRequest();
-            newsRequest.setId(news.getId());
-            newsRequest.setNewsContent(news.getNewsContent());
-            String newsPhoto = new String(news.getNewsPhoto().getBytes(1, (int) news.getNewsPhoto().length()),"GBK");
-            newsRequest.setNewsPhoto(newsPhoto);
-            newsRequest.setNewsTitle(news.getNewsTitle());
-            newsRequestList.add(newsRequest);
+        if(id < 0 ){
+            return new ArrayList<NewsRequest>();
+        } else {
+            List<News> newsList = newsRepository.selectSpecificNews(id);
+            System.out.println(newsList.get(0).getId());
+            List<NewsRequest> newsRequestList = new ArrayList<>();
+            for (News news : newsList) {
+                NewsRequest newsRequest = new NewsRequest();
+                newsRequest.setId(news.getId());
+                newsRequest.setNewsContent(news.getNewsContent());
+                String newsPhoto = new String(news.getNewsPhoto().getBytes(1, (int) news.getNewsPhoto().length()), "GBK");
+                newsRequest.setNewsPhoto(newsPhoto);
+                newsRequest.setNewsTitle(news.getNewsTitle());
+                newsRequestList.add(newsRequest);
+            }
+            return newsRequestList;
         }
-        return newsRequestList;
     }
 
     public int addNews(String content, String title, String photo) {

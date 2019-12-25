@@ -22,7 +22,14 @@ public class UserController {
     @RequestMapping(value = "/changeUserRole/{id}",  method = RequestMethod.GET)
     @ResponseBody
     public int changeUserRole(@PathVariable String id) {
-        return userService.updateUserRole(id);
+        try {
+            int iD = Integer.parseInt(id);
+            return userService.updateUserRole(iD);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            throw  e;
+        }
+
     }
     @RequestMapping(value = "/managerLoginCheck", method = RequestMethod.POST)
     @ResponseBody
@@ -47,12 +54,19 @@ public class UserController {
     @RequestMapping(value = "/deleteUser/{temp}", method = RequestMethod.GET)
     @ResponseBody
     public int deleteUser(@PathVariable String temp) {
-        return userService.deleteSpecificUser(Integer.parseInt(temp));
+        try {
+            int id = Integer.parseInt(temp);
+            return userService.deleteSpecificUser(Integer.parseInt(temp));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
     }
 
     @RequestMapping(value = "/searchUser/{condition}", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getSpecificUserInfo(@PathVariable String condition) {
+    public List<UserResponse> getSpecificUserInfo(@PathVariable String condition) {
         return userService.selectSpecificUserInfo(Integer.parseInt(condition));
     }
 
