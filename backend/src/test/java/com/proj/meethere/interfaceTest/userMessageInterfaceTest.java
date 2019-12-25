@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Author Tresaresa
@@ -51,8 +52,12 @@ public class userMessageInterfaceTest {
         jsonArray.put(stringBuffer.toString());
         System.out.println(jsonArray.get(0));
         JSONObject firstObject = (jsonArray.getJSONArray(0).getJSONObject(0));
-        List<String> keys =  new ArrayList<>(firstObject.keySet());
-        assertEquals("messageTime", keys.get(0));
+        assertTrue(firstObject.keySet().contains("messageTime"));
+        assertTrue(firstObject.keySet().contains("messageTitle"));
+        assertTrue(firstObject.keySet().contains("id"));
+        assertTrue(firstObject.keySet().contains("userId"));
+        assertTrue(firstObject.keySet().contains("messageVisibility"));
+        assertTrue(firstObject.keySet().contains("messageContent"));
         response.close();
     }
 }
