@@ -40,7 +40,11 @@ public class UserNewsController {
             jsonObject.put("newsTime", news.getNewsTime());
 
             Blob blob = news.getNewsPhoto();
-            jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
+            if(blob == null) {
+                return "";
+            } else {
+                jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
+            }
 
             jsonArray.put(jsonObject);
         }
@@ -64,7 +68,11 @@ public class UserNewsController {
             jsonObject.put("newsTime", news.getNewsTime());
 
             Blob blob = news.getNewsPhoto();
-            jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
+            if(blob == null) {
+                return "";
+            } else {
+                jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
+            }
 
             jsonArray.put(jsonObject);
         }
@@ -91,7 +99,11 @@ public class UserNewsController {
             jsonObject.put("newsTime", news.getNewsTime());
 
             Blob blob = news.getNewsPhoto();
-            jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
+            if(blob == null) {
+                return "";
+            } else {
+                jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
+            }
 
             jsonArray.put(jsonObject);
         }

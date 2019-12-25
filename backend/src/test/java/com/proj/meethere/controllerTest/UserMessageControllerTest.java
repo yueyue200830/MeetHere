@@ -39,16 +39,6 @@ class UserMessageControllerTest {
     @MockBean
     private UserMessageService userMessageService;
 
-    @BeforeEach
-    void init() {
-        List<Message> messageList = new ArrayList<>();
-        given(userMessageService.selectMessagesPartial(anyInt())).willReturn(messageList);
-        given(userMessageService.selectMessagesPartialById(anyInt(), anyInt())).willReturn(messageList);
-        given(userMessageService.selectMoreMessagesBeforePartial(anyString(), anyInt())).willReturn(messageList);
-        given(userMessageService.selectMoreMessagesBeforePartialById(anyString(), anyInt(), anyInt())).willReturn(messageList);
-        given(userMessageService.addNewMessage(anyString(), anyString(), anyInt())).willReturn(0);
-    }
-
     @Test
     void should_return_ten_latest_message() throws Exception {
         mockMvc.perform(post("/getLatestMessage")).andExpect(status().isOk());
@@ -84,11 +74,11 @@ class UserMessageControllerTest {
 
     @ParameterizedTest
     @MethodSource("addMessageFormProvider")
-    void should_add_one_message(String form, int userId) throws Exception {
+    void should_add_one_message(String form, String title, String content, int userId) throws Exception {
         mockMvc.perform(get("/addMessage")
                 .param("addMessageForm", form).param("id", String.valueOf(userId)))
                 .andExpect(status().isOk());
-        verify(userMessageService, times(1)).addNewMessage(anyString(), anyString(), eq(userId));
+        verify(userMessageService, times(1)).addNewMessage(title, content, userId);
     }
 
     @ParameterizedTest
@@ -102,11 +92,11 @@ class UserMessageControllerTest {
 
     @ParameterizedTest
     @MethodSource("editMessageFormProvider")
-    void should_update_one_message(String form) throws Exception {
+    void should_update_one_message(String form, String messageTitle, String messageContent, int id) throws Exception {
         mockMvc.perform(get("/editMessage")
                 .param("editMessageForm", form))
                 .andExpect(status().isOk());
-        verify(userMessageService, times(1)).updateMessage(anyString(), anyString(), anyInt());
+        verify(userMessageService, times(1)).updateMessage(messageTitle, messageContent, id);
     }
 
     static Stream<Arguments> userIdProvider() {
@@ -131,13 +121,13 @@ class UserMessageControllerTest {
 
     static Stream<Arguments> addMessageFormProvider() {
         return Stream.of(
-                Arguments.of("{\"title\":\"testtitle\",\"content\":\"testcontent\"}", 5));
+                Arguments.of("{\"title\":\"testtitle\",\"content\":\"testcontent\"}", "testtitle", "testcontent", 5));
     }
 
     static Stream<Arguments> editMessageFormProvider() {
         return Stream.of(
                 Arguments.of("{\"messageTitle\":\"testtitle\"" +
                              ",\"messageContent\":\"testcontent\"" +
-                             ",\"id\":5}"));
+                             ",\"id\":5}", "testtitle", "testcontent", 5));
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Blob;
 import java.util.List;
@@ -58,6 +57,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select * from user where user_name=:user_name", nativeQuery = true)
     List<User> selectUserByName(@Param("user_name") String user_name);
+
+    @Query(value = "select * from user where user_name=:user_name", nativeQuery = true)
+    List<User> selectUserByNameAndId(@Param("user_name") String user_name, @Param("id") int id);
 
     @Query(value = "select * from user where user_name=:name and user_key=:key", nativeQuery = true)
     List<User> selectUserByNameAndId(@Param("name") String name, @Param("key") String key);

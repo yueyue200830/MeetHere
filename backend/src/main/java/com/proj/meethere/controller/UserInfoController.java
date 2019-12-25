@@ -32,6 +32,12 @@ public class UserInfoController {
         return userInfoService.checkUserNameExist(user_name);
     }
 
+    @RequestMapping(value = "/checkUserNameNew", method = RequestMethod.GET)
+    @ResponseBody
+    public int getUserIdByName(@RequestParam("user_name") String user_name, @RequestParam("id") int id) {
+        return userInfoService.checkUserNameNew(user_name, id);
+    }
+
     @RequestMapping(value = "/updateUserById", method = RequestMethod.GET)
     @ResponseBody
     public int updateUserById(@RequestParam("id") int id, @RequestParam("updateForm") String updateForm) {
@@ -75,7 +81,7 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/UploadPhoto", method = RequestMethod.POST)
     @ResponseBody
-    public int uploadNewPhoto(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) throws IOException, SQLException {
+    public int uploadNewPhoto(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) throws IOException {
         // convert to base64 string
         String base64 = Base64.encodeBase64String(file.getBytes());
         base64 = "data:image/png;base64," + base64;
@@ -88,12 +94,12 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/GetPhoto", method = RequestMethod.GET)
     @ResponseBody
-    public String selectPhoto(@RequestParam("id") int id) throws SQLException, UnsupportedEncodingException {
+    public String selectPhoto(@RequestParam("id") int id) throws UnsupportedEncodingException, SQLException {
         Blob blob = userInfoService.selectUserPhoto(id);
         if(blob == null) {
             return "";
         } else {
-            return new String(blob.getBytes(1, (int) blob.length()), "UTF-8");
+            return new String(blob.getBytes(1, (int)blob.length()), "UTF-8");
         }
     }
 }

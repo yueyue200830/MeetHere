@@ -33,7 +33,7 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
     @Transactional(rollbackFor = Exception.class)
     @Query(value = "insert into message (msg_content, msg_time, msg_visibility, user_id, msg_title) " +
             "value (:content, now(), false, :user_id, :title)", nativeQuery=true)
-    int insertNewMessage(@Param("content") String content, @Param("user_id") int user_id, @Param("title") String title);
+    int insertNewMessage(@Param("title") String title, @Param("content") String content, @Param("user_id") int user_id);
 
     /**
      * Find latest number of comments.
@@ -91,5 +91,5 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
     @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "update message set msg_content=:msg_content, msg_title=:msg_title where id=:id", nativeQuery = true)
-    int updateMessageById(@Param("msg_content") String msg_content, @Param("msg_title") String msg_title, @Param("id") int id);
+    int updateMessageById(@Param("msg_title") String msg_title, @Param("msg_content") String msg_content, @Param("id") int id);
 }

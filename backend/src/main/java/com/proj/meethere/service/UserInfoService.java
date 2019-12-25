@@ -18,8 +18,17 @@ public class UserInfoService {
     @Autowired
     UserRepository userRepository;
 
-    public int checkUserNameExist(String user_name) {
-        List<User> users = userRepository.selectUserByName(user_name);
+    public int checkUserNameExist(String userName) {
+        List<User> users = userRepository.selectUserByName(userName);
+        if (users.isEmpty()) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public int checkUserNameNew(String userName, int id) {
+        List<User> users = userRepository.selectUserByNameAndId(userName, id);
         if (users.isEmpty()) {
             return 0;
         } else {
