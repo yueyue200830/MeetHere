@@ -30,6 +30,14 @@ public class Revenue {
     public Revenue() {
     }
 
+    public Revenue(int id, String name, int roomnum, String intro, int price) {
+        this.id = id;
+        this.rvnName = name;
+        this.rvnRoomnum = roomnum;
+        this.rvnIntro = intro;
+        this.rvnPrice = price;
+    }
+
     public int getId() {
         return id;
     }
