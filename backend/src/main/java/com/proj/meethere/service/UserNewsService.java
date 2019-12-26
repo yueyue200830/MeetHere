@@ -21,6 +21,7 @@ public class UserNewsService {
         return newsRepository.selectAllNews();
     }
 
+    // 应该不用了
     public List<News> getTenNewsByPageId(int start, int end) {
         return newsRepository.findNewsByScope(start, end);
     }

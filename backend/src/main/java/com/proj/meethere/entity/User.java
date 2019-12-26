@@ -32,6 +32,14 @@ public class User {
     public User(){
     }
 
+    public User(int userId, String userName, String userKey, Integer userType, Blob userPhoto) {
+        this.id = userId;
+        this.userName = userName;
+        this.userKey = userKey;
+        this.userType = userType;
+        this.userPhoto = userPhoto;
+    }
+
     public User(String userName, String userKey, Integer userType, Blob userPhoto) {
         this.userName = userName;
         this.userKey = userKey;

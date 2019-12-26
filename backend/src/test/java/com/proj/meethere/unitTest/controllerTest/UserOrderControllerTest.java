@@ -59,7 +59,9 @@ class UserOrderControllerTest {
     }
 
     @Test
-    void should_return_available_table(String rvnName, String date) throws Exception {
+    void should_return_available_table() throws Exception {
+        String rvnName = "篮球馆";
+        String date = "2019-12-25";
         mockMvc.perform(get("/getAvailable")
                 .param("revenueName", rvnName).param("date", date))
                 .andExpect(status().isOk());
