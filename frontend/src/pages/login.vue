@@ -6,7 +6,7 @@
         <el-col  class="login-right-body">
           <el-row style="width: 95%">
             <el-row class="login-row" style="margin-top: 3%">
-              <h2>管理员登录</h2>
+              <h2 id="h2">管理员登录</h2>
             </el-row>
             <el-row class="login-row">
               <el-form ref="form" :model="form" :rules="loginRules" label-width="80px" style="width: 90%">

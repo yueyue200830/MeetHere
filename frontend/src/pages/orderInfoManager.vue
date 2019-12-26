@@ -20,7 +20,7 @@
   import ECharts from 'vue-echarts/components/ECharts';
   require('echarts/lib/chart/bar');
   const getStatistic= (value) => axios.get(`/app/getStatistic/${value}`);
-  const getVenueNameForChart= (value) => axios.get(`/app/getVenueNameForChart/${value}`);
+  const getVenueNameForChart= () => axios.post('/app/getVenueNameForChart');
   export default {
     name: "orderInfo",
     components: {ECharts},
@@ -99,7 +99,7 @@
             this.chartOption.series[0].data = data.data;
           });
 
-          getVenueNameForChart(this.value).then(data => {
+          getVenueNameForChart().then(data => {
             console.log(data.data);
             this.chartOption.xAxis.data = data.data;
           });
@@ -124,7 +124,7 @@
         this.chartOption.series[0].data = data.data;
       });
 
-      getVenueNameForChart(this.value).then(data => {
+      getVenueNameForChart().then(data => {
         //console.log(data.data);
         this.chartOption.xAxis.data = data.data;
       });
