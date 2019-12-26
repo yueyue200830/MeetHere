@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 /**
@@ -54,22 +53,16 @@ public class RevenueController {
         return revenueService.modifyRevenue(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());
     }
 
-    @RequestMapping(value = "/getVenueNameForChart/{value}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getVenueNameForChart", method = RequestMethod.POST)
     @ResponseBody
-    public List<String> getVenueName(@PathVariable String value) {
+    public List<String> getVenueName() {
         return revenueService.getVenueName();
     }
 
     @RequestMapping(value = "/getStatistic/{value}", method = RequestMethod.GET)
     @ResponseBody
     public List<Integer> getOrderNum(@PathVariable String value) {
-        try {
-            int id = Integer.parseInt(value);
-            return revenueService.getOrderNum(value);
-        } catch (NumberFormatException e) {
-            throw e;
-        }
-
+        return revenueService.getOrderNum(value);
     }
 
 }

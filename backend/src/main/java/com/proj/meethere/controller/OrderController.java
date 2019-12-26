@@ -5,6 +5,7 @@ import com.proj.meethere.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -44,9 +45,18 @@ public class OrderController {
             int id = Integer.parseInt(condition);
             return orderService.searchUnapprovedOrder(id);
         } catch (NumberFormatException e) {
+            System.out.println("catch");
             throw e;
         }
+    }
 
+    @ExceptionHandler({NumberFormatException.class})
+    @ResponseBody
+    public ModelAndView handleException(NumberFormatException ex) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("error");
+        modelAndView.addObject("message",ex.getMessage());
+        return modelAndView;
     }
 
 

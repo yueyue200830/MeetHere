@@ -30,7 +30,7 @@ public class MessageController {
     @ResponseBody
     List<Message> searchSpecificMessage(@PathVariable String condition) {
         try {
-            int id = Integer.parseInt("abcd");
+            int id = Integer.parseInt(condition);
             return messageService.searchSpecificMessage(id);
         } catch(NumberFormatException e) {
             System.out.println("catch");
