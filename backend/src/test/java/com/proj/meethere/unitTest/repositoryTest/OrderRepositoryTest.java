@@ -47,15 +47,8 @@ public class OrderRepositoryTest {
         Assert.assertEquals(1,orders.size());
         Order curOrder = orders.get(0);
         Assert.assertSame(newOrder, curOrder);
-//        Assert.assertEquals(10,curOrder.getUserId());
-//        Assert.assertEquals("123456789012",curOrder.getOrderPhone());
-//        Assert.assertEquals(12,curOrder.getRvnRoomNum());
-//        Assert.assertEquals(1,curOrder.getRvnId());
-//        Assert.assertEquals(1,curOrder.getTimeSlot());
-//        Assert.assertEquals("2019-10-29",curOrder.getOrderDate());
-//        Assert.assertEquals(0,curOrder.getOrderApproved());
-//        Assert.assertEquals(120,curOrder.getOrderPrice());
     }
+
     @Test
     public void order_should_be_approved() {
         this.testEntityManager.persist(newOrder);
@@ -77,7 +70,7 @@ public class OrderRepositoryTest {
     @Test
     public void order_should_be_selected_the_same() {
         this.testEntityManager.persist(newOrder);
-        List<Order> orders = orderRepository.selectOrderById(newOrder.getUserId());
+        List<Order> orders = orderRepository.selectSpecificUnapprovedOrder(newOrder.getId());
         Assert.assertEquals(1, orders.size());
         Order curOrder = orders.get(0);
         Assert.assertEquals(10,curOrder.getUserId());

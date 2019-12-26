@@ -39,7 +39,6 @@ public class NewsRepositoryTest {
     public void init() throws SQLException {
         mockBlob = new SerialBlob("1010101".getBytes());
         mockNews = new News("test News content",  mockBlob, "mock title", "2019-10-29");
-        System.out.println("cena " + mockNews.getId());
     }
 
     @After
@@ -47,6 +46,25 @@ public class NewsRepositoryTest {
         this.testEntityManager.clear();
     }
 
+
+    @Test
+    public void news_should_be_deleted() {
+        this.testEntityManager.persist(mockNews);
+        int result = newsRepository.deleteSpecificNews(mockNews.getId());
+        Assert.assertEquals(1, result);
+        List<News> selectedNews = newsRepository.selectSpecificNews(mockNews.getId());
+        Assert.assertEquals(0, selectedNews.size());
+    }
+
+    @Ignore
+    @Test
+    public void news_should_be_inserted() {
+        int result = newsRepository.insertNews("newsContent", "12312","title");
+        Assert.assertEquals(1, result);
+        List<News> newsList = newsRepository.selectAllNews();
+        Assert.assertEquals(1, newsList.size());
+
+    }
     @Test
     public void all_news_should_be_selected() {
         News news2 = new News("mock news again",  mockBlob, "news content2","2019-10-21");
@@ -56,6 +74,8 @@ public class NewsRepositoryTest {
         Assert.assertEquals(2, newsList.size());
         News firstNews = newsList.get(0);
         News secondNews = newsList.get(1);
+        Assert.assertSame(mockNews, firstNews);
+        Assert.assertSame(news2, secondNews);
         //todo: find a better way assert equals two news
     }
 
@@ -67,12 +87,15 @@ public class NewsRepositoryTest {
         Assert.assertSame(mockNews, newsList.get(0));
     }
 
+    @Ignore
     @Test
     public void news_should_be_updated() throws Exception {
         System.out.println(mockNews.getId());
         this.testEntityManager.persist(mockNews);
         System.out.println(mockNews.getId());
-        int result = newsRepository.updateSpeceficNews("change News content","change news Title", "fake photo", mockNews.getId());
+        Blob newsPhoto = new SerialBlob("10101".getBytes());
+        String news = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()), "GBK");
+        int result = newsRepository.updateSpeceficNews("change News content","change news Title", news, mockNews.getId());
         Assert.assertEquals(1, result);
         System.out.println(mockNews.getId());
         List<News> newsFind = newsRepository.selectSpecificNews(mockNews.getId());

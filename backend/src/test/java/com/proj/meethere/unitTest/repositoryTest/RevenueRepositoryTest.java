@@ -2,12 +2,15 @@ package com.proj.meethere.unitTest.repositoryTest;
 
 import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * @author Yiqing Tao
@@ -15,9 +18,10 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@DirtiesContext
 public class RevenueRepositoryTest {
-//    @Autowired
-//    TestEntityManager testEntityManager;
+    @Autowired
+    TestEntityManager testEntityManager;
 
     @Autowired
     RevenueRepository revenueRepository;
@@ -33,10 +37,10 @@ public class RevenueRepositoryTest {
         revenue.setRvnRoomnum(10);
     }
 
-//    @After
-//    public void cleanUp() {
-//        this.testEntityManager.clear();
-//    }
+    @After
+    public void cleanUp() {
+        this.testEntityManager.clear();
+    }
 
     @Test
     public void revenue_name_should_be_selected_uniquely() {
@@ -45,46 +49,56 @@ public class RevenueRepositoryTest {
         revenue2.setRvnRoomnum(10);
         revenue2.setRvnIntro("mock introduction2");
         revenue2.setRvnPrice(100);
-//        this.testEntityManager.persist(revenue);
-//        this.testEntityManager.persist(revenue2);
-//        List<String> names = revenueRepository.selectRevenueName();
-//        Assert.assertEquals(1, names.size());
+        this.testEntityManager.persist(revenue);
+        this.testEntityManager.persist(revenue2);
+        List<String> names = revenueRepository.selectRevenueName();
+        Assert.assertEquals(1, names.size());
     }
 
-//    @Test
-//    public void revenue_should_be_selected() {
-//        Revenue revenue2 = new Revenue();
-//        revenue2.setRvnName("mock name");
-//        revenue2.setRvnRoomnum(10);
-//        revenue2.setRvnIntro("mock introduction2");
-//        revenue2.setRvnPrice(100);
-//        this.testEntityManager.persist(revenue);
-//        this.testEntityManager.persist(revenue2);
-//        List<Revenue> revenueList = revenueRepository.getAllRvnInfo();
-//        Assert.assertEquals(2,revenueList.size());
-//        Revenue firstRevenue = revenueList.get(0);
-//        Revenue secondRevenue = revenueList.get(1);
-//        Assert.assertSame(revenue, firstRevenue);
-//        Assert.assertSame(revenue2, secondRevenue);
-//    }
-//
-//    @Test
-//    public void revenue_should_be_selected_by_id() {
-//        this.testEntityManager.persist(revenue);
-//        List<Revenue> revenueList = revenueRepository.getRevenueById(revenue.getId());
-//        Assert.assertEquals(1, revenueList.size());
-//        Assert.assertSame(revenue, revenueList.get(0));
-//    }
-//
-//    @Test
-//    public void revenue_should_be_updated() {
-//        this.testEntityManager.persist(revenue);
-//        int result = revenueRepository.updateRvnInfo(10, "change intro", revenue.getId());
-//        Assert.assertEquals(1, result);
-//        List<Revenue> newRevenues = revenueRepository.getRevenueById(revenue.getId());
-//        System.out.println(newRevenues.get(0).getRvnPrice());
-//        Assert.assertEquals("change intro", newRevenues.get(0).getRvnIntro());
-//        Assert.assertEquals(10, newRevenues.get(0).getRvnPrice());
-//    }
+    @Test
+    public void revenue_should_all_be_selected() {
+        Revenue revenue2 = new Revenue();
+        revenue2.setRvnName("mock name");
+        revenue2.setRvnRoomnum(10);
+        revenue2.setRvnIntro("mock introduction2");
+        revenue2.setRvnPrice(100);
+        this.testEntityManager.persist(revenue);
+        this.testEntityManager.persist(revenue2);
+        List<Revenue> revenueList = revenueRepository.getAllRvnInfo();
+        Assert.assertEquals(2,revenueList.size());
+        Revenue firstRevenue = revenueList.get(0);
+        Revenue secondRevenue = revenueList.get(1);
+        Assert.assertSame(revenue, firstRevenue);
+        Assert.assertSame(revenue2, secondRevenue);
+    }
+
+    @Test
+    public void revenue_should_be_selected_by_id() {
+        this.testEntityManager.persist(revenue);
+        List<Revenue> revenueList = revenueRepository.getRevenueById(revenue.getId());
+        Assert.assertEquals(1, revenueList.size());
+        Assert.assertSame(revenue, revenueList.get(0));
+    }
+
+    @Ignore
+    @Test
+    public void revenue_should_be_updated() {
+        this.testEntityManager.persist(revenue);
+        int result = revenueRepository.updateRvnInfo(10, "change intro", revenue.getId());
+        Assert.assertEquals(1, result);
+        List<Revenue> newRevenues = revenueRepository.getRevenueById(revenue.getId());
+        System.out.println(newRevenues.get(0).getRvnPrice());
+        Assert.assertEquals("change intro", newRevenues.get(0).getRvnIntro());
+        Assert.assertEquals(10, newRevenues.get(0).getRvnPrice());
+    }
+
+    @Ignore
+    @Test
+    public void revenue_should_be_got_by_name() {
+        this.testEntityManager.persist(revenue);
+        List<String> nameList = revenueRepository.selectRevenueName();
+        Assert.assertEquals(1, nameList.size());
+        Assert.assertEquals("mock name", nameList.get(0));
+    }
 }
 

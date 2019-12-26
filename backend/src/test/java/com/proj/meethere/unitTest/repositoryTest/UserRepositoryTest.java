@@ -30,10 +30,12 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     private User user;
-//    @Before
-//    public void init() {
-//        user = new User("Jack","passwordIsSecret",1,"mockUserPhoto");
-//    }
+    private Blob fakeBlob;
+    @Before
+    public void init() throws SQLException {
+        fakeBlob = new SerialBlob("101010".getBytes());
+        user = new User("Jack","passwordIsSecret",1,fakeBlob);
+    }
 
     @After
     public void cleanUp() {
@@ -51,7 +53,7 @@ public class UserRepositoryTest {
         Assert.assertEquals("passwordIsSecret", onlyUser.getUserKey());
         System.out.println("clear");
         Assert.assertEquals(new Integer(1),onlyUser.getUserType());
-        Assert.assertEquals("mockUserPhoto", onlyUser.getUserPhoto());
+        Assert.assertEquals(fakeBlob, onlyUser.getUserPhoto());
     }
 
     @Test
@@ -63,7 +65,6 @@ public class UserRepositoryTest {
         Assert.assertEquals(0,users.size());
     }
 
-    @Ignore
     @Test
     public void select_all_users_should_be_exact_the_same() throws SQLException {
         Blob mockBlob = new SerialBlob("1010101".getBytes());
@@ -77,11 +78,11 @@ public class UserRepositoryTest {
         Assert.assertEquals("Jack",firstUser.getUserName());
         Assert.assertEquals("passwordIsSecret",firstUser.getUserKey());
         Assert.assertEquals(new Integer(1),firstUser.getUserType());
-        Assert.assertEquals("mockUserPhoto",firstUser.getUserPhoto());
+        Assert.assertEquals(fakeBlob,firstUser.getUserPhoto());
         Assert.assertEquals("test2", secondUser.getUserName());
         Assert.assertEquals("passwd",secondUser.getUserKey());
         Assert.assertEquals(new Integer(0), secondUser.getUserType());
-        Assert.assertEquals("fakePhoto", secondUser.getUserPhoto());
+        Assert.assertEquals(mockBlob, secondUser.getUserPhoto());
     }
 
 
