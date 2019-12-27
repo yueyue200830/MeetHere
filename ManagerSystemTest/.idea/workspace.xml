@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce4533ef-194b-429b-a342-add4e1a05c7d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/admin.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ManagerSystemTest.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/BaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/proj/meethere/dao/RevenueRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/proj/meethere/dao/RevenueRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/menuComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/menuComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/orderInfoManager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/orderInfoManager.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,11 +30,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/CheckOrderStatisticTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="95">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/ChangeTablePageTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="817">
+              <caret line="43" column="95" selection-start-line="43" selection-start-column="95" selection-end-line="43" selection-end-column="95" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/GoToUrlTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -92,10 +108,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="307" />
-    <option name="y" value="37" />
-    <option name="width" value="1840" />
-    <option name="height" value="975" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -166,16 +182,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CheckOrderStatisticTest">
-    <configuration name="ApproveOrderSuccessTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ManagerSystemTest" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ApproveOrderSuccessTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.GoToUrlTest.goToUrl">
     <configuration name="CheckOrderStatisticTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ManagerSystemTest" />
       <option name="PACKAGE_NAME" value="" />
@@ -185,11 +192,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SearchOrderFailedTest.searchOrderFailedTwo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GoToUrlTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ManagerSystemTest" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SearchOrderFailedTest" />
-      <option name="METHOD_NAME" value="searchOrderFailedTwo" />
+      <option name="MAIN_CLASS_NAME" value="GoToUrlTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GoToUrlTest.goToUrl" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ManagerSystemTest" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GoToUrlTest" />
+      <option name="METHOD_NAME" value="goToUrl" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -215,11 +231,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GoToUrlTest.goToUrl" />
+        <item itemvalue="JUnit.GoToUrlTest" />
         <item itemvalue="JUnit.CheckOrderStatisticTest" />
         <item itemvalue="JUnit.WrongDeleteUserTest" />
         <item itemvalue="JUnit.WrongApproveOrderTest" />
-        <item itemvalue="JUnit.ApproveOrderSuccessTest" />
-        <item itemvalue="JUnit.SearchOrderFailedTest.searchOrderFailedTwo" />
       </list>
     </recent_temporary>
   </component>
@@ -233,20 +249,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1577425248104</updated>
-      <workItem from="1577425251010" duration="14887000" />
+      <workItem from="1577425251010" duration="15967000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="WrongUpgradeUserTest - 2019.12.27 at 17h 59m 40s.xml">
-      <configuration name="WrongUpgradeUserTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="WrongDeleteUserTest - 2019.12.27 at 18h 03m 37s.xml">
-      <configuration name="WrongDeleteUserTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SearchOrderSuccessTest - 2019.12.27 at 18h 07m 26s.xml">
-      <configuration name="SearchOrderSuccessTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="SearchOrderFailedTest - 2019.12.27 at 18h 12m 17s.xml">
       <configuration name="SearchOrderFailedTest" configurationId="JUnit" />
     </history-entry>
@@ -268,9 +275,18 @@
     <history-entry file="WrongDeleteUserTest - 2019.12.27 at 18h 22m 18s.xml">
       <configuration name="WrongDeleteUserTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="CheckOrderStatisticTest - 2019.12.27 at 18h 26m 22s.xml">
+      <configuration name="CheckOrderStatisticTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GoToUrlTest - 2019.12.27 at 18h 36m 01s.xml">
+      <configuration name="GoToUrlTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GoToUrlTest_goToUrl - 2019.12.27 at 18h 36m 52s.xml">
+      <configuration name="GoToUrlTest.goToUrl" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14887000" />
+    <option name="totallyTimeSpent" value="15967000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -282,7 +298,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
@@ -290,7 +306,7 @@
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Messages" weight="0.3286119" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
@@ -300,11 +316,11 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3654391" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3654391" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
       <window_info anchor="right" id="Palette" />
       <window_info anchor="right" id="Theme Preview" />
       <window_info anchor="right" id="Maven" />
@@ -401,30 +417,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ChangeTablePageTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="817">
-          <caret line="43" column="95" selection-start-line="43" selection-start-column="95" selection-end-line="43" selection-end-column="95" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/SearchUserSuccessTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="1" selection-start-line="1" selection-end-line="2" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/GoToUrlTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -570,8 +566,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/CheckOrderStatisticTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="95">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ChangeTablePageTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="43" column="95" selection-start-line="43" selection-start-column="95" selection-end-line="43" selection-end-column="95" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/GoToUrlTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
