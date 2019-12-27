@@ -90,6 +90,7 @@ public class NewsServiceTest {
         verifyNoMoreInteractions(newsRepository);
     }
 
+
     @Test
     public void should_get_photo_by_id() throws Exception {
         List<News> newsList = new ArrayList<>();

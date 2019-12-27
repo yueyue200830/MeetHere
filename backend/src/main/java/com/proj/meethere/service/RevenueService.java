@@ -23,10 +23,17 @@ public class RevenueService {
     }
 
     public List<Revenue> searchRevenue(int id) {
-        return revenueRepository.getRevenueById(id);
+        if(id < 0) {
+            return new ArrayList<Revenue>();
+        } else {
+            return revenueRepository.getRevenueById(id);
+        }
     }
 
     public List<RevenueResponse> getRevenue(int id) {
+        if(id < 0) {
+            return 
+        }
         List<Revenue> revenueList = revenueRepository.getRevenueById(id);
 
         List<RevenueResponse> revenueResponsesList = new ArrayList<>();
