@@ -184,7 +184,7 @@
         this.loading = true;
         getPhotoById(id).then(data => {
           this.loading = false;
-          if(data){
+          if(data.data){
             this.photoSrc = data.data;
             this.showPhoto = true;
             console.log(this.photoSrc);
