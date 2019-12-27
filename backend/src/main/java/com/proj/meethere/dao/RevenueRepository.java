@@ -39,6 +39,7 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer> {
     int insertNewRevenue(@Param("rvn_name") String rvn_name, @Param("rvn_roomnum") int rvn_roomnum,
                          @Param("rvn_price") int rvn_price, @Param("rvn_intro") String rvn_intro);
 
+
     @Query(value = "SELECT rvn_name FROM revenue ORDER BY revenue.id", nativeQuery = true)
     List<String> selectRevenueName();
 

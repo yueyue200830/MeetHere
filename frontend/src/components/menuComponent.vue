@@ -24,7 +24,7 @@
       <el-header style="text-align: right; font-size: 12px">
         <span class="head-time">{{now}}</span>
         <el-dropdown>
-          <span v-if="hasLoggedIn" class="hear-user">
+          <span v-if="hasLoggedIn" class="hear-user" id="managerName">
             {{managerName}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">

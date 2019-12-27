@@ -9,7 +9,7 @@
         @change="getValue">
       </el-date-picker>
     </div>
-    <div style="width: 90%; top: 200px;position: absolute">
+    <div v-if="showEcharts" style="width: 90%; top: 200px;position: absolute">
       <e-charts :options="chartOption"></e-charts>
     </div>
   </page-main-body>
@@ -31,6 +31,7 @@
         title: '预约订单统计信息',
         nameData: [],
         valueData:[],
+        showEcharts:false,
         chartOption: {
           grid: {left: 30, top: 30, right: 30, bottom: 30},
           xAxis: {
@@ -92,15 +93,24 @@
     },
     methods:{
       getValue(){
-        console.log(this.value);
         if(this.value){
           getStatistic(this.value).then(data => {
-            console.log(data.data);
+            let l = data.data.length;
+            let flag = false;
+            for(var i=0;i<l;i++){
+              if(data.data[i]>0){
+                this.showEcharts = true;
+                flag = true;
+                break;
+              }
+            }
+            if(!flag){
+              this.showEcharts = false;
+            }
             this.chartOption.series[0].data = data.data;
           });
 
           getVenueNameForChart().then(data => {
-            console.log(data.data);
             this.chartOption.xAxis.data = data.data;
           });
         }else{
@@ -118,19 +128,20 @@
         date: nowDate.getDate(),
       }
       this.value = mdata.year + '-' + mdata.month + '-' + mdata.date; //获取当天日期，默认为当天日期
-      //console.log(this.value);
       getStatistic(this.value).then(data => {
-        console.log(data.data);
+        let l = data.data.length;
+        for(var i=0;i<l;i++){
+          if(data.data[i]>0){
+            this.showEcharts = true;
+            break;
+          }
+        }
         this.chartOption.series[0].data = data.data;
       });
 
       getVenueNameForChart().then(data => {
-        //console.log(data.data);
         this.chartOption.xAxis.data = data.data;
       });
-      //this.chartOption.series[0].data = [2,1,1];
-      //this.chartOption.xAxis.data = ["足球场","篮球场","游泳馆"];
-      //console.log(this.chartOption.series[0].data[1]);
     }
   }
 </script>

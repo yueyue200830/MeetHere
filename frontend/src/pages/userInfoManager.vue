@@ -104,7 +104,8 @@
       searchTable (condition) {
         this.loading = true;
         condition=this.$refs.table.searchCondition;
-        if(condition == ''){
+        var regNumber = /\d+/;
+        if(condition == "" || !regNumber.test(condition)){
           this.loading = false;
           this.searchData=this.preData;
           this.onAlertError("请输入搜索内容！")
