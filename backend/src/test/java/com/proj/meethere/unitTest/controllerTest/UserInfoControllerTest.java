@@ -2,8 +2,6 @@ package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.controller.UserInfoController;
 import com.proj.meethere.service.UserInfoService;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,9 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.sql.SQLException;
 import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.*;

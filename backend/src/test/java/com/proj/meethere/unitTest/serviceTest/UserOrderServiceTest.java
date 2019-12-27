@@ -108,7 +108,7 @@ class UserOrderServiceTest {
         when(orderRepository.selectOrderById(orderId)).thenReturn(orders);
 
         // calling
-        JSONArray result = userOrderService.selectOrderById(anyInt());
+        JSONArray result = userOrderService.selectOrderById(orderId);
         JSONObject firstObject = (result.getJSONObject(0));
 
         // verifying result

@@ -31,6 +31,7 @@ public class UserMessageController {
         List<Message> latestMessages = userMessageService.selectMessagesPartial(10);
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(latestMessages);
+        System.out.println("新闻"+jsonArray.toString());
         return jsonArray.toString();
     }
 
@@ -69,7 +70,7 @@ public class UserMessageController {
      */
     @RequestMapping(value = "/getMoreMyMessage", method = RequestMethod.GET)
     @ResponseBody
-    public String getMoreMessages(@RequestParam("lastTime") String lastTime, @RequestParam("number") int number, @RequestParam("userId") int id) {
+    public String getMoreMyMessages(@RequestParam("lastTime") String lastTime, @RequestParam("number") int number, @RequestParam("userId") int id) {
         List<Message> moreMessages = userMessageService.selectMoreMessagesBeforePartialById(lastTime, number, id);
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(moreMessages);
