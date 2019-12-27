@@ -1,6 +1,7 @@
 package com.proj.meethere.unitTest.repositoryTest;
 
 import com.proj.meethere.dao.RevenueRepository;
+import com.proj.meethere.entity.Order;
 import com.proj.meethere.entity.Revenue;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -30,11 +31,7 @@ public class RevenueRepositoryTest {
 
     @Before
     public void init() {
-        revenue = new Revenue();
-        revenue.setRvnIntro("mock introduction");
-        revenue.setRvnPrice(120);
-        revenue.setRvnName("mock name");
-        revenue.setRvnRoomnum(10);
+        revenue = new Revenue("mock name", 20, "mock introduction", 120);
     }
 
     @After
@@ -43,16 +40,18 @@ public class RevenueRepositoryTest {
     }
 
     @Test
+    public void revenue_should_be_inserted() {
+        int result = revenueRepository.insertNewRevenue("rvn_name", 100, 120, "rvn introduction");
+        Assert.assertEquals(1, result);
+    }
+
+    @Test
     public void revenue_name_should_be_selected_uniquely() {
-        Revenue revenue2 = new Revenue();
-        revenue2.setRvnName("mock name");
-        revenue2.setRvnRoomnum(10);
-        revenue2.setRvnIntro("mock introduction2");
-        revenue2.setRvnPrice(100);
+        Revenue revenue2 = new Revenue("rvn name", 10, "fake Introduction", 100);
         this.testEntityManager.persist(revenue);
         this.testEntityManager.persist(revenue2);
         List<String> names = revenueRepository.selectRevenueName();
-        Assert.assertEquals(1, names.size());
+        Assert.assertEquals(2, names.size());
     }
 
     @Test
@@ -80,7 +79,7 @@ public class RevenueRepositoryTest {
         Assert.assertSame(revenue, revenueList.get(0));
     }
 
-    @Ignore
+
     @Test
     public void revenue_should_be_updated() {
         this.testEntityManager.persist(revenue);
@@ -92,7 +91,6 @@ public class RevenueRepositoryTest {
         Assert.assertEquals(10, newRevenues.get(0).getRvnPrice());
     }
 
-    @Ignore
     @Test
     public void revenue_should_be_got_by_name() {
         this.testEntityManager.persist(revenue);
@@ -100,5 +98,7 @@ public class RevenueRepositoryTest {
         Assert.assertEquals(1, nameList.size());
         Assert.assertEquals("mock name", nameList.get(0));
     }
+
+
 }
 

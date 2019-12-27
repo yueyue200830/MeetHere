@@ -31,6 +31,14 @@ public class News {
     public News() {
     }
 
+    public News(int id, String newsContent, Blob newsPhoto, String newsTitle, String newsTime) {
+        this.id = id;
+        this.newsContent = newsContent;
+        this.newsPhoto = newsPhoto;
+        this.newsTitle = newsTitle;
+        this.newsTime = newsTime;
+    }
+
     public News(String newsContent, Blob newsPhoto, String newsTitle, String newsTime) {
         this.newsContent = newsContent;
         this.newsPhoto = newsPhoto;

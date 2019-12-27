@@ -24,12 +24,4 @@ public class UserRevenueService {
     public List<String> getAllenueName() {
         return revenueRepository.getRvnName();
     }
-
-    public int searchIdByName(String name) {
-        return revenueRepository.searchIdByName(name);
-    }
-
-    public List<Revenue> getRevenueById(int id) {
-        return revenueRepository.getRevenueById(id);
-    }
 }

@@ -64,7 +64,11 @@ public class UserOrderController {
     @ResponseBody
     public String getMyOrder(@RequestParam("id") int id) {
         JSONArray jsonArray = userOrderService.selectOrderById(id);
-        return jsonArray.toString();
+        if(jsonArray == null) {
+            return "";
+        } else {
+            return jsonArray.toString();
+        }
     }
 
     /**
