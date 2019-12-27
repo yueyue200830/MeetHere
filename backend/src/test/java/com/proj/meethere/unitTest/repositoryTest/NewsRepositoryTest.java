@@ -76,7 +76,6 @@ public class NewsRepositoryTest {
         News secondNews = newsList.get(1);
         Assert.assertSame(mockNews, firstNews);
         Assert.assertSame(news2, secondNews);
-        //todo: find a better way assert equals two news
     }
 
     @Test

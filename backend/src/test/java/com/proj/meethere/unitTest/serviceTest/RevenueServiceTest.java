@@ -13,7 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class RevenueServiceTest {
     Revenue revenue;
     @Before
     public void init() {
-        Revenue revenue = new Revenue("revenue 1", 10, "introduction", 100);
+        revenue = new Revenue(1,"revenue 1", 10, "introduction", 100);
     }
 
     @Test
@@ -58,6 +59,13 @@ public class RevenueServiceTest {
     }
 
     @Test
+    public void venue_should_get_empty_when_id_below_0() {
+        List<RevenueResponse> rrList = revenueService.getRevenue(-1);
+        assertAll(()->assertEquals(0, rrList.size()));
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @Test
     public void venue_should_be_searched() {
         List<Revenue> revenueList = new ArrayList<>();
         revenueList.add(revenue);
@@ -65,6 +73,13 @@ public class RevenueServiceTest {
         List<Revenue> revenueList1 = revenueService.searchRevenue(1);
         Assert.assertEquals(1, revenueList1.size());
         verify(revenueRepository, times(1)).getRevenueById(1);
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @Test
+    public void venue_should_return_empty_when_id_below_0() {
+        List<Revenue> result =  revenueService.searchRevenue(-1);
+        assertAll(()->assertEquals(0, result.size()));
         verifyNoMoreInteractions(revenueRepository);
     }
 
@@ -109,6 +124,13 @@ public class RevenueServiceTest {
         List<Integer> result = revenueService.getOrderNum("2019-10-29");
         Assert.assertEquals(2, result.size());
         verify(revenueRepository, times(1)).selectStatistic("2019-10-29");
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @Test
+    public void should_get_0_when_modify_venue_if_id_below_0() {
+        int result = revenueService.modifyRevenue(100, "intro", -1);
+        assertAll(()->assertEquals(0, result));
         verifyNoMoreInteractions(revenueRepository);
     }
 

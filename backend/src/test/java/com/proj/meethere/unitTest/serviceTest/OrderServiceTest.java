@@ -12,7 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +65,19 @@ public class OrderServiceTest {
         List<Order> orders = orderService.getUnapprovedOrder();
         Assert.assertEquals(1, orders.size());
         verify(orderRepository,times(1)).selectUnapprovedOrder();
+        verifyNoMoreInteractions(orderRepository);
+    }
+    @Test
+    public void order_should_not_be_updated_when_id_below_0() {
+        int result = orderService.approveOrder(-1);
+        assertAll(()->assertEquals(0, result));
+        verifyNoMoreInteractions(orderRepository);
+    }
+
+    @Test
+    public void order_should_not_be_searched_when_id_below_0() {
+        List<Order> result = orderService.searchUnapprovedOrder(-1);
+        assertAll(()->assertEquals(0, result.size()));
         verifyNoMoreInteractions(orderRepository);
     }
 

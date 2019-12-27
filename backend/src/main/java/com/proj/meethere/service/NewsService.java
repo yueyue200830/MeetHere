@@ -44,14 +44,19 @@ public class NewsService {
     }
 
     public int deleteNews(int id) {
-        return newsRepository.deleteSpecificNews(id);
+        if(id < 0) {
+            return 0;
+        } else {
+            return newsRepository.deleteSpecificNews(id);
+        }
     }
 
     public int updateNews(String content, String title, String photo, int id) {
-        int result = newsRepository.updateSpeceficNews(content, title, photo, id);
-        System.out.println(result);
-        System.out.println("test id" + id);
-        return result;
+        if(id < 0) {
+            return 1;
+        } else {
+            return newsRepository.updateSpeceficNews(content, title, photo, id);
+        }
     }
 
     public List<NewsRequest> searchSpecificNews(int id) throws SQLException, UnsupportedEncodingException {
@@ -76,23 +81,23 @@ public class NewsService {
 
     public int addNews(String content, String title, String photo) {
         try {
-            Date currentTime = new Date();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String newsTime = format.format(currentTime);
             System.out.println(content);
-            newsRepository.insertNews(content, photo, title);
+             return newsRepository.insertNews(content, photo, title);
         } catch (Exception e) {
                 e.printStackTrace();
         }
-        return 1;
+        return 0;
     }
 
     public String getPhotoById(int id) throws SQLException, UnsupportedEncodingException {
-        List<News> newsList = newsRepository.selectSpecificNews(id);
-        System.out.println(newsList);
-        Blob newsPhoto = newsList.get(0).getNewsPhoto();
-        String photo = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()),"GBK");
-        return photo;
+        if(id < 0) {
+            return "";
+        } else {
+            List<News> newsList = newsRepository.selectSpecificNews(id);
+            Blob newsPhoto = newsList.get(0).getNewsPhoto();
+            String photo = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()), "GBK");
+            return photo;
+        }
     }
 
 }
