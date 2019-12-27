@@ -80,4 +80,12 @@ public class Message {
     public void setMessageTitle(String messageTitle) {
         this.messageTitle = messageTitle;
     }
+
+    public Message(String messageContent, int messageVisibility, String messageTime, int userId, String messageTitle) {
+        this.messageContent = messageContent;
+        this.messageVisibility = messageVisibility;
+        this.messageTime = messageTime;
+        this.userId = userId;
+        this.messageTitle = messageTitle;
+    }
 }
