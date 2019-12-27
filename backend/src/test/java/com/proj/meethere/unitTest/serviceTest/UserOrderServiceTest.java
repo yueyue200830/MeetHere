@@ -7,7 +7,6 @@ import com.proj.meethere.entity.Revenue;
 import com.proj.meethere.service.UserOrderService;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +71,7 @@ class UserOrderServiceTest {
         int result = userOrderService.addNewOrder(userId, phone, name, room, slot, date, price);
 
         // verifying result
-        Assert.assertEquals(1, result);
+        assertEquals(1, result);
 
         // verifying invoked times
         verify(revenueRepository, times(1)).searchIdByName(name);
@@ -92,7 +91,7 @@ class UserOrderServiceTest {
         int result = userOrderService.addNewOrder(userId, phone, name, room, slot, date, price);
 
         // verifying result
-        Assert.assertEquals(0, result);
+        assertEquals(0, result);
 
         // verifying invoked times
         verify(revenueRepository, times(1)).searchIdByName(name);

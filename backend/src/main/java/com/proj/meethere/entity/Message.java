@@ -33,6 +33,15 @@ public class Message {
     public Message() {
     }
 
+    public Message(int id, String content, int visibility, String time, int userId, String title) {
+        this.id = id;
+        this.messageContent = content;
+        this.messageVisibility = visibility;
+        this.messageTime = time;
+        this.userId = userId;
+        this.messageTitle = title;
+    }
+
     public int getId() {
         return id;
     }
