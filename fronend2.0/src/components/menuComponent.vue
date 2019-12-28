@@ -11,8 +11,7 @@
       <el-scrollbar class="menu-body" changeStyle>
         <el-menu :collapse="isCollapseLeft" :default-active="defaultActive"
                @select="selectMenu($event, 'left')" unique-opened >
-        <!--<div v-for="(menu, index) in totalLeftMenu" :key="setIndex(index)">-->
-        <el-menu-item style="min-width: 200px" v-for="(menu, index) in totalLeftMenu" :key="setIndex('left', index)" :index="setIndex('left',index, undefined, menu.module)" @click="goTo(menu.path)" v-if="!menu.action && menu.meta.showInMenu">
+        <el-menu-item style="min-width: 200px" v-show="!menu.action && menu.meta.showInMenu" v-for="(menu, index) in totalLeftMenu" :key="setIndex('left', index)" :index="setIndex('left',index, undefined, menu.module)" @click="goTo(menu.path)" >
           <i class="el-icon-tickets"></i>
           <span slot="title">{{menu.name}}</span>
         </el-menu-item>
@@ -87,7 +86,7 @@ import _ from 'lodash'
 import { routes } from '../router/index'
 import moment from 'moment'
 import axios from 'axios'
-// todo
+
 const modifyManagerPassword = (passwordForm) => axios.post('/app/modifyManagerPassword', passwordForm)
 
 export default {
@@ -169,14 +168,14 @@ export default {
       this.$router.push('/login')
     },
     saveResult () {
-      if (this.passwordForm.newPassword !== this.passwordForm.confirmPassword) {
-        this.onAlertError('两次密码不一致')
-      } else if (this.passwordForm.newPassword && this.passwordForm.oldPassword) {
+      if(this.passwordForm.newPassword != this.passwordForm.confirmPassword){
+        this.onAlertError("两次密码不一致");
+      }else if(this.passwordForm.newPassword && this.passwordForm.oldPassword){
         modifyManagerPassword(this.passwordForm).then(data => {
-          if (data.data) {
-            this.onAlertSuccess('修改密码成功')
-          } else {
-            this.onAlertError('修改密码失败，用户名与密码不匹配')
+          if(data.data){
+            this.onAlertSuccess("修改密码成功");
+          }else{
+            this.onAlertError("修改密码失败，用户名与密码不匹配");
           }
         })
         this.showDialog = false

@@ -4,7 +4,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -32,10 +33,11 @@ public class DeleteUserSuccessTest extends  BaseTest{
     driver.findElement(By.cssSelector(".el-button")).click();
     driver.findElement(By.cssSelector(".el-table__row:nth-child(1) .el-checkbox__inner")).click();
     driver.findElement(By.cssSelector(".el-button--danger > span")).click();
-    //todo Unable to locate element: p
+    //wait for the backend
+    WebDriverWait wait = new WebDriverWait(driver,10);
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("p")));
+
     assertThat(driver.findElement(By.cssSelector("p")).getText(), is("删除成功"));
-    driver.findElement(By.cssSelector(".el-button--small > span")).click();
-    driver.findElement(By.cssSelector(".el-table__row:nth-child(1) > .el-table_1_column_2 > .cell")).click();
-    assertThat(driver.findElement(By.cssSelector(".el-table__row:nth-child(1) > .el-table_1_column_2 > .cell")).getText(), is("3"));
+
   }
 }

@@ -196,8 +196,9 @@ export default {
       this.dialogTypeForm.title = '添加新闻'
       this.showDialogType = true
     },
-    // 关闭弹窗之后初始化dialogTypeForm的内容
+    // 关闭弹窗之后初始化dialogTypeForm的内容,清空表格内容
     dialogTypeClose () {
+      this.$refs['dialogTypeForm'].resetFields();
       this.dialogTypeForm = {
         title: '添加新闻',
         isDelete: false,
@@ -248,6 +249,7 @@ export default {
           this.onAlertError('输入格式不正确！')
         }
       })
+      this.$refs['dialogTypeForm'].resetFields()
     },
     // 删除新闻
     goToDelete (id) {

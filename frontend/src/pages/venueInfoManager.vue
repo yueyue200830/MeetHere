@@ -64,6 +64,13 @@
             </el-col>
           </el-row>
           <el-row>
+            <el-col :span="12">
+              <el-form-item label="房间数量" prop="roomNum" :rules="{required:true,message:'房间数量不可为空'}">
+                <el-input v-model="addDialogForm.roomNum" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
 
             <el-col :span="24">
               <el-form-item label="场馆介绍" prop="rvnIntro"  :rules="{required:true,message:'场馆介绍不可为空'}">
@@ -137,7 +144,8 @@
           isDelete: false,
           rvnName:'',
           rvnPrice: '',
-          rvnIntro: ''
+          rvnIntro: '',
+          roomNum:''
         },
         dialogTypeForm: {
           title: '修改场馆信息',

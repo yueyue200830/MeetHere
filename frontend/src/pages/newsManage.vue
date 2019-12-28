@@ -202,6 +202,7 @@
       },
       //关闭弹窗之后初始化dialogTypeForm的内容
       dialogTypeClose() {
+        this.$refs['dialogTypeForm'].resetFields();
         this.dialogTypeForm = {
           title: '添加新闻',
           isDelete: false,
@@ -253,6 +254,7 @@
             this.onAlertError("输入格式不正确！");
           }
         })
+        this.$refs['dialogTypeForm'].resetFields();
       },
       //删除新闻
       goToDelete (id) {

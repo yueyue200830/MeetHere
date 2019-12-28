@@ -94,7 +94,7 @@ export default {
       // this.$router.push('/manager/userInfo');
     },
     goToLink () {
-      this.$router.push('/user/main')
+      this.$router.push('/user/main');
     }
   }
 }

@@ -86,6 +86,7 @@ export default {
           this.loading = false
           this.searchData = data.data
           if (data.data.length) {
+            this.onAlertSuccess('搜索成功')
           } else {
             this.onAlertError('搜索失败')
           }
