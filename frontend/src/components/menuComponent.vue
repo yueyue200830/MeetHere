@@ -171,8 +171,7 @@ export default {
     saveResult(){
       if(this.passwordForm.newPassword != this.passwordForm.confirmPassword){
         this.onAlertError("两次密码不一致");
-      }else{
-        console.log("change manager");
+      }else if(this.passwordForm.newPassword && this.passwordForm.oldPassword){
         modifyManagerPassword(this.passwordForm).then(data => {
           if(data.data){
             this.onAlertSuccess("修改密码成功");
@@ -181,6 +180,8 @@ export default {
           }
         })
         this.showDialog = false;
+      }else{
+        this.onAlertError("密码不能为空！")
       }
     },
     goTo (path) {

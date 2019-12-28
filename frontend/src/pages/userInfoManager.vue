@@ -81,24 +81,22 @@
           changeUserRole(temp.id).then(data => {
             if(data.data){
               this.onAlertSuccess("升级用户为管理员成功")
+              getUserInfo().then(data => {
+                var l = data.data.length;
+                for(var i =0;i < l;i++){
+                  if(data.data[i].userType == 1){
+                    data.data[i].userType = "Admin";
+                  }else{
+                    data.data[i].userType = "User";
+                  }        
+                }
+                this.searchData=data.data;
+                this.preData=data.data;
+              });
             }else{
               this.onAlertError("升级用户为管理员失败")
             }
           })
-          getUserInfo().then(data => {
-            var l = data.data.length;
-            for(var i =0;i < l;i++){
-              if(data.data[i].userType == 1){
-                data.data[i].userType = "Admin";
-              }else{
-                data.data[i].userType = "User";
-              }
-                          
-            }
-            this.searchData=data.data;
-            this.preData=data.data;
-
-          });
         }
       },
       searchTable (condition) {

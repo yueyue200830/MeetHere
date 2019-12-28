@@ -37,7 +37,11 @@
               { required: true, message: '标题不可为空'},
             ]"
             prop="title">
-            <el-input type="title" v-model="addMessageForm.title"/>
+            <el-input
+              type="title"
+              v-model="addMessageForm.title"
+              placeholder="请输入标题"
+            />
           </el-form-item>
           <el-form-item
             label="内容"
