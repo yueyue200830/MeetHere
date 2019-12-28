@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @date 2019-12-25 9:24
  */
 
-public class messageInterfaceTest {
+public class MessageInterfaceTest {
     @Test
     public void should_get_unapproved_message() throws URISyntaxException,IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
