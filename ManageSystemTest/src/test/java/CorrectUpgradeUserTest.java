@@ -19,6 +19,7 @@ public class CorrectUpgradeUserTest extends BaseTest{
     driver.findElement(By.cssSelector(".el-button > span")).click();
     driver.findElement(By.cssSelector(".el-table__row:nth-child(2) .el-checkbox__inner")).click();
     driver.findElement(By.cssSelector(".el-table__row:nth-child(2) > .el-table_1_column_5 span")).click();
+    driver.findElement(By.cssSelector(".el-table__row:nth-child(2) .el-checkbox__inner")).click();
     assertThat(driver.findElement(By.cssSelector("p")).getText(), is("升级用户为管理员成功"));
     driver.findElement(By.cssSelector(".el-button--small")).click();
   }

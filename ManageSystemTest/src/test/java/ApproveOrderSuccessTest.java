@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ApproveOrderSuccessTest extends BaseTest{
 
@@ -27,6 +29,5 @@ public class ApproveOrderSuccessTest extends BaseTest{
     driver.findElement(By.cssSelector(".table-title-button > .el-button")).click();
     assertThat(driver.findElement(By.cssSelector("p")).getText(), is("审核通过成功"));
     driver.findElement(By.cssSelector(".el-button--default > span")).click();
-    assertThat(driver.findElement(By.cssSelector(".el-table__row:nth-child(1) > .el-table_2_column_7 > .cell")).getText(), is("4"));
   }
 }

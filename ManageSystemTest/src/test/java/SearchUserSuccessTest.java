@@ -27,7 +27,7 @@ public class SearchUserSuccessTest extends BaseTest{
     driver.findElement(By.cssSelector(".is-active > span")).click();
     driver.findElement(By.cssSelector(".el-col > .el-input > .el-input__inner")).click();
     driver.findElement(By.cssSelector(".el-col > .el-input > .el-input__inner")).click();
-    driver.findElement(By.cssSelector(".el-col > .el-input > .el-input__inner")).sendKeys("2");
+    driver.findElement(By.cssSelector(".el-col > .el-input > .el-input__inner")).sendKeys("3");
     driver.findElement(By.cssSelector(".el-col-8 > .el-button")).click();
     {
       WebElement element = driver.findElement(By.cssSelector(".el-col-8 > .el-button"));
@@ -39,6 +39,6 @@ public class SearchUserSuccessTest extends BaseTest{
       Actions builder = new Actions(driver);
       builder.moveToElement(element, 0, 0).perform();
     }
-    assertThat(driver.findElement(By.cssSelector(".el-table__row > .el-table_1_column_2 > .cell")).getText(), is("2"));
+    assertThat(driver.findElement(By.cssSelector(".el-table__row > .el-table_1_column_2 > .cell")).getText(), is("3"));
   }
 }
