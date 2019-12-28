@@ -141,6 +141,14 @@ public class RevenueServiceTest {
     }
 
     @ParameterizedTest
+    @MethodSource("provideAddVenueSource")
+    public void should_return_o_if_add_source_is_invalid(String rvnName, String rvnIntro, int price, int roomNum) {
+        int result = revenueService.addRevenue(rvnIntro, price, rvnName, roomNum);
+        assertAll(()->assertEquals(0, result));
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @ParameterizedTest
     @MethodSource("provideUpdateRevenueSource")
     public void should_return_0_if_revenue_content_is_null(int id, int price, String intro) {
         int result = revenueService.modifyRevenue(price, intro, id);
@@ -148,6 +156,23 @@ public class RevenueServiceTest {
         verifyNoMoreInteractions(revenueRepository);
     }
 
+    static List<Arguments>  provideAddVenueSource() {
+        return Arrays.asList(Arguments.of(null, "normal intro", 100, 10),
+                Arguments.of("normal name", null, 100, 10),
+                Arguments.of("normal name", "normal intro", -1, 10),
+                Arguments.of("normal name", "normal intro", 100, -1),
+                Arguments.of(null, null, 100, 10),
+                Arguments.of(null, "normal intro", -1, 10),
+                Arguments.of(null, "normal intro", 100, -1),
+                Arguments.of("normal name", null, -1, 10),
+                Arguments.of("normal name", null, 100, -1),
+                Arguments.of("normal name", "normal intro", -1, -1),
+                Arguments.of(null, null, -1, 10),
+                Arguments.of(null, null, 100, -1),
+                Arguments.of(null, "normal intro", -1, -1),
+                Arguments.of("normal name", null, -1, -1),
+                Arguments.of(null, null, -1,-1));
+    }
     static List<Arguments> provideUpdateRevenueSource() {
         return Arrays.asList(Arguments.of(-1, 100, "normal intro"),
                 Arguments.of(1, -100, "normal intro"),

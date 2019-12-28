@@ -1,6 +1,7 @@
 package com.proj.meethere.controller;
 
 
+import com.proj.meethere.Request.RevenueRequest;
 import com.proj.meethere.response.RevenueResponse;
 import com.proj.meethere.service.RevenueService;
 import com.proj.meethere.entity.Revenue;
@@ -40,6 +41,11 @@ public class RevenueController {
 
     }
 
+    @RequestMapping(value = "/addVenueManager", method = RequestMethod.POST)
+    @ResponseBody
+    public int addNewVenue(@RequestBody RevenueRequest revenueRequest) {
+        return revenueService.addRevenue(revenueRequest.getRvnIntro(), revenueRequest.getRvnPrice(), revenueRequest.getRvnName(), revenueRequest.getRvnRoomNum());
+    }
     @RequestMapping(value = "/checkVenue/{temp}", method = RequestMethod.GET)
     @ResponseBody
     public List<RevenueResponse> checkVenue(@PathVariable String temp) {
