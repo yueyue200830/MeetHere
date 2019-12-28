@@ -11,10 +11,7 @@
 
 <script>
 export default {
-  name: 'App',
-  created () {
-    document.title = 'MeetHere'
-  }
+  name: 'App'
 }
 </script>
 
