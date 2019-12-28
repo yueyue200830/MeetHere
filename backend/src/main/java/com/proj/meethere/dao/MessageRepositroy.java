@@ -21,7 +21,7 @@ public interface MessageRepositroy extends JpaRepository<Message,Integer> {
     @Query(value = "select * from message where msg_visibility = 0",nativeQuery = true)
     List<Message> selectAllMessage();
 
-    @Query(value = "select * from message where id = :id",nativeQuery = true)
+    @Query(value = "select * from message where id = :id and msg_visibility = 0",nativeQuery = true)
     List<Message> selectSpecificMessage(@Param("id") int id);
 
     @Transactional(rollbackFor = Exception.class)

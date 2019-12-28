@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class MessageServiceTest {
        message = mock(Message.class);
     }
 
+
     @Test
     public void should_get_unapproved_message() {
         List<Message> messageList = new ArrayList<>();
@@ -54,6 +56,17 @@ public class MessageServiceTest {
         Assert.assertEquals(1, result);
         verify(messageRepositroy, times(1)).setMessageVisibility(1);
         verifyNoMoreInteractions(messageRepositroy);
+    }
+
+    @Test
+    public void should_get_0_if_id_below_0() {
+        int result = messageService.approveMessage(-1);
+        Assert.assertEquals(0, result);
+    }
+    @Test
+    public void should_get_empty_list_if_id_below_0() {
+        List<Message> result = messageService.searchSpecificMessage(-1);
+        Assert.assertEquals(0, result.size());
     }
 
     @Test

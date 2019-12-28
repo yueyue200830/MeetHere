@@ -23,10 +23,17 @@ public class RevenueService {
     }
 
     public List<Revenue> searchRevenue(int id) {
-        return revenueRepository.getRevenueById(id);
+        if(id < 0) {
+            return new ArrayList<Revenue>();
+        } else {
+            return revenueRepository.getRevenueById(id);
+        }
     }
 
     public List<RevenueResponse> getRevenue(int id) {
+        if(id < 0) {
+            return new ArrayList<RevenueResponse>();
+        }
         List<Revenue> revenueList = revenueRepository.getRevenueById(id);
 
         List<RevenueResponse> revenueResponsesList = new ArrayList<>();
@@ -41,7 +48,11 @@ public class RevenueService {
     }
 
     public int modifyRevenue(int price, String intro, int id) {
-        return revenueRepository.updateRvnInfo(price, intro, id);
+        if(id < 0) {
+            return 0;
+        } else {
+            return revenueRepository.updateRvnInfo(price, intro, id);
+        }
     }
 
     public List<String> getVenueName() {
@@ -51,7 +62,11 @@ public class RevenueService {
     }
 
     public List<Integer> getOrderNum(String date) {
-        List<Integer> revenueCount = revenueRepository.selectStatistic(date);
-        return revenueCount;
+        if(! date.contains("-")) {
+            return new ArrayList<Integer>();
+        } else {
+            List<Integer> revenueCount = revenueRepository.selectStatistic(date);
+            return revenueCount;
+        }
     }
 }

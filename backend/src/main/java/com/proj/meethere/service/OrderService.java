@@ -5,6 +5,7 @@ import com.proj.meethere.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,10 +22,18 @@ public class OrderService {
     }
 
     public int approveOrder(int id) {
-        return orderRepository.updateOrderApproved(id);
+        if(id < 0) {
+            return 0;
+        } else {
+            return orderRepository.updateOrderApproved(id);
+        }
     }
 
     public List<Order> searchUnapprovedOrder(int id) {
-        return orderRepository.selectSpecificUnapprovedOrder(id);
+        if(id < 0) {
+            return new ArrayList<Order>();
+        } else {
+            return orderRepository.selectSpecificUnapprovedOrder(id);
+        }
     }
 }

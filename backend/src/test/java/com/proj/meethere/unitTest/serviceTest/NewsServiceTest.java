@@ -62,7 +62,15 @@ public class NewsServiceTest {
         verify(newsRepository, times(1)).selectSpecificNews(1);
         verifyNoMoreInteractions(newsRepository);
     }
+    @Test
+    public void no_news_should_be_selected_if_id_below_0() {
+        //List<NewsRequest> newsRequestList =
+    }
 
+    @Test
+    public void no_news_should_be_deleted_if_id_below_0() {
+
+    }
     @Test
     public void should_delete_news() throws Exception {
         when(newsRepository.deleteSpecificNews(1)).thenReturn(1);
@@ -89,6 +97,7 @@ public class NewsServiceTest {
         verify(newsRepository, times(1)).insertNews("content", "photo", "title");
         verifyNoMoreInteractions(newsRepository);
     }
+
 
     @Test
     public void should_get_photo_by_id() throws Exception {

@@ -31,7 +31,11 @@ public class MessageService {
     }
 
     public int approveMessage(int id) {
-        return messageRepositroy.setMessageVisibility(id);
+        if(id < 0) {
+            return 0;
+        } else {
+            return messageRepositroy.setMessageVisibility(id);
+        }
     }
 
 }
