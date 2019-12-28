@@ -22,7 +22,6 @@
             field="file"
             @crop-success="cropSuccess"
             @crop-upload-success="cropUploadSuccess"
-            @crop-upload-fail="cropUploadFail"
             v-model="showAvatarCrop"
             :width="300"
             :height="300"
@@ -90,8 +89,9 @@ export default {
         callback(new Error('请输入用户名'))
       } else {
         this.$http
-          .get('http://127.0.0.1:8081/checkUserNameExist', {
+          .get('http://127.0.0.1:8081/checkUserNameWithId', {
             params: {
+              id: this.userId,
               user_name: value
             } })
           .then(response => {
@@ -197,7 +197,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/updateUserById', {
+            .get('http://127.0.0.1:8081/updateUserPassById', {
               params: {
                 id: this.userId,
                 updateForm: this.userForm
@@ -214,7 +214,6 @@ export default {
               }
             })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
@@ -250,19 +249,11 @@ export default {
     },
     cropSuccess (imgDataUrl, field) {
       this.imgDataUrl = imgDataUrl
-      console.log(field)
     },
     cropUploadSuccess (jsonData, field) {
-      console.log(jsonData)
-      console.log(field)
       // this.userAvatar = jsonData.data.img;
       this.userAvatar = this.imgDataUrl
-      console.log(this.imgDataUrl)
       this.showAvatarCrop = false
-    },
-    cropUploadFail (status, field) {
-      console.log(status)
-      console.log(field)
     }
   }
 }

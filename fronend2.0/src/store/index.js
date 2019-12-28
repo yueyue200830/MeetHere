@@ -90,8 +90,8 @@ export default new Vuex.Store({
       }
     },
     changeUserName (state, name) {
-      let key = JSON.parse(state.ManagerAuthorization).key
-      let time = JSON.parse(state.ManagerAuthorization).time
+      let key = JSON.parse(state.Authorization).key
+      let time = JSON.parse(state.Authorization).time
       let authorization = JSON.stringify({ key: key, time: time, name: name })
       state.Authorization = authorization
       localStorage.setItem('Authorization', authorization)

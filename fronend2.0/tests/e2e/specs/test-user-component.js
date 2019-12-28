@@ -20,5 +20,11 @@ module.exports = {
       .click('.el-menu-item:nth-child(7)')
       .assert.urlEquals(browser.launchUrl + 'user/login')
       .end()
+  },
+
+  'test user navigator with logging in': browser => {
+    browser
+      .userLogin()
+      .end()
   }
 }
