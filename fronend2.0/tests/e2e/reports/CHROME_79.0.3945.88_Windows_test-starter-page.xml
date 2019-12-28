@@ -5,9 +5,9 @@
 
   <testsuite name="test-starter-page"
     errors="0" failures="0" hostname="" id="" package="test-starter-page" skipped="0"
-    tests="1" time="2.334" timestamp="">
+    tests="1" time="2.123" timestamp="">
   
-    <testcase name="starter page should jump to user/main page" classname="test-starter-page" time="2.334" assertions="4">
+    <testcase name="starter page should jump to user/main page" classname="test-starter-page" time="2.123" assertions="4">
 
     
 

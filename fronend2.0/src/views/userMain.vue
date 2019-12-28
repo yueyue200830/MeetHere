@@ -15,7 +15,7 @@
         </el-carousel-item>
       </el-carousel>
       <div class="main-title">
-        <div class="main-title-text">
+        <div class="main-title-text" id="venue-title">
           场馆
         </div>
       </div>
@@ -46,7 +46,7 @@
         </el-col>
       </el-row>
       <div class="main-title">
-        <div class="main-title-text">
+        <div class="main-title-text" id="news-title">
           新闻
         </div>
       </div>
