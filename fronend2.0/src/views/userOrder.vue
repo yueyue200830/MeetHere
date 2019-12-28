@@ -102,7 +102,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button class="button-cancel" @click="changePhoneVisibility=false">取 消</el-button>
+          <el-button class="button-cancel" @click="cancelChangePhone">取 消</el-button>
           <el-button type="primary" @click="changePhone()">确 定</el-button>
         </div>
       </el-dialog>
@@ -212,6 +212,10 @@ export default {
     },
     convertTimeSlot: function (time) {
       return (time + 9) + '点 - ' + (time + 10) + '点'
+    },
+    cancelChangePhone: function () {
+      this.$refs['changePhoneForm'].resetFields()
+      this.changePhoneVisibility = false
     }
   }
 }
