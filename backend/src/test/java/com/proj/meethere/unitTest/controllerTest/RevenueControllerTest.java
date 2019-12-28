@@ -1,6 +1,7 @@
 package com.proj.meethere.unitTest.controllerTest;
 
 import com.alibaba.fastjson.JSONObject;
+import com.proj.meethere.Request.RevenueRequest;
 import com.proj.meethere.controller.OrderController;
 import com.proj.meethere.controller.RevenueController;
 import com.proj.meethere.dao.RevenueRepository;
@@ -69,6 +70,21 @@ public class RevenueControllerTest {
         ResultActions action = mockMvc.perform(post("/modifyVenue").contentType(MediaType.APPLICATION_JSON).content(rvnString));
         action.andExpect(status().isOk());
         verify(revenueService, times(1)).modifyRevenue(200,"mockIntro", 1);
+        verifyNoMoreInteractions(revenueService);
+    }
+    @Test
+    public void should_add_venue() throws Exception{
+        RevenueRequest rq = new RevenueRequest();
+        rq.setDelete(false);
+        rq.setRvnIntro("intro");
+        rq.setRvnName("name");
+        rq.setRvnPrice(100);
+        rq.setRvnRoomNum(19);
+        rq.setTitle("添加场馆");
+        String rqString = JSONObject.toJSONString(rq);
+        ResultActions actions = mockMvc.perform(post("/addVenueManager").contentType(MediaType.APPLICATION_JSON).content(rqString));
+        actions.andExpect(status().isOk());
+        verify(revenueService, times(1)).addRevenue("intro", 100, "name", 19);
         verifyNoMoreInteractions(revenueService);
     }
 

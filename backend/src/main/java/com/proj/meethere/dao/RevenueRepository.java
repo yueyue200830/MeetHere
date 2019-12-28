@@ -33,6 +33,7 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer> {
     @Query(value = "Update revenue set rvn_price = :rvn_price, rvn_intro = :rvn_intro where id = :id",nativeQuery = true)
     int updateRvnInfo(@Param("rvn_price") int rvn_price, @Param("rvn_intro") String rvn_intro, @Param("id") int id);
 
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "insert into revenue (rvn_name, rvn_roomnum, rvn_price, rvn_info) " +
             "value (:rvn_name, :rvn_roomnum, :rvn_price, :rvn_intro)", nativeQuery = true)

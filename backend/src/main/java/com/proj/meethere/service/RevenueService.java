@@ -47,6 +47,14 @@ public class RevenueService {
         return revenueResponsesList;
     }
 
+    public int addRevenue(String rvnIntro, int price, String rvnName,int roomNum) {
+        if(rvnIntro == null || price < 0 || rvnName == null|| roomNum < 0) {
+            return 0;
+        } else {
+            return  revenueRepository.insertNewRevenue(rvnName, roomNum,price,rvnIntro);
+        }
+    }
+
     public int modifyRevenue(int price, String intro, int id) {
         if(id < 0 || price < 0 || intro == null) {
             return 0;
