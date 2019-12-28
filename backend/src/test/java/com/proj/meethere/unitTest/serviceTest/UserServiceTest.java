@@ -4,7 +4,11 @@ import com.proj.meethere.response.UserResponse;
 import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
+import com.sun.org.apache.xpath.internal.Arg;
 import org.junit.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -34,12 +40,22 @@ public class UserServiceTest {
 
     private List<User> userList;
     private User user1;
-    private Blob blob;
+    private static Blob blob = null;
+    static final int userId = 1;
+    static final String userName = "Jack";
+    static final String userKey = "passwordIsSecret";
+    static final int userType = 1;
+    static {
+        try {
+            blob = new SerialBlob("10101".getBytes());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Before
     public void init() throws Exception {
-        blob = new SerialBlob("1010101".getBytes());
-        user1 = new User(1,"Jack","passwordIsSecret",1,blob);
+        user1 = new User(1,userName, userKey,userType,blob);
         userList = new ArrayList<>();
         userList.add(user1);
     }
@@ -58,6 +74,20 @@ public class UserServiceTest {
         List<UserResponse> users = userService.getUserInfo();
         assertAll(()->assertEquals(2, users.size()));
         verify(userRepository,times(1)).selectAllUserInfo();
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    public void should_get_0_if_id_below_0_when_update_user_role() {
+        int result = userService.updateUserRole(-1);
+        assertAll(()->assertEquals(0, result));
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    public void should_return_0_if_the_id_want_delete_below_0() {
+        int result = userService.deleteSpecificUser(-1);
+        assertAll(()->assertEquals(0, result));
         verifyNoMoreInteractions(userRepository);
     }
 
@@ -125,4 +155,45 @@ public class UserServiceTest {
         verifyNoMoreInteractions(userRepository);
     }
 
+    @Test
+    public void user_type_should_be_upgraded() {
+        when(userRepository.updateUserRole(1,2)).thenReturn(1);
+        int result = userService.updateUserRole(2);
+        assertAll(()->assertEquals(1, result));
+        verify(userRepository, times(1)).selectUserTypeById(2);
+        verify(userRepository, times(1)).updateUserRole(1,2);
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideManageValidSource")
+    public void should_return_0_if_user_info_not_valid(String userName, String userKey) {
+        int result = userService.checkManagerValid(userName, userKey);
+        assertAll(()->assertEquals(0, result));
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideChangeUserKeySource")
+    public void should_return_0_if_user_key_is_not_valid(String oldUserKey, String userName, String newUserKey) {
+            int result = userService.changeUserKey(oldUserKey, userName, newUserKey);
+            assertAll(()->assertEquals(0, result));
+            verifyNoMoreInteractions(userRepository);
+    }
+
+    static List<Arguments> provideChangeUserKeySource() {
+        return Arrays.asList(Arguments.of(null, "normal name", "normal key"),
+                Arguments.of("old key", null, "new key"),
+                Arguments.of("old key", "normal name", null),
+                Arguments.of(null, null, "new key"),
+                Arguments.of(null, "normal name", null),
+                Arguments.of("old key", null, null),
+                Arguments.of(null, null, null));
+    }
+
+    static List<Arguments> provideManageValidSource() {
+        return Arrays.asList(Arguments.of(null, "normal key"),
+                Arguments.of("normal name", null),
+                Arguments.of(null, null));
+    }
 }

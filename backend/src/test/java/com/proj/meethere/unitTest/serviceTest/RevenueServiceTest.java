@@ -4,10 +4,15 @@ import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
 import com.proj.meethere.response.RevenueResponse;
 import com.proj.meethere.service.RevenueService;
+import com.sun.org.apache.xpath.internal.Arg;
+import org.assertj.core.internal.bytebuddy.asm.Advice;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -132,6 +138,24 @@ public class RevenueServiceTest {
         int result = revenueService.modifyRevenue(100, "intro", -1);
         assertAll(()->assertEquals(0, result));
         verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideUpdateRevenueSource")
+    public void should_return_0_if_revenue_content_is_null(int id, int price, String intro) {
+        int result = revenueService.modifyRevenue(price, intro, id);
+        assertAll(()->assertEquals(0, result));
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    static List<Arguments> provideUpdateRevenueSource() {
+        return Arrays.asList(Arguments.of(-1, 100, "normal intro"),
+                Arguments.of(1, -100, "normal intro"),
+                Arguments.of(1, 100, null),
+                Arguments.of(1, -100, null),
+                Arguments.of(-1, -100, "normal intro"),
+                Arguments.of(-1, 100, null),
+                Arguments.of(-1, -100, null));
     }
 
 }
