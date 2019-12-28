@@ -29,7 +29,11 @@ public class UserService {
     }
 
     public int deleteSpecificUser(int userId) {
-        return userRepository.deleteSpecificUser(userId);
+        if(userId < 0) {
+            return 0;
+        } else {
+            return userRepository.deleteSpecificUser(userId);
+        }
     }
 
     public List<UserResponse> selectSpecificUserInfo(int userId) {
@@ -51,42 +55,58 @@ public class UserService {
     //}
 
     public int updateUserRole(int userId) {
-        System.out.println(userId);
-        return userRepository.updateUserRole(1, userId);
+        if(userId < 0) {
+            return 0;
+        } else {
+            if(userRepository.selectUserTypeById(userId) != 0) {
+                return 0;
+            } else {
+                return userRepository.updateUserRole(1, userId);
+            }
+        }
+
     }
 
     public int checkManagerValid(String userName, String userKey) {
-        List<User> uList = userRepository.selectUserAll(userName);
-        if(uList.size() == 0) {
+        if(userName == null || userKey == null) {
             return 0;
         } else {
-            if (userRepository.selectUserType(userName) == 1) {
-                System.out.println("user name exists");
-                String key = userRepository.searchUserKeyByName(userName);
-                if (key.equals(userKey)) {
-                    System.out.println("key good");
-                    return 1;
+            List<User> uList = userRepository.selectUserAll(userName);
+            if (uList.size() == 0) {
+                return 0;
+            } else {
+                if (userRepository.selectUserType(userName) == 1) {
+                    System.out.println("user name exists");
+                    String key = userRepository.searchUserKeyByName(userName);
+                    if (key.equals(userKey)) {
+                        System.out.println("key good");
+                        return 1;
+                    } else {
+                        System.out.println("key wrong");
+                        return 0;
+                    }
                 } else {
-                    System.out.println("key wrong");
+                    System.out.println("type wrong");
                     return 0;
                 }
-            } else {
-                System.out.println("type wrong");
-                return 0;
             }
         }
     }
 
     public int changeUserKey(String oldUserKey, String userName, String newUserKey) {
-        String orginKey = userRepository.searchUserKeyByName(userName);
-        if(! "".equals(orginKey)) {
-            if(oldUserKey.equals(orginKey)) {
-               return userRepository.updateUserKey(newUserKey, userName);
+        if (oldUserKey == null || userName == null || newUserKey == null) {
+                return 0;
+        } else {
+            String orginKey = userRepository.searchUserKeyByName(userName);
+            if (!"".equals(orginKey)) {
+                if (oldUserKey.equals(orginKey)) {
+                    return userRepository.updateUserKey(newUserKey, userName);
+                } else {
+                    return 0;
+                }
             } else {
                 return 0;
             }
-        } else {
-            return 0;
         }
     }
     

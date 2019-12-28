@@ -155,7 +155,7 @@ export default {
     ...mapMutations(['managerLogOut', 'checkManagerLogin']),
     showPass () {
       // 点击图标是密码隐藏或显示
-      if (this.passw == 'text') {
+      if (this.passw === 'text') {
         this.passw = 'password'
         this.icon = 'el-input__icon el-icon-view'
       } else {
@@ -178,8 +178,8 @@ export default {
             this.onAlertError("修改密码失败，用户名与密码不匹配");
           }
         })
-        this.showDialog = false;
-      }else{
+        this.showDialog = false
+      } else {
         this.onAlertError("密码不能为空！")
       }
     },

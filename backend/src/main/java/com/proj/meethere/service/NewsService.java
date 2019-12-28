@@ -52,8 +52,8 @@ public class NewsService {
     }
 
     public int updateNews(String content, String title, String photo, int id) {
-        if(id < 0) {
-            return 1;
+        if(id < 0 || content == null || title == null ) {
+            return 0;
         } else {
             return newsRepository.updateSpeceficNews(content, title, photo, id);
         }
@@ -80,6 +80,9 @@ public class NewsService {
     }
 
     public int addNews(String content, String title, String photo) {
+        if(content == null || title == null) {
+            return 0;
+        }
         try {
             System.out.println(content);
              return newsRepository.insertNews(content, photo, title);

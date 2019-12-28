@@ -48,7 +48,7 @@ public class RevenueService {
     }
 
     public int modifyRevenue(int price, String intro, int id) {
-        if(id < 0) {
+        if(id < 0 || price < 0 || intro == null) {
             return 0;
         } else {
             return revenueRepository.updateRvnInfo(price, intro, id);
@@ -62,6 +62,9 @@ public class RevenueService {
     }
 
     public List<Integer> getOrderNum(String date) {
+        if(date == null){
+            return new ArrayList<Integer>();
+        }
         if(! date.contains("-")) {
             return new ArrayList<Integer>();
         } else {
