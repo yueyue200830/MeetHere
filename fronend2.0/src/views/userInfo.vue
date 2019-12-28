@@ -22,7 +22,6 @@
             field="file"
             @crop-success="cropSuccess"
             @crop-upload-success="cropUploadSuccess"
-            @crop-upload-fail="cropUploadFail"
             v-model="showAvatarCrop"
             :width="300"
             :height="300"
@@ -39,24 +38,39 @@
         :lg="{span: 12, offset: 0}"
         :xl="{span: 10, offset: 0}"
       >
-        <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="100px" class="self-form">
-          <el-form-item label="用户名" prop="name">
-            <el-input v-model.number="userForm.name"/>
-          </el-form-item>
-          <el-form-item label="原密码" prop="originalPass">
-            <el-input type="password" v-model="userForm.originalPass" autocomplete="off"/>
-          </el-form-item>
-          <el-form-item label="新密码" prop="pass">
-            <el-input type="password" v-model="userForm.pass" autocomplete="off"/>
-          </el-form-item>
-          <el-form-item label="确认密码" prop="checkPass">
-            <el-input type="password" v-model="userForm.checkPass" autocomplete="off"/>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
-            <el-button class="button-reset" @click="resetForm('userForm')">重置</el-button>
-          </el-form-item>
-        </el-form>
+        <div class="self-form">
+          <el-form
+            :model="userNameForm"
+            status-icon
+            :rules="nameRules"
+            ref="userNameForm"
+            label-width="100px"
+            :inline="true"
+          >
+            <el-form-item label="用户名" prop="name">
+              <el-input v-model.number="userNameForm.name"/>
+            </el-form-item>
+            <el-button type="primary" @click="changeName('userNameForm')">
+              修改
+            </el-button>
+          </el-form>
+          <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="100px">
+            <div class="change-title">修改密码</div>
+            <el-form-item label="原密码" prop="originalPass">
+              <el-input type="password" v-model="userForm.originalPass" autocomplete="off"/>
+            </el-form-item>
+            <el-form-item label="新密码" prop="pass">
+              <el-input type="password" v-model="userForm.pass" autocomplete="off"/>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="checkPass">
+              <el-input type="password" v-model="userForm.checkPass" autocomplete="off"/>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
+              <el-button class="button-reset" @click="resetForm('userForm')">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
       </el-col>
     </el-row>
   </el-main>
@@ -64,6 +78,7 @@
 
 <script>
 import myUpload from 'vue-image-crop-upload'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'userInfo',
@@ -74,8 +89,9 @@ export default {
         callback(new Error('请输入用户名'))
       } else {
         this.$http
-          .get('http://127.0.0.1:8081/checkUserNameExist', {
+          .get('http://127.0.0.1:8081/checkUserNameWithId', {
             params: {
+              id: this.userId,
               user_name: value
             } })
           .then(response => {
@@ -118,15 +134,19 @@ export default {
     }
     return {
       userForm: {
-        name: '',
         originalPass: '',
         pass: '',
         checkPass: ''
       },
-      rules: {
+      userNameForm: {
+        name: ''
+      },
+      nameRules: {
         name: [
           { validator: checkName, trigger: 'blur' }
-        ],
+        ]
+      },
+      rules: {
         originalPass: [
           { validator: validateOriginalPass, trigger: 'blur' }
         ],
@@ -157,7 +177,7 @@ export default {
     }
   },
   created () {
-    this.userForm.name = this.userName
+    this.userNameForm.name = this.userName
     this.params.id = this.userId
 
     this.$http
@@ -172,11 +192,12 @@ export default {
       })
   },
   methods: {
+    ...mapMutations(['changeUserName']),
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/updateUserById', {
+            .get('http://127.0.0.1:8081/updateUserPassById', {
               params: {
                 id: this.userId,
                 updateForm: this.userForm
@@ -193,8 +214,30 @@ export default {
               }
             })
         } else {
-          console.log('error submit!!')
           return false
+        }
+      })
+    },
+    changeName (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$http
+            .get('http://127.0.0.1:8081/updateUserNameById', {
+              params: {
+                id: this.userId,
+                newName: this.userNameForm.name
+              } })
+            .then(response => {
+              if (response.data === 1) {
+                this.$message({
+                  message: '修改成功',
+                  type: 'success'
+                })
+                this.changeUserName(this.userNameForm.name)
+              } else {
+                this.$message.error('修改失败，请重试！')
+              }
+            })
         }
       })
     },
@@ -206,20 +249,11 @@ export default {
     },
     cropSuccess (imgDataUrl, field) {
       this.imgDataUrl = imgDataUrl
-      console.log(field)
     },
     cropUploadSuccess (jsonData, field) {
-      console.log(jsonData)
-      console.log(field)
       // this.userAvatar = jsonData.data.img;
       this.userAvatar = this.imgDataUrl
-      console.log(this.imgDataUrl)
       this.showAvatarCrop = false
-    },
-    cropUploadFail (status, field) {
-      console.log(status)
-      console.log(field)
-      // console.log('-------- upload fail --------');
     }
   }
 }
@@ -234,7 +268,7 @@ export default {
   }
 
   .self-form {
-    margin: 50px auto 20px;
+    margin: 40px auto 10px;
     width: 400px;
   }
 
@@ -274,5 +308,11 @@ export default {
 
   .button-reset {
     margin-left: 10px !important;
+  }
+
+  .change-title {
+    margin-left: 40px;
+    margin-bottom:20px;
+    font-size: 18px;
   }
 </style>

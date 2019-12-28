@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-header>
-      <div class="head-title">MeetHere</div>
+      <div class="head-title" @click="toMainPage">MeetHere</div>
     </el-header>
     <el-main class="user-body">
       <div class="user-title">
@@ -111,6 +111,9 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    toMainPage: function () {
+      this.$router.push('main')
     }
   }
 }
@@ -128,6 +131,11 @@ export default {
 
   .head-title {
     margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .head-title:hover {
+    cursor:pointer;
   }
 
   .user-body {

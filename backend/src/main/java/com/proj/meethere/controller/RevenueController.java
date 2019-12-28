@@ -1,7 +1,7 @@
 package com.proj.meethere.controller;
 
 
-import com.proj.meethere.Request.RevenueRequest;
+import com.proj.meethere.request.RevenueRequest;
 import com.proj.meethere.response.RevenueResponse;
 import com.proj.meethere.service.RevenueService;
 import com.proj.meethere.entity.Revenue;

@@ -26,25 +26,50 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
+    /**
+     * @param userName 用户名
+     * @return 判断该用户名是否已经存在于数据库中，存在则返回1，不存在则返回0
+     */
     @RequestMapping(value = "/checkUserNameExist", method = RequestMethod.GET)
     @ResponseBody
-    public int getUserIdByName(@RequestParam("user_name") String user_name) {
-        return userInfoService.checkUserNameExist(user_name);
+    public int getUserIdByName(@RequestParam("user_name") String userName) {
+        return userInfoService.checkUserNameExist(userName);
     }
 
-    @RequestMapping(value = "/checkUserNameNew", method = RequestMethod.GET)
+    /**
+     * @param userName 用户名
+     * @param id 用户id
+     * @return 判断该用户名是否已经存在于数据库中（排除编号为id的用户），存在则返回1，不存在则返回0
+     */
+    @RequestMapping(value = "/checkUserNameWithId", method = RequestMethod.GET)
     @ResponseBody
-    public int getUserIdByName(@RequestParam("user_name") String user_name, @RequestParam("id") int id) {
-        return userInfoService.checkUserNameNew(user_name, id);
+    public int getUserIdByName(@RequestParam("user_name") String userName, @RequestParam("id") int id) {
+        return userInfoService.checkUserNameNew(userName, id);
     }
 
-    @RequestMapping(value = "/updateUserById", method = RequestMethod.GET)
+    /**
+     * @param id 用户id
+     * @param newName 新用户名
+     */
+    @RequestMapping(value = "/updateUserNameById", method = RequestMethod.GET)
     @ResponseBody
-    public int updateUserById(@RequestParam("id") int id, @RequestParam("updateForm") String updateForm) {
+    public int updateUserNameById(@RequestParam("id") int id, @RequestParam("newName") String newName) {
+        return userInfoService.updateUserNameById(id, newName);
+    }
+
+    /**
+     *
+     * @param id 用户id
+     * @param updateForm 包括旧密码origionalPass、新密码pass
+     * @return 失败返回-1，成功返回1
+     */
+    @RequestMapping(value = "/updateUserPassById", method = RequestMethod.GET)
+    @ResponseBody
+    public int updateUserPassById(@RequestParam("id") int id, @RequestParam("updateForm") String updateForm) {
         JSONObject jsonObject = new JSONObject(updateForm);
-        String userName = jsonObject.getString("name");
         String userKey = jsonObject.getString("pass");
-        return userInfoService.updateUserById(id, userKey, userName);
+        String origionalKey = jsonObject.getString("originalPass");
+        return userInfoService.updateUserPassById(id, userKey, origionalKey);
     }
 
     /**
