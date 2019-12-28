@@ -3,3 +3,4 @@ frontend/package-lock.json
 backend/src/main/resources/application.yml
 Dump20191218.sql
 ManagerSystemTest/target
+ManagerSystemTest/.idea
