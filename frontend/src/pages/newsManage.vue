@@ -217,7 +217,6 @@
         this.$refs['dialogTypeForm'].validate((valid) => {
           if(valid){
             this.loading = true;
-
             if (this.dialogTypeForm.title == '修改新闻') {
                 console.log(this.dialogTypeForm.id);
                 modifyCheckResult(this.dialogTypeForm).then(data => {
@@ -254,7 +253,7 @@
             this.onAlertError("输入格式不正确！");
           }
         })
-        this.$refs['dialogTypeForm'].resetFields();
+        //this.$refs['dialogTypeForm'].resetFields();
       },
       //删除新闻
       goToDelete (id) {

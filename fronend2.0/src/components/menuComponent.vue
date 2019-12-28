@@ -11,7 +11,7 @@
       <el-scrollbar class="menu-body" changeStyle>
         <el-menu :collapse="isCollapseLeft" :default-active="defaultActive"
                @select="selectMenu($event, 'left')" unique-opened >
-        <el-menu-item style="min-width: 200px" v-show="!menu.action && menu.meta.showInMenu" v-for="(menu, index) in totalLeftMenu" :key="setIndex('left', index)" :index="setIndex('left',index, undefined, menu.module)" @click="goTo(menu.path)" >
+        <el-menu-item style="min-width: 200px" v-if="!menu.action && menu.meta.showInMenu" v-for="(menu, index) in totalLeftMenu" :key="setIndex('left', index)" :index="setIndex('left',index, undefined, menu.module)" @click="goTo(menu.path)" >
           <i class="el-icon-tickets"></i>
           <span slot="title">{{menu.name}}</span>
         </el-menu-item>

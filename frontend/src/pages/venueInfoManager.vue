@@ -49,6 +49,7 @@
         :visible.sync="showAddDialogForm"
         width="50%"
         :close-on-click-modal="false"
+        @close="addDialogClose"
         center>
         <el-form :model="addDialogForm" :rules="dialogTypeRules" ref="addDialogForm" label-width="100px">
           <el-row>
@@ -164,7 +165,7 @@
     },
     methods:{
       addType() {
-        this.dialogTypeForm.title = '添加新闻';
+        this.dialogTypeForm.title = '添加场馆';
         this.showDialogType = true;
       },
       searchTable (condition) {
@@ -207,6 +208,7 @@
         this.showAddDialogForm = true;
       },
       dialogTypeClose() {
+        this.$refs['dialogTypeForm'].resetFields();
         this.dialogTypeForm = {
           title: '修改场馆信息',
           isDelete: false,
@@ -214,6 +216,9 @@
           rvnPrice: '',
           rvnIntro: ''
         };
+      },
+      addDialogClose(){
+        this.$refs['addDialogForm'].resetFields(); 
       },
       saveCheckResult () {
         this.$refs['dialogTypeForm'].validate((valid) => {
@@ -236,6 +241,7 @@
             this.onAlertError("输入格式不正确！");
           }
         })
+        //this.$refs['dialogTypeForm'].resetFields();
       },
       addVenue(){
         this.$refs['addDialogForm'].validate((valid) => {
@@ -257,6 +263,7 @@
             this.onAlertError("输入格式不正确！");
           }
         })
+        //this.$refs['addDialogForm'].resetFields();
       },
       getSelectRow (val) {
         let id = [];

@@ -249,7 +249,7 @@ export default {
           this.onAlertError('输入格式不正确！')
         }
       })
-      this.$refs['dialogTypeForm'].resetFields()
+      //this.$refs['dialogTypeForm'].resetFields()
     },
     // 删除新闻
     goToDelete (id) {
