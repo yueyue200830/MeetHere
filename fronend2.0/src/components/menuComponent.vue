@@ -156,7 +156,7 @@ export default {
     ...mapMutations(['managerLogOut', 'checkManagerLogin']),
     showPass () {
       // 点击图标是密码隐藏或显示
-      if (this.passw == 'text') {
+      if (this.passw === 'text') {
         this.passw = 'password'
         this.icon = 'el-input__icon el-icon-view'
       } else {
@@ -169,10 +169,9 @@ export default {
       this.$router.push('/login')
     },
     saveResult () {
-      if (this.passwordForm.newPassword != this.passwordForm.confirmPassword) {
+      if (this.passwordForm.newPassword !== this.passwordForm.confirmPassword) {
         this.onAlertError('两次密码不一致')
-      } else {
-        console.log('change manager')
+      } else if (this.passwordForm.newPassword && this.passwordForm.oldPassword) {
         modifyManagerPassword(this.passwordForm).then(data => {
           if (data.data) {
             this.onAlertSuccess('修改密码成功')
@@ -181,6 +180,8 @@ export default {
           }
         })
         this.showDialog = false
+      } else {
+        this.onAlertError("密码不能为空！")
       }
     },
     goTo (path) {
