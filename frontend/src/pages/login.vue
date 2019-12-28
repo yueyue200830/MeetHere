@@ -22,7 +22,7 @@
               </el-form>
             </el-row>
             <el-row class="login-forget login-row">
-              <!-- <span><a :href="goToLink('register')">立即注册</a></span> -->
+              <a @click="goToLink">返回首页</a>
               <!-- <span><a :href="goToLink('forget')">忘记密码</a></span> -->
             </el-row>
             <el-row style="margin-top: 3%">
@@ -94,8 +94,8 @@ export default {
       // this.managerLogin({ Authorization: data, name: this.form.user_name });
       // this.$router.push('/manager/userInfo');
     },
-    goToLink (action) {
-      return `/#/register?action=${action}`;
+    goToLink () {
+      this.$router.push('/user/main');
     }
   }
 };
