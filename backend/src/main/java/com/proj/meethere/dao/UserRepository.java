@@ -50,10 +50,13 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Transactional(rollbackFor = Exception.class)
     @Modifying
-    @Query(value = "update user set user_name=:user_name, user_key=:user_key" +
-            " where id=:user_id", nativeQuery = true)
-    int updateUserById(@Param("user_name") String user_name, @Param("user_key") String user_key,
-                       @Param("user_id") int user_id);
+    @Query(value = "update user set user_name=:user_name where id=:user_id", nativeQuery = true)
+    int updateUserNameById(@Param("user_id") int user_id, @Param("user_name") String user_name);
+
+    @Transactional(rollbackFor = Exception.class)
+    @Modifying
+    @Query(value = "update user set user_key=:user_key where id=:user_id", nativeQuery = true)
+    int updateUserPassById(@Param("user_id") int user_id, @Param("user_key") String user_key);
 
     @Query(value = "select * from user where user_name=:user_name", nativeQuery = true)
     List<User> selectUserByName(@Param("user_name") String user_name);
@@ -64,13 +67,13 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(value = "select * from user where user_name=:name and user_key=:key", nativeQuery = true)
     List<User> selectUserByNameAndKey(@Param("name") String name, @Param("key") String key);
 
+    @Query(value = "select * from user where id=:id and user_key=:key", nativeQuery = true)
+    List<User> selectUserByIdAndKey(@Param("id") int id, @Param("key") String key);
+
     @Transactional
     @Modifying
     @Query(value = "update user set user_photo=:user_photo where id=:user_id", nativeQuery = true)
     int updateUserPhotoById(@Param("user_photo") String user_photo, @Param("user_id") int user_id);
-
-    @Query(value = "select user_photo from user where id=:user_id", nativeQuery = true)
-    Blob selectUserPhotoById(@Param("user_id") int user_id);
 
     @Query(value = "select user_type from user where user_name =:user_name", nativeQuery = true)
     int selectUserType(@Param("user_name") String userName);

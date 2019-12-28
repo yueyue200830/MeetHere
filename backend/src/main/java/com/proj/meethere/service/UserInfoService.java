@@ -36,8 +36,17 @@ public class UserInfoService {
         }
     }
 
-    public int updateUserById(int id, String userKey, String userName) {
-        return userRepository.updateUserById(userName, userKey, id);
+    public int updateUserNameById(int id, String userName) {
+        return userRepository.updateUserNameById(id, userName);
+    }
+
+    public int updateUserPassById(int id, String userKey, String origionalKey) {
+        List<User> user = userRepository.selectUserByIdAndKey(id, origionalKey);
+        if (user.isEmpty()) {
+            return -1;
+        } else {
+            return userRepository.updateUserPassById(id, userKey);
+        }
     }
 
     public int insertNewUser(String userName, String userPass, int userType) {

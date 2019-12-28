@@ -12,6 +12,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -26,11 +28,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @Author Tresaresa
  * @Date 2019/12/25 9:33
  */
-public class userMessageInterfaceTest {
-    CloseableHttpClient httpClient = HttpClients.createDefault();
+class UserMessageInterfaceTest {
+    static private CloseableHttpClient httpClient;
+
+    @BeforeAll
+    static void init() {
+        httpClient = HttpClients.createDefault();
+    }
+
+    @AfterAll
+    static void after() throws IOException {
+        httpClient.close();
+    }
 
     @Test
-    public void should_get_latest_messages() throws IOException {
+    void should_get_latest_messages() throws IOException {
         HttpPost httpPost = new HttpPost("http://localhost:8081/getLatestMessage");
         CloseableHttpResponse response = httpClient.execute(httpPost);
         assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode(), "Status isn't 200");
@@ -50,7 +62,7 @@ public class userMessageInterfaceTest {
     }
 
     @Test
-    public void should_return_message_of_specific_user() throws IOException, URISyntaxException {
+    void should_return_message_of_specific_user() throws IOException, URISyntaxException {
         int userId = 1;
         URI uri = new URIBuilder().setScheme("http")
                 .setHost("localhost:8081")
@@ -72,13 +84,13 @@ public class userMessageInterfaceTest {
         assertTrue(firstObject.keySet().contains("messageVisibility"));
         assertTrue(firstObject.keySet().contains("messageContent"));
 
-        assertEquals(userId, firstObject.getInt("id"));
+        assertEquals(userId, firstObject.getInt("userId"));
 
         response.close();
     }
 
     @Test
-    public void should_return_message_before_time() throws IOException, URISyntaxException {
+    void should_return_message_before_time() throws IOException, URISyntaxException {
         int number = 3;
         String lastTime = "2020-12-27 15:01:19";
         URI uri = new URIBuilder().setScheme("http")
@@ -108,7 +120,7 @@ public class userMessageInterfaceTest {
     }
 
     @Test
-    public void should_return_message_before_time_of_specific_user() throws IOException, URISyntaxException {
+    void should_return_message_before_time_of_specific_user() throws IOException, URISyntaxException {
         int userId = 1;
         int number = 3;
         String lastTime = "2020-12-27 15:01:19";
@@ -141,7 +153,7 @@ public class userMessageInterfaceTest {
     }
 
     @Test
-    public void should_add_message() throws IOException, URISyntaxException {
+    void should_add_message() throws IOException, URISyntaxException {
         int userId = 1;
         String form = "{\"title\":\"testtitle\",\"content\":\"testcontent\"}";
         URI uri = new URIBuilder().setScheme("http")
@@ -163,7 +175,7 @@ public class userMessageInterfaceTest {
     }
 
     @Test
-    public void should_delete_message() throws IOException, URISyntaxException {
+    void should_delete_message() throws IOException, URISyntaxException {
         int messageId = 1;
         URI uri = new URIBuilder().setScheme("http")
                 .setHost("localhost:8081")
@@ -183,7 +195,7 @@ public class userMessageInterfaceTest {
     }
 
     @Test
-    public void should_update_message() throws IOException, URISyntaxException {
+    void should_update_message() throws IOException, URISyntaxException {
         String form = "{\"messageTitle\":\"testtitle\"" +
                 ",\"messageContent\":\"testcontent\"" +
                 ",\"id\":5}";
