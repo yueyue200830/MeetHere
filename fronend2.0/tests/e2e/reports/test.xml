@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="0">
+
+  <testsuite name="test"
+    errors="0" failures="0" hostname="" id="" package="test" skipped="2"
+    tests="0" time="0" timestamp="">
+  
+
+  
+
+  
+    
+    <testcase
+      name="default e2e tests" classname="test">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="example e2e test using a custom command" classname="test">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

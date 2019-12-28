@@ -4,7 +4,7 @@
       <router-view/>
     </menu-component>
   </div>
-  <div class="page-template" v-else>
+  <div id="user" v-else>
     <router-view/>
   </div>
 </template>
