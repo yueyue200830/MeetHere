@@ -91,6 +91,7 @@ export default {
 
   .news-content {
     flex-grow: 1;
+    text-align: left;
   }
 
   .news-image {
