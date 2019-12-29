@@ -41,7 +41,7 @@ public class UserNewsController {
 
             Blob blob = news.getNewsPhoto();
             if(blob == null) {
-                return "";
+                jsonObject.put("newsPhoto", "");
             } else {
                 jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
             }
@@ -69,7 +69,7 @@ public class UserNewsController {
 
             Blob blob = news.getNewsPhoto();
             if(blob == null) {
-                return "";
+                jsonObject.put("newsPhoto", "");
             } else {
                 jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
             }
@@ -79,11 +79,7 @@ public class UserNewsController {
         return jsonArray.toString();
     }
 
-    // 可能不用了
-    /**
-     * @param pageId 页码
-     * @return 范围(page_id*10, (page_id+1)*10-1)中的十条新闻
-     */
+    /* 可能不用了
     @RequestMapping(value = "/getTenNews", method = RequestMethod.POST)
     @ResponseBody
     public String getTenNewsByPageId(@RequestParam("page_id") int pageId) throws SQLException {
@@ -101,7 +97,7 @@ public class UserNewsController {
 
             Blob blob = news.getNewsPhoto();
             if(blob == null) {
-                return "";
+                jsonObject.put("newsPhoto", "");
             } else {
                 jsonObject.put("newsPhoto", new String(blob.getBytes((long)1, (int)blob.length())));
             }
@@ -109,5 +105,5 @@ public class UserNewsController {
             jsonArray.put(jsonObject);
         }
         return jsonArray.toString();
-    }
+    }*/
 }

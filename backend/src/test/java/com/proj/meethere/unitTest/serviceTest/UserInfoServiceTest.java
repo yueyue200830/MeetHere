@@ -114,39 +114,81 @@ public class UserInfoServiceTest {
     }
     
     @Test
-    void should_return_1_when_update_success() {
+    void should_return_1_when_update_name_success() {
+        String newName = "123123pass..";
         // stubbing
-        when(userRepository.updateUserById(userName, userKey, userId)).thenReturn(1);
+        when(userRepository.updateUserNameById(userId, newName)).thenReturn(1);
 
         // calling
-        int result = userInfoService.updateUserById(userId, userKey, userName);
+        int result = userInfoService.updateUserNameById(userId, newName);
 
         // verifying result
         assertEquals(1, result);
 
         // verifying invoked times
-        verify(userRepository, times(1)).updateUserById(userName, userKey, userId);
+        verify(userRepository, times(1)).updateUserNameById(userId, newName);
 
         verifyNoMoreInteractions(userRepository);
     }
 
     @Test
-    void should_return_0_when_update_failed() {
+    void should_return_minus1_when_update_key_with_wrong_origionalkey() {
+        String newKey = "newkey";
         // stubbing
-        when(userRepository.updateUserById(userName, userKey, userId)).thenReturn(0);
+        when(userRepository.selectUserByIdAndKey(userId, userKey)).thenReturn(new ArrayList<>());
 
         // calling
-        int result = userInfoService.updateUserById(userId, userKey, userName);
+        int result = userInfoService.updateUserPassById(userId, newKey, userKey);
+
+        // verifying result
+        assertEquals(-1, result);
+
+        // verifying invoked times
+        verify(userRepository, times(1)).selectUserByIdAndKey(userId, userKey);
+
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    void should_return_0_when_update_key_failed() {
+        String newKey = "newkey";
+        // stubbing
+        when(userRepository.selectUserByIdAndKey(userId, userKey)).thenReturn(users);
+        when(userRepository.updateUserPassById(userId, newKey)).thenReturn(0);
+
+        // calling
+        int result = userInfoService.updateUserPassById(userId, newKey, userKey);
 
         // verifying result
         assertEquals(0, result);
 
         // verifying invoked times
-        verify(userRepository, times(1)).updateUserById(userName, userKey, userId);
+        verify(userRepository, times(1)).selectUserByIdAndKey(userId, userKey);
+        verify(userRepository, times(1)).updateUserPassById(userId, newKey);
 
         verifyNoMoreInteractions(userRepository);
     }
-    
+
+    @Test
+    void should_return_1_when_update_key_success() {
+        String newKey = "newkey";
+        // stubbing
+        when(userRepository.selectUserByIdAndKey(userId, userKey)).thenReturn(users);
+        when(userRepository.updateUserPassById(userId, newKey)).thenReturn(1);
+
+        // calling
+        int result = userInfoService.updateUserPassById(userId, newKey, userKey);
+
+        // verifying result
+        assertEquals(1, result);
+
+        // verifying invoked times
+        verify(userRepository, times(1)).selectUserByIdAndKey(userId, userKey);
+        verify(userRepository, times(1)).updateUserPassById(userId, newKey);
+
+        verifyNoMoreInteractions(userRepository);
+    }
+
     @Test
     void should_return_1_when_insert_success() {
         // stubbing

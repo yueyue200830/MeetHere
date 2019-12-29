@@ -43,7 +43,7 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/checkUserNameWithId", method = RequestMethod.GET)
     @ResponseBody
-    public int getUserIdByName(@RequestParam("user_name") String userName, @RequestParam("id") int id) {
+    public int getUserIdByNameWithId(@RequestParam("user_name") String userName, @RequestParam("id") int id) {
         return userInfoService.checkUserNameNew(userName, id);
     }
 
@@ -60,7 +60,7 @@ public class UserInfoController {
     /**
      *
      * @param id 用户id
-     * @param updateForm 包括旧密码origionalPass、新密码pass
+     * @param updateForm 包括旧密码originalPass、新密码pass
      * @return 失败返回-1，成功返回1
      */
     @RequestMapping(value = "/updateUserPassById", method = RequestMethod.GET)
@@ -68,8 +68,8 @@ public class UserInfoController {
     public int updateUserPassById(@RequestParam("id") int id, @RequestParam("updateForm") String updateForm) {
         JSONObject jsonObject = new JSONObject(updateForm);
         String userKey = jsonObject.getString("pass");
-        String origionalKey = jsonObject.getString("originalPass");
-        return userInfoService.updateUserPassById(id, userKey, origionalKey);
+        String originalKey = jsonObject.getString("originalPass");
+        return userInfoService.updateUserPassById(id, userKey, originalKey);
     }
 
     /**

@@ -3,7 +3,6 @@ package com.proj.meethere.interfaceTest;
 import com.proj.meethere.utils.TestUtils;
 
 import org.apache.http.client.utils.URIBuilder;
-import org.json.JSONObject;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -20,15 +19,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @Author Tresaresa
  * @Date 2019/12/25 9:33
  */
 class UserMessageInterfaceTest {
+
     static private CloseableHttpClient httpClient;
 
     @BeforeAll
@@ -50,13 +51,14 @@ class UserMessageInterfaceTest {
         InputStream inputStream = response.getEntity().getContent();
         JSONArray jsonArray = TestUtils.inputStream2JSONArray(inputStream);
 
-        JSONObject firstObject = (jsonArray.getJSONArray(0).getJSONObject(0));
-        assertTrue(firstObject.keySet().contains("messageTime"));
-        assertTrue(firstObject.keySet().contains("messageTitle"));
-        assertTrue(firstObject.keySet().contains("id"));
-        assertTrue(firstObject.keySet().contains("userId"));
-        assertTrue(firstObject.keySet().contains("messageVisibility"));
-        assertTrue(firstObject.keySet().contains("messageContent"));
+        List<String> keys = new ArrayList<>();
+        keys.add("messageTime");
+        keys.add("messageTitle");
+        keys.add("id");
+        keys.add("userId");
+        keys.add("messageVisibility");
+        keys.add("messageContent");
+        assertTrue(jsonArray.toString().equals("[[]]") || jsonArray.getJSONArray(0).getJSONObject(0).keySet().containsAll(keys));
 
         response.close();
     }
@@ -76,15 +78,16 @@ class UserMessageInterfaceTest {
         InputStream inputStream = response.getEntity().getContent();
         JSONArray jsonArray = TestUtils.inputStream2JSONArray(inputStream);
 
-        JSONObject firstObject = (jsonArray.getJSONArray(0).getJSONObject(0));
-        assertTrue(firstObject.keySet().contains("messageTime"));
-        assertTrue(firstObject.keySet().contains("messageTitle"));
-        assertTrue(firstObject.keySet().contains("id"));
-        assertTrue(firstObject.keySet().contains("userId"));
-        assertTrue(firstObject.keySet().contains("messageVisibility"));
-        assertTrue(firstObject.keySet().contains("messageContent"));
-
-        assertEquals(userId, firstObject.getInt("userId"));
+        List<String> keys = new ArrayList<>();
+        keys.add("messageTime");
+        keys.add("messageTitle");
+        keys.add("id");
+        keys.add("userId");
+        keys.add("messageVisibility");
+        keys.add("messageContent");
+        assertTrue(jsonArray.toString().equals("[[]]")
+                || jsonArray.getJSONArray(0).getJSONObject(0).keySet().containsAll(keys)
+                && jsonArray.getJSONArray(0).getJSONObject(0).getInt("userId") == userId);
 
         response.close();
     }
@@ -106,15 +109,16 @@ class UserMessageInterfaceTest {
         InputStream inputStream = response.getEntity().getContent();
         JSONArray jsonArray = TestUtils.inputStream2JSONArray(inputStream);
 
-        JSONObject firstObject = (jsonArray.getJSONArray(0).getJSONObject(0));
-        assertTrue(firstObject.keySet().contains("messageTime"));
-        assertTrue(firstObject.keySet().contains("messageTitle"));
-        assertTrue(firstObject.keySet().contains("id"));
-        assertTrue(firstObject.keySet().contains("userId"));
-        assertTrue(firstObject.keySet().contains("messageVisibility"));
-        assertTrue(firstObject.keySet().contains("messageContent"));
-
-        assertTrue(number >= jsonArray.getJSONArray(0).length());
+        List<String> keys = new ArrayList<>();
+        keys.add("messageTime");
+        keys.add("messageTitle");
+        keys.add("id");
+        keys.add("userId");
+        keys.add("messageVisibility");
+        keys.add("messageContent");
+        assertTrue(jsonArray.toString().equals("[[]]")
+                || jsonArray.getJSONArray(0).getJSONObject(0).keySet().containsAll(keys)
+                && number >= jsonArray.getJSONArray(0).length());
 
         response.close();
     }
@@ -138,16 +142,17 @@ class UserMessageInterfaceTest {
         InputStream inputStream = response.getEntity().getContent();
         JSONArray jsonArray = TestUtils.inputStream2JSONArray(inputStream);
 
-        JSONObject firstObject = (jsonArray.getJSONArray(0).getJSONObject(0));
-        assertTrue(firstObject.keySet().contains("messageTime"));
-        assertTrue(firstObject.keySet().contains("messageTitle"));
-        assertTrue(firstObject.keySet().contains("id"));
-        assertTrue(firstObject.keySet().contains("userId"));
-        assertTrue(firstObject.keySet().contains("messageVisibility"));
-        assertTrue(firstObject.keySet().contains("messageContent"));
-
-        assertEquals(userId, firstObject.getInt("userId"));
-        assertTrue(number >= jsonArray.getJSONArray(0).length());
+        List<String> keys = new ArrayList<>();
+        keys.add("messageTime");
+        keys.add("messageTitle");
+        keys.add("id");
+        keys.add("userId");
+        keys.add("messageVisibility");
+        keys.add("messageContent");
+        assertTrue(jsonArray.toString().equals("[[]]")
+                || jsonArray.getJSONArray(0).getJSONObject(0).keySet().containsAll(keys)
+                && number >= jsonArray.getJSONArray(0).length()
+                && jsonArray.getJSONArray(0).getJSONObject(0).getInt("userId") == userId);
 
         response.close();
     }

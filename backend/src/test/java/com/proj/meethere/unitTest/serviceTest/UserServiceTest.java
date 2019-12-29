@@ -4,7 +4,6 @@ import com.proj.meethere.response.UserResponse;
 import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
-import com.sun.org.apache.xpath.internal.Arg;
 import org.junit.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

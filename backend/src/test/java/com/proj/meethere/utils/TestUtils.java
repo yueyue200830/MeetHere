@@ -18,7 +18,6 @@ public class TestUtils {
             stringBuffer.append(new String(b, 0, n));
         }
         JSONArray jsonArray = new JSONArray(stringBuffer.toString());
-        jsonArray.put(stringBuffer.toString());
         return jsonArray;
     }
 
