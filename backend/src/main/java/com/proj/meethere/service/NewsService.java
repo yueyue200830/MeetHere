@@ -51,8 +51,16 @@ public class NewsService {
         }
     }
 
+    /**
+     * update news
+     * @param content news content (1000 characters limit)
+     * @param title news title (50 characters limit)
+     * @param photo news photo (14MB limit)
+     * @param id news id (integer)
+     * @return if update operation is successful. 0 for no, 1 for yes
+     */
     public int updateNews(String content, String title, String photo, int id) {
-        if(id < 0 || content == null || title == null ) {
+        if(id < 0 || content == null || title == null || content.length() > 1000 || title.length() > 50) {
             return 0;
         } else {
             return newsRepository.updateSpeceficNews(content, title, photo, id);
@@ -79,8 +87,15 @@ public class NewsService {
         }
     }
 
+    /**
+     * add news
+     * @param content news content (1000 characters limit)
+     * @param title news title (50 characters limit)
+     * @param photo news photo (14 MB limit)
+     * @return whether add operation successful, 1 for success, 0 for failure.
+     */
     public int addNews(String content, String title, String photo) {
-        if(content == null || title == null) {
+        if(content == null || title == null || content.length() > 1000 || title.length() > 50) {
             return 0;
         }
         try {
