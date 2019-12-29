@@ -1,4 +1,4 @@
-package com.proj.meethere.Request;
+package com.proj.meethere.request;
 
 import lombok.Data;
 

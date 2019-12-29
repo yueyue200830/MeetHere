@@ -221,8 +221,10 @@
         this.$refs['addDialogForm'].resetFields(); 
       },
       saveCheckResult () {
+        var regNumber = /^\d+$/;
+        var flag = regNumber.test(this.dialogTypeForm.rvnPrice);
         this.$refs['dialogTypeForm'].validate((valid) => {
-          if(valid){
+          if(valid && flag){
             this.loading = true;
             console.log(this.dialogTypeForm);
             modifyCheckResult(this.dialogTypeForm).then(data => {
@@ -245,8 +247,10 @@
         //this.$refs['dialogTypeForm'].resetFields();
       },
       addVenue(){
+        var regNumber = /^\d+$/;//正则表达式判断
+        var flag = regNumber.test(this.addDialogForm.rvnPrice) && regNumber.test(this.addDialogForm.roomNum);
         this.$refs['addDialogForm'].validate((valid) => {
-          if(valid){
+          if(valid && flag){
             this.loading = true;
             addVenueManager(this.addDialogForm).then(data => {
               this.loading = false;
