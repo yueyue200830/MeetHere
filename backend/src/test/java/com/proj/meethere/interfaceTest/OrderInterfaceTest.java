@@ -45,6 +45,7 @@ public class OrderInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("orderApproved")),
                 ()->assertTrue(jsonObject.keySet().contains("orderPrice")),
                 ()->assertTrue(jsonObject.keySet().contains("orderDate")));
+        httpClient.close();
     }
 
     @Test
@@ -68,6 +69,7 @@ public class OrderInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("orderApproved")),
                 ()->assertTrue(jsonObject.keySet().contains("orderPrice")),
                 ()->assertTrue(jsonObject.keySet().contains("orderDate")));
+        httpClient.close();
     }
 
     @Test
@@ -81,5 +83,6 @@ public class OrderInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 }

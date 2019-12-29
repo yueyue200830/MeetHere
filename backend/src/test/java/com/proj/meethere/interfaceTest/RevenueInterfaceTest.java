@@ -43,6 +43,7 @@ public class RevenueInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("rvnRoomnum")),
                 ()->assertTrue(jsonObject.keySet().contains("rvnIntro")),
                 ()->assertTrue(jsonObject.keySet().contains("rvnPrice")));
+        httpClient.close();
     }
 
     @Test
@@ -62,6 +63,7 @@ public class RevenueInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("rvnRoomnum")),
                 ()->assertTrue(jsonObject.keySet().contains("rvnIntro")),
                 ()->assertTrue(jsonObject.keySet().contains("rvnPrice")));
+        httpClient.close();
     }
 
     @Ignore
@@ -80,6 +82,7 @@ public class RevenueInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -97,6 +100,7 @@ public class RevenueInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -116,6 +120,7 @@ public class RevenueInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("rvnIntro")),
                 ()->assertTrue(jsonObject.keySet().contains("rvnPrice")),
                 ()->assertTrue(jsonObject.keySet().contains("delete")));
+        httpClient.close();
     }
 
     @Test
@@ -128,6 +133,7 @@ public class RevenueInterfaceTest {
         JSONArray jsonArray = TestUtils.inputStream2JSONArray(inputStream);
         System.out.println(jsonArray);
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()));
+        httpClient.close();
     }
 
     @Test
@@ -141,6 +147,6 @@ public class RevenueInterfaceTest {
         JSONArray jsonArray = TestUtils.inputStream2JSONArray(inputStream);
         System.out.println(jsonArray);
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()));
-
+        httpClient.close();
     }
 }
