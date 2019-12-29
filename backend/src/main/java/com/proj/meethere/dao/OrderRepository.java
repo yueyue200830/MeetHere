@@ -37,7 +37,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer>{
                        @Param("rvn_room") int rvn_room, @Param("order_timeslot") int order_timeslot,
                        @Param("order_date") String order_date, @Param("order_price") int order_price);
 
-    @Query(value = "select * from orderlist where user_id=:id order by id desc", nativeQuery = true)
+    @Query(value = "select * from orderlist where user_id=:id order by order_date desc, order_timeslot desc", nativeQuery = true)
     List<Order> selectOrderById(@Param("id") int id);
 
     @Modifying
