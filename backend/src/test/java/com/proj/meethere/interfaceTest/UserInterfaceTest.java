@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Yiqing Tao
  * @date 2019-12-28 21:54
  */
-public class userInterfaceTest {
+public class UserInterfaceTest {
     @Test
     public void should_change_user_role() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();

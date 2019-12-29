@@ -62,6 +62,7 @@ export default {
     ...mapMutations(['userLogOut', 'checkLogin']),
     logOut () {
       this.userLogOut()
+      this.$router.push('/user/main')
     }
   }
 }

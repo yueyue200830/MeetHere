@@ -25,6 +25,30 @@ module.exports = {
   'test user navigator with logging in': browser => {
     browser
       .userLogin()
+      .click('.el-menu-item:nth-child(2)')
+      .assert.urlEquals(browser.launchUrl + 'user/revenue')
+      .click('.el-menu-item:nth-child(3)')
+      .assert.urlEquals(browser.launchUrl + 'user/booking')
+      .click('.el-menu-item:nth-child(4)')
+      .assert.urlEquals(browser.launchUrl + 'user/order')
+      .click('.el-menu-item:nth-child(5)')
+      .assert.urlEquals(browser.launchUrl + 'user/news')
+      .click('.el-menu-item:nth-child(6)')
+      .assert.urlEquals(browser.launchUrl + 'user/message')
+      .click('.el-menu-item:nth-child(1)')
+      .assert.urlEquals(browser.launchUrl + 'user/main')
+      .moveToElement('.el-submenu__title', null, null)
+      .pause(1000) // Wait for the menu to be opened
+      .click('.el-menu--popup > .el-menu-item:nth-child(1)')
+      .assert.urlEquals(browser.launchUrl + 'user/info')
+      .moveToElement('.el-submenu__title', null, null)
+      .pause(1000) // Wait for the menu to be opened
+      .click('.el-menu--popup > .el-menu-item:nth-child(2)')
+      .assert.urlEquals(browser.launchUrl + 'user/myMessage')
+      .moveToElement('.el-submenu__title', null, null)
+      .pause(1000) // Wait for the menu to be opened
+      .click('.el-menu--popup > .el-menu-item:nth-child(3)')
+      .assert.urlEquals(browser.launchUrl + 'user/main')
       .end()
   }
 }

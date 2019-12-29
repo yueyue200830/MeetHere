@@ -16,61 +16,65 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Yiqing Tao
- * @date 2019-12-25 9:24
+ * @date 2019-12-29 0:23
  */
-
-public class messageInterfaceTest {
+public class OrderInterfaceTest {
     @Test
-    public void should_get_unapproved_message() throws URISyntaxException,IOException {
+    public void should_get_order() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        //URI uri = new URIBuilder().setScheme("http").setHost("localhost:8080").setPath("/searchUnapproveMessage/1").build();
-        HttpPost httpPost = new HttpPost("http://localhost:8081/getUnapproveMessage");
+        String url = "http://localhost:8081/getUnapproveOrder";
+        HttpPost httpPost = new HttpPost(url);
         HttpResponse response = httpClient.execute(httpPost);
         InputStream inputStream = response.getEntity().getContent();
         JSONArray jsonArray = TestUtils.inputStream2JSONArray(inputStream);
-        System.out.println(jsonArray);
         JSONObject jsonObject = jsonArray.getJSONObject(0);
+        System.out.println(jsonObject);
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()),
-                ()->assertTrue(jsonObject.keySet().contains("messageTime")),
-                ()->assertTrue(jsonObject.keySet().contains("messageTitle")),
-                ()->assertTrue(jsonObject.keySet().contains("messageVisibility")),
+                ()->assertTrue(jsonObject.keySet().contains("id")),
                 ()->assertTrue(jsonObject.keySet().contains("userId")),
-                ()->assertTrue(jsonObject.keySet().contains("messageContent")),
-                ()->assertTrue(jsonObject.keySet().contains("id")));
-        httpClient.close();
+                ()->assertTrue(jsonObject.keySet().contains("orderPhone")),
+                ()->assertTrue(jsonObject.keySet().contains("rvnRoomNum")),
+                ()->assertTrue(jsonObject.keySet().contains("rvnId")),
+                ()->assertTrue(jsonObject.keySet().contains("timeSlot")),
+                ()->assertTrue(jsonObject.keySet().contains("orderApproved")),
+                ()->assertTrue(jsonObject.keySet().contains("orderPrice")),
+                ()->assertTrue(jsonObject.keySet().contains("orderDate")));
     }
 
     @Test
-    public void should_search_unapproved_message() throws IOException {
+    public void should_search_order() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        UriComponents uriComponents = UriComponentsBuilder.fromUriString("http://localhost:8081/searchUnapproveMessage/{condition}").build();
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString("http://localhost:8081/searchUnapproveOrder/{condition}").build();
         URI uri = uriComponents.expand("1").encode().toUri();
         HttpGet httpGet = new HttpGet(uri);
         HttpResponse httpResponse = httpClient.execute(httpGet);
         InputStream inputStream = httpResponse.getEntity().getContent();
         JSONArray jsonArray = TestUtils.inputStream2JSONArray(inputStream);
         JSONObject jsonObject = jsonArray.getJSONObject(0);
+        System.out.println(jsonArray);
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()),
-                ()->assertTrue(jsonObject.keySet().contains("messageTime")),
-                ()->assertTrue(jsonObject.keySet().contains("messageTitle")),
-                ()->assertTrue(jsonObject.keySet().contains("messageVisibility")),
+                ()->assertTrue(jsonObject.keySet().contains("id")),
                 ()->assertTrue(jsonObject.keySet().contains("userId")),
-                ()->assertTrue(jsonObject.keySet().contains("messageContent")),
-                ()->assertTrue(jsonObject.keySet().contains("id")));
-        httpClient.close();
+                ()->assertTrue(jsonObject.keySet().contains("orderPhone")),
+                ()->assertTrue(jsonObject.keySet().contains("rvnRoomNum")),
+                ()->assertTrue(jsonObject.keySet().contains("rvnId")),
+                ()->assertTrue(jsonObject.keySet().contains("timeSlot")),
+                ()->assertTrue(jsonObject.keySet().contains("orderApproved")),
+                ()->assertTrue(jsonObject.keySet().contains("orderPrice")),
+                ()->assertTrue(jsonObject.keySet().contains("orderDate")));
     }
 
     @Test
-    public void should_approve_message() throws IOException {
+    public void should_approve_order() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        UriComponents uriComponents = UriComponentsBuilder.fromUriString("http://localhost:8081/approveMessage/{temp}").build();
-        URI uri = uriComponents.expand("1").encode().toUri();
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString("http://localhost:8081/approveOrder/{temp}").build();
+        URI uri = uriComponents.expand("2").encode().toUri();
         HttpGet httpGet = new HttpGet(uri);
         HttpResponse httpResponse = httpClient.execute(httpGet);
         InputStream inputStream = httpResponse.getEntity().getContent();
@@ -78,7 +82,4 @@ public class messageInterfaceTest {
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
     }
-
-
-
 }
