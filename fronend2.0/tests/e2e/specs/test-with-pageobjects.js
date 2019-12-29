@@ -7,6 +7,8 @@
 /// /////////////////////////////////////////////////////////////
 
 module.exports = {
+  '@disabled': true,
+
   beforeEach: (browser) => browser.init(),
 
   'e2e tests using page objects': (browser) => {

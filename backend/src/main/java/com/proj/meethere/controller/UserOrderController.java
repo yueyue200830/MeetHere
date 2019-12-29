@@ -65,7 +65,7 @@ public class UserOrderController {
     public String getMyOrder(@RequestParam("id") int id) {
         JSONArray jsonArray = userOrderService.selectOrderById(id);
         if(jsonArray == null) {
-            return "";
+            return (new JSONArray()).toString();
         } else {
             return jsonArray.toString();
         }

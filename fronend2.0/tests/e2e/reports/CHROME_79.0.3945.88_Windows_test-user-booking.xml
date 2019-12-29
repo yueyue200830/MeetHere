@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="6">
+
+  <testsuite name="test-user-booking"
+    errors="0" failures="0" hostname="" id="" package="test-user-booking" skipped="0"
+    tests="6" time="36.87" timestamp="">
+  
+    <testcase name="load user booking page" classname="test-user-booking" time="0.7820" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="search booking by name" classname="test-user-booking" time="7.356" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="search booking by date" classname="test-user-booking" time="6.338" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="should not allowed to book" classname="test-user-booking" time="6.220" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="book a revenue with empty number" classname="test-user-booking" time="7.886" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="book a revenue successfully" classname="test-user-booking" time="8.291" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

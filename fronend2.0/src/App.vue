@@ -4,17 +4,14 @@
       <router-view/>
     </menu-component>
   </div>
-  <div class="page-template" v-else>
+  <div id="app" class="page-template" v-else>
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
-  created () {
-    document.title = 'MeetHere'
-  }
+  name: 'App'
 }
 </script>
 

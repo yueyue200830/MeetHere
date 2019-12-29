@@ -2,6 +2,7 @@ package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.controller.UserInfoController;
 import com.proj.meethere.service.UserInfoService;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -41,13 +42,28 @@ public class UserInfoControllerTest {
         verify(userInfoService, times(1)).checkUserNameExist(name);
     }
 
-    @ParameterizedTest
-    @MethodSource("updateFormIdProvider")
-    void should_update_specific_user_info(String form, String name, String pass, int id) throws Exception {
-        mockMvc.perform(get("/updateUserById")
-                .param("updateForm", String.valueOf(form)).param("id", String.valueOf(id)))
+    @Test
+    void should_update_specific_user_name() throws Exception {
+        String newName = "newName";
+        int id = 1;
+
+        mockMvc.perform(get("/updateUserNameById")
+                .param("newName", newName).param("id", String.valueOf(id)))
                 .andExpect(status().isOk());
-        verify(userInfoService, times(1)).updateUserById(id, pass, name);
+        verify(userInfoService, times(1)).updateUserNameById(id, newName);
+    }
+
+    @Test
+    void should_update_specific_user_key() throws Exception {
+        String form = "{\"originalPass\":\"pass12.3\",\"pass\":\"newpass!!\"}";
+        String userKey = "newpass!!";
+        String originalKey = "pass12.3";
+        int id = 1;
+
+        mockMvc.perform(get("/updateUserPassById")
+                .param("updateForm", form).param("id", String.valueOf(id)))
+                .andExpect(status().isOk());
+        verify(userInfoService, times(1)).updateUserPassById(id, userKey, originalKey);
     }
 
     @ParameterizedTest
@@ -88,10 +104,6 @@ public class UserInfoControllerTest {
 
     static Stream<Arguments> userNameProvider() {
         return Stream.of(Arguments.of("管理员"));
-    }
-
-    static Stream<Arguments> updateFormIdProvider() {
-        return Stream.of(Arguments.of("{\"name\":\"testuser1\",\"pass\":\"test123456\"}", "testuser1", "test123456", 5));
     }
 
     static Stream<Arguments> addFormProvider() {

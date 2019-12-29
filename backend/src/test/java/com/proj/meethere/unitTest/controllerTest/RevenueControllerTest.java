@@ -1,7 +1,7 @@
 package com.proj.meethere.unitTest.controllerTest;
 
 import com.alibaba.fastjson.JSONObject;
-import com.proj.meethere.Request.RevenueRequest;
+import com.proj.meethere.request.RevenueRequest;
 import com.proj.meethere.controller.OrderController;
 import com.proj.meethere.controller.RevenueController;
 import com.proj.meethere.dao.RevenueRepository;

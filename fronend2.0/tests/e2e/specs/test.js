@@ -2,6 +2,8 @@
 // https://nightwatchjs.org/guide
 
 module.exports = {
+  '@disabled': true,
+
   'default e2e tests': browser => {
     browser
       .init()
