@@ -72,4 +72,6 @@ module.exports = {
       .assert.urlEquals(browser.launchUrl + 'user/order')
       .end()
   }
+
+  // todo: test different phone number
 }

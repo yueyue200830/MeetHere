@@ -25,7 +25,7 @@ export default {
   },
   created: function () {
     this.$http
-      .post('http://127.0.0.1:8081/getVenueUserPage')
+      .post('/app/getVenueUserPage')
       .then(response => {
         this.revenues = response.data[0]
       })

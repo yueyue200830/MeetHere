@@ -25,7 +25,7 @@
             v-model="showAvatarCrop"
             :width="300"
             :height="300"
-            url="http://127.0.0.1:8081/UploadPhoto"
+            url="/app/UploadPhoto"
             :params="params"
             img-format="png"
           />
@@ -89,7 +89,7 @@ export default {
         callback(new Error('请输入用户名'))
       } else {
         this.$http
-          .get('http://127.0.0.1:8081/checkUserNameWithId', {
+          .get('/app/checkUserNameWithId', {
             params: {
               id: this.userId,
               user_name: value
@@ -181,7 +181,7 @@ export default {
     this.params.id = this.userId
 
     this.$http
-      .get('http://127.0.0.1:8081/GetPhoto', {
+      .get('/app/GetPhoto', {
         params: {
           id: this.userId
         } })
@@ -197,7 +197,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/updateUserPassById', {
+            .get('/app/updateUserPassById', {
               params: {
                 id: this.userId,
                 updateForm: this.userForm
@@ -222,7 +222,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/updateUserNameById', {
+            .get('/app/updateUserNameById', {
               params: {
                 id: this.userId,
                 newName: this.userNameForm.name

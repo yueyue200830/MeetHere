@@ -59,7 +59,7 @@ export default {
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/Login', {
+            .get('/app/Login', {
               params: {
                 login: this.loginForm
               } })

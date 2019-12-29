@@ -129,7 +129,7 @@ export default {
   },
   created: function () {
     this.$http
-      .post('http://127.0.0.1:8081/getVenueName')
+      .post('/app/getVenueName')
       .then(response => {
         this.revenues = response.data[0]
         this.revenue = this.revenues[0]
@@ -154,7 +154,7 @@ export default {
       this.$refs['addOrderForm'].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/addOrder', {
+            .get('/app/addOrder', {
               params: {
                 'addOrderForm': this.addOrderForm,
                 'id': this.userId
@@ -178,7 +178,7 @@ export default {
     },
     searchOrder: function () {
       this.$http
-        .get('http://127.0.0.1:8081/getAvailable', {
+        .get('/app/getAvailable', {
           params: {
             'revenueName': this.revenue,
             'date': this.convertTime(this.date)

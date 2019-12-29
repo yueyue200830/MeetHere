@@ -34,7 +34,7 @@ export default {
   },
   created: function () {
     this.$http
-      .post('http://127.0.0.1:8081/getNewsUserPage')
+      .post('/app/getNewsUserPage')
       .then(response => {
         this.newsList = response.data
       })

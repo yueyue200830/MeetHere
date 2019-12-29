@@ -86,7 +86,7 @@ export default {
   methods: {
     refresh: function () {
       this.$http
-        .get('http://127.0.0.1:8081/getMyMessage', {
+        .get('/app/getMyMessage', {
           params: {
             userId: this.userId
           }
@@ -109,7 +109,7 @@ export default {
     },
     deleteMessage: function (id) {
       this.$http
-        .get('http://127.0.0.1:8081/deleteMessage', {
+        .get('/app/deleteMessage', {
           params: {
             id: id
           } })
@@ -129,7 +129,7 @@ export default {
     },
     loadMore: function () {
       this.$http
-        .get('http://127.0.0.1:8081/getMoreMyMessage', {
+        .get('/app/getMoreMyMessage', {
           params: {
             lastTime: this.comments[this.comments.length - 1].messageTime,
             number: 2,
@@ -149,7 +149,7 @@ export default {
       this.$refs['editMessageForm'].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/editMessage', {
+            .get('/app/editMessage', {
               params: {
                 'editMessageForm': this.editMessageForm
               } })

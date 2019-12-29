@@ -6,6 +6,7 @@ module.exports = {
     this.setValue('input[type=name]', 'apple')
     this.setValue('input[type=password]', '123')
     this.click('.login-button-submit')
+    this.waitForElementVisible('#app')
     this.assert.urlEquals(this.launchUrl + 'user/main')
     this.assert.containsText('.el-submenu__title', 'apple')
   }

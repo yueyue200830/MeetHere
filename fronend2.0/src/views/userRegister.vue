@@ -39,7 +39,7 @@ export default {
         callback(new Error('请输入用户名'))
       } else {
         this.$http
-          .get('http://127.0.0.1:8081/checkUserNameExist', {
+          .get('/app/checkUserNameExist', {
             params: {
               user_name: value
             } })
@@ -92,7 +92,7 @@ export default {
       this.$refs['registerForm'].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/Register', {
+            .get('/app/Register', {
               params: {
                 form: this.registerForm
               } })

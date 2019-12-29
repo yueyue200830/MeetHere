@@ -76,7 +76,7 @@
         width="400px">
         <span>确定删除此订单？</span>
         <span slot="footer" class="dialog-footer">
-          <el-button class="button-cancel" @click="deleteDialogVisibility = false">取 消</el-button>
+          <el-button class="button-cancel" @click="deleteDialogVisibility=false">取 消</el-button>
           <el-button type="primary" @click="deleteOrder()">确 定</el-button>
         </span>
       </el-dialog>
@@ -144,7 +144,7 @@ export default {
   methods: {
     getMyOrder: function () {
       this.$http
-        .get('http://127.0.0.1:8081/getMyOrder', {
+        .get('/app/getMyOrder', {
           params: {
             'id': this.userId
           } })
@@ -164,7 +164,7 @@ export default {
     },
     deleteOrder: function () {
       this.$http
-        .get('http://127.0.0.1:8081/deleteOrder', {
+        .get('/app/deleteOrder', {
           params: {
             'deleteOrderId': this.deleteId
           } })
@@ -185,7 +185,7 @@ export default {
       this.$refs['changePhoneForm'].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/updatePhone', {
+            .get('/app/updatePhone', {
               params: {
                 'phone': this.changePhoneForm.newNumber,
                 'id': this.changePhoneForm.orderId

@@ -93,7 +93,7 @@ export default {
   methods: {
     loadMore: function () {
       this.$http
-        .get('http://127.0.0.1:8081/getMoreMessage', {
+        .get('/app/getMoreMessage', {
           params: {
             lastTime: this.comments[this.comments.length - 1].messageTime,
             number: 2
@@ -106,7 +106,7 @@ export default {
     },
     refresh: function () {
       this.$http
-        .post('http://127.0.0.1:8081/getLatestMessage')
+        .post('/app/getLatestMessage')
         .then(response => {
           this.comments = response.data[0]
         })
@@ -127,7 +127,7 @@ export default {
       this.$refs['addMessageForm'].validate((valid) => {
         if (valid) {
           this.$http
-            .get('http://127.0.0.1:8081/addMessage', {
+            .get('/app/addMessage', {
               params: {
                 'addMessageForm': this.addMessageForm,
                 'id': this.userId
