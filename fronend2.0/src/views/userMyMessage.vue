@@ -246,8 +246,4 @@ export default {
     text-align: center;
   }
 
-  .button-cancel {
-    margin-right: 10px;
-  }
-
 </style>

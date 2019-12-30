@@ -240,7 +240,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .el-table .delete-row {
     background: #909399;
   }

@@ -7,10 +7,9 @@
       <div class="user-title">
         用户登录
       </div>
-      <el-form :model="loginForm" ref="loginForm" class="login-form">
+      <el-form :model="loginForm" ref="loginForm" class="login-form" label-width="100px">
         <el-form-item
           label="用户名"
-          label-width="100px"
           :rules="[
               { required: true, message: '用户名不可为空'},
             ]"
@@ -19,7 +18,6 @@
         </el-form-item>
         <el-form-item
           label="密码"
-          label-width="100px"
           :rules="[
               { required: true, message: '密码不可为空'},
             ]"
@@ -126,11 +124,4 @@ export default {
     margin-top: 40px;
   }
 
-  .login-button-submit {
-    margin-left: 100px;
-  }
-
-  .el-button+.el-button {
-    margin-left: 10px;
-  }
 </style>

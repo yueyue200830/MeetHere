@@ -312,12 +312,7 @@ export default {
     margin: 20px auto;
   }
 
-  .button-reset {
-    margin-left: 10px !important;
-  }
-
   .change-title {
-    margin-left: 40px;
     margin-bottom:20px;
     font-size: 18px;
   }

@@ -237,12 +237,4 @@ export default {
   .phone-input {
     width: 250px;
   }
-
-  .button-delete {
-    margin-left: 10px !important;
-  }
-
-  .button-cancel {
-    margin-right: 10px;
-  }
 </style>
