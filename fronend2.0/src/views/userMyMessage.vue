@@ -117,6 +117,10 @@ export default {
           if (response.data === 0) {
             this.$message.error('删除失败，请重试')
           } else {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
             this.refresh()
           }
         })
@@ -155,7 +159,12 @@ export default {
               } })
             .then(response => {
               if (response.data === 0) {
-                this.$message.error('添加失败')
+                this.$message.error('修改失败')
+              } else {
+                this.$message({
+                  message: '修改成功',
+                  type: 'success'
+                })
               }
               this.$refs['editMessageForm'].resetFields()
               this.editMessageVisibility = false
@@ -201,17 +210,16 @@ export default {
 
   .time {
     margin-left: 10px;
+    margin-top: 2px;
   }
 
   .edit-message {
     margin-left: 10px;
-    margin-top: 1px;
     font-size: 14px;
   }
 
   .delete-message {
     margin-left: 10px;
-    margin-top: 1px;
     font-size: 14px;
   }
 

@@ -2,7 +2,7 @@
 module.exports = {
   'test user navigator without logging in': browser => {
     browser
-      .init(browser.launchUrl + "user/main")
+      .init(browser.launchUrl + 'user/main')
       .assert.urlEquals(browser.launchUrl + 'user/main')
       .click('.el-menu-item:nth-child(2)')
       .assert.urlEquals(browser.launchUrl + 'user/revenue')

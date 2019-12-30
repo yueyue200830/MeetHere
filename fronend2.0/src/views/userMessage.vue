@@ -135,6 +135,11 @@ export default {
             .then(response => {
               if (response.data === 0) {
                 this.$message.error('添加失败')
+              } else {
+                this.$message({
+                  message: '添加留言成功',
+                  type: 'success'
+                })
               }
               this.$refs['addMessageForm'].resetFields()
               this.addMessageVisibility = false
@@ -184,7 +189,7 @@ export default {
   }
 
   .add-comment {
-    position: absolute;
+    position: fixed;
     right: 100px;
     bottom: 100px;
   }

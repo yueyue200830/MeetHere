@@ -2,7 +2,7 @@
 module.exports = {
   'load user booking page': browser => {
     browser
-      .url(browser.launchUrl + "user/order")
+      .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
       .assert.containsText('.order-title', '我的订单')
       .assert.elementPresent('footer')
@@ -11,7 +11,7 @@ module.exports = {
 
   'should have error alert': browser => {
     browser
-      .url(browser.launchUrl + "user/order")
+      .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
       .pause(1000)
       .assert.containsText('.el-message__content', '您未登录')
@@ -24,7 +24,7 @@ module.exports = {
   'should load order': browser => {
     browser
       .userLogin()
-      .url(browser.launchUrl + "user/order")
+      .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
 
     browser.expect.elements('tr').count.to.not.equal(1)
@@ -35,7 +35,7 @@ module.exports = {
   'change phone number': browser => {
     browser
       .userLogin()
-      .url(browser.launchUrl + "user/order")
+      .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
       .click('.el-table__row:nth-child(1) .el-button--default')
       .pause(1000)
@@ -50,7 +50,7 @@ module.exports = {
   'enter empty phone number': browser => {
     browser
       .userLogin()
-      .url(browser.launchUrl + "user/order")
+      .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
       .click('.el-table__row:nth-child(1) .el-button--default')
       .pause(1000)
@@ -67,7 +67,7 @@ module.exports = {
   'click cancel button when change phone number': browser => {
     browser
       .userLogin()
-      .url(browser.launchUrl + "user/order")
+      .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
       .click('.el-table__row:nth-child(1) .el-button--default')
       .pause(1000)
@@ -84,7 +84,7 @@ module.exports = {
   // 'enter and delete phone number': browser => {
   //   browser
   //     .userLogin()
-  //     .url(browser.launchUrl + "user/order")
+  //     .url(browser.launchUrl + 'user/order')
   //     .waitForElementVisible('#app')
   //     .click('.el-table__row:nth-child(1) .el-button--default')
   //     .waitForElementVisible('.el-dialog__wrapper:nth-child(4) .el-dialog__header')
@@ -101,7 +101,7 @@ module.exports = {
   'delete order': browser => {
     browser
       .userLogin()
-      .url(browser.launchUrl + "user/order")
+      .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
       .click('.el-table__row:nth-child(1) .button-delete')
       .waitForElementVisible('.el-dialog__wrapper:nth-child(3) .el-dialog__header')
@@ -115,7 +115,7 @@ module.exports = {
   'cancel delete order': browser => {
     browser
       .userLogin()
-      .url(browser.launchUrl + "user/order")
+      .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
       .click('.el-table__row:nth-child(1) .button-delete')
       .waitForElementVisible('.el-dialog__wrapper:nth-child(3) .el-dialog__header')

@@ -2,7 +2,7 @@
 module.exports = {
   'load main page': browser => {
     browser
-      .url(browser.launchUrl + "user/main")
+      .url(browser.launchUrl + 'user/main')
       .waitForElementVisible('#app')
       .assert.elementPresent('.el-carousel')
       .assert.elementPresent('footer')

@@ -48,7 +48,7 @@
             :inline="true"
           >
             <el-form-item label="用户名" prop="name">
-              <el-input v-model.number="userNameForm.name"/>
+              <el-input type="name" v-model.number="userNameForm.name"/>
             </el-form-item>
             <el-button type="primary" @click="changeName('userNameForm')">
               修改
@@ -209,6 +209,8 @@ export default {
                   type: 'success'
                 })
                 this.resetForm(formName)
+              } else if (response.data === -1) {
+                this.$message.error('密码验证错误！')
               } else {
                 this.$message.error('修改失败，请重试！')
               }
@@ -221,6 +223,10 @@ export default {
     changeName (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          if (this.userNameForm.name === this.userName) {
+            this.$message.error('新用户名与原用户名相同，请更换用户名再提交！')
+            return
+          }
           this.$http
             .get('/app/updateUserNameById', {
               params: {

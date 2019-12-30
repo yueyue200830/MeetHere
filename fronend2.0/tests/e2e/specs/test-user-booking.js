@@ -13,7 +13,7 @@ module.exports = {
 
   'search booking by name': browser => {
     browser
-      .url(browser.launchUrl + "user/booking")
+      .url(browser.launchUrl + 'user/booking')
       .waitForElementVisible('#app')
       .click('.el-select .el-input__inner')
       .pause(1000)
@@ -29,7 +29,7 @@ module.exports = {
 
   'search booking by date': browser => {
     browser
-      .url(browser.launchUrl + "user/booking")
+      .url(browser.launchUrl + 'user/booking')
       .waitForElementVisible('#app')
       .click('.el-date-editor > .el-input__inner')
       .pause(1000)
@@ -39,7 +39,7 @@ module.exports = {
 
   'should not allowed to book': browser => {
     browser
-      .url(browser.launchUrl + "user/booking")
+      .url(browser.launchUrl + 'user/booking')
       .waitForElementVisible('#app')
       .click('tr:nth-child(2) > .table-td:nth-child(5) .el-button')
       .pause(1000)
@@ -50,7 +50,7 @@ module.exports = {
   'book a revenue with empty number': browser => {
     browser
       .userLogin()
-      .url(browser.launchUrl + "user/booking")
+      .url(browser.launchUrl + 'user/booking')
       .waitForElementVisible('#app')
       .click('tr:nth-child(2) > .table-td:nth-child(5) .el-button')
       .pause(1000)
@@ -62,7 +62,7 @@ module.exports = {
   'book a revenue successfully': browser => {
     browser
       .userLogin()
-      .url(browser.launchUrl + "user/booking")
+      .url(browser.launchUrl + 'user/booking')
       .waitForElementVisible('#app')
       .click('tr:nth-child(2) > .table-td:nth-child(5) .el-button')
       .pause(1000)
