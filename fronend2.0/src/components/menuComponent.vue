@@ -172,10 +172,12 @@ export default {
         this.onAlertError("两次密码不一致");
       }else if(this.passwordForm.newPassword && this.passwordForm.oldPassword){
         modifyManagerPassword(this.passwordForm).then(data => {
-          if(data.data){
+          if(data.data == 1){
             this.onAlertSuccess("修改密码成功");
-          }else{
+          }else if(data.data == 0){
             this.onAlertError("修改密码失败，用户名与密码不匹配");
+          }else{
+            this.onAlertError("修改密码失败，密码不能超过16个字符");
           }
         })
         this.showDialog = false

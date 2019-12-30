@@ -123,7 +123,7 @@ public class UserService {
      */
     public int changeUserKey(String oldUserKey, String userName, String newUserKey) {
         if (oldUserKey == null || userName == null || newUserKey == null || oldUserKey.length() > 25 || userName.length() > 20 || newUserKey.length() > 25) {
-                return 0;
+                return 2;
         } else {
             String orginKey = userRepository.searchUserKeyByName(userName);
             if (!"".equals(orginKey)) {

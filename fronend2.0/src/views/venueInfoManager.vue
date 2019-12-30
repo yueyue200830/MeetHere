@@ -66,8 +66,8 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="房间数量" prop="roomNum" :rules="{required:true,message:'房间数量不可为空'}">
-                <el-input v-model="addDialogForm.roomNum" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="房间数量" prop="rvnRoomNum" :rules="{required:true,message:'房间数量不可为空'}">
+                <el-input v-model="addDialogForm.rvnRoomNum" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -146,7 +146,7 @@
           rvnName:'',
           rvnPrice: '',
           rvnIntro: '',
-          roomNum:''
+          rvnRoomNum:''
         },
         dialogTypeForm: {
           title: '修改场馆信息',
@@ -248,13 +248,14 @@
       },
       addVenue(){
         var regNumber = /^\d+$/;//正则表达式判断
-        var flag = regNumber.test(this.addDialogForm.rvnPrice) && regNumber.test(this.addDialogForm.roomNum);
+        var flag = regNumber.test(this.addDialogForm.rvnPrice) && regNumber.test(this.addDialogForm.rvnRoomNum);
         this.$refs['addDialogForm'].validate((valid) => {
           if(valid && flag){
             this.loading = true;
             addVenueManager(this.addDialogForm).then(data => {
               this.loading = false;
               if(data.data){
+                this.onAlertSuccess("添加成功");
                 getVenueInfo().then(data => {
                   this.searchData=data.data;
                   this.preData=data.data;
