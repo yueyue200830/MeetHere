@@ -13,8 +13,14 @@
           :rules="[
               { required: true, message: '用户名不可为空'},
             ]"
-          prop="name">
-          <el-input type="name" v-model="loginForm.name" placeholder="请输入用户名"/>
+          prop="name"
+        >
+          <el-input
+            type="name"
+            v-model="loginForm.name"
+            placeholder="请输入用户名"
+            maxlength="22"
+          />
         </el-form-item>
         <el-form-item
           label="密码"
@@ -25,7 +31,10 @@
           <el-input
             type="password"
             placeholder="请输入密码"
-            v-model="loginForm.password">
+            v-model="loginForm.password"
+            show-password
+            maxlength="18"
+          >
           </el-input>
         </el-form-item>
         <el-form-item class="login-button">

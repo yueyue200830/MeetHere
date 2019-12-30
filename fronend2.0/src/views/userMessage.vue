@@ -44,6 +44,7 @@
               type="title"
               v-model="addMessageForm.title"
               placeholder="请输入标题"
+              maxlength="50"
             />
           </el-form-item>
           <el-form-item
@@ -56,8 +57,10 @@
               type="textarea"
               :autosize="{ minRows: 3, maxRows: 6}"
               placeholder="请输入内容"
-              v-model="addMessageForm.content">
-            </el-input>
+              maxlength="1000"
+              show-word-limit
+              v-model="addMessageForm.content"
+            />
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">

@@ -94,7 +94,7 @@
             prop="newNumber"
             :rules="[
               { required: true, message: '手机号不可为空'},
-              { type: 'number', message: '手机号必须为数字'}
+              { min: 13000000000, max: 13999999999, type: 'number', message: '请输入11位手机号'}
             ]"
           >
             <el-input type="newNumber" v-model.number="changePhoneForm.newNumber" autocomplete="off"

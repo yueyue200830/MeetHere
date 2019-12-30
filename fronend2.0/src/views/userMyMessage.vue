@@ -36,7 +36,7 @@
               { required: true, message: '标题不可为空'},
             ]"
           prop="messageTitle">
-          <el-input type="title" v-model="editMessageForm.messageTitle"/>
+          <el-input maxlength="50" type="title" v-model="editMessageForm.messageTitle"/>
         </el-form-item>
         <el-form-item
           label="内容"
@@ -49,8 +49,10 @@
             type="textarea"
             :autosize="{ minRows: 3, maxRows: 6}"
             placeholder="请输入内容"
-            v-model="editMessageForm.messageContent">
-          </el-input>
+            v-model="editMessageForm.messageContent"
+            maxlength="1000"
+            show-word-limit
+          />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

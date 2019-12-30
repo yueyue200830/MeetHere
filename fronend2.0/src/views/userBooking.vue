@@ -69,7 +69,7 @@
         <el-form-item
           label="价格"
           label-width="100px">
-          <el-input v-model="addOrderForm.price" disabled/>
+          <el-input v-model="addOrderForm.price" readonly/>
         </el-form-item>
         <el-form-item
           label="手机号"
@@ -77,7 +77,7 @@
           prop="phoneNumber"
           :rules="[
               { required: true, message: '手机号不可为空'},
-              { type: 'number', message: '手机号必须为数字'}
+              { min: 13000000000, max: 13999999999, type: 'number', message: '请输入11位手机号'}
             ]"
         >
           <el-input type="phoneNumber" v-model.number="addOrderForm.phoneNumber"/>
@@ -164,6 +164,9 @@ export default {
               this.addOrderVisibility = false
               if (response.data === 1) {
                 this.$router.push('order')
+              } else if (response.data === -1) {
+                this.$message.error('此时间已有人预定，请重新选择！')
+                this.searchOrder()
               } else {
                 this.$message.error('预定失败，请重试！')
                 this.searchOrder()
