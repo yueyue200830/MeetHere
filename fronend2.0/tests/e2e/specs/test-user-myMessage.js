@@ -6,6 +6,7 @@ module.exports = {
       .url(browser.launchUrl + 'user/myMessage')
       .waitForElementVisible('#app')
       .assert.containsText('.user-title', '我的留言')
+      .waitForElementVisible('.main-card:nth-child(2)')
       .end()
   },
 
@@ -41,7 +42,7 @@ module.exports = {
 
   // todo: enter empty
 
-  'close eidt form': browser => {
+  'close edit form': browser => {
     browser
       .userLogin()
       .url(browser.launchUrl + 'user/myMessage')
@@ -74,6 +75,18 @@ module.exports = {
       .waitForElementVisible('.el-dialog')
       .assert.not.containsText('.el-input__inner', '修改留言-系统测试-草稿')
       .assert.not.containsText('.el-textarea__inner', '修改留言内容-系统测试-草稿')
+      .end()
+  },
+
+  'delete message': browser => {
+    browser
+      .userLogin()
+      .url(browser.launchUrl + 'user/myMessage')
+      .waitForElementVisible('#app')
+      .waitForElementVisible('.main-card:nth-child(3)')
+      .click('.main-card:nth-child(2) .delete-message > .el-link--inner')
+      .waitForElementVisible('.el-message')
+      .assert.containsText('.el-message', '删除成功')
       .end()
   }
 }

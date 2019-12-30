@@ -29,10 +29,13 @@
         title="添加留言"
         :visible.sync="addMessageVisibility"
         width="50%">
-        <el-form :model="addMessageForm" ref="addMessageForm">
+        <el-form
+          :model="addMessageForm"
+          ref="addMessageForm"
+          label-width="90px"
+        >
           <el-form-item
             label="标题"
-            label-width="100px"
             :rules="[
               { required: true, message: '标题不可为空'},
             ]"
@@ -45,7 +48,6 @@
           </el-form-item>
           <el-form-item
             label="内容"
-            label-width="100px"
             :rules="[
               { required: true, message: '内容不可为空'},
             ]"

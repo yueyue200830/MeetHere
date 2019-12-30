@@ -5,9 +5,25 @@
 
   <testsuite name="test-user-component"
     errors="0" failures="0" hostname="" id="" package="test-user-component" skipped="0"
-    tests="2" time="14.97" timestamp="">
+    tests="2" time="10.26" timestamp="">
   
-    <testcase name="test user navigator without logging in" classname="test-user-component" time="5.002" assertions="8">
+    <testcase name="test user navigator with logging in" classname="test-user-component" time="3.526" assertions="16">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 
@@ -26,15 +42,7 @@
     
     </testcase>
   
-    <testcase name="test user navigator with logging in" classname="test-user-component" time="9.967" assertions="12">
-
-    
-
-    
-
-    
-
-    
+    <testcase name="test log out" classname="test-user-component" time="6.729" assertions="8">
 
     
 

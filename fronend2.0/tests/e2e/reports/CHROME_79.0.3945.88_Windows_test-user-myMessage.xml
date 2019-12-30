@@ -5,19 +5,9 @@
 
   <testsuite name="test-user-myMessage"
     errors="0" failures="0" hostname="" id="" package="test-user-myMessage" skipped="0"
-    tests="1" time="5.028" timestamp="">
+    tests="1" time="1.832" timestamp="">
   
-    <testcase name="press cancel button" classname="test-user-myMessage" time="5.028" assertions="12">
-
-    
-
-    
-
-    
-
-    
-
-    
+    <testcase name="load user message page" classname="test-user-myMessage" time="1.832" assertions="7">
 
     
 
