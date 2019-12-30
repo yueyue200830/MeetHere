@@ -157,8 +157,4 @@ export default {
   .register-button {
     margin-top: 40px;
   }
-
-  .button-margin {
-    margin-right: 10px;
-  }
 </style>
