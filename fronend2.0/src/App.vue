@@ -20,7 +20,6 @@ export default {
   font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
@@ -44,10 +43,6 @@ a:active {color: black}
 
 .el-date-editor.el-input, .el-date-editor.el-input__inner {
   width: 100% !important;
-}
-
-.el-form-item__label {
-  text-align: center !important;
 }
 
 img {

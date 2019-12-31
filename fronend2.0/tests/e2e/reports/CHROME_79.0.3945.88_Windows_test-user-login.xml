@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="1">
+
+  <testsuite name="test-user-login"
+    errors="0" failures="1" hostname="" id="" package="test-user-login" skipped="0"
+    tests="1" time="6.086" timestamp="">
+  
+    <testcase name="wrong password" classname="test-user-login" time="6.086" assertions="2">
+
+      <failure message="Timed out while waiting for element &lt;.el-message&gt; to be present for 5000 milliseconds. - expected [0;32m&#34;visible&#34;[0m but got: [0;31m&#34;not found&#34;[0m [0;90m(5093ms)[0m">    at Object.wrong password (C:\Users\zjy\Documents\Github\MeetHere\fronend2.0\tests\e2e\specs\test-user-login.js:39:8)
+    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+
+    <failure message="    at Object.wrong password (C:\Users\zjy\Documents\Github\MeetHere\fronend2.0\tests\e2e\specs\test-user-login.js:39:8)">    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>
