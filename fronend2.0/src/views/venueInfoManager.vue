@@ -164,10 +164,6 @@
       };
     },
     methods:{
-      addType() {
-        this.dialogTypeForm.title = '添加场馆';
-        this.showDialogType = true;
-      },
       searchTable (condition) {
         this.loading = true;
         condition=this.$refs.table.searchCondition;
