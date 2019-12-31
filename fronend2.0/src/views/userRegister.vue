@@ -73,6 +73,9 @@ export default {
               callback(new Error('用户名已存在'))
             }
           })
+          .catch(error => {
+            this.$message.error('验证用户名失败')
+          })
       }
     }
     const checkPassword = (rule, value, callback) => {
@@ -127,12 +130,17 @@ export default {
                 form: this.registerForm
               } })
             .then(response => {
-              this.signningUp = false
               if (response.data !== -1) {
                 this.$router.push('login')
               } else {
                 this.$message.error('注册失败，请重试！')
               }
+            })
+            .catch(error => {
+              this.$message.error('注册失败，请重试！')
+            })
+            .finally(() => {
+              this.signningUp = false
             })
         } else {
           this.signningUp = false

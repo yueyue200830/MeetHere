@@ -101,6 +101,11 @@ export default {
         })
         .then(response => {
           this.comments = response.data[0]
+        })
+        .catch(error => {
+          this.$message.error('刷新失败！')
+        })
+        .finally(() => {
           this.loadingMessage = false
         })
     },
@@ -133,6 +138,9 @@ export default {
             this.refresh()
           }
         })
+        .catch(error => {
+          this.$message.error('删除失败，请重试')
+        })
     },
     editMessage: function (comment) {
       this.editMessageForm.messageTitle = comment.messageTitle
@@ -150,10 +158,15 @@ export default {
             userId: this.userId
           } })
         .then(response => {
-          this.loadingMore = false
           for (let i = 0; i < response.data[0].length; i++) {
             this.comments.push(response.data[0][i])
           }
+        })
+        .catch(error => {
+          this.$message.error('加载更多失败')
+        })
+        .finally(() => {
+          this.loadingMore = false
         })
     },
     cancelEditMessage: function () {
@@ -170,7 +183,6 @@ export default {
                 'editMessageForm': this.editMessageForm
               } })
             .then(response => {
-              this.changingMessage = false
               if (response.data === 0) {
                 this.$message.error('修改失败')
               } else {
@@ -182,6 +194,12 @@ export default {
               this.$refs['editMessageForm'].resetFields()
               this.editMessageVisibility = false
               this.refresh()
+            })
+            .catch(error => {
+              this.$message.error('修改失败')
+            })
+            .finally(() => {
+              this.changingMessage = false
             })
         } else {
           this.changingMessage = false

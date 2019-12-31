@@ -138,6 +138,9 @@ export default {
         this.revenue = this.revenues[0]
         this.searchOrder()
       })
+      .catch(error => {
+        this.$message.error('获取场馆失败！')
+      })
   },
   methods: {
     clickOrder: function (time, num) {
@@ -164,7 +167,6 @@ export default {
                 'id': this.userId
               } })
             .then(response => {
-              this.formSubmitting = false
               this.$refs['addOrderForm'].resetFields()
               this.addOrderVisibility = false
               if (response.data === 1) {
@@ -176,6 +178,12 @@ export default {
                 this.$message.error('预定失败，请重试！')
                 this.searchOrder()
               }
+            })
+            .catch(error => {
+              this.$message.error('预定失败，请重试！')
+            })
+            .finally(() => {
+              this.formSubmitting = false
             })
         } else {
           this.formSubmitting = false
@@ -198,6 +206,11 @@ export default {
           this.cost = response.data.available
           this.timeSlot = response.data.available.length
           this.revenueNumber = response.data.available[0].length
+        })
+        .catch(error => {
+          this.$message.error('加载失败！')
+        })
+        .finally(() => {
           this.loading = false
         })
     },

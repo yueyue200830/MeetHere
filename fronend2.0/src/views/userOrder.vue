@@ -155,8 +155,13 @@ export default {
             'id': this.userId
           } })
         .then(response => {
-          this.loadingOrder = false
           this.orderList = response.data
+        })
+        .catch(error => {
+          this.$message.error('获取订单失败')
+        })
+        .finally(() => {
+          this.loadingOrder = false
         })
     },
     handleEdit: function (index, row) {
@@ -177,7 +182,6 @@ export default {
             'deleteOrderId': this.deleteId
           } })
         .then(response => {
-          this.deleteLoading = false
           this.deleteDialogVisibility = false
           this.getMyOrder()
           if (response.data === 1) {
@@ -188,6 +192,12 @@ export default {
           } else {
             this.$message.error('删除订单失败，请重试！')
           }
+        })
+        .catch(error => {
+          this.$message.error('删除订单失败，请重试！')
+        })
+        .finally(() => {
+          this.deleteLoading = false
         })
     },
     changePhone: function () {
@@ -201,7 +211,6 @@ export default {
                 'id': this.changePhoneForm.orderId
               } })
             .then(response => {
-              this.formSubmitting = false
               this.$refs['changePhoneForm'].resetFields()
               this.changePhoneVisibility = false
               this.getMyOrder()
@@ -213,6 +222,12 @@ export default {
               } else {
                 this.$message.error('修改失败，请重试！')
               }
+            })
+            .catch(error => {
+              this.$message.error('修改失败，请重试！')
+            })
+            .finally(() => {
+              this.formSubmitting = false
             })
         } else {
           this.formSubmitting = false

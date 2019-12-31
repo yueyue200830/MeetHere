@@ -39,6 +39,11 @@ export default {
       .post('/app/getNewsUserPage')
       .then(response => {
         this.newsList = response.data
+      })
+      .catch(error => {
+        this.$message.error('加载新闻失败')
+      })
+      .finally(() => {
         this.loadingNews = false
       })
   },

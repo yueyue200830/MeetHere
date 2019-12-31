@@ -73,13 +73,18 @@ export default {
                 login: this.loginForm
               } })
             .then(response => {
-              this.LoggingIn = false
               if (response.data !== -1) {
                 this.userLogin({ Authorization: response.data, name: this.loginForm.name })
                 this.$router.push('main')
               } else {
                 this.$message.error('用户名或密码错误，请重试！')
               }
+            })
+            .catch(error => {
+              this.$message.error('登录失败，请重试！')
+            })
+            .finally(() => {
+              this.LoggingIn = false
             })
         } else {
           this.LoggingIn = false

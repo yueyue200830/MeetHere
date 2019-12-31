@@ -107,10 +107,18 @@ export default {
       .then(response => {
         this.revenue = response.data[0]
       })
+      .catch(error => {
+        this.$message.error('加载场馆失败')
+      })
     this.$http
       .post('/app/getNewsThree')
       .then(response => {
         this.newsList = response.data
+      })
+      .catch(error => {
+        this.$message.error('加载新闻失败')
+      })
+      .finally(() => {
         this.loadingNews = false
       })
   },

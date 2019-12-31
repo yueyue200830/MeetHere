@@ -32,6 +32,11 @@ export default {
       .post('/app/getVenueUserPage')
       .then(response => {
         this.revenues = response.data[0]
+      })
+      .catch(error => {
+        this.$message.error('获取场馆信息失败')
+      })
+      .finally(() => {
         this.loadingRevenue = false
       })
   }

@@ -115,6 +115,12 @@ export default {
             this.comments.push(response.data[0][i])
           }
         })
+        .catch(error => {
+          this.$message.error('加载更多失败')
+        })
+        .finally(() => {
+          this.loadingMore = false
+        })
     },
     refresh: function () {
       this.loadingMessage = true
@@ -122,6 +128,11 @@ export default {
         .post('/app/getLatestMessage')
         .then(response => {
           this.comments = response.data[0]
+        })
+        .catch(error => {
+          this.$message.error('刷新失败')
+        })
+        .finally(() => {
           this.loadingMessage = false
         })
     },
@@ -148,7 +159,6 @@ export default {
                 'id': this.userId
               } })
             .then(response => {
-              this.submitting = false
               if (response.data === 0) {
                 this.$message.error('添加失败')
               } else {
@@ -160,6 +170,12 @@ export default {
               this.$refs['addMessageForm'].resetFields()
               this.addMessageVisibility = false
               this.refresh()
+            })
+            .catch(error => {
+              this.$message.error('添加失败')
+            })
+            .finally(() => {
+              this.submitting = false
             })
         } else {
           this.submitting = false

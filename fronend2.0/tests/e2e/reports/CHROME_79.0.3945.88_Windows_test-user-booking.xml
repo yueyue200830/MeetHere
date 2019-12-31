@@ -5,9 +5,15 @@
 
   <testsuite name="test-user-booking"
     errors="0" failures="0" hostname="" id="" package="test-user-booking" skipped="0"
-    tests="1" time="0.9840" timestamp="">
+    tests="1" time="2.263" timestamp="">
   
-    <testcase name="load user booking page" classname="test-user-booking" time="0.9840" assertions="4">
+    <testcase name="enter large phone number" classname="test-user-booking" time="2.263" assertions="7">
+
+    
+
+    
+
+    
 
     
 

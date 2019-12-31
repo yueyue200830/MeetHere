@@ -132,6 +132,9 @@ export default {
               callback(new Error('用户名已存在'))
             }
           })
+          .catch(error => {
+            callback(new Error('检查用户名失败'))
+          })
       }
     }
     const validateOriginalPass = (rule, value, callback) => {
@@ -222,6 +225,9 @@ export default {
           this.userAvatar = response.data
         }
       })
+      .catch(error => {
+        this.$message.error('获取头像失败')
+      })
   },
   methods: {
     ...mapMutations(['changeUserName']),
@@ -236,7 +242,6 @@ export default {
                 updateForm: this.userForm
               } })
             .then(response => {
-              this.submittingKey = false
               if (response.data === 1) {
                 this.$message({
                   message: '修改成功',
@@ -248,6 +253,12 @@ export default {
               } else {
                 this.$message.error('修改失败，请重试！')
               }
+            })
+            .catch(error => {
+              this.$message.error('修改失败，请重试！')
+            })
+            .finally(() => {
+              this.submittingKey = false
             })
         } else {
           this.submittingKey = false
@@ -271,7 +282,6 @@ export default {
                 newName: this.userNameForm.name
               } })
             .then(response => {
-              this.submittingName = false
               if (response.data === 1) {
                 this.$message({
                   message: '修改成功',
@@ -281,6 +291,12 @@ export default {
               } else {
                 this.$message.error('修改失败，请重试！')
               }
+            })
+            .catch(error => {
+              this.$message.error('修改失败，请重试！')
+            })
+            .finally(() => {
+              this.submittingName = false
             })
         } else {
           this.submittingName = false
