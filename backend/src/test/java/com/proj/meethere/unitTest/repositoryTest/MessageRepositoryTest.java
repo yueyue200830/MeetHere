@@ -2,10 +2,7 @@ package com.proj.meethere.unitTest.repositoryTest;
 
 import com.proj.meethere.dao.MessageRepositroy;
 import com.proj.meethere.entity.Message;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -29,7 +26,7 @@ public class MessageRepositoryTest {
     @Autowired
     MessageRepositroy messageRepositroy;
 
-    Message message;
+    private Message message;
     @Before
     public void init() {
         message = new Message("message content", 0, "2019-11-20", 1, "message title");
@@ -72,6 +69,7 @@ public class MessageRepositoryTest {
         Assert.assertEquals(1, messageList1.get(0).getMessageVisibility());
     }
 
+    @Ignore
     @Test
     public void news_should_be_inserted() {
         int result = messageRepositroy.insertNewMessage("message title","message content", 1);

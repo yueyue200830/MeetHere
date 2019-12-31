@@ -5,7 +5,6 @@ import com.proj.meethere.request.RevenueRequest;
 import com.proj.meethere.response.RevenueResponse;
 import com.proj.meethere.service.RevenueService;
 import com.proj.meethere.entity.Revenue;
-import com.proj.meethere.service.RevenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;

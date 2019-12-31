@@ -189,20 +189,20 @@ public class UserServiceTest {
                 Arguments.of(null, "normal name", null),
                 Arguments.of("old key", null, null),
                 Arguments.of(null, null, null),
-                Arguments.of(TestUtils.generateString(26), "normal name", "normal key"),
+                Arguments.of(TestUtils.generateString(17), "normal name", "normal key"),
                 Arguments.of("old key", TestUtils.generateString(21), "normal key"),
                 Arguments.of("old key", "normal name", TestUtils.generateString(26)),
                 Arguments.of(null, TestUtils.generateString(21), null),
                 Arguments.of(null, TestUtils.generateString(21), "normal key"),
                 Arguments.of("old key", TestUtils.generateString(21), null),
-                Arguments.of(TestUtils.generateString(26), null, "normal key"),
-                Arguments.of(TestUtils.generateString(26), "normal name", null),
-                Arguments.of(TestUtils.generateString(26), null, null),
-                Arguments.of(TestUtils.generateString(26), null, TestUtils.generateString(26)),
-                Arguments.of(TestUtils.generateString(26), "normal name", TestUtils.generateString(26)),
-                Arguments.of("old key", TestUtils.generateString(21),TestUtils.generateString(26)),
-                Arguments.of(null, TestUtils.generateString(21),TestUtils.generateString(26)),
-                Arguments.of(TestUtils.generateString(26), TestUtils.generateString(21), TestUtils.generateString(26)));
+                Arguments.of(TestUtils.generateString(17), null, "normal key"),
+                Arguments.of(TestUtils.generateString(17), "normal name", null),
+                Arguments.of(TestUtils.generateString(17), null, null),
+                Arguments.of(TestUtils.generateString(17), null, TestUtils.generateString(17)),
+                Arguments.of(TestUtils.generateString(17), "normal name", TestUtils.generateString(17)),
+                Arguments.of("old key", TestUtils.generateString(21),TestUtils.generateString(17)),
+                Arguments.of(null, TestUtils.generateString(21),TestUtils.generateString(17)),
+                Arguments.of(TestUtils.generateString(17), TestUtils.generateString(21), TestUtils.generateString(17)));
     }
 
     static List<Arguments> provideManageValidSource() {

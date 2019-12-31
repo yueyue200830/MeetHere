@@ -122,7 +122,7 @@ public class UserService {
      * @return whether the modification operation is successful.
      */
     public int changeUserKey(String oldUserKey, String userName, String newUserKey) {
-        if (oldUserKey == null || userName == null || newUserKey == null || oldUserKey.length() > 25 || userName.length() > 20 || newUserKey.length() > 25) {
+        if (oldUserKey == null || userName == null || newUserKey == null || oldUserKey.length() > 16 || userName.length() > 20 || newUserKey.length() > 16) {
                 return 2;
         } else {
             String orginKey = userRepository.searchUserKeyByName(userName);
