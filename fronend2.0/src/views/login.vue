@@ -9,7 +9,7 @@
               <h2 id="h2">管理员登录</h2>
             </el-row>
             <el-row class="login-row">
-              <el-form ref="form" :model="form" :rules="loginRules" label-width="80px" style="width: 90%">
+              <el-form ref="form" :model="form" label-width="80px" style="width: 90%">
                 <el-form-item label="账号" prop="user_name">
                   <el-input v-model="form.user_name"></el-input>
                 </el-form-item>
@@ -50,14 +50,6 @@ export default {
         user_name: '',
         user_key: ''
       },
-      loginRules: {
-        user_name: [
-          this.requiredInput('用户名')
-        ],
-        user_key: [
-          this.requiredInput('密码')
-        ]
-      }
     }
   },
   methods: {
