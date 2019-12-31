@@ -1,4 +1,4 @@
-package com.proj.meethere.unitTest.repositoryTest;
+package com.proj.meethere.repository;
 
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;

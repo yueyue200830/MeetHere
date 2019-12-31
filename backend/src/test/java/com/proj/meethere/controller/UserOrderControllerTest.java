@@ -1,7 +1,8 @@
-package com.proj.meethere.unitTest.controllerTest;
+package com.proj.meethere.controller;
 
-import com.proj.meethere.controller.UserOrderController;
 import com.proj.meethere.service.UserOrderService;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.stream.Stream;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -69,7 +71,21 @@ class UserOrderControllerTest {
     }
 
     @Test
-    void should_return_specific_user_order() throws Exception {
+    void should_return_specific_user_order_when_order_exist() throws Exception {
+        String myorder = "[{\"revenue\":\"篮球馆\",\"orderPhone\":\"12312312312\"," +
+                "\"orderDate\":\"2019-12-10\",\"timeSlot\":\"2\"," +
+                "\"rvnRoomNum\":\"4\",\"orderPrice\":\"30\"," +
+                "\"orderApproved\":\"1\",\"orderId\":\"30\"}]";
+        int id = 5;
+        given(userOrderService.selectOrderById(id)).willReturn(new JSONArray(myorder));
+        mockMvc.perform(get("/getMyOrder")
+                .param("id", String.valueOf(id)))
+                .andExpect(status().isOk());
+        verify(userOrderService, times(1)).selectOrderById(id);
+    }
+
+    @Test
+    void should_return_empty_when_order_not_exist() throws Exception {
         int id = 5;
         mockMvc.perform(get("/getMyOrder")
                 .param("id", String.valueOf(id)))
@@ -91,5 +107,13 @@ class UserOrderControllerTest {
 
     static Stream<Arguments> phoneIdProvider() {
         return Stream.of(Arguments.of("12344", 5));
+    }
+
+    static Stream<Arguments> myOrderProvider() {
+        return Stream.of(
+                Arguments.of("{\"revenue\":\"篮球馆\",\"orderPhone\":\"12312312312\"," +
+                        "\"orderDate\":\"2019-12-10\",\"timeSlot\":\"2\"," +
+                        "\"rvnRoomNum\":\"4\",\"orderPrice\":\"30\"," +
+                        "\"orderApproved\":\"1\",\"orderId\":\"30\"}"));
     }
 }

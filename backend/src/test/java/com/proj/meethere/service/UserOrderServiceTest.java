@@ -1,4 +1,4 @@
-package com.proj.meethere.unitTest.serviceTest;
+package com.proj.meethere.service;
 
 import com.proj.meethere.dao.OrderRepository;
 import com.proj.meethere.dao.RevenueRepository;
@@ -63,9 +63,14 @@ class UserOrderServiceTest {
 
     @Test
     void should_return_1_when_add_one_order_success() {
+        Order order = new Order(userId, phone, room, rvnId, slot + 1, date, 0, price);
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
         // stubbing
         when(revenueRepository.searchIdByName(name)).thenReturn(rvnId);
         when(orderRepository.insertNewOrder(userId, phone, rvnId, room, slot, date, price)).thenReturn(1);
+        when(orderRepository.selectOrderByRevenueAndDate(rvnId, date)).thenReturn(orders);
 
         // calling
         int result = userOrderService.addNewOrder(userId, phone, name, room, slot, date, price);
@@ -76,6 +81,7 @@ class UserOrderServiceTest {
         // verifying invoked times
         verify(revenueRepository, times(1)).searchIdByName(name);
         verify(orderRepository, times(1)).insertNewOrder(userId, phone, rvnId, room, slot, date, price);
+        verify(orderRepository, times(1)).selectOrderByRevenueAndDate(rvnId, date);
 
         verifyNoMoreInteractions(orderRepository);
         verifyNoMoreInteractions(revenueRepository);
@@ -83,9 +89,14 @@ class UserOrderServiceTest {
 
     @Test
     void should_return_0_when_add_one_order_failed() {
+        Order order = new Order(userId, phone, room, rvnId, slot + 1, date, 0, price);
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
         // stubbing
         when(revenueRepository.searchIdByName(name)).thenReturn(rvnId);
         when(orderRepository.insertNewOrder(userId, phone, rvnId, room, slot, date, price)).thenReturn(0);
+        when(orderRepository.selectOrderByRevenueAndDate(rvnId, date)).thenReturn(orders);
 
         // calling
         int result = userOrderService.addNewOrder(userId, phone, name, room, slot, date, price);
@@ -96,6 +107,31 @@ class UserOrderServiceTest {
         // verifying invoked times
         verify(revenueRepository, times(1)).searchIdByName(name);
         verify(orderRepository, times(1)).insertNewOrder(userId, phone, rvnId, room, slot, date, price);
+        verify(orderRepository, times(1)).selectOrderByRevenueAndDate(rvnId, date);
+
+        verifyNoMoreInteractions(orderRepository);
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @Test
+    void should_return_minus_1_when_add_one_order_collision() {
+        Order order = new Order(userId, phone, room, rvnId, slot, date, 0, price);
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        // stubbing
+        when(revenueRepository.searchIdByName(name)).thenReturn(rvnId);
+        when(orderRepository.selectOrderByRevenueAndDate(rvnId, date)).thenReturn(orders);
+
+        // calling
+        int result = userOrderService.addNewOrder(userId, phone, name, room, slot, date, price);
+
+        // verifying result
+        assertEquals(-1, result);
+
+        // verifying invoked times
+        verify(revenueRepository, times(1)).searchIdByName(name);
+        verify(orderRepository, times(1)).selectOrderByRevenueAndDate(rvnId, date);
 
         verifyNoMoreInteractions(orderRepository);
         verifyNoMoreInteractions(revenueRepository);

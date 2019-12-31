@@ -1,6 +1,5 @@
-package com.proj.meethere.unitTest.controllerTest;
+package com.proj.meethere.controller;
 
-import com.proj.meethere.controller.UserRevenueController;
 import com.proj.meethere.service.UserRevenueService;
 
 import org.junit.jupiter.api.Test;

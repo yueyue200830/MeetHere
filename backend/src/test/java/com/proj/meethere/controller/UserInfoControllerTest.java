@@ -1,6 +1,5 @@
-package com.proj.meethere.unitTest.controllerTest;
+package com.proj.meethere.controller;
 
-import com.proj.meethere.controller.UserInfoController;
 import com.proj.meethere.service.UserInfoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,9 +12,11 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,10 +44,20 @@ public class UserInfoControllerTest {
     }
 
     @Test
+    void should_return_status_of_user_existence_except_me() throws Exception {
+        String name = "me";
+        int id = 1;
+        mockMvc.perform(get("/checkUserNameWithId")
+                .param("user_name", name)
+                .param("id", String.valueOf(id)))
+                .andExpect(status().isOk());
+        verify(userInfoService, times(1)).checkUserNameNew(name, id);
+    }
+
+    @Test
     void should_update_specific_user_name() throws Exception {
         String newName = "newName";
         int id = 1;
-
         mockMvc.perform(get("/updateUserNameById")
                 .param("newName", newName).param("id", String.valueOf(id)))
                 .andExpect(status().isOk());
@@ -93,9 +104,19 @@ public class UserInfoControllerTest {
         verify(userInfoService, times(1)).updateUserPhoto(anyString(), eq(id));
     }
 
-    @ParameterizedTest
-    @MethodSource("userIdProvider")
-    void should_return_specific_user_photo(int id) throws Exception {
+    @Test
+    void should_return_specific_user_photo() throws Exception {
+        int id = 1;
+        mockMvc.perform(get("/GetPhoto")
+                .param("id", String.valueOf(id)))
+                .andExpect(status().isOk());
+        verify(userInfoService, times(1)).selectUserPhoto(id);
+    }
+
+    @Test
+    void should_return_specific_user_photo_when_photo_exist() throws Exception {
+        int id = 1;
+        given(userInfoService.selectUserPhoto(id)).willReturn(new SerialBlob("1111".getBytes()));
         mockMvc.perform(get("/GetPhoto")
                 .param("id", String.valueOf(id)))
                 .andExpect(status().isOk());
@@ -119,9 +140,5 @@ public class UserInfoControllerTest {
         byte[] content = "Hallo Word".getBytes();
         MockMultipartFile mockMultipartFile = new MockMultipartFile("file", fileName, "text/plain", content);
         return Stream.of(Arguments.of(mockMultipartFile, 5));
-    }
-
-    static Stream<Arguments> userIdProvider() {
-        return Stream.of(Arguments.of(5));
     }
 }

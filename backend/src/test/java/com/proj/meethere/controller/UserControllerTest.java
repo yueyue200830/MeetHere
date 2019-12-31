@@ -1,9 +1,8 @@
-package com.proj.meethere.unitTest.controllerTest;
+package com.proj.meethere.controller;
 
 import com.proj.meethere.request.UserModifyPassword;
 import com.proj.meethere.request.UserRequest;
 import com.proj.meethere.service.*;
-import com.proj.meethere.controller.UserController;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;

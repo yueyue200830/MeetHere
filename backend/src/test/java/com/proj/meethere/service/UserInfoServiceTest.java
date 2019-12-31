@@ -1,4 +1,4 @@
-package com.proj.meethere.unitTest.serviceTest;
+package com.proj.meethere.service;
 
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
@@ -22,7 +22,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
  * @Date 2019/12/26 11:13
  */
 @SpringBootTest
-public class UserInfoServiceTest {
+class UserInfoServiceTest {
     
     @Autowired
     private UserInfoService userInfoService;
@@ -191,9 +191,11 @@ public class UserInfoServiceTest {
 
     @Test
     void should_return_1_when_insert_success() {
+        List<User> users = new ArrayList<>();
+
         // stubbing
         when(userRepository.insertNewUser(userName, userKey, userType, userPhoto)).thenReturn(1);
-
+        when(userRepository.selectUserByName(userName)).thenReturn(users);
         // calling
         int result = userInfoService.insertNewUser(userName, userKey, userType);
 
@@ -202,14 +204,18 @@ public class UserInfoServiceTest {
 
         // verifying invoked times
         verify(userRepository, times(1)).insertNewUser(userName, userKey, userType, userPhoto);
+        verify(userRepository, times(1)).selectUserByName(userName);
 
         verifyNoMoreInteractions(userRepository);
     }
 
     @Test
     void should_return_0_when_insert_failed() {
+        List<User> users = new ArrayList<>();
+
         // stubbing
         when(userRepository.insertNewUser(userName, userKey, userType, userPhoto)).thenReturn(0);
+        when(userRepository.selectUserByName(userName)).thenReturn(users);
 
         // calling
         int result = userInfoService.insertNewUser(userName, userKey, userType);
@@ -219,6 +225,28 @@ public class UserInfoServiceTest {
 
         // verifying invoked times
         verify(userRepository, times(1)).insertNewUser(userName, userKey, userType, userPhoto);
+        verify(userRepository, times(1)).selectUserByName(userName);
+
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    void should_return_minus_1_when_same_name() {
+        User user = new User("name", "key", 1, null);
+        List<User> users = new ArrayList<>();
+        users.add(user);
+
+        // stubbing
+        when(userRepository.selectUserByName(userName)).thenReturn(users);
+
+        // calling
+        int result = userInfoService.insertNewUser(userName, userKey, userType);
+
+        // verifying result
+        assertEquals(-1, result);
+
+        // verifying invoked times
+        verify(userRepository, times(1)).selectUserByName(userName);
 
         verifyNoMoreInteractions(userRepository);
     }

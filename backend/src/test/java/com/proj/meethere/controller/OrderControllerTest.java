@@ -1,6 +1,5 @@
-package com.proj.meethere.unitTest.controllerTest;
+package com.proj.meethere.controller;
 
-import com.proj.meethere.controller.OrderController;
 import com.proj.meethere.service.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

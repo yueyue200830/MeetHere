@@ -1,4 +1,4 @@
-package com.proj.meethere.unitTest.repositoryTest;
+package com.proj.meethere.repository;
 
 import com.proj.meethere.dao.MessageRepositroy;
 import com.proj.meethere.entity.Message;
@@ -61,12 +61,11 @@ public class MessageRepositoryTest {
     @Test
     public void message_visibility_should_be_set() {
         this.testEntityManager.persist(message);
+        List<Message> messageList1 = messageRepositroy.selectSpecificMessage(message.getId());
+        Assert.assertEquals(1, messageList1.size());
         messageRepositroy.setMessageVisibility(message.getId());
         List<Message> messageList = messageRepositroy.selectAllMessage();
         Assert.assertEquals(0, messageList.size());
-        List<Message> messageList1 = messageRepositroy.selectSpecificMessage(message.getId());
-        Assert.assertEquals(1, messageList1.size());
-        Assert.assertEquals(1, messageList1.get(0).getMessageVisibility());
     }
 
     @Ignore

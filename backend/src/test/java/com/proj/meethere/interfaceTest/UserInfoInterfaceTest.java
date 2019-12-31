@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @Author Tresaresa
  * @Date 2019/12/27 23:40
  */
-public class UserInfoInterfaceTest {
+class UserInfoInterfaceTest {
 
     static private CloseableHttpClient httpClient;
 
@@ -43,7 +43,7 @@ public class UserInfoInterfaceTest {
 
     @ParameterizedTest
     @MethodSource("existNameProvider")
-    void should_return_0_or_1_when_check_name(String userName) throws URISyntaxException, IOException {
+    void should_return_1_when_name_exist(String userName) throws URISyntaxException, IOException {
         URI uri = new URIBuilder().setScheme("http")
                 .setHost("localhost:8081")
                 .setPath("/checkUserNameExist")
@@ -58,6 +58,27 @@ public class UserInfoInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
 
         assertTrue(result == 1);
+
+        response.close();
+    }
+
+    @ParameterizedTest
+    @MethodSource("noExistNameProvider")
+    void should_return_0_when_name_not_exist(String userName) throws URISyntaxException, IOException {
+        URI uri = new URIBuilder().setScheme("http")
+                .setHost("localhost:8081")
+                .setPath("/checkUserNameExist")
+                .setParameter("user_name", userName)
+                .build();
+        HttpGet httpGet = new HttpGet(uri);
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+
+        assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode(), "Status isn't 200");
+
+        InputStream inputStream = response.getEntity().getContent();
+        int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
+
+        assertTrue(result == 0);
 
         response.close();
     }
@@ -176,5 +197,10 @@ public class UserInfoInterfaceTest {
     static Stream<Arguments> existNameProvider() {
         return Stream.of(Arguments.of("admin"),
                 Arguments.of("ballballtang"));
+    }
+
+    static Stream<Arguments> noExistNameProvider() {
+        return Stream.of(Arguments.of("一个绝对不存在的名字"),
+                Arguments.of("a1fake2name3"));
     }
 }
