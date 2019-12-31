@@ -56,26 +56,26 @@ export default {
       if (value === '') {
         callback(new Error('请输入用户名'))
       } else {
-        this.$http
-          .get('/app/checkUserNameExist', {
-            params: {
-              user_name: value
-            } })
-          .then(response => {
-            if (response.data === 0) {
-              let nameVerifier = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{4,20}$/
-              if (nameVerifier.test(value)) {
+        let nameVerifier = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{4,20}$/
+        if (nameVerifier.test(value)) {
+          this.$http
+            .get('/app/checkUserNameExist', {
+              params: {
+                user_name: value
+              } })
+            .then(response => {
+              if (response.data === 0) {
                 callback()
               } else {
-                callback(new Error('用户名不合法，请输入4-16个字符'))
+                callback(new Error('用户名已存在'))
               }
-            } else {
-              callback(new Error('用户名已存在'))
-            }
-          })
-          .catch(error => {
-            this.$message.error('验证用户名失败')
-          })
+            })
+            .catch(error => {
+              this.$message.error('验证用户名失败')
+            })
+        } else {
+          callback(new Error('用户名不合法，请输入4-20个字符'))
+        }
       }
     }
     const checkPassword = (rule, value, callback) => {
