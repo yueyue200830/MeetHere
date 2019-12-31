@@ -22,6 +22,7 @@
 
 <script>
 import axios from 'axios'
+import _ from 'lodash'
 
 const changeResultById = (temp) => axios.get(`/app/approveMessage/${temp}`)
 const getOrderInfo = () => axios.post('/app/getUnapproveMessage')
@@ -82,16 +83,21 @@ export default {
         this.searchData = this.preData
         this.onAlertError('请输入搜索内容！')
       } else {
-        searchCheckResult(condition).then(data => {
-          this.loading = false
-          this.searchData = data.data
-          if (data.data.length) {
-            this.onAlertSuccess('搜索成功')
-          } else {
-            this.onAlertError('搜索失败')
-          }
-        })
+        try{
+          searchCheckResult(condition).then(data => {
+            this.loading = false
+            this.searchData = data.data
+            if (data.data.length) {
+              this.onAlertSuccess('搜索成功')
+            } else {
+              this.onAlertError('搜索失败')
+            }
+          })
+        }finally{
+          this.loading = true
+        }
       }
+
     },
     goToDelete (id) {
       if (this.selectRow.length === 0) {

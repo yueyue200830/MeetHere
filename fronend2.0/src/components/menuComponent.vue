@@ -163,10 +163,12 @@ export default {
         this.icon = 'el-input__icon el-icon-loading'
       }
     },
+    //注销登出
     logout () {
       this.managerLogOut()
       this.$router.push('/login')
     },
+    //点击修改密码的保存按钮
     saveResult () {
       var regNumber = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? _-]).*$/;
       if(this.passwordForm.newPassword != this.passwordForm.confirmPassword){
@@ -186,6 +188,7 @@ export default {
         this.showDialog = false
       }
     },
+    //跳转页面
     goTo (path) {
       this.$router.push(`${path}`)
     },

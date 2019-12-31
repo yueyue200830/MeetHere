@@ -106,6 +106,7 @@ export default {
           }
           if (!flag) {
             this.showEcharts = false
+            this.onAlertError("该日没有订单数据")
           }
           this.chartOption.series[0].data = data.data
         })
@@ -141,6 +142,9 @@ export default {
     getVenueNameForChart().then(data => {
       this.chartOption.xAxis.data = data.data
     })
+    if(this.showEcharts == false){
+      this.onAlertError("该日没有订单数据");
+    }
   }
 }
 </script>

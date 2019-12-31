@@ -91,7 +91,9 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
+  import _ from 'lodash'
+
   const searchCheckResult = (condition) => axios.get(`/app/searchVenue/${condition}`);
   const getCheckResultById = (id) => axios.get(`/app/checkVenue/${id}`);
   const modifyCheckResult = (checkResultForm) => axios.post('/app/modifyVenue', checkResultForm);
@@ -173,32 +175,38 @@
           this.searchData=this.preData;
           this.onAlertError("请输入搜索内容！");
         }else{
-          searchCheckResult(condition).then(data => {
+          try{
+            searchCheckResult(condition).then(data => {
+              this.loading = false;
+              this.searchData=data.data;
+              if (data.data.length) {
+                this.onAlertSuccess('搜索成功');
+              } else {
+                this.onAlertError('搜索失败');
+              }
+            });
+          }finally{
+            this.loading = false
+          }
+        }
+      },
+      viewTypeDetail(id, action) {
+        this.loading = true;   //调试中，调试结束后把注释符号去掉
+        try{
+          getCheckResultById(id).then(data => {
             this.loading = false;
-            this.searchData=data.data;
-            if (data.data.length) {
+            if (data) {
+              this.dialogTypeForm.id = data.data[0].id;
+              this.dialogTypeForm.rvnPrice = data.data[0].rvnPrice;
+              this.dialogTypeForm.rvnIntro = data.data[0].rvnIntro;
+              this.showDialogType = true;
             } else {
               this.onAlertError('搜索失败');
             }
           });
-        }
-
-
-      },
-      viewTypeDetail(id, action) {
-        this.loading = true;   //调试中，调试结束后把注释符号去掉
-        getCheckResultById(id).then(data => {
+        }finally{
           this.loading = false;
-          if (data) {
-            // todo
-            this.dialogTypeForm.id = data.data[0].id;
-            this.dialogTypeForm.rvnPrice = data.data[0].rvnPrice;
-            this.dialogTypeForm.rvnIntro = data.data[0].rvnIntro;
-            this.showDialogType = true;
-          } else {
-            this.onAlertError('搜索失败');
-          }
-        });
+        }
       },
       addType() {
         this.showAddDialogForm = true;
@@ -248,19 +256,23 @@
         this.$refs['addDialogForm'].validate((valid) => {
           if(valid && flag){
             this.loading = true;
-            addVenueManager(this.addDialogForm).then(data => {
-              this.loading = false;
-              if(data.data){
-                this.onAlertSuccess("添加成功");
-                getVenueInfo().then(data => {
-                  this.searchData=data.data;
-                  this.preData=data.data;
-                })
-              }else{
-                this.onAlertError("添加失败");
-              }
-              this.showAddDialogForm = false;
-            })
+            try{
+              addVenueManager(this.addDialogForm).then(data => {
+                this.loading = false;
+                if(data.data){
+                  this.onAlertSuccess("添加成功");
+                  getVenueInfo().then(data => {
+                    this.searchData=data.data;
+                    this.preData=data.data;
+                  })
+                }else{
+                  this.onAlertError("添加失败");
+                }
+                this.showAddDialogForm = false;
+              })
+            }finally{
+              this.loading = false
+            }
           }else{
             this.onAlertError("输入格式不正确！");
           }
