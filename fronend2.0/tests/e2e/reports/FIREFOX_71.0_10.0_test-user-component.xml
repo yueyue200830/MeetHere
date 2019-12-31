@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="2">
+
+  <testsuite name="test-user-component"
+    errors="0" failures="0" hostname="" id="" package="test-user-component" skipped="0"
+    tests="2" time="11.50" timestamp="">
+  
+    <testcase name="test user navigator without logging in" classname="test-user-component" time="6.511" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test user navigator with logging in" classname="test-user-component" time="4.990" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

@@ -1,13 +1,205 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites errors="0"
             failures="0"
-            tests="1">
+            tests="13">
 
   <testsuite name="test-user-order"
     errors="0" failures="0" hostname="" id="" package="test-user-order" skipped="0"
-    tests="1" time="3.993" timestamp="">
+    tests="13" time="97.21" timestamp="">
   
-    <testcase name="change large long number" classname="test-user-order" time="3.993" assertions="6">
+    <testcase name="load user booking page" classname="test-user-order" time="0.9270" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="should have error alert" classname="test-user-order" time="6.453" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="should load order" classname="test-user-order" time="6.407" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="change phone number" classname="test-user-order" time="8.536" assertions="8">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="enter empty phone number" classname="test-user-order" time="10.52" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="click cancel button when change phone number" classname="test-user-order" time="10.03" assertions="7">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="enter and delete phone number" classname="test-user-order" time="7.353" assertions="7">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="change short phone number" classname="test-user-order" time="8.072" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="change long phone number" classname="test-user-order" time="8.026" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="change small long number" classname="test-user-order" time="8.165" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="change large long number" classname="test-user-order" time="7.899" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="delete order" classname="test-user-order" time="7.420" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="cancel delete order" classname="test-user-order" time="7.409" assertions="8">
+
+    
+
+    
 
     
 

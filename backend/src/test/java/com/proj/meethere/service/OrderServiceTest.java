@@ -2,7 +2,6 @@ package com.proj.meethere.service;
 
 import com.proj.meethere.dao.OrderRepository;
 import com.proj.meethere.entity.Order;
-import com.proj.meethere.service.OrderService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

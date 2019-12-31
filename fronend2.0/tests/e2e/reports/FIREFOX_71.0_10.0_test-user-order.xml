@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="4">
+
+  <testsuite name="test-user-order"
+    errors="0" failures="1" hostname="" id="" package="test-user-order" skipped="9"
+    tests="4" time="19.30" timestamp="">
+  
+    <testcase name="load user booking page" classname="test-user-order" time="1.629" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="should have error alert" classname="test-user-order" time="4.043" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="should load order" classname="test-user-order" time="4.038" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="change phone number" classname="test-user-order" time="9.588" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+      <failure message="Timed out while waiting for element &lt;.el-dialog&gt; to be visible for 5000 milliseconds. - expected [0;32m&#34;visible&#34;[0m but got: [0;31m&#34;not visible&#34;[0m [0;90m(5102ms)[0m">    at Object.change phone number (C:\Users\zjy\Documents\Github\MeetHere\fronend2.0\tests\e2e\specs\test-user-order.js:42:8)
+    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+
+    <failure message="    at Object.change phone number (C:\Users\zjy\Documents\Github\MeetHere\fronend2.0\tests\e2e\specs\test-user-order.js:42:8)">    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="enter empty phone number" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="click cancel button when change phone number" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="enter and delete phone number" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="change short phone number" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="change long phone number" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="change small long number" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="change large long number" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="delete order" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="cancel delete order" classname="test-user-order">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

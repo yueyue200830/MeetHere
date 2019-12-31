@@ -6,7 +6,7 @@ module.exports = {
       .waitForElementVisible('#app')
       .assert.containsText('.user-title', '预约')
       .assert.elementPresent('footer')
-      .waitForElementVisible('tr:nth-child(2) > .table-td:nth-child(2) .el-button')
+      .waitForElementVisible('.el-button:nth-child(3)')
       .end()
   },
 

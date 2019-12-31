@@ -3,7 +3,6 @@ package com.proj.meethere.service;
 import com.proj.meethere.dao.NewsRepository;
 import com.proj.meethere.entity.News;
 import com.proj.meethere.request.NewsRequest;
-import com.proj.meethere.service.NewsService;
 import com.proj.meethere.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -142,6 +141,12 @@ public class NewsServiceTest {
         String photo = newsService.getPhotoById(1);
         verify(newsRepository, times(1)).selectSpecificNews(1);
         verifyNoMoreInteractions(newsRepository);
+    }
+
+    @Test
+    public void should_return_empty_when_get_photo_by_id_below_0() throws Exception {
+        String result = newsService.getPhotoById(-1);
+        assertAll(()->assertEquals("", result));
     }
 
     @ParameterizedTest

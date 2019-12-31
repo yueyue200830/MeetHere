@@ -1,10 +1,9 @@
-package com.proj.meethere.controller;
+package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.request.UserModifyPassword;
 import com.proj.meethere.request.UserRequest;
 import com.proj.meethere.response.UserResponse;
-import com.proj.meethere.service.UserService;
-import com.proj.meethere.entity.User;
+import com.proj.meethere.unitTest.serviceTest.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +21,8 @@ public class UserController {
     @RequestMapping(value = "/changeUserRole/{id}",  method = RequestMethod.GET)
     @ResponseBody
     public int changeUserRole(@PathVariable String id) {
-        try {
             int iD = Integer.parseInt(id);
             return userService.updateUserRole(iD);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            throw  e;
-        }
 
     }
     @RequestMapping(value = "/managerLoginCheck", method = RequestMethod.POST)
@@ -54,13 +48,8 @@ public class UserController {
     @RequestMapping(value = "/deleteUser/{temp}", method = RequestMethod.GET)
     @ResponseBody
     public int deleteUser(@PathVariable String temp) {
-        try {
             int id = Integer.parseInt(temp);
             return userService.deleteSpecificUser(Integer.parseInt(temp));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            throw e;
-        }
 
     }
 

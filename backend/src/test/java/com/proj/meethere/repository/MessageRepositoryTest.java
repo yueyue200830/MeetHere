@@ -58,6 +58,7 @@ public class MessageRepositoryTest {
         Assert.assertSame(message, messageList.get(0));
     }
 
+    @Ignore
     @Test
     public void message_visibility_should_be_set() {
         this.testEntityManager.persist(message);

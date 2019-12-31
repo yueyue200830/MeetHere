@@ -2,7 +2,6 @@ package com.proj.meethere.service;
 
 import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
-import com.proj.meethere.service.UserRevenueService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;

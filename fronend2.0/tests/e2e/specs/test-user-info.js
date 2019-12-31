@@ -45,7 +45,7 @@ module.exports = {
       .waitForElementVisible('.el-message')
       .assert.containsText('.el-message', '修改成功')
       .assert.containsText('.el-header', 'apple1')
-      .waitForElementNotVisible('.el-message')
+      .waitForElementNotPresent('.el-message')
       // change user name back
       .clearValue('input[type=name]')
       .setValue('input[type=name]', 'apple')
@@ -66,7 +66,12 @@ module.exports = {
       .setValue('input[type=name]', 'admin')
       .waitForElementVisible('.el-form-item:nth-child(1) .el-form-item__error')
       .assert.containsText('.el-form-item:nth-child(1) .el-form-item__error', '用户名已存在')
-      // todo: change short username (cannot bind)
+      // short username
+      .click('input[type=name]')
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .waitForElementVisible('.el-form-item:nth-child(1) .el-form-item__error')
+      .assert.containsText('.el-form-item:nth-child(1) .el-form-item__error', '用户名不合法，请输入4-16个字符')
       // change long username
       .clearValue('input[type=name]')
       .setValue('input[type=name]', 'a012345678901234567890123')

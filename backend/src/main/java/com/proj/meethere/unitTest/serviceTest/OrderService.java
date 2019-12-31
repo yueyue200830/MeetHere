@@ -1,4 +1,4 @@
-package com.proj.meethere.service;
+package com.proj.meethere.unitTest.serviceTest;
 
 import com.proj.meethere.dao.OrderRepository;
 import com.proj.meethere.entity.Order;

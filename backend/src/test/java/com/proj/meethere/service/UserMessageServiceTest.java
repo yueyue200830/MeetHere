@@ -2,7 +2,6 @@ package com.proj.meethere.service;
 
 import com.proj.meethere.dao.MessageRepositroy;
 import com.proj.meethere.entity.Message;
-import com.proj.meethere.service.UserMessageService;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.junit.jupiter.api.Test;

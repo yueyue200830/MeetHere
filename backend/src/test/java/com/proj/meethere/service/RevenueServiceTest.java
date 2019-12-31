@@ -3,7 +3,6 @@ package com.proj.meethere.service;
 import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
 import com.proj.meethere.response.RevenueResponse;
-import com.proj.meethere.service.RevenueService;
 import com.proj.meethere.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -131,6 +130,41 @@ public class RevenueServiceTest {
         verifyNoMoreInteractions(revenueRepository);
     }
 
+    @Test
+    public void should_add_revenue() {
+        when(revenueRepository.searchDuplicateByName("revenue new")).thenReturn(new ArrayList<Revenue>());
+        when(revenueRepository.insertNewRevenue("revenue new", 10, 100, "intro")).thenReturn(1);
+        int result = revenueService.addRevenue("intro", 100, "revenue new", 10);
+        assertAll(()->assertEquals(1, result));
+        verify(revenueRepository, times(1)).searchDuplicateByName("revenue new");
+        verify(revenueRepository, times(1)).insertNewRevenue("revenue new", 10, 100, "intro");
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @Test
+    public void should_return_empty_list_when_Date_is_null() {
+        List<Integer> result = revenueService.getOrderNum(null);
+        assertAll(()->assertEquals(0, result.size()));
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @Test
+    public void should_return_empty_list_when_date_is_not_valid() {
+        List<Integer> result = revenueService.getOrderNum("20191029");
+        assertAll(()->assertEquals(0, result.size()));
+        verifyNoMoreInteractions(revenueRepository);
+    }
+
+    @Test
+    public void should_get_0_if_name_exist() {
+        List<Revenue> revenueList = new ArrayList<>();
+        revenueList.add(revenue);
+        when(revenueRepository.searchDuplicateByName("revenue 1")).thenReturn(revenueList);
+        int result = revenueService.addRevenue("intro",100,"revenue 1", 10);
+        assertAll(()->assertEquals(0, result));
+        verify(revenueRepository, times(1)).searchDuplicateByName("revenue 1");
+        verifyNoMoreInteractions(revenueRepository);
+    }
     @Test
     public void should_get_0_when_modify_venue_if_id_below_0() {
         int result = revenueService.modifyRevenue(100, "intro", -1);

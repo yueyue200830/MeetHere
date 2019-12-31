@@ -1,4 +1,4 @@
-package com.proj.meethere.service;
+package com.proj.meethere.unitTest.serviceTest;
 
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
@@ -125,8 +125,8 @@ public class UserService {
         if (oldUserKey == null || userName == null || newUserKey == null || oldUserKey.length() > 16 || userName.length() > 20 || newUserKey.length() > 16) {
                 return 2;
         } else {
-            String orginKey = userRepository.searchUserKeyByName(userName);
-            if (!"".equals(orginKey)) {
+            if (!"".equals(oldUserKey)) {
+                String orginKey = userRepository.searchUserKeyByName(userName);
                 if (oldUserKey.equals(orginKey)) {
                     return userRepository.updateUserKey(newUserKey, userName);
                 } else {

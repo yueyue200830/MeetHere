@@ -1,17 +1,158 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites errors="0"
             failures="0"
-            tests="1">
+            tests="8">
 
   <testsuite name="test-user-myMessage"
     errors="0" failures="0" hostname="" id="" package="test-user-myMessage" skipped="0"
-    tests="1" time="9.623" timestamp="">
+    tests="8" time="61.94" timestamp="">
   
-    <testcase name="edit message with long input " classname="test-user-myMessage" time="9.623" assertions="10">
+    <testcase name="load user message page" classname="test-user-myMessage" time="2.097" assertions="7">
 
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="should jump to login" classname="test-user-myMessage" time="5.366" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="edit message" classname="test-user-myMessage" time="8.754" assertions="12">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="edit message with long input " classname="test-user-myMessage" time="14.17" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="empty input" classname="test-user-myMessage" time="7.999" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="close edit form" classname="test-user-myMessage" time="7.844" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="press cancel button" classname="test-user-myMessage" time="8.490" assertions="12">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="delete message" classname="test-user-myMessage" time="7.216" assertions="8">
 
     
 

@@ -3,7 +3,7 @@ package com.proj.meethere.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.proj.meethere.request.RevenueRequest;
 import com.proj.meethere.response.RevenueResponse;
-import com.proj.meethere.service.RevenueService;
+import com.proj.meethere.unitTest.serviceTest.RevenueService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
