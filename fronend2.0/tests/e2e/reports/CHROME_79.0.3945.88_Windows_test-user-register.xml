@@ -1,13 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites errors="0"
             failures="0"
-            tests="1">
+            tests="10">
 
   <testsuite name="test-user-register"
     errors="0" failures="0" hostname="" id="" package="test-user-register" skipped="0"
-    tests="1" time="2.869" timestamp="">
+    tests="10" time="56.72" timestamp="">
   
-    <testcase name="test invalid password" classname="test-user-register" time="2.869" assertions="9">
+    <testcase name="load register page" classname="test-user-register" time="0.9030" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="empty input" classname="test-user-register" time="5.963" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="exist user name" classname="test-user-register" time="6.052" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="different password" classname="test-user-register" time="6.248" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test invalid user name" classname="test-user-register" time="6.277" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test invalid password" classname="test-user-register" time="7.314" assertions="9">
 
     
 
@@ -22,6 +71,38 @@
     
 
     
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="register" classname="test-user-register" time="6.783" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test reset button" classname="test-user-register" time="6.304" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test login button" classname="test-user-register" time="5.425" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test headline back to main page" classname="test-user-register" time="5.453" assertions="2">
 
     
 

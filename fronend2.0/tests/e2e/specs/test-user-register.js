@@ -106,7 +106,7 @@ module.exports = {
     browser
       .url(browser.launchUrl + 'user/register')
       .waitForElementVisible('#app')
-      .setValue('input[type=name]', 'test-user' + t.getTime())
+      .setValue('input[type=name]', 'testUser' + t.getTime()%1000000)
       .setValue('.el-form-item:nth-child(2) .el-input__inner', '123456aA-')
       .setValue('.el-form-item:nth-child(3) .el-input__inner', '123456aA-')
       .click('.el-button--primary')

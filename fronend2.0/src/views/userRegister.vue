@@ -130,8 +130,10 @@ export default {
                 form: this.registerForm
               } })
             .then(response => {
-              if (response.data !== -1) {
+              if (response.data === 1) {
                 this.$router.push('login')
+              } else if (response.data === -1) {
+                this.$message.error('用户名已存在，请重试！')
               } else {
                 this.$message.error('注册失败，请重试！')
               }
