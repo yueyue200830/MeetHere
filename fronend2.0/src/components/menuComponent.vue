@@ -168,21 +168,22 @@ export default {
       this.$router.push('/login')
     },
     saveResult () {
+      var regNumber = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? _-]).*$/;
       if(this.passwordForm.newPassword != this.passwordForm.confirmPassword){
         this.onAlertError("两次密码不一致");
-      }else if(this.passwordForm.newPassword && this.passwordForm.oldPassword){
+      }else if(!regNumber.test(this.passwordForm.newPassword)){
+        this.onAlertError("修改密码失败，新密码格式不正确(6-16位，大小写字母数字特殊字符)")
+      }else{
         modifyManagerPassword(this.passwordForm).then(data => {
           if(data.data == 1){
             this.onAlertSuccess("修改密码成功");
           }else if(data.data == 0){
             this.onAlertError("修改密码失败，用户名与密码不匹配");
           }else{
-            this.onAlertError("修改密码失败，密码不能超过16个字符");
+            this.onAlertError("修改密码失败，新密码格式不正确(6-16位，大小写字母数字特殊字符)");
           }
         })
         this.showDialog = false
-      } else {
-        this.onAlertError("密码不能为空！")
       }
     },
     goTo (path) {
