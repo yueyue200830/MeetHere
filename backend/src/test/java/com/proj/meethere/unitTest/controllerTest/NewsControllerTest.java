@@ -1,14 +1,11 @@
 package com.proj.meethere.unitTest.controllerTest;
 
-import com.proj.meethere.controller.NewsController;
-import com.proj.meethere.controller.RevenueController;
 import com.proj.meethere.request.NewsRequest;
-import com.proj.meethere.service.NewsService;
+import com.proj.meethere.unitTest.serviceTest.NewsService;
 import com.alibaba.fastjson.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;

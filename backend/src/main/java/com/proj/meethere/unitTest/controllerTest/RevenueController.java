@@ -1,12 +1,11 @@
-package com.proj.meethere.controller;
+package com.proj.meethere.unitTest.controllerTest;
 
 
 import com.proj.meethere.request.RevenueRequest;
 import com.proj.meethere.response.RevenueResponse;
-import com.proj.meethere.service.RevenueService;
+import com.proj.meethere.unitTest.serviceTest.RevenueService;
 import com.proj.meethere.entity.Revenue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -31,12 +30,8 @@ public class RevenueController {
     @RequestMapping(value = "/searchVenue/{condition}", method = RequestMethod.GET)
     @ResponseBody
     public List<Revenue> searchVenue(@PathVariable String condition) {
-        try{
             int id = Integer.parseInt(condition);
             return revenueService.searchRevenue(Integer.parseInt(condition));
-        } catch (NumberFormatException e) {
-            throw e;
-        }
 
     }
 

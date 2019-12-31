@@ -1,12 +1,11 @@
-package com.proj.meethere.controller;
+package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.request.NewsRequest;
-import com.proj.meethere.service.NewsService;
+import com.proj.meethere.unitTest.serviceTest.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.rowset.serial.SerialBlob;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;

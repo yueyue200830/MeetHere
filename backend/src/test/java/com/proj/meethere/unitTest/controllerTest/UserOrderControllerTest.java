@@ -1,7 +1,6 @@
 package com.proj.meethere.unitTest.controllerTest;
 
-import com.proj.meethere.controller.UserOrderController;
-import com.proj.meethere.service.UserOrderService;
+import com.proj.meethere.unitTest.serviceTest.UserOrderService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

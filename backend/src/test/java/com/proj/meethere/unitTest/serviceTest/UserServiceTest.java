@@ -1,7 +1,6 @@
 package com.proj.meethere.unitTest.serviceTest;
 
 import com.proj.meethere.response.UserResponse;
-import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
 import com.proj.meethere.utils.TestUtils;
@@ -110,6 +109,12 @@ public class UserServiceTest {
     }
 
     @Test
+    public void should_return_empty_list_when_specific_id_below_0() {
+        List<UserResponse> userList = userService.selectSpecificUserInfo(-1);
+        assertAll(()->assertEquals(0, userList.size()));
+        verifyNoMoreInteractions(userRepository);
+    }
+    @Test
     public void should_return_empty_string_if_userName_does_not_exist() {
         when(userRepository.searchUserKeyByName("no such name")).thenReturn("");
         int result = userService.changeUserKey("origin key", "no such name", "new key");
@@ -165,6 +170,48 @@ public class UserServiceTest {
         verifyNoMoreInteractions(userRepository);
     }
 
+    @Test
+    public void change_user_key_success() {
+        when(userRepository.searchUserKeyByName("momo")).thenReturn("123456");
+        when(userRepository.updateUserKey("12345", "momo")).thenReturn(1);
+        int result = userService.changeUserKey("123456", "momo", "12345");
+        assertAll(()->assertEquals(1, result));
+        verify(userRepository, times(1)).searchUserKeyByName("momo");
+        verify(userRepository,times(1)).updateUserKey("12345", "momo");
+        verifyNoMoreInteractions(userRepository);
+    }
+
+
+    @Test
+    public void check_manage_valid_fail_since_key_wrong() {
+        List<User> userList = new ArrayList<>();
+        userList.add(user1);
+        when(userRepository.selectUserAll("momo")).thenReturn(userList);
+        when(userRepository.searchUserKeyByName("momo")).thenReturn("1234");
+        when(userRepository.selectUserType("momo")).thenReturn(1);
+        int result = userService.checkManagerValid("momo", "98765");
+        assertAll(()->assertEquals(0, result));
+        verify(userRepository,times(1)).selectUserAll("momo");
+        verify(userRepository, times(1)).searchUserKeyByName("momo");
+        verify(userRepository, times(1)).selectUserType("momo");
+        verifyNoMoreInteractions(userRepository);
+    }
+    @Test
+    public void old_key_empty_fail() {
+        int result = userService.changeUserKey("", "momo", "new key");
+        assertAll(()->assertEquals(0, result));
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    public void should_return_0_if_already_user_type_1() {
+        when(userRepository.selectUserTypeById(1)).thenReturn(1);
+        int result = userService.updateUserRole(1);
+        assertAll(()->assertEquals(0, result));
+        verify(userRepository, times(1)).selectUserTypeById(1);
+        verifyNoMoreInteractions(userRepository);
+    }
+
     @ParameterizedTest
     @MethodSource("provideManageValidSource")
     public void should_return_0_if_user_info_not_valid(String userName, String userKey) {
@@ -175,9 +222,9 @@ public class UserServiceTest {
 
     @ParameterizedTest
     @MethodSource("provideChangeUserKeySource")
-    public void should_return_0_if_user_key_is_not_valid(String oldUserKey, String userName, String newUserKey) {
+    public void should_return_2_if_user_key_is_not_valid(String oldUserKey, String userName, String newUserKey) {
             int result = userService.changeUserKey(oldUserKey, userName, newUserKey);
-            assertAll(()->assertEquals(0, result));
+            assertAll(()->assertEquals(2, result));
             verifyNoMoreInteractions(userRepository);
     }
 

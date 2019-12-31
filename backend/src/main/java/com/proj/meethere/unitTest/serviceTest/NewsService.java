@@ -1,4 +1,4 @@
-package com.proj.meethere.service;
+package com.proj.meethere.unitTest.serviceTest;
 
 import com.proj.meethere.request.NewsRequest;
 import com.proj.meethere.dao.NewsRepository;
@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,13 +26,8 @@ public class NewsService {
         List<NewsRequest> newsRequestList = new ArrayList<>();
         for(News news : newsList) {
             NewsRequest newsRequest = new NewsRequest();
-            if(news.getNewsPhoto() != null) {
-                String newsPhoto = new String(news.getNewsPhoto().getBytes(1, (int) news.getNewsPhoto().length()), "GBK");
-                newsRequest.setNewsPhoto(newsPhoto);
-            }
-            else{
-                newsRequest.setNewsPhoto(null);
-            }
+            String newsPhoto = new String(news.getNewsPhoto().getBytes(1, (int) news.getNewsPhoto().length()), "GBK");
+            newsRequest.setNewsPhoto(newsPhoto);
             newsRequest.setNewsContent(news.getNewsContent());
             newsRequest.setId(news.getId());
             newsRequest.setNewsTitle(news.getNewsTitle());
@@ -42,15 +35,14 @@ public class NewsService {
         }
         return newsRequestList;
     }
-
     public int deleteNews(int id) {
         if(id < 0) {
             return 0;
-        } else {
+        }
+        else {
             return newsRepository.deleteSpecificNews(id);
         }
     }
-
     /**
      * update news
      * @param content news content (1000 characters limit)
@@ -66,7 +58,6 @@ public class NewsService {
             return newsRepository.updateSpeceficNews(content, title, photo, id);
         }
     }
-
     public List<NewsRequest> searchSpecificNews(int id) throws SQLException, UnsupportedEncodingException {
         if(id < 0 ){
             return new ArrayList<NewsRequest>();
@@ -86,7 +77,6 @@ public class NewsService {
             return newsRequestList;
         }
     }
-
     /**
      * add news
      * @param content news content (1000 characters limit)
@@ -98,24 +88,18 @@ public class NewsService {
         if(content == null || title == null || content.length() > 1000 || title.length() > 50) {
             return 0;
         }
-        try {
             System.out.println(content);
              return newsRepository.insertNews(content, photo, title);
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
-        return 0;
     }
-
     public String getPhotoById(int id) throws SQLException, UnsupportedEncodingException {
         if(id < 0) {
             return "";
-        } else {
+        }
+        else {
             List<News> newsList = newsRepository.selectSpecificNews(id);
             Blob newsPhoto = newsList.get(0).getNewsPhoto();
             String photo = new String(newsPhoto.getBytes(1, (int) newsPhoto.length()), "GBK");
             return photo;
         }
     }
-
 }

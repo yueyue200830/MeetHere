@@ -2,9 +2,8 @@ package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.request.UserModifyPassword;
 import com.proj.meethere.request.UserRequest;
-import com.proj.meethere.service.*;
-import com.proj.meethere.controller.UserController;
 import com.alibaba.fastjson.JSONObject;
+import com.proj.meethere.unitTest.serviceTest.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,6 @@ package com.proj.meethere.unitTest.serviceTest;
 
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
-import com.proj.meethere.service.UserInfoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;

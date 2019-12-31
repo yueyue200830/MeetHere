@@ -1,7 +1,6 @@
-package com.proj.meethere.controller;
+package com.proj.meethere.unitTest.controllerTest;
 
-import com.proj.meethere.service.MessageService;
-import com.proj.meethere.dao.MessageRepositroy;
+import com.proj.meethere.unitTest.serviceTest.MessageService;
 import com.proj.meethere.entity.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,24 +28,15 @@ public class MessageController {
     @RequestMapping(value = "/searchUnapproveMessage/{condition}",method = RequestMethod.GET)
     @ResponseBody
     List<Message> searchSpecificMessage(@PathVariable String condition) {
-        try {
             int id = Integer.parseInt(condition);
             return messageService.searchSpecificMessage(id);
-        } catch(NumberFormatException e) {
-            System.out.println("catch");
-            throw e;
-        }
     }
 
     @RequestMapping(value = "/approveMessage/{temp}", method = RequestMethod.GET)
     @ResponseBody
     int updateCheckStatus(@PathVariable String temp) {
-       try {
            int id = Integer.parseInt(temp);
            return messageService.approveMessage(Integer.parseInt(temp));
-       }catch (NumberFormatException e) {
-           throw e;
-       }
 
     }
 

@@ -2,7 +2,6 @@ package com.proj.meethere.unitTest.serviceTest;
 
 import com.proj.meethere.dao.MessageRepositroy;
 import com.proj.meethere.entity.Message;
-import com.proj.meethere.service.MessageService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

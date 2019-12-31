@@ -1,7 +1,6 @@
 package com.proj.meethere.unitTest.controllerTest;
 
-import com.proj.meethere.controller.OrderController;
-import com.proj.meethere.service.OrderService;
+import com.proj.meethere.unitTest.serviceTest.OrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

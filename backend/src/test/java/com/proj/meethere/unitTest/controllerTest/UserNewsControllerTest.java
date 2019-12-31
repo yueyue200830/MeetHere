@@ -1,7 +1,6 @@
 package com.proj.meethere.unitTest.controllerTest;
 
-import com.proj.meethere.controller.UserNewsController;
-import com.proj.meethere.service.UserNewsService;
+import com.proj.meethere.unitTest.serviceTest.UserNewsService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,10 @@
-package com.proj.meethere.controller;
+package com.proj.meethere.unitTest.controllerTest;
 
-import com.proj.meethere.service.OrderService;
+import com.proj.meethere.unitTest.serviceTest.OrderService;
 import com.proj.meethere.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -29,35 +28,18 @@ public class OrderController {
     @RequestMapping(value = "/approveOrder/{temp}", method = RequestMethod.GET)
     @ResponseBody
     public int approveOrder(@PathVariable String temp) {
-        try{
             int id = Integer.parseInt(temp);
             return orderService.approveOrder(id);
-        } catch (NumberFormatException e) {
-            throw e;
-        }
 
     }
 
     @RequestMapping(value = "/searchUnapproveOrder/{condition}", method = RequestMethod.GET)
     @ResponseBody
     public List<Order> searchUnapproveOrder(@PathVariable String condition) {
-        try{
             int id = Integer.parseInt(condition);
             return orderService.searchUnapprovedOrder(id);
-        } catch (NumberFormatException e) {
-            System.out.println("catch");
-            throw e;
-        }
     }
 
-    @ExceptionHandler({NumberFormatException.class})
-    @ResponseBody
-    public ModelAndView handleException(NumberFormatException ex) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("error");
-        modelAndView.addObject("message",ex.getMessage());
-        return modelAndView;
-    }
 
 
 }

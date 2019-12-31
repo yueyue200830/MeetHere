@@ -1,7 +1,7 @@
-package com.proj.meethere.controller;
+package com.proj.meethere.unitTest.controllerTest;
 
 import com.proj.meethere.entity.Revenue;
-import com.proj.meethere.service.UserRevenueService;
+import com.proj.meethere.unitTest.serviceTest.UserRevenueService;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

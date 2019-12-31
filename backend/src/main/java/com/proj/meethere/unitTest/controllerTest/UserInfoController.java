@@ -1,6 +1,6 @@
-package com.proj.meethere.controller;
+package com.proj.meethere.unitTest.controllerTest;
 
-import com.proj.meethere.service.UserInfoService;
+import com.proj.meethere.unitTest.serviceTest.UserInfoService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -2,11 +2,8 @@ package com.proj.meethere.unitTest.controllerTest;
 
 import com.alibaba.fastjson.JSONObject;
 import com.proj.meethere.request.RevenueRequest;
-import com.proj.meethere.controller.OrderController;
-import com.proj.meethere.controller.RevenueController;
-import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.response.RevenueResponse;
-import com.proj.meethere.service.RevenueService;
+import com.proj.meethere.unitTest.serviceTest.RevenueService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
