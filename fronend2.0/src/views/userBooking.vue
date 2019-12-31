@@ -22,7 +22,7 @@
       </div>
       <el-button type="primary" icon="el-icon-search" @click="searchOrder">搜索</el-button>
     </div>
-    <table class="booking-table">
+    <table class="booking-table" v-loading="loading">
       <tr>
         <th class="table-th">时间段</th>
         <th v-for="i in revenueNumber" class="table-th" v-bind:key="i">{{ i }}号场</th>
@@ -77,7 +77,7 @@
           prop="phoneNumber"
           :rules="[
               { required: true, message: '手机号不可为空'},
-              { type: 'number', message: '手机号必须为数字'}
+              { min: 13000000000, max: 13999999999, type: 'number', message: '请输入11位手机号'}
             ]"
         >
           <el-input type="phoneNumber" v-model.number="addOrderForm.phoneNumber"/>
@@ -85,7 +85,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button class="button-cancel" @click="cancelOrder">取 消</el-button>
-        <el-button type="primary" @click="orderRevenue">确 定</el-button>
+        <el-button type="primary" @click="orderRevenue" :loading="formSubmitting">确 定</el-button>
       </div>
     </el-dialog>
   </el-main>
@@ -116,7 +116,9 @@ export default {
         time: null,
         timeSlot: null,
         phoneNumber: null
-      }
+      },
+      loading: false,
+      formSubmitting: false
     }
   },
   computed: {
@@ -128,12 +130,16 @@ export default {
     }
   },
   created: function () {
+    this.loading = true
     this.$http
       .post('/app/getVenueName')
       .then(response => {
         this.revenues = response.data[0]
         this.revenue = this.revenues[0]
         this.searchOrder()
+      })
+      .catch(error => {
+        this.$message.error('获取场馆失败！')
       })
   },
   methods: {
@@ -151,6 +157,7 @@ export default {
       this.addOrderForm.price = this.cost[time - 1][num - 1]
     },
     orderRevenue: function () {
+      this.formSubmitting = true
       this.$refs['addOrderForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -164,11 +171,22 @@ export default {
               this.addOrderVisibility = false
               if (response.data === 1) {
                 this.$router.push('order')
+              } else if (response.data === -1) {
+                this.$message.error('此时间已有人预定，请重新选择！')
+                this.searchOrder()
               } else {
                 this.$message.error('预定失败，请重试！')
                 this.searchOrder()
               }
             })
+            .catch(error => {
+              this.$message.error('预定失败，请重试！')
+            })
+            .finally(() => {
+              this.formSubmitting = false
+            })
+        } else {
+          this.formSubmitting = false
         }
       })
     },
@@ -177,6 +195,7 @@ export default {
       this.addOrderVisibility = false
     },
     searchOrder: function () {
+      this.loading = true
       this.$http
         .get('/app/getAvailable', {
           params: {
@@ -187,6 +206,12 @@ export default {
           this.cost = response.data.available
           this.timeSlot = response.data.available.length
           this.revenueNumber = response.data.available[0].length
+        })
+        .catch(error => {
+          this.$message.error('加载失败！')
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
     convertTime: function (time) {

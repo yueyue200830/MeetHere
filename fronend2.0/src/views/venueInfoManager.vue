@@ -36,7 +36,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
 
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -222,7 +222,7 @@
         };
       },
       addDialogClose(){
-        this.$refs['addDialogForm'].resetFields(); 
+        this.$refs['addDialogForm'].resetFields();
       },
       saveCheckResult () {
         var regNumber = /^\d+$/;

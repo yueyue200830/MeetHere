@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="1">
+
+  <testsuite name="test-user-register"
+    errors="0" failures="0" hostname="" id="" package="test-user-register" skipped="0"
+    tests="1" time="0.9350" timestamp="">
+  
+    <testcase name="test headline back to main page" classname="test-user-register" time="0.9350" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

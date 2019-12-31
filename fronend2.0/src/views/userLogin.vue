@@ -7,19 +7,23 @@
       <div class="user-title">
         用户登录
       </div>
-      <el-form :model="loginForm" ref="loginForm" class="login-form">
+      <el-form :model="loginForm" ref="loginForm" class="login-form" label-width="100px">
         <el-form-item
           label="用户名"
-          label-width="100px"
           :rules="[
               { required: true, message: '用户名不可为空'},
             ]"
-          prop="name">
-          <el-input type="name" v-model="loginForm.name" placeholder="请输入用户名"/>
+          prop="name"
+        >
+          <el-input
+            type="name"
+            v-model="loginForm.name"
+            placeholder="请输入用户名"
+            maxlength="22"
+          />
         </el-form-item>
         <el-form-item
           label="密码"
-          label-width="100px"
           :rules="[
               { required: true, message: '密码不可为空'},
             ]"
@@ -27,11 +31,14 @@
           <el-input
             type="password"
             placeholder="请输入密码"
-            v-model="loginForm.password">
+            v-model="loginForm.password"
+            show-password
+            maxlength="18"
+          >
           </el-input>
         </el-form-item>
         <el-form-item class="login-button">
-          <el-button type="primary" @click="login" class="login-button-submit">登录</el-button>
+          <el-button type="primary" @click="login" class="login-button-submit" :loading="LoggingIn">登录</el-button>
           <el-button @click="register">注册</el-button>
           <el-button type="text" @click="managerLogin">管理员登录</el-button>
         </el-form-item>
@@ -50,12 +57,14 @@ export default {
       loginForm: {
         name: '',
         password: ''
-      }
+      },
+      LoggingIn: false
     }
   },
   methods: {
     ...mapMutations(['userLogin']),
     login: function () {
+      this.LoggingIn = true
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -71,6 +80,14 @@ export default {
                 this.$message.error('用户名或密码错误，请重试！')
               }
             })
+            .catch(error => {
+              this.$message.error('登录失败，请重试！')
+            })
+            .finally(() => {
+              this.LoggingIn = false
+            })
+        } else {
+          this.LoggingIn = false
         }
       })
     },
@@ -126,11 +143,4 @@ export default {
     margin-top: 40px;
   }
 
-  .login-button-submit {
-    margin-left: 100px;
-  }
-
-  .el-button+.el-button {
-    margin-left: 10px;
-  }
 </style>

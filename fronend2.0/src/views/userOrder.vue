@@ -6,7 +6,9 @@
       <el-table
         :data="orderList"
         border
-        class="order-table">
+        class="order-table"
+        v-loading="loadingOrder"
+      >
         <el-table-column
           type="index"
           width="50">
@@ -77,7 +79,7 @@
         <span>确定删除此订单？</span>
         <span slot="footer" class="dialog-footer">
           <el-button class="button-cancel" @click="deleteDialogVisibility=false">取 消</el-button>
-          <el-button type="primary" @click="deleteOrder()">确 定</el-button>
+          <el-button type="primary" @click="deleteOrder()" :loading="deleteLoading">确 定</el-button>
         </span>
       </el-dialog>
       <el-dialog
@@ -94,7 +96,7 @@
             prop="newNumber"
             :rules="[
               { required: true, message: '手机号不可为空'},
-              { type: 'number', message: '手机号必须为数字'}
+              { min: 13000000000, max: 13999999999, type: 'number', message: '请输入11位手机号'}
             ]"
           >
             <el-input type="newNumber" v-model.number="changePhoneForm.newNumber" autocomplete="off"
@@ -103,7 +105,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button class="button-cancel" @click="cancelChangePhone">取 消</el-button>
-          <el-button type="primary" @click="changePhone()">确 定</el-button>
+          <el-button type="primary" @click="changePhone()" :loading="formSubmitting">确 定</el-button>
         </div>
       </el-dialog>
     </el-main>
@@ -118,6 +120,9 @@ export default {
       deleteDialogVisibility: false,
       changePhoneVisibility: false,
       deleteId: -1,
+      formSubmitting: false,
+      deleteLoading: false,
+      loadingOrder: false,
       changePhoneForm: {
         index: null,
         originalNumber: null,
@@ -143,6 +148,7 @@ export default {
   },
   methods: {
     getMyOrder: function () {
+      this.loadingOrder = true
       this.$http
         .get('/app/getMyOrder', {
           params: {
@@ -150,6 +156,12 @@ export default {
           } })
         .then(response => {
           this.orderList = response.data
+        })
+        .catch(error => {
+          this.$message.error('获取订单失败')
+        })
+        .finally(() => {
+          this.loadingOrder = false
         })
     },
     handleEdit: function (index, row) {
@@ -163,6 +175,7 @@ export default {
       this.deleteId = row.orderId
     },
     deleteOrder: function () {
+      this.deleteLoading = true
       this.$http
         .get('/app/deleteOrder', {
           params: {
@@ -180,8 +193,15 @@ export default {
             this.$message.error('删除订单失败，请重试！')
           }
         })
+        .catch(error => {
+          this.$message.error('删除订单失败，请重试！')
+        })
+        .finally(() => {
+          this.deleteLoading = false
+        })
     },
     changePhone: function () {
+      this.formSubmitting = true
       this.$refs['changePhoneForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -203,6 +223,14 @@ export default {
                 this.$message.error('修改失败，请重试！')
               }
             })
+            .catch(error => {
+              this.$message.error('修改失败，请重试！')
+            })
+            .finally(() => {
+              this.formSubmitting = false
+            })
+        } else {
+          this.formSubmitting = false
         }
       })
     },
@@ -236,13 +264,5 @@ export default {
 
   .phone-input {
     width: 250px;
-  }
-
-  .button-delete {
-    margin-left: 10px !important;
-  }
-
-  .button-cancel {
-    margin-right: 10px;
   }
 </style>

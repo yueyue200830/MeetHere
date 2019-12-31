@@ -2,7 +2,7 @@
 module.exports = {
   'test user navigator without logging in': browser => {
     browser
-      .init(browser.launchUrl + "user/main")
+      .init(browser.launchUrl + 'user/main')
       .assert.urlEquals(browser.launchUrl + 'user/main')
       .click('.el-menu-item:nth-child(2)')
       .assert.urlEquals(browser.launchUrl + 'user/revenue')
@@ -11,7 +11,8 @@ module.exports = {
       .click('.el-menu-item:nth-child(4)')
       .assert.urlEquals(browser.launchUrl + 'user/order')
       .click('.el-menu-item:nth-child(5)')
-      .pause(3000) // Wait for the message disappear
+      .waitForElementVisible('.el-message')
+      .waitForElementNotPresent('.el-message')
       .assert.urlEquals(browser.launchUrl + 'user/news')
       .click('.el-menu-item:nth-child(6)')
       .assert.urlEquals(browser.launchUrl + 'user/message')
@@ -38,17 +39,31 @@ module.exports = {
       .click('.el-menu-item:nth-child(1)')
       .assert.urlEquals(browser.launchUrl + 'user/main')
       .moveToElement('.el-submenu__title', null, null)
-      .pause(1000) // Wait for the menu to be opened
+      .waitForElementVisible('.el-menu--popup > .el-menu-item:nth-child(1)')
       .click('.el-menu--popup > .el-menu-item:nth-child(1)')
       .assert.urlEquals(browser.launchUrl + 'user/info')
+      .pause(500)
       .moveToElement('.el-submenu__title', null, null)
-      .pause(1000) // Wait for the menu to be opened
+      .waitForElementVisible('.el-menu--popup > .el-menu-item:nth-child(2)')
       .click('.el-menu--popup > .el-menu-item:nth-child(2)')
       .assert.urlEquals(browser.launchUrl + 'user/myMessage')
+      .pause(500)
       .moveToElement('.el-submenu__title', null, null)
-      .pause(1000) // Wait for the menu to be opened
+      .waitForElementVisible('.el-menu--popup > .el-menu-item:nth-child(3)')
       .click('.el-menu--popup > .el-menu-item:nth-child(3)')
       .assert.urlEquals(browser.launchUrl + 'user/main')
+      .end()
+  },
+
+  'test log out': browser => {
+    browser
+      .userLogin()
+      .moveToElement('.el-submenu__title', null, null)
+      .waitForElementVisible('.el-menu--popup > .el-menu-item:nth-child(3)')
+      .click('.el-menu--popup > .el-menu-item:nth-child(3)')
+      .assert.urlEquals(browser.launchUrl + 'user/main')
+      .waitForElementVisible('#app')
+      .assert.containsText('.el-header', '登录')
       .end()
   }
 }

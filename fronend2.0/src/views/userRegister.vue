@@ -9,18 +9,36 @@
       </div>
       <el-form :model="registerForm" status-icon :rules="rules" ref="registerForm" label-width="100px" class="register-form">
         <el-form-item label="用户名" prop="name">
-          <el-input type="name" v-model="registerForm.name" placeholder="请输入用户名"/>
+          <el-input
+            type="name"
+            v-model="registerForm.name"
+            maxlength="20"
+            minlength="4"
+            placeholder="请输入用户名"
+          />
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" placeholder="请输入密码" v-model="registerForm.password">
-          </el-input>
+          <el-input
+            type="password"
+            placeholder="请输入密码"
+            show-password
+            maxlength="16"
+            minlength="6"
+            v-model="registerForm.password"
+          />
         </el-form-item>
         <el-form-item label="确认密码" prop="confirmPassword">
-          <el-input type="password" placeholder="请确认密码" v-model="registerForm.confirmPassword">
-          </el-input>
+          <el-input
+            type="password"
+            placeholder="请确认密码"
+            show-password
+            maxlength="16"
+            minlength="6"
+            v-model="registerForm.confirmPassword"
+          />
         </el-form-item>
         <el-form-item class="register-button">
-          <el-button class="button-margin" type="primary" @click="register">注册</el-button>
+          <el-button class="button-margin" type="primary" @click="register" :loading="signningUp">注册</el-button>
           <el-button class="button-margin" @click="resetForm('registerForm')">重置</el-button>
           <el-button type="text" @click="login">登录</el-button>
         </el-form-item>
@@ -45,10 +63,18 @@ export default {
             } })
           .then(response => {
             if (response.data === 0) {
-              callback()
+              let nameVerifier = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{4,20}$/
+              if (nameVerifier.test(value)) {
+                callback()
+              } else {
+                callback(new Error('用户名不合法，请输入4-16个字符'))
+              }
             } else {
               callback(new Error('用户名已存在'))
             }
+          })
+          .catch(error => {
+            this.$message.error('验证用户名失败')
           })
       }
     }
@@ -56,7 +82,12 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        callback()
+        let passwordVerifier = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? _-]).*$/
+        if (passwordVerifier.test(value)) {
+          callback()
+        } else {
+          callback(new Error('输入6-16位密码，需包含大小写字母，数字和特殊字符'))
+        }
       }
     }
     const validatePassword = (rule, value, callback) => {
@@ -69,6 +100,7 @@ export default {
       }
     }
     return {
+      signningUp: false,
       registerForm: {
         name: '',
         password: '',
@@ -76,10 +108,10 @@ export default {
       },
       rules: {
         name: [
-          { validator: checkName, trigger: 'blur', required: true }
+          { validator: checkName, trigger: ['blur', 'change'], required: true }
         ],
         password: [
-          { validator: checkPassword, trigger: 'blur', required: true }
+          { validator: checkPassword, trigger: ['blur', 'change'], required: true }
         ],
         confirmPassword: [
           { validator: validatePassword, trigger: 'blur', required: true }
@@ -89,6 +121,7 @@ export default {
   },
   methods: {
     register: function () {
+      this.signningUp = true
       this.$refs['registerForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -103,6 +136,14 @@ export default {
                 this.$message.error('注册失败，请重试！')
               }
             })
+            .catch(error => {
+              this.$message.error('注册失败，请重试！')
+            })
+            .finally(() => {
+              this.signningUp = false
+            })
+        } else {
+          this.signningUp = false
         }
       })
     },
@@ -156,9 +197,5 @@ export default {
 
   .register-button {
     margin-top: 40px;
-  }
-
-  .button-margin {
-    margin-right: 10px;
   }
 </style>

@@ -48,25 +48,51 @@
             :inline="true"
           >
             <el-form-item label="用户名" prop="name">
-              <el-input v-model.number="userNameForm.name"/>
+              <el-input
+                type="name"
+                v-model.number="userNameForm.name"
+                maxlength="20"
+                minlength="4"
+                class="test"
+              />
             </el-form-item>
-            <el-button type="primary" @click="changeName('userNameForm')">
+            <el-button type="primary" @click="changeName('userNameForm')" :loading="submittingName">
               修改
             </el-button>
           </el-form>
           <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="100px">
             <div class="change-title">修改密码</div>
             <el-form-item label="原密码" prop="originalPass">
-              <el-input type="password" v-model="userForm.originalPass" autocomplete="off"/>
+              <el-input
+                type="password"
+                v-model="userForm.originalPass"
+                autocomplete="off"
+                show-password
+                maxlength="18"
+              />
             </el-form-item>
             <el-form-item label="新密码" prop="pass">
-              <el-input type="password" v-model="userForm.pass" autocomplete="off"/>
+              <el-input
+                type="password"
+                v-model="userForm.pass"
+                autocomplete="off"
+                show-password
+                maxlength="16"
+                minlength="6"
+              />
             </el-form-item>
             <el-form-item label="确认密码" prop="checkPass">
-              <el-input type="password" v-model="userForm.checkPass" autocomplete="off"/>
+              <el-input
+                type="password"
+                v-model="userForm.checkPass"
+                autocomplete="off"
+                show-password
+                maxlength="16"
+                minlength="6"
+              />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
+              <el-button type="primary" @click="submitForm('userForm')" :loading="submittingKey">提交</el-button>
               <el-button class="button-reset" @click="resetForm('userForm')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -96,10 +122,18 @@ export default {
             } })
           .then(response => {
             if (response.data === 0) {
-              callback()
+              let nameVerifier = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]{4,20}$/
+              if (nameVerifier.test(value)) {
+                callback()
+              } else {
+                callback(new Error('用户名不合法，请输入4-16个字符'))
+              }
             } else {
               callback(new Error('用户名已存在'))
             }
+          })
+          .catch(error => {
+            callback(new Error('检查用户名失败'))
           })
       }
     }
@@ -107,9 +141,6 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.userForm.checkPass !== '') {
-          this.$refs.userForm.validateField('checkPass')
-        }
         callback()
       }
     }
@@ -117,10 +148,12 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.userForm.checkPass !== '') {
-          this.$refs.userForm.validateField('checkPass')
+        let passwordVerifier = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? _-]).*$/
+        if (passwordVerifier.test(value)) {
+          callback()
+        } else {
+          callback(new Error('输入6-16位密码，需包含大小写字母，数字和特殊字符'))
         }
-        callback()
       }
     }
     const validatePass2 = (rule, value, callback) => {
@@ -143,7 +176,7 @@ export default {
       },
       nameRules: {
         name: [
-          { validator: checkName, trigger: 'blur' }
+          { validator: checkName, trigger: ['blur', 'change'] }
         ]
       },
       rules: {
@@ -151,7 +184,7 @@ export default {
           { validator: validateOriginalPass, trigger: 'blur' }
         ],
         pass: [
-          { validator: validatePass, trigger: 'blur' }
+          { validator: validatePass, trigger: ['blur', 'change'] }
         ],
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
@@ -162,7 +195,9 @@ export default {
       params: {
         id: null
       },
-      imgDataUrl: ''
+      imgDataUrl: '',
+      submittingName: false,
+      submittingKey: false
     }
   },
   computed: {
@@ -190,10 +225,14 @@ export default {
           this.userAvatar = response.data
         }
       })
+      .catch(error => {
+        this.$message.error('获取头像失败')
+      })
   },
   methods: {
     ...mapMutations(['changeUserName']),
     submitForm (formName) {
+      this.submittingKey = true
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$http
@@ -209,18 +248,33 @@ export default {
                   type: 'success'
                 })
                 this.resetForm(formName)
+              } else if (response.data === -1) {
+                this.$message.error('密码验证错误！')
               } else {
                 this.$message.error('修改失败，请重试！')
               }
             })
+            .catch(error => {
+              this.$message.error('修改失败，请重试！')
+            })
+            .finally(() => {
+              this.submittingKey = false
+            })
         } else {
+          this.submittingKey = false
           return false
         }
       })
     },
     changeName (formName) {
+      this.submittingName = true
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          if (this.userNameForm.name === this.userName) {
+            this.submittingName = false
+            this.$message.error('新用户名与原用户名相同，请更换用户名再提交！')
+            return
+          }
           this.$http
             .get('/app/updateUserNameById', {
               params: {
@@ -238,6 +292,14 @@ export default {
                 this.$message.error('修改失败，请重试！')
               }
             })
+            .catch(error => {
+              this.$message.error('修改失败，请重试！')
+            })
+            .finally(() => {
+              this.submittingName = false
+            })
+        } else {
+          this.submittingName = false
         }
       })
     },
@@ -306,13 +368,13 @@ export default {
     margin: 20px auto;
   }
 
-  .button-reset {
-    margin-left: 10px !important;
+  .change-title {
+    margin-bottom:20px;
+    margin-left: 80px;
+    font-size: 18px;
   }
 
-  .change-title {
-    margin-left: 40px;
-    margin-bottom:20px;
-    font-size: 18px;
+  .test {
+    width: 190px;
   }
 </style>

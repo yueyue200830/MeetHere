@@ -3,24 +3,26 @@
     <div class="user-title">
       我的留言
     </div>
-    <div class="main-card" v-for="comment in comments" :key="comment.id">
-      <el-card class="box-card" shadow="hover">
-        <div slot="header" class="headline">
-          <div class="title">{{ comment.messageTitle }}</div>
-          <div class="time">{{ convertTime(comment.messageTime) }}</div>
-          <el-link type="primary" class="edit-message" @click="editMessage(comment)">编辑</el-link>
-          <el-link type="primary" class="delete-message" @click="deleteMessage(comment.id)">删除</el-link>
-        </div>
-        <div class="card-content">
-          <div class="text">
-            {{ comment.messageContent }}
+    <div class="message-body" v-loading="loadingMessage">
+      <div class="main-card" v-for="comment in comments" :key="comment.id">
+        <el-card class="box-card" shadow="hover">
+          <div slot="header" class="headline">
+            <div class="title">{{ comment.messageTitle }}</div>
+            <div class="time">{{ convertTime(comment.messageTime) }}</div>
+            <el-link type="primary" class="edit-message" @click="editMessage(comment)">编辑</el-link>
+            <el-link type="primary" class="delete-message" @click="deleteMessage(comment.id)">删除</el-link>
           </div>
-          <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
-        </div>
-      </el-card>
+          <div class="card-content">
+            <div class="text">
+              {{ comment.messageContent }}
+            </div>
+            <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
+          </div>
+        </el-card>
+      </div>
     </div>
     <div class="more">
-      <el-button type="primary" :loading="false" @click="loadMore">
+      <el-button type="primary" :loading="loadingMore" @click="loadMore">
         更多
       </el-button>
     </div>
@@ -36,7 +38,7 @@
               { required: true, message: '标题不可为空'},
             ]"
           prop="messageTitle">
-          <el-input type="title" v-model="editMessageForm.messageTitle"/>
+          <el-input maxlength="50" type="title" v-model="editMessageForm.messageTitle"/>
         </el-form-item>
         <el-form-item
           label="内容"
@@ -49,13 +51,15 @@
             type="textarea"
             :autosize="{ minRows: 3, maxRows: 6}"
             placeholder="请输入内容"
-            v-model="editMessageForm.messageContent">
-          </el-input>
+            v-model="editMessageForm.messageContent"
+            maxlength="1000"
+            show-word-limit
+          />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button class="button-cancel" @click="cancelEditMessage">取 消</el-button>
-        <el-button type="primary" @click="sendEditMessage">确 定</el-button>
+        <el-button type="primary" @click="sendEditMessage" :loading="changingMessage">确 定</el-button>
       </div>
     </el-dialog>
   </el-main>
@@ -68,6 +72,9 @@ export default {
     return {
       comments: [],
       editMessageVisibility: false,
+      loadingMessage: false,
+      loadingMore: false,
+      changingMessage: false,
       editMessageForm: {
         id: '',
         messageTitle: '',
@@ -85,6 +92,7 @@ export default {
   },
   methods: {
     refresh: function () {
+      this.loadingMessage = true
       this.$http
         .get('/app/getMyMessage', {
           params: {
@@ -93,6 +101,12 @@ export default {
         })
         .then(response => {
           this.comments = response.data[0]
+        })
+        .catch(error => {
+          this.$message.error('刷新失败！')
+        })
+        .finally(() => {
+          this.loadingMessage = false
         })
     },
     convertTime: function (time) {
@@ -117,8 +131,15 @@ export default {
           if (response.data === 0) {
             this.$message.error('删除失败，请重试')
           } else {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
             this.refresh()
           }
+        })
+        .catch(error => {
+          this.$message.error('删除失败，请重试')
         })
     },
     editMessage: function (comment) {
@@ -128,6 +149,7 @@ export default {
       this.editMessageVisibility = true
     },
     loadMore: function () {
+      this.loadingMore = true
       this.$http
         .get('/app/getMoreMyMessage', {
           params: {
@@ -140,12 +162,19 @@ export default {
             this.comments.push(response.data[0][i])
           }
         })
+        .catch(error => {
+          this.$message.error('加载更多失败')
+        })
+        .finally(() => {
+          this.loadingMore = false
+        })
     },
     cancelEditMessage: function () {
       this.$refs['editMessageForm'].resetFields()
       this.editMessageVisibility = false
     },
     sendEditMessage: function () {
+      this.changingMessage = true
       this.$refs['editMessageForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -155,12 +184,25 @@ export default {
               } })
             .then(response => {
               if (response.data === 0) {
-                this.$message.error('添加失败')
+                this.$message.error('修改失败')
+              } else {
+                this.$message({
+                  message: '修改成功',
+                  type: 'success'
+                })
               }
               this.$refs['editMessageForm'].resetFields()
               this.editMessageVisibility = false
               this.refresh()
             })
+            .catch(error => {
+              this.$message.error('修改失败')
+            })
+            .finally(() => {
+              this.changingMessage = false
+            })
+        } else {
+          this.changingMessage = false
         }
       })
     }
@@ -197,22 +239,26 @@ export default {
     flex-grow: 1;
     margin-right: auto;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .time {
     margin-left: 10px;
+    margin-top: 2px;
+    flex-shrink: 0;
   }
 
   .edit-message {
     margin-left: 10px;
-    margin-top: 1px;
     font-size: 14px;
+    flex-shrink: 0;
   }
 
   .delete-message {
     margin-left: 10px;
-    margin-top: 1px;
     font-size: 14px;
+    flex-shrink: 0;
   }
 
   .card-content {
@@ -223,6 +269,7 @@ export default {
   .text {
     font-size: 14px;
     flex-grow: 1;
+    word-break: break-word;
   }
 
   .image {
@@ -238,8 +285,8 @@ export default {
     text-align: center;
   }
 
-  .button-cancel {
-    margin-right: 10px;
+  .message-body {
+    min-height: 40px;
   }
 
 </style>

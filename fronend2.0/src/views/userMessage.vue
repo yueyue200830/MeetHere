@@ -5,23 +5,25 @@
       </div>
       <el-button type="primary" icon="el-icon-refresh-right" circle class="refresh" @click="refresh"/>
       <el-button type="primary" icon="el-icon-plus" circle class="add-comment" @click="addMessageButton"/>
-      <div class="main-card" v-for="comment in comments" :key="comment.id">
-        <el-card class="box-card" shadow="hover">
-          <div slot="header" class="headline">
-            <div class="title">{{ comment.messageTitle }}</div>
-            <div class="user">{{ comment.user }}</div>
-            <div class="time">{{ convertTime(comment.messageTime) }}</div>
-          </div>
-          <div class="card-content">
-            <div class="text">
-              {{ comment.messageContent }}
+      <div v-loading="loadingMessage" class="message-div">
+        <div class="main-card" v-for="comment in comments" :key="comment.id">
+          <el-card class="box-card" shadow="hover">
+            <div slot="header" class="headline">
+              <div class="title">{{ comment.messageTitle }}</div>
+              <div class="user">{{ comment.user }}</div>
+              <div class="time">{{ convertTime(comment.messageTime) }}</div>
             </div>
-            <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
-          </div>
-        </el-card>
+            <div class="card-content">
+              <div class="text">
+                {{ comment.messageContent }}
+              </div>
+              <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
+            </div>
+          </el-card>
+        </div>
       </div>
       <div class="more">
-        <el-button type="primary" :loading="false" @click="loadMore">
+        <el-button type="primary" @click="loadMore" :loading="loadingMore">
           更多
         </el-button>
       </div>
@@ -29,10 +31,13 @@
         title="添加留言"
         :visible.sync="addMessageVisibility"
         width="50%">
-        <el-form :model="addMessageForm" ref="addMessageForm">
+        <el-form
+          :model="addMessageForm"
+          ref="addMessageForm"
+          label-width="90px"
+        >
           <el-form-item
             label="标题"
-            label-width="100px"
             :rules="[
               { required: true, message: '标题不可为空'},
             ]"
@@ -41,11 +46,11 @@
               type="title"
               v-model="addMessageForm.title"
               placeholder="请输入标题"
+              maxlength="50"
             />
           </el-form-item>
           <el-form-item
             label="内容"
-            label-width="100px"
             :rules="[
               { required: true, message: '内容不可为空'},
             ]"
@@ -54,13 +59,15 @@
               type="textarea"
               :autosize="{ minRows: 3, maxRows: 6}"
               placeholder="请输入内容"
-              v-model="addMessageForm.content">
-            </el-input>
+              maxlength="1000"
+              show-word-limit
+              v-model="addMessageForm.content"
+            />
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button class="button-cancel" @click="cancelAddMessage">取 消</el-button>
-          <el-button type="primary" @click="addMessage">确 定</el-button>
+          <el-button type="primary" @click="addMessage" :loading="submitting">确 定</el-button>
         </div>
       </el-dialog>
     </el-main>
@@ -73,6 +80,9 @@ export default {
     return {
       comments: [],
       addMessageVisibility: false,
+      loadingMessage: false,
+      submitting: false,
+      loadingMore: false,
       addMessageForm: {
         title: '',
         content: ''
@@ -80,7 +90,18 @@ export default {
     }
   },
   created: function () {
-    this.refresh()
+    this.loadingMessage = true
+    this.$http
+      .post('/app/getLatestMessage')
+      .then(response => {
+        this.comments = response.data[0]
+      })
+      .catch(error => {
+        this.$message.error('刷新失败')
+      })
+      .finally(() => {
+        this.loadingMessage = false
+      })
   },
   computed: {
     hasLoggedIn () {
@@ -92,6 +113,7 @@ export default {
   },
   methods: {
     loadMore: function () {
+      this.loadingMore = true
       this.$http
         .get('/app/getMoreMessage', {
           params: {
@@ -99,16 +121,34 @@ export default {
             number: 2
           } })
         .then(response => {
+          this.loadingMore = false
           for (let i = 0; i < response.data[0].length; i++) {
             this.comments.push(response.data[0][i])
           }
         })
+        .catch(error => {
+          this.$message.error('加载更多失败')
+        })
+        .finally(() => {
+          this.loadingMore = false
+        })
     },
     refresh: function () {
+      this.loadingMessage = true
       this.$http
         .post('/app/getLatestMessage')
         .then(response => {
           this.comments = response.data[0]
+          this.$message({
+            message: '刷新成功',
+            type: 'success'
+          })
+        })
+        .catch(error => {
+          this.$message.error('刷新失败')
+        })
+        .finally(() => {
+          this.loadingMessage = false
         })
     },
     convertTime: function (time) {
@@ -124,6 +164,7 @@ export default {
       return date.getFullYear() + '-' + mon + '-' + day + ' ' + hour + ':' + min
     },
     addMessage: function () {
+      this.submitting = true
       this.$refs['addMessageForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -135,11 +176,24 @@ export default {
             .then(response => {
               if (response.data === 0) {
                 this.$message.error('添加失败')
+              } else {
+                this.$message({
+                  message: '添加留言成功',
+                  type: 'success'
+                })
               }
               this.$refs['addMessageForm'].resetFields()
               this.addMessageVisibility = false
               this.refresh()
             })
+            .catch(error => {
+              this.$message.error('添加失败')
+            })
+            .finally(() => {
+              this.submitting = false
+            })
+        } else {
+          this.submitting = false
         }
       })
     },
@@ -184,7 +238,7 @@ export default {
   }
 
   .add-comment {
-    position: absolute;
+    position: fixed;
     right: 100px;
     bottom: 100px;
   }
@@ -204,6 +258,8 @@ export default {
     flex-grow: 1;
     margin-right: auto;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .user {
@@ -212,6 +268,7 @@ export default {
 
   .time {
     margin-left: 10px;
+    flex-shrink: 0;
   }
 
   .card-content {
@@ -222,6 +279,7 @@ export default {
   .text {
     font-size: 14px;
     flex-grow: 1;
+    word-break: break-word;
   }
 
   .image {
@@ -232,7 +290,7 @@ export default {
     margin-left: 10px;
   }
 
-  .button-cancel {
-    margin-right: 10px;
+  .message-div {
+    min-height: 40px;
   }
 </style>
