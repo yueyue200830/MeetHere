@@ -77,6 +77,7 @@ public class MessageInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
 

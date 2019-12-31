@@ -38,6 +38,7 @@ public class UserInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -55,6 +56,7 @@ public class UserInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -72,6 +74,7 @@ public class UserInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -88,6 +91,7 @@ public class UserInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("id")),
                 ()->assertTrue(jsonObject.keySet().contains("userName")),
                 ()->assertTrue(jsonObject.keySet().contains("userType")));
+        httpClient.close();
     }
 
     @Test
@@ -101,6 +105,7 @@ public class UserInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -117,5 +122,6 @@ public class UserInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("id")),
                 ()->assertTrue(jsonObject.keySet().contains("userName")),
                 ()->assertTrue(jsonObject.keySet().contains("userType")));
+        httpClient.close();
     }
 }

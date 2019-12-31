@@ -4,6 +4,7 @@ import com.proj.meethere.dao.RevenueRepository;
 import com.proj.meethere.entity.Revenue;
 import com.proj.meethere.response.RevenueResponse;
 import com.proj.meethere.service.RevenueService;
+import com.proj.meethere.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -168,7 +169,27 @@ public class RevenueServiceTest {
                 Arguments.of(null, null, 100, -1),
                 Arguments.of(null, "normal intro", -1, -1),
                 Arguments.of("normal name", null, -1, -1),
-                Arguments.of(null, null, -1,-1));
+                Arguments.of(null, null, -1,-1),
+                Arguments.of(TestUtils.generateString(41), "normal intro", 100, 10),
+                Arguments.of(TestUtils.generateString(41), "normal intro", -100, 10),
+                Arguments.of(TestUtils.generateString(41), "normal intro", 100, -10),
+                Arguments.of(TestUtils.generateString(41), "normal intro", -100, -10),
+                Arguments.of(TestUtils.generateString(41), null, 100, 10),
+                Arguments.of(TestUtils.generateString(41), null, -100, 10),
+                Arguments.of(TestUtils.generateString(41), null, 100, -10),
+                Arguments.of(TestUtils.generateString(41), null, -100, -10),
+                Arguments.of("normal name", TestUtils.generateString(1001), 100,10),
+                Arguments.of("normal name", TestUtils.generateString(1001), -100,10),
+                Arguments.of("normal name", TestUtils.generateString(1001), 100,-10),
+                Arguments.of("normal name", TestUtils.generateString(1001), -100,-10),
+                Arguments.of(null, TestUtils.generateString(1001), 100,10),
+                Arguments.of(null, TestUtils.generateString(1001), -100,10),
+                Arguments.of(null, TestUtils.generateString(1001), 100,-10),
+                Arguments.of(null, TestUtils.generateString(1001), -100,-10),
+                Arguments.of(TestUtils.generateString(41), TestUtils.generateString(1001), 100, 10),
+                Arguments.of(TestUtils.generateString(41),TestUtils.generateString(1001), -1, 10),
+                Arguments.of(TestUtils.generateString(41),TestUtils.generateString(1001), 100, -1),
+                Arguments.of(TestUtils.generateString(41),TestUtils.generateString(1001), -1, -1));
     }
     static List<Arguments> provideUpdateRevenueSource() {
         return Arrays.asList(Arguments.of(-1, 100, "normal intro"),
@@ -177,7 +198,11 @@ public class RevenueServiceTest {
                 Arguments.of(1, -100, null),
                 Arguments.of(-1, -100, "normal intro"),
                 Arguments.of(-1, 100, null),
-                Arguments.of(-1, -100, null));
+                Arguments.of(-1, -100, null),
+                Arguments.of(1, 100, TestUtils.generateString(1001)),
+                Arguments.of(1, -100, TestUtils.generateString(1001)),
+                Arguments.of(-1, -100, TestUtils.generateString(1001)),
+                Arguments.of(-1, 100, TestUtils.generateString(1001)));
     }
 
 }

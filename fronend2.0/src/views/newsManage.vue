@@ -79,6 +79,8 @@
 
 <script>
 import axios from 'axios'
+import _ from 'lodash'
+
 const addCheckResult = (checkResultForm) => axios.post('/app/addNews', checkResultForm)
 const getCheckResultById = (id) => axios.get(`/app/searchNews/${id}`)
 const modifyCheckResult = (checkResultForm) => axios.post('/app/modifyNews', checkResultForm)

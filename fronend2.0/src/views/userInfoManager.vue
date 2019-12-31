@@ -20,6 +20,8 @@
 
 <script>
 import axios from 'axios'
+import _ from 'lodash'
+
 const searchCheckResult = (condition) => axios.get(`/app/searchUser/${condition}`)
 const deleteCheckResultById = (temp) => axios.get(`/app/deleteUser/${temp}`)
 const getUserInfo = () => axios.post('/app/getUser')
@@ -108,14 +110,19 @@ export default {
         this.searchData = this.preData
         this.onAlertError('请输入搜索内容！')
       } else {
-        searchCheckResult(condition).then(data => {
+        try{
+          searchCheckResult(condition).then(data => {
+            this.loading = false
+            this.searchData = data.data
+            if (data.data.length) {
+              this.onAlertSuccess('搜索成功')
+            } else {
+              this.onAlertError('搜索失败')
+            }
+          })
+        }finally{
           this.loading = false
-          this.searchData = data.data
-          if (data.data.length) {
-          } else {
-            this.onAlertError('搜索失败')
-          }
-        })
+        }
       }
     },
 

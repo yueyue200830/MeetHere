@@ -4,6 +4,7 @@ import com.proj.meethere.dao.NewsRepository;
 import com.proj.meethere.entity.News;
 import com.proj.meethere.request.NewsRequest;
 import com.proj.meethere.service.NewsService;
+import com.proj.meethere.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -162,7 +163,12 @@ public class NewsServiceTest {
     static List<Arguments> provideAddExceptionSource() {
         return Arrays.asList(Arguments.of(null,"normal title","photo"),
                 Arguments.of("normal content", null, "photo"),
-                Arguments.of(null, null, "photo"));
+                Arguments.of(null, null, "photo"),
+                Arguments.of(TestUtils.generateString(1001),"normal title", "photo"),
+                Arguments.of(TestUtils.generateString(1001),null, "photo"),
+                Arguments.of("normal content", TestUtils.generateString(51), "photo"),
+                Arguments.of(null, TestUtils.generateString(51), "photo"),
+                Arguments.of(TestUtils.generateString(1001), TestUtils.generateString(51), "photo"));
     }
 
     static List<Arguments> provideUpdateExceptionSource() {

@@ -43,6 +43,7 @@ public class NewsInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("newsTitle")),
                 ()->assertTrue(jsonObject.keySet().contains("newsPhoto")),
                 ()->assertTrue(jsonObject.keySet().contains("title")));
+        httpClient.close();
     }
 
     @Test
@@ -56,6 +57,7 @@ public class NewsInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -73,6 +75,7 @@ public class NewsInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -92,6 +95,7 @@ public class NewsInterfaceTest {
                 ()->assertTrue(jsonObject.keySet().contains("newsTitle")),
                 ()->assertTrue(jsonObject.keySet().contains("newsPhoto")),
                 ()->assertTrue(jsonObject.keySet().contains("title")));
+        httpClient.close();
     }
 
     @Test
@@ -109,6 +113,7 @@ public class NewsInterfaceTest {
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == 1 || result == 0));
+        httpClient.close();
     }
 
     @Test
@@ -122,5 +127,6 @@ public class NewsInterfaceTest {
         String result = TestUtils.inputStream2String(inputStream);
         assertAll(()->assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode()),
                 ()->assertTrue(result == null || result.length() != 0));
+        httpClient.close();
     }
 }

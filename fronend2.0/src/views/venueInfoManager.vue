@@ -66,8 +66,8 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="房间数量" prop="roomNum" :rules="{required:true,message:'房间数量不可为空'}">
-                <el-input v-model="addDialogForm.roomNum" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
+              <el-form-item label="房间数量" prop="rvnRoomNum" :rules="{required:true,message:'房间数量不可为空'}">
+                <el-input v-model="addDialogForm.rvnRoomNum" :disabled="addDialogForm.isDelete" :placeholder="$placeholder.input"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -91,7 +91,9 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
+  import _ from 'lodash'
+
   const searchCheckResult = (condition) => axios.get(`/app/searchVenue/${condition}`);
   const getCheckResultById = (id) => axios.get(`/app/checkVenue/${id}`);
   const modifyCheckResult = (checkResultForm) => axios.post('/app/modifyVenue', checkResultForm);
@@ -146,7 +148,7 @@
           rvnName:'',
           rvnPrice: '',
           rvnIntro: '',
-          roomNum:''
+          rvnRoomNum:''
         },
         dialogTypeForm: {
           title: '修改场馆信息',
@@ -164,10 +166,6 @@
       };
     },
     methods:{
-      addType() {
-        this.dialogTypeForm.title = '添加场馆';
-        this.showDialogType = true;
-      },
       searchTable (condition) {
         this.loading = true;
         condition=this.$refs.table.searchCondition;
@@ -177,29 +175,38 @@
           this.searchData=this.preData;
           this.onAlertError("请输入搜索内容！");
         }else{
-          searchCheckResult(condition).then(data => {
-            this.loading = false;
-            this.searchData=data.data;
-            if (data.data.length === 0) {
-              this.onAlertError('搜索失败');
-            }
-          });
+          try{
+            searchCheckResult(condition).then(data => {
+              this.loading = false;
+              this.searchData=data.data;
+              if (data.data.length) {
+                this.onAlertSuccess('搜索成功');
+              } else {
+                this.onAlertError('搜索失败');
+              }
+            });
+          }finally{
+            this.loading = false
+          }
         }
       },
       viewTypeDetail(id, action) {
         this.loading = true;   //调试中，调试结束后把注释符号去掉
-        getCheckResultById(id).then(data => {
+        try{
+          getCheckResultById(id).then(data => {
+            this.loading = false;
+            if (data) {
+              this.dialogTypeForm.id = data.data[0].id;
+              this.dialogTypeForm.rvnPrice = data.data[0].rvnPrice;
+              this.dialogTypeForm.rvnIntro = data.data[0].rvnIntro;
+              this.showDialogType = true;
+            } else {
+              this.onAlertError('搜索失败');
+            }
+          });
+        }finally{
           this.loading = false;
-          if (data) {
-            // todo
-            this.dialogTypeForm.id = data.data[0].id;
-            this.dialogTypeForm.rvnPrice = data.data[0].rvnPrice;
-            this.dialogTypeForm.rvnIntro = data.data[0].rvnIntro;
-            this.showDialogType = true;
-          } else {
-            this.onAlertError('搜索失败');
-          }
-        });
+        }
       },
       addType() {
         this.showAddDialogForm = true;
@@ -245,22 +252,27 @@
       },
       addVenue(){
         var regNumber = /^\d+$/;//正则表达式判断
-        var flag = regNumber.test(this.addDialogForm.rvnPrice) && regNumber.test(this.addDialogForm.roomNum);
+        var flag = regNumber.test(this.addDialogForm.rvnPrice) && regNumber.test(this.addDialogForm.rvnRoomNum);
         this.$refs['addDialogForm'].validate((valid) => {
           if(valid && flag){
             this.loading = true;
-            addVenueManager(this.addDialogForm).then(data => {
-              this.loading = false;
-              if(data.data){
-                getVenueInfo().then(data => {
-                  this.searchData=data.data;
-                  this.preData=data.data;
-                })
-              }else{
-                this.onAlertError("添加失败");
-              }
-              this.showAddDialogForm = false;
-            })
+            try{
+              addVenueManager(this.addDialogForm).then(data => {
+                this.loading = false;
+                if(data.data){
+                  this.onAlertSuccess("添加成功");
+                  getVenueInfo().then(data => {
+                    this.searchData=data.data;
+                    this.preData=data.data;
+                  })
+                }else{
+                  this.onAlertError("添加失败");
+                }
+                this.showAddDialogForm = false;
+              })
+            }finally{
+              this.loading = false
+            }
           }else{
             this.onAlertError("输入格式不正确！");
           }

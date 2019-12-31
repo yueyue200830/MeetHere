@@ -4,6 +4,7 @@ import com.proj.meethere.response.UserResponse;
 import com.proj.meethere.service.UserService;
 import com.proj.meethere.dao.UserRepository;
 import com.proj.meethere.entity.User;
+import com.proj.meethere.utils.TestUtils;
 import org.junit.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -187,12 +188,31 @@ public class UserServiceTest {
                 Arguments.of(null, null, "new key"),
                 Arguments.of(null, "normal name", null),
                 Arguments.of("old key", null, null),
-                Arguments.of(null, null, null));
+                Arguments.of(null, null, null),
+                Arguments.of(TestUtils.generateString(26), "normal name", "normal key"),
+                Arguments.of("old key", TestUtils.generateString(21), "normal key"),
+                Arguments.of("old key", "normal name", TestUtils.generateString(26)),
+                Arguments.of(null, TestUtils.generateString(21), null),
+                Arguments.of(null, TestUtils.generateString(21), "normal key"),
+                Arguments.of("old key", TestUtils.generateString(21), null),
+                Arguments.of(TestUtils.generateString(26), null, "normal key"),
+                Arguments.of(TestUtils.generateString(26), "normal name", null),
+                Arguments.of(TestUtils.generateString(26), null, null),
+                Arguments.of(TestUtils.generateString(26), null, TestUtils.generateString(26)),
+                Arguments.of(TestUtils.generateString(26), "normal name", TestUtils.generateString(26)),
+                Arguments.of("old key", TestUtils.generateString(21),TestUtils.generateString(26)),
+                Arguments.of(null, TestUtils.generateString(21),TestUtils.generateString(26)),
+                Arguments.of(TestUtils.generateString(26), TestUtils.generateString(21), TestUtils.generateString(26)));
     }
 
     static List<Arguments> provideManageValidSource() {
         return Arrays.asList(Arguments.of(null, "normal key"),
                 Arguments.of("normal name", null),
-                Arguments.of(null, null));
+                Arguments.of(null, null),
+                Arguments.of(TestUtils.generateString(21), "normal key"),
+                Arguments.of(TestUtils.generateString(21), null),
+                Arguments.of("normal name", TestUtils.generateString(26)),
+                Arguments.of(null, TestUtils.generateString(26)),
+                Arguments.of(TestUtils.generateString(21), TestUtils.generateString(26)));
     }
 }
