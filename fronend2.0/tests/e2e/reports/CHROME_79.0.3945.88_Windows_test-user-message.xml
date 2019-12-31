@@ -1,13 +1,153 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites errors="0"
             failures="0"
-            tests="1">
+            tests="9">
 
   <testsuite name="test-user-message"
     errors="0" failures="0" hostname="" id="" package="test-user-message" skipped="0"
-    tests="1" time="1.503" timestamp="">
+    tests="9" time="69.18" timestamp="">
   
-    <testcase name="press refresh button" classname="test-user-message" time="1.503" assertions="3">
+    <testcase name="load user message page" classname="test-user-message" time="0.9360" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="press refresh button" classname="test-user-message" time="5.966" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="press button" classname="test-user-message" time="10.50" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="should not be allowed to add message" classname="test-user-message" time="6.293" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test form close button" classname="test-user-message" time="7.823" assertions="8">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test form cancel button" classname="test-user-message" time="8.302" assertions="11">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="add message successfully" classname="test-user-message" time="8.189" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="add empty message" classname="test-user-message" time="7.884" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="add long message" classname="test-user-message" time="13.28" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
 

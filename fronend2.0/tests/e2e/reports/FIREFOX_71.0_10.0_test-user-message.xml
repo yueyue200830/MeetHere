@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="8">
+
+  <testsuite name="test-user-message"
+    errors="0" failures="0" hostname="" id="" package="test-user-message" skipped="0"
+    tests="8" time="41.05" timestamp="">
+  
+    <testcase name="load user message page" classname="test-user-message" time="1.728" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="press refresh button" classname="test-user-message" time="3.350" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="should not be allowed to add message" classname="test-user-message" time="4.464" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test form close button" classname="test-user-message" time="6.548" assertions="8">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test form cancel button" classname="test-user-message" time="6.368" assertions="11">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="add message successfully" classname="test-user-message" time="5.788" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="add empty message" classname="test-user-message" time="6.495" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="add long message" classname="test-user-message" time="6.308" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

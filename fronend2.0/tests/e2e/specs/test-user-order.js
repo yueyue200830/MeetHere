@@ -37,8 +37,9 @@ module.exports = {
       .userLogin()
       .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
-      .click('.el-table__row:nth-child(1) .el-button--default')
       .pause(1000)
+      .click('.el-table__row:nth-child(1) .el-button--default')
+      .waitForElementVisible('.el-dialog')
       .setValue('input[type=newNumber]', '13265498569')
       .click('.el-dialog__footer:nth-child(3) .el-button--primary')
       .waitForElementVisible('.el-message')
@@ -52,8 +53,9 @@ module.exports = {
       .userLogin()
       .url(browser.launchUrl + 'user/order')
       .waitForElementVisible('#app')
-      .click('.el-table__row:nth-child(1) .el-button--default')
       .pause(1000)
+      .click('.el-table__row:nth-child(1) .el-button--default')
+      .waitForElementVisible('.el-dialog')
       .click('.el-dialog__footer:nth-child(3) .el-button--primary')
       .pause(2000)
       .assert.containsText('.el-form-item__error', '手机号不可为空')
@@ -80,21 +82,28 @@ module.exports = {
       .end()
   },
 
-  // todo: cannot delete phone number successfully
-  // 'enter and delete phone number': browser => {
-  //   browser
-  //     .userLogin()
-  //     .url(browser.launchUrl + 'user/order')
-  //     .waitForElementVisible('#app')
-  //     .click('.el-table__row:nth-child(1) .el-button--default')
-  //     .waitForElementVisible('.el-dialog__wrapper:nth-child(4) .el-dialog__header')
-  //     .setValue('input[type=newNumber]', '98765432112')
-  //     .clearValue('input[type=newNumber]')
-  //     // .click('.el-dialog__footer:nth-child(3) .button-cancel')
-  //     .pause(2000)
-  //     // .assert.containsText('.el-form-item__error', '手机号不可为空')
-  //     .end()
-  // },
+  'enter and delete phone number': browser => {
+    browser
+      .userLogin()
+      .url(browser.launchUrl + 'user/order')
+      .waitForElementVisible('#app')
+      .click('.el-table__row:nth-child(1) .el-button--default')
+      .waitForElementVisible('.el-dialog__wrapper:nth-child(4) .el-dialog__header')
+      .setValue('input[type=newNumber]', '13123456789')
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .keys(browser.Keys.BACK_SPACE)
+      .assert.containsText('.el-form-item__error', '手机号不可为空')
+      .end()
+  },
 
   'change short phone number': browser => {
     browser
@@ -109,7 +118,7 @@ module.exports = {
       .end()
   },
 
-  'change short long number': browser => {
+  'change long phone number': browser => {
     browser
       .userLogin()
       .url(browser.launchUrl + 'user/order')

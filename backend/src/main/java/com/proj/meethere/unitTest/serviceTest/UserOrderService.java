@@ -26,6 +26,12 @@ public class UserOrderService {
 
     public int addNewOrder(int userId, String phone, String rvnName, int room, int slot, String date, int price) {
         int rvnId = revenueRepository.searchIdByName(rvnName);
+        List<Order> orders = orderRepository.selectOrderByRevenueAndDate(rvnId, date);
+        for (Order order : orders) {
+            if (order.getTimeSlot() == slot && order.getRvnRoomNum() == room) {
+                return -1;
+            }
+        }
         return orderRepository.insertNewOrder(userId, phone, rvnId, room, slot, date, price);
     }
 

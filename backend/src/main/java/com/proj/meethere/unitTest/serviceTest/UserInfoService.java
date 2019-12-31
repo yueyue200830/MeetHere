@@ -50,7 +50,12 @@ public class UserInfoService {
     }
 
     public int insertNewUser(String userName, String userPass, int userType) {
-        return userRepository.insertNewUser(userName, userPass, userType, null);
+        List<User> users = userRepository.selectUserByName(userName);
+        if (users.isEmpty()) {
+            return userRepository.insertNewUser(userName, userPass, userType, null);
+        } else {
+            return -1;
+        }
     }
 
     public int loginValidation(String userName, String userKey) {

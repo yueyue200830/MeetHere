@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="8">
+
+  <testsuite name="test-user-login"
+    errors="0" failures="0" hostname="" id="" package="test-user-login" skipped="0"
+    tests="8" time="25.34" timestamp="">
+  
+    <testcase name="load user login page" classname="test-user-login" time="1.698" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="user login successfully" classname="test-user-login" time="4.011" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="empty enter" classname="test-user-login" time="3.292" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="wrong password" classname="test-user-login" time="3.282" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="wrong user name" classname="test-user-login" time="3.289" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test sign up button" classname="test-user-login" time="3.270" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test manager login button" classname="test-user-login" time="3.237" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="test headline back to main page" classname="test-user-login" time="3.262" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>
