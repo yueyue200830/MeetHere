@@ -239,21 +239,26 @@ export default {
     flex-grow: 1;
     margin-right: auto;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .time {
     margin-left: 10px;
     margin-top: 2px;
+    flex-shrink: 0;
   }
 
   .edit-message {
     margin-left: 10px;
     font-size: 14px;
+    flex-shrink: 0;
   }
 
   .delete-message {
     margin-left: 10px;
     font-size: 14px;
+    flex-shrink: 0;
   }
 
   .card-content {
@@ -264,6 +269,7 @@ export default {
   .text {
     font-size: 14px;
     flex-grow: 1;
+    word-break: break-word;
   }
 
   .image {

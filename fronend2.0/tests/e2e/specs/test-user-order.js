@@ -39,11 +39,11 @@ module.exports = {
       .waitForElementVisible('#app')
       .click('.el-table__row:nth-child(1) .el-button--default')
       .pause(1000)
-      .setValue('input[type=newNumber]', '98765432112')
+      .setValue('input[type=newNumber]', '13265498569')
       .click('.el-dialog__footer:nth-child(3) .el-button--primary')
-      .pause(2000)
+      .waitForElementVisible('.el-message')
       .assert.containsText('.el-message', '修改成功')
-      .assert.containsText('.el-table__row:nth-child(1) > .el-table_1_column_7', '98765432112')
+      .assert.containsText('.el-table__row:nth-child(1) > .el-table_1_column_7', '13265498569')
       .end()
   },
 
@@ -96,7 +96,57 @@ module.exports = {
   //     .end()
   // },
 
-  // todo: enter invalid phone number
+  'change short phone number': browser => {
+    browser
+      .userLogin()
+      .url(browser.launchUrl + 'user/order')
+      .waitForElementVisible('#app')
+      .click('.el-table__row:nth-child(1) .el-button--default')
+      .pause(1000)
+      .setValue('input[type=newNumber]', '1326')
+      .click('.el-dialog__footer:nth-child(3) .el-button--primary')
+      .assert.containsText('.el-form-item__error', '请输入11位手机号')
+      .end()
+  },
+
+  'change short long number': browser => {
+    browser
+      .userLogin()
+      .url(browser.launchUrl + 'user/order')
+      .waitForElementVisible('#app')
+      .click('.el-table__row:nth-child(1) .el-button--default')
+      .pause(1000)
+      .setValue('input[type=newNumber]', '132612345678')
+      .click('.el-dialog__footer:nth-child(3) .el-button--primary')
+      .assert.containsText('.el-form-item__error', '请输入11位手机号')
+      .end()
+  },
+
+  'change small long number': browser => {
+    browser
+      .userLogin()
+      .url(browser.launchUrl + 'user/order')
+      .waitForElementVisible('#app')
+      .click('.el-table__row:nth-child(1) .el-button--default')
+      .pause(1000)
+      .setValue('input[type=newNumber]', '12999999999')
+      .click('.el-dialog__footer:nth-child(3) .el-button--primary')
+      .assert.containsText('.el-form-item__error', '请输入11位手机号')
+      .end()
+  },
+
+  'change large long number': browser => {
+    browser
+      .userLogin()
+      .url(browser.launchUrl + 'user/order')
+      .waitForElementVisible('#app')
+      .click('.el-table__row:nth-child(1) .el-button--default')
+      .pause(1000)
+      .setValue('input[type=newNumber]', '14000000000')
+      .click('.el-dialog__footer:nth-child(3) .el-button--primary')
+      .assert.containsText('.el-form-item__error', '请输入11位手机号')
+      .end()
+  },
 
   'delete order': browser => {
     browser

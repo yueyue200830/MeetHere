@@ -11,18 +11,6 @@ module.exports = {
       .end()
   },
 
-  'register': browser => {
-    browser
-      .url(browser.launchUrl + 'user/register')
-      .waitForElementVisible('#app')
-      .setValue('input[type=name]', 'test-user')
-      .setValue('.el-form-item:nth-child(2) .el-input__inner', '123456')
-      .setValue('.el-form-item:nth-child(3) .el-input__inner', '123456')
-      .click('.el-button--primary')
-      .assert.urlEquals(browser.launchUrl + 'user/login')
-      .end()
-  },
-
   'empty input': browser => {
     browser
       .url(browser.launchUrl + 'user/register')
@@ -59,6 +47,28 @@ module.exports = {
   },
 
   // todo: test invalid user name and password
+
+  'test invalid user name': browser => {
+    browser
+      .url(browser.launchUrl + 'user/register')
+      .waitForElementVisible('#app')
+      .setValue('input[type=name]', 'a')
+      .click('.el-button--primary')
+      .assert.containsText('.el-form-item:nth-child(1) .el-form-item__error', '用户名已存在')
+      .end()
+  },
+
+  'register': browser => {
+    browser
+      .url(browser.launchUrl + 'user/register')
+      .waitForElementVisible('#app')
+      .setValue('input[type=name]', 'test-user')
+      .setValue('.el-form-item:nth-child(2) .el-input__inner', '123456aA-')
+      .setValue('.el-form-item:nth-child(3) .el-input__inner', '123456aA-')
+      .click('.el-button--primary')
+      .assert.urlEquals(browser.launchUrl + 'user/login')
+      .end()
+  },
 
   'test reset button': browser => {
     browser

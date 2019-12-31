@@ -5,9 +5,15 @@
 
   <testsuite name="test-user-myMessage"
     errors="0" failures="0" hostname="" id="" package="test-user-myMessage" skipped="0"
-    tests="1" time="1.832" timestamp="">
+    tests="1" time="9.623" timestamp="">
   
-    <testcase name="load user message page" classname="test-user-myMessage" time="1.832" assertions="7">
+    <testcase name="edit message with long input " classname="test-user-myMessage" time="9.623" assertions="10">
+
+    
+
+    
+
+    
 
     
 

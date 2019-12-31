@@ -40,6 +40,35 @@ module.exports = {
       .end()
   },
 
+  'edit message with long input ': browser => {
+    let message = ''
+    for (let i = 0; i  < 60; i++) {
+      message += 'a'
+    }
+    let content = ''
+    for (let i = 0; i  < 110; i++) {
+      content += '0123456789'
+    }
+    browser
+      .userLogin()
+      .url(browser.launchUrl + 'user/myMessage')
+      .waitForElementVisible('#app')
+      .waitForElementVisible('.main-card:nth-child(2)')
+      .click('.main-card:nth-child(3) .edit-message > .el-link--inner')
+      .waitForElementVisible('.el-dialog')
+      .assert.containsText('.el-dialog__title', '修改留言')
+      .clearValue('.el-input__inner')
+      .setValue('.el-input__inner', '修改留言-系统测试')
+      .setValue('.el-input__inner', message)
+      .clearValue('.el-textarea__inner')
+      .setValue('.el-textarea__inner', '修改留言内容-系统测试')
+      .setValue('.el-textarea__inner', content)
+      .click('.el-button:nth-child(2)')
+      .waitForElementVisible('.el-message')
+      .assert.containsText('.el-message', '修改成功')
+      .end()
+  },
+
   // todo: enter empty
 
   'close edit form': browser => {

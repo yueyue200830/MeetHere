@@ -90,7 +90,18 @@ export default {
     }
   },
   created: function () {
-    this.refresh()
+    this.loadingMessage = true
+    this.$http
+      .post('/app/getLatestMessage')
+      .then(response => {
+        this.comments = response.data[0]
+      })
+      .catch(error => {
+        this.$message.error('刷新失败')
+      })
+      .finally(() => {
+        this.loadingMessage = false
+      })
   },
   computed: {
     hasLoggedIn () {
@@ -128,6 +139,10 @@ export default {
         .post('/app/getLatestMessage')
         .then(response => {
           this.comments = response.data[0]
+          this.$message({
+            message: '刷新成功',
+            type: 'success'
+          })
         })
         .catch(error => {
           this.$message.error('刷新失败')
@@ -243,6 +258,8 @@ export default {
     flex-grow: 1;
     margin-right: auto;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .user {
@@ -251,6 +268,7 @@ export default {
 
   .time {
     margin-left: 10px;
+    flex-shrink: 0;
   }
 
   .card-content {
@@ -261,6 +279,7 @@ export default {
   .text {
     font-size: 14px;
     flex-grow: 1;
+    word-break: break-word;
   }
 
   .image {
