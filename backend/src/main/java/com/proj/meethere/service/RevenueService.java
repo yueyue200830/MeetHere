@@ -73,7 +73,11 @@ public class RevenueService {
         if(rvnIntro == null || price < 0 || rvnName == null|| roomNum < 0 || rvnIntro.length() > 1000 || rvnName.length() > 40) {
             return 0;
         } else {
-            return  revenueRepository.insertNewRevenue(rvnName, roomNum, price, rvnIntro);
+            if(revenueRepository.searchDuplicateByName(rvnName).size() != 0) {
+                return 0;
+            } else {
+                return revenueRepository.insertNewRevenue(rvnName, roomNum, price, rvnIntro);
+            }
         }
     }
 

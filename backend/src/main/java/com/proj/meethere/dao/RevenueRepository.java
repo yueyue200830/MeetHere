@@ -28,6 +28,9 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer> {
     @Query(value = "select id from revenue where rvn_name=:name", nativeQuery = true)
     int searchIdByName(@Param("name") String name);
 
+    @Query(value = "select * from revenue where rvn_name=:name", nativeQuery = true)
+    List<Revenue> searchDuplicateByName(@Param("name") String name);
+
     @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "Update revenue set rvn_price = :rvn_price, rvn_intro = :rvn_intro where id = :id",nativeQuery = true)
