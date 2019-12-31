@@ -10,11 +10,15 @@ import org.apache.http.impl.client.HttpClients;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.stream.Stream;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,9 +41,9 @@ public class UserInfoInterfaceTest {
         httpClient.close();
     }
 
-    @Test
-    void should_return_0_or_1_when_check_name() throws URISyntaxException, IOException {
-        String userName = "taomisi";
+    @ParameterizedTest
+    @MethodSource("existNameProvider")
+    void should_return_0_or_1_when_check_name(String userName) throws URISyntaxException, IOException {
         URI uri = new URIBuilder().setScheme("http")
                 .setHost("localhost:8081")
                 .setPath("/checkUserNameExist")
@@ -53,14 +57,14 @@ public class UserInfoInterfaceTest {
         InputStream inputStream = response.getEntity().getContent();
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
 
-        assertTrue(result == 1 || result == 0);
+        assertTrue(result == 1);
 
         response.close();
     }
 
     @Test
     void should_return_0_or_1_when_check_my_name() throws URISyntaxException, IOException {
-        String userName = "taomisi";
+        String userName = "admin";
         int id = 1;
         URI uri = new URIBuilder().setScheme("http")
                 .setHost("localhost:8081")
@@ -167,5 +171,10 @@ public class UserInfoInterfaceTest {
         assertTrue(result >= -1);
 
         response.close();
+    }
+
+    static Stream<Arguments> existNameProvider() {
+        return Stream.of(Arguments.of("admin"),
+                Arguments.of("ballballtang"));
     }
 }
