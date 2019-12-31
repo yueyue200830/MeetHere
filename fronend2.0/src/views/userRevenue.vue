@@ -3,14 +3,16 @@
     <div class="user-title">
       场馆介绍
     </div>
-    <div class="main-card" v-for="revenue in revenues" :key="revenue.id">
-      <el-card class="box-card" shadow="hover">
-        <div slot="header" class="headline">
-          <div class="name">{{ revenue.rvnName }}</div>
-          <div class="price">单价：{{ revenue.rvnPrice }}元/时</div>
-        </div>
-        {{ revenue.rvnIntro }}
-      </el-card>
+    <div v-loading="loadingRevenue">
+      <div class="main-card" v-for="revenue in revenues" :key="revenue.id">
+        <el-card class="box-card" shadow="hover">
+          <div slot="header" class="headline">
+            <div class="name">{{ revenue.rvnName }}</div>
+            <div class="price">单价：{{ revenue.rvnPrice }}元/时</div>
+          </div>
+          {{ revenue.rvnIntro }}
+        </el-card>
+      </div>
     </div>
   </el-main>
 </template>
@@ -20,14 +22,17 @@ export default {
   name: 'userRevenue',
   data () {
     return {
+      loadingRevenue: false,
       revenues: []
     }
   },
   created: function () {
+    this.loadingRevenue = true
     this.$http
       .post('/app/getVenueUserPage')
       .then(response => {
         this.revenues = response.data[0]
+        this.loadingRevenue = false
       })
   }
 }

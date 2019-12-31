@@ -3,24 +3,26 @@
     <div class="user-title">
       我的留言
     </div>
-    <div class="main-card" v-for="comment in comments" :key="comment.id">
-      <el-card class="box-card" shadow="hover">
-        <div slot="header" class="headline">
-          <div class="title">{{ comment.messageTitle }}</div>
-          <div class="time">{{ convertTime(comment.messageTime) }}</div>
-          <el-link type="primary" class="edit-message" @click="editMessage(comment)">编辑</el-link>
-          <el-link type="primary" class="delete-message" @click="deleteMessage(comment.id)">删除</el-link>
-        </div>
-        <div class="card-content">
-          <div class="text">
-            {{ comment.messageContent }}
+    <div class="message-body" v-loading="loadingMessage">
+      <div class="main-card" v-for="comment in comments" :key="comment.id">
+        <el-card class="box-card" shadow="hover">
+          <div slot="header" class="headline">
+            <div class="title">{{ comment.messageTitle }}</div>
+            <div class="time">{{ convertTime(comment.messageTime) }}</div>
+            <el-link type="primary" class="edit-message" @click="editMessage(comment)">编辑</el-link>
+            <el-link type="primary" class="delete-message" @click="deleteMessage(comment.id)">删除</el-link>
           </div>
-          <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
-        </div>
-      </el-card>
+          <div class="card-content">
+            <div class="text">
+              {{ comment.messageContent }}
+            </div>
+            <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
+          </div>
+        </el-card>
+      </div>
     </div>
     <div class="more">
-      <el-button type="primary" :loading="false" @click="loadMore">
+      <el-button type="primary" :loading="loadingMore" @click="loadMore">
         更多
       </el-button>
     </div>
@@ -57,7 +59,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button class="button-cancel" @click="cancelEditMessage">取 消</el-button>
-        <el-button type="primary" @click="sendEditMessage">确 定</el-button>
+        <el-button type="primary" @click="sendEditMessage" :loading="changingMessage">确 定</el-button>
       </div>
     </el-dialog>
   </el-main>
@@ -70,6 +72,9 @@ export default {
     return {
       comments: [],
       editMessageVisibility: false,
+      loadingMessage: false,
+      loadingMore: false,
+      changingMessage: false,
       editMessageForm: {
         id: '',
         messageTitle: '',
@@ -87,6 +92,7 @@ export default {
   },
   methods: {
     refresh: function () {
+      this.loadingMessage = true
       this.$http
         .get('/app/getMyMessage', {
           params: {
@@ -95,6 +101,7 @@ export default {
         })
         .then(response => {
           this.comments = response.data[0]
+          this.loadingMessage = false
         })
     },
     convertTime: function (time) {
@@ -134,6 +141,7 @@ export default {
       this.editMessageVisibility = true
     },
     loadMore: function () {
+      this.loadingMore = true
       this.$http
         .get('/app/getMoreMyMessage', {
           params: {
@@ -142,6 +150,7 @@ export default {
             userId: this.userId
           } })
         .then(response => {
+          this.loadingMore = false
           for (let i = 0; i < response.data[0].length; i++) {
             this.comments.push(response.data[0][i])
           }
@@ -152,6 +161,7 @@ export default {
       this.editMessageVisibility = false
     },
     sendEditMessage: function () {
+      this.changingMessage = true
       this.$refs['editMessageForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -160,6 +170,7 @@ export default {
                 'editMessageForm': this.editMessageForm
               } })
             .then(response => {
+              this.changingMessage = false
               if (response.data === 0) {
                 this.$message.error('修改失败')
               } else {
@@ -172,6 +183,8 @@ export default {
               this.editMessageVisibility = false
               this.refresh()
             })
+        } else {
+          this.changingMessage = false
         }
       })
     }
@@ -246,6 +259,10 @@ export default {
   .more {
     margin: 20px;
     text-align: center;
+  }
+
+  .message-body {
+    min-height: 40px;
   }
 
 </style>

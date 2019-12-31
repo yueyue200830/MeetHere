@@ -6,7 +6,9 @@
       <el-table
         :data="orderList"
         border
-        class="order-table">
+        class="order-table"
+        v-loading="loadingOrder"
+      >
         <el-table-column
           type="index"
           width="50">
@@ -77,7 +79,7 @@
         <span>确定删除此订单？</span>
         <span slot="footer" class="dialog-footer">
           <el-button class="button-cancel" @click="deleteDialogVisibility=false">取 消</el-button>
-          <el-button type="primary" @click="deleteOrder()">确 定</el-button>
+          <el-button type="primary" @click="deleteOrder()" :loading="deleteLoading">确 定</el-button>
         </span>
       </el-dialog>
       <el-dialog
@@ -103,7 +105,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button class="button-cancel" @click="cancelChangePhone">取 消</el-button>
-          <el-button type="primary" @click="changePhone()">确 定</el-button>
+          <el-button type="primary" @click="changePhone()" :loading="formSubmitting">确 定</el-button>
         </div>
       </el-dialog>
     </el-main>
@@ -118,6 +120,9 @@ export default {
       deleteDialogVisibility: false,
       changePhoneVisibility: false,
       deleteId: -1,
+      formSubmitting: false,
+      deleteLoading: false,
+      loadingOrder: false,
       changePhoneForm: {
         index: null,
         originalNumber: null,
@@ -143,12 +148,14 @@ export default {
   },
   methods: {
     getMyOrder: function () {
+      this.loadingOrder = true
       this.$http
         .get('/app/getMyOrder', {
           params: {
             'id': this.userId
           } })
         .then(response => {
+          this.loadingOrder = false
           this.orderList = response.data
         })
     },
@@ -163,12 +170,14 @@ export default {
       this.deleteId = row.orderId
     },
     deleteOrder: function () {
+      this.deleteLoading = true
       this.$http
         .get('/app/deleteOrder', {
           params: {
             'deleteOrderId': this.deleteId
           } })
         .then(response => {
+          this.deleteLoading = false
           this.deleteDialogVisibility = false
           this.getMyOrder()
           if (response.data === 1) {
@@ -182,6 +191,7 @@ export default {
         })
     },
     changePhone: function () {
+      this.formSubmitting = true
       this.$refs['changePhoneForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -191,6 +201,7 @@ export default {
                 'id': this.changePhoneForm.orderId
               } })
             .then(response => {
+              this.formSubmitting = false
               this.$refs['changePhoneForm'].resetFields()
               this.changePhoneVisibility = false
               this.getMyOrder()
@@ -203,6 +214,8 @@ export default {
                 this.$message.error('修改失败，请重试！')
               }
             })
+        } else {
+          this.formSubmitting = false
         }
       })
     },

@@ -22,7 +22,7 @@
       </div>
       <el-button type="primary" icon="el-icon-search" @click="searchOrder">搜索</el-button>
     </div>
-    <table class="booking-table">
+    <table class="booking-table" v-loading="loading">
       <tr>
         <th class="table-th">时间段</th>
         <th v-for="i in revenueNumber" class="table-th" v-bind:key="i">{{ i }}号场</th>
@@ -69,7 +69,7 @@
         <el-form-item
           label="价格"
           label-width="100px">
-          <el-input v-model="addOrderForm.price" readonly/>
+          <el-input v-model="addOrderForm.price" disabled/>
         </el-form-item>
         <el-form-item
           label="手机号"
@@ -85,7 +85,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button class="button-cancel" @click="cancelOrder">取 消</el-button>
-        <el-button type="primary" @click="orderRevenue">确 定</el-button>
+        <el-button type="primary" @click="orderRevenue" :loading="formSubmitting">确 定</el-button>
       </div>
     </el-dialog>
   </el-main>
@@ -116,7 +116,9 @@ export default {
         time: null,
         timeSlot: null,
         phoneNumber: null
-      }
+      },
+      loading: false,
+      formSubmitting: false
     }
   },
   computed: {
@@ -128,6 +130,7 @@ export default {
     }
   },
   created: function () {
+    this.loading = true
     this.$http
       .post('/app/getVenueName')
       .then(response => {
@@ -151,6 +154,7 @@ export default {
       this.addOrderForm.price = this.cost[time - 1][num - 1]
     },
     orderRevenue: function () {
+      this.formSubmitting = true
       this.$refs['addOrderForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -160,6 +164,7 @@ export default {
                 'id': this.userId
               } })
             .then(response => {
+              this.formSubmitting = false
               this.$refs['addOrderForm'].resetFields()
               this.addOrderVisibility = false
               if (response.data === 1) {
@@ -172,6 +177,8 @@ export default {
                 this.searchOrder()
               }
             })
+        } else {
+          this.formSubmitting = false
         }
       })
     },
@@ -180,6 +187,7 @@ export default {
       this.addOrderVisibility = false
     },
     searchOrder: function () {
+      this.loading = true
       this.$http
         .get('/app/getAvailable', {
           params: {
@@ -190,6 +198,7 @@ export default {
           this.cost = response.data.available
           this.timeSlot = response.data.available.length
           this.revenueNumber = response.data.available[0].length
+          this.loading = false
         })
     },
     convertTime: function (time) {

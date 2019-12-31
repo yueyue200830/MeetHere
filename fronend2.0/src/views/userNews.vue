@@ -3,7 +3,7 @@
     <div class="user-title">
       新闻
     </div>
-    <el-collapse accordion class="news-part">
+    <el-collapse accordion class="news-part" v-loading="loadingNews">
       <el-collapse-item v-for="news in newsList" :key="news.id">
         <template slot="title">
           <div class="news-title">
@@ -29,14 +29,17 @@ export default {
   name: 'userNews',
   data () {
     return {
+      loadingNews: false,
       newsList: []
     }
   },
   created: function () {
+    this.loadingNews = true
     this.$http
       .post('/app/getNewsUserPage')
       .then(response => {
         this.newsList = response.data
+        this.loadingNews = false
       })
   },
   methods: {

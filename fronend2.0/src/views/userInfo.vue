@@ -53,9 +53,10 @@
                 v-model.number="userNameForm.name"
                 maxlength="20"
                 minlength="4"
+                class="test"
               />
             </el-form-item>
-            <el-button type="primary" @click="changeName('userNameForm')">
+            <el-button type="primary" @click="changeName('userNameForm')" :loading="submittingName">
               修改
             </el-button>
           </el-form>
@@ -91,7 +92,7 @@
               />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
+              <el-button type="primary" @click="submitForm('userForm')" :loading="submittingKey">提交</el-button>
               <el-button class="button-reset" @click="resetForm('userForm')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -191,7 +192,9 @@ export default {
       params: {
         id: null
       },
-      imgDataUrl: ''
+      imgDataUrl: '',
+      submittingName: false,
+      submittingKey: false
     }
   },
   computed: {
@@ -223,6 +226,7 @@ export default {
   methods: {
     ...mapMutations(['changeUserName']),
     submitForm (formName) {
+      this.submittingKey = true
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$http
@@ -232,6 +236,7 @@ export default {
                 updateForm: this.userForm
               } })
             .then(response => {
+              this.submittingKey = false
               if (response.data === 1) {
                 this.$message({
                   message: '修改成功',
@@ -245,14 +250,17 @@ export default {
               }
             })
         } else {
+          this.submittingKey = false
           return false
         }
       })
     },
     changeName (formName) {
+      this.submittingName = true
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.userNameForm.name === this.userName) {
+            this.submittingName = false
             this.$message.error('新用户名与原用户名相同，请更换用户名再提交！')
             return
           }
@@ -263,6 +271,7 @@ export default {
                 newName: this.userNameForm.name
               } })
             .then(response => {
+              this.submittingName = false
               if (response.data === 1) {
                 this.$message({
                   message: '修改成功',
@@ -273,6 +282,8 @@ export default {
                 this.$message.error('修改失败，请重试！')
               }
             })
+        } else {
+          this.submittingName = false
         }
       })
     },
@@ -343,6 +354,11 @@ export default {
 
   .change-title {
     margin-bottom:20px;
+    margin-left: 80px;
     font-size: 18px;
+  }
+
+  .test {
+    width: 190px;
   }
 </style>

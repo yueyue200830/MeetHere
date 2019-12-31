@@ -36,7 +36,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
 
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -180,14 +180,11 @@
           searchCheckResult(condition).then(data => {
             this.loading = false;
             this.searchData=data.data;
-            if (data.data.length) {
-            } else {
+            if (data.data.length === 0) {
               this.onAlertError('搜索失败');
             }
           });
         }
-
-
       },
       viewTypeDetail(id, action) {
         this.loading = true;   //调试中，调试结束后把注释符号去掉
@@ -218,7 +215,7 @@
         };
       },
       addDialogClose(){
-        this.$refs['addDialogForm'].resetFields(); 
+        this.$refs['addDialogForm'].resetFields();
       },
       saveCheckResult () {
         var regNumber = /^\d+$/;

@@ -38,7 +38,7 @@
           />
         </el-form-item>
         <el-form-item class="register-button">
-          <el-button class="button-margin" type="primary" @click="register">注册</el-button>
+          <el-button class="button-margin" type="primary" @click="register" :loading="signningUp">注册</el-button>
           <el-button class="button-margin" @click="resetForm('registerForm')">重置</el-button>
           <el-button type="text" @click="login">登录</el-button>
         </el-form-item>
@@ -97,6 +97,7 @@ export default {
       }
     }
     return {
+      signningUp: false,
       registerForm: {
         name: '',
         password: '',
@@ -117,6 +118,7 @@ export default {
   },
   methods: {
     register: function () {
+      this.signningUp = true
       this.$refs['registerForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -125,12 +127,15 @@ export default {
                 form: this.registerForm
               } })
             .then(response => {
+              this.signningUp = false
               if (response.data !== -1) {
                 this.$router.push('login')
               } else {
                 this.$message.error('注册失败，请重试！')
               }
             })
+        } else {
+          this.signningUp = false
         }
       })
     },

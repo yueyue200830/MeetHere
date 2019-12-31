@@ -38,7 +38,7 @@
           </el-input>
         </el-form-item>
         <el-form-item class="login-button">
-          <el-button type="primary" @click="login" class="login-button-submit">登录</el-button>
+          <el-button type="primary" @click="login" class="login-button-submit" :loading="LoggingIn">登录</el-button>
           <el-button @click="register">注册</el-button>
           <el-button type="text" @click="managerLogin">管理员登录</el-button>
         </el-form-item>
@@ -57,12 +57,14 @@ export default {
       loginForm: {
         name: '',
         password: ''
-      }
+      },
+      LoggingIn: false
     }
   },
   methods: {
     ...mapMutations(['userLogin']),
     login: function () {
+      this.LoggingIn = true
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -71,6 +73,7 @@ export default {
                 login: this.loginForm
               } })
             .then(response => {
+              this.LoggingIn = false
               if (response.data !== -1) {
                 this.userLogin({ Authorization: response.data, name: this.loginForm.name })
                 this.$router.push('main')
@@ -78,6 +81,8 @@ export default {
                 this.$message.error('用户名或密码错误，请重试！')
               }
             })
+        } else {
+          this.LoggingIn = false
         }
       })
     },

@@ -58,7 +58,7 @@
           :lg="{span: 18, offset: 3}"
           :xl="{span: 14, offset: 5}"
         >
-          <el-row :gutter="20">
+          <el-row :gutter="20" v-loading="loadingNews">
             <el-col
               :xs="24"
               :sm="{span: 8, offset: 0}"
@@ -92,10 +92,16 @@ export default {
   data () {
     return {
       revenue: ['篮球馆', '足球馆', '乒乓球馆', '羽毛球馆'],
-      newsList: []
+      loadingNews: false,
+      newsList: [{
+        newsPhoto: '',
+        newsTitle: '',
+        newsContent: ''
+      }]
     }
   },
   created: function () {
+    this.loadingNews = true
     this.$http
       .post('/app/getVenueName')
       .then(response => {
@@ -105,6 +111,7 @@ export default {
       .post('/app/getNewsThree')
       .then(response => {
         this.newsList = response.data
+        this.loadingNews = false
       })
   },
   methods: {

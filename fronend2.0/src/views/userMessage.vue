@@ -5,23 +5,25 @@
       </div>
       <el-button type="primary" icon="el-icon-refresh-right" circle class="refresh" @click="refresh"/>
       <el-button type="primary" icon="el-icon-plus" circle class="add-comment" @click="addMessageButton"/>
-      <div class="main-card" v-for="comment in comments" :key="comment.id">
-        <el-card class="box-card" shadow="hover">
-          <div slot="header" class="headline">
-            <div class="title">{{ comment.messageTitle }}</div>
-            <div class="user">{{ comment.user }}</div>
-            <div class="time">{{ convertTime(comment.messageTime) }}</div>
-          </div>
-          <div class="card-content">
-            <div class="text">
-              {{ comment.messageContent }}
+      <div v-loading="loadingMessage" class="message-div">
+        <div class="main-card" v-for="comment in comments" :key="comment.id">
+          <el-card class="box-card" shadow="hover">
+            <div slot="header" class="headline">
+              <div class="title">{{ comment.messageTitle }}</div>
+              <div class="user">{{ comment.user }}</div>
+              <div class="time">{{ convertTime(comment.messageTime) }}</div>
             </div>
-            <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
-          </div>
-        </el-card>
+            <div class="card-content">
+              <div class="text">
+                {{ comment.messageContent }}
+              </div>
+              <el-image class="image" fit="contain" v-if="comment.image != null" :src="comment.image" />
+            </div>
+          </el-card>
+        </div>
       </div>
       <div class="more">
-        <el-button type="primary" :loading="false" @click="loadMore">
+        <el-button type="primary" @click="loadMore" :loading="loadingMore">
           更多
         </el-button>
       </div>
@@ -65,7 +67,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button class="button-cancel" @click="cancelAddMessage">取 消</el-button>
-          <el-button type="primary" @click="addMessage">确 定</el-button>
+          <el-button type="primary" @click="addMessage" :loading="submitting">确 定</el-button>
         </div>
       </el-dialog>
     </el-main>
@@ -78,6 +80,9 @@ export default {
     return {
       comments: [],
       addMessageVisibility: false,
+      loadingMessage: false,
+      submitting: false,
+      loadingMore: false,
       addMessageForm: {
         title: '',
         content: ''
@@ -97,6 +102,7 @@ export default {
   },
   methods: {
     loadMore: function () {
+      this.loadingMore = true
       this.$http
         .get('/app/getMoreMessage', {
           params: {
@@ -104,16 +110,19 @@ export default {
             number: 2
           } })
         .then(response => {
+          this.loadingMore = false
           for (let i = 0; i < response.data[0].length; i++) {
             this.comments.push(response.data[0][i])
           }
         })
     },
     refresh: function () {
+      this.loadingMessage = true
       this.$http
         .post('/app/getLatestMessage')
         .then(response => {
           this.comments = response.data[0]
+          this.loadingMessage = false
         })
     },
     convertTime: function (time) {
@@ -129,6 +138,7 @@ export default {
       return date.getFullYear() + '-' + mon + '-' + day + ' ' + hour + ':' + min
     },
     addMessage: function () {
+      this.submitting = true
       this.$refs['addMessageForm'].validate((valid) => {
         if (valid) {
           this.$http
@@ -138,6 +148,7 @@ export default {
                 'id': this.userId
               } })
             .then(response => {
+              this.submitting = false
               if (response.data === 0) {
                 this.$message.error('添加失败')
               } else {
@@ -150,6 +161,8 @@ export default {
               this.addMessageVisibility = false
               this.refresh()
             })
+        } else {
+          this.submitting = false
         }
       })
     },
@@ -242,7 +255,7 @@ export default {
     margin-left: 10px;
   }
 
-  .button-cancel {
-    margin-right: 10px;
+  .message-div {
+    min-height: 40px;
   }
 </style>
