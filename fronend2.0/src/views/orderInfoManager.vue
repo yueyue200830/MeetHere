@@ -33,12 +33,12 @@ export default {
       valueData: [],
       showEcharts: false,
       chartOption: {
-        grid: { left: 30, top: 30, right: 30, bottom: 30 },
+        grid: { left: 30, top: 30, right: 10, bottom: 80 },
         xAxis: {
           type: 'category',
           axisLine: { show: false },
           axisTick: { show: false },
-          axisLabel: { color: '#7383A2' },
+          axisLabel: { color: '#7383A2', interval:0 },
           data: []
         },
         yAxis: [
@@ -142,9 +142,9 @@ export default {
     getVenueNameForChart().then(data => {
       this.chartOption.xAxis.data = data.data
     })
-    if(this.showEcharts == false){
-      this.onAlertError("该日没有订单数据");
-    }
+    // if(this.showEcharts == false){
+    //   this.onAlertError("该日没有订单数据");
+    // }
   }
 }
 </script>
