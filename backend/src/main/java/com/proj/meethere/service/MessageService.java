@@ -1,4 +1,4 @@
-package com.proj.meethere.unitTest.serviceTest;
+package com.proj.meethere.service;
 
 import com.proj.meethere.dao.MessageRepositroy;
 import com.proj.meethere.entity.Message;

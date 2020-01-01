@@ -1,9 +1,9 @@
-package com.proj.meethere.unitTest.controllerTest;
+package com.proj.meethere.controller;
 
 import com.proj.meethere.request.UserModifyPassword;
 import com.proj.meethere.request.UserRequest;
 import com.proj.meethere.response.UserResponse;
-import com.proj.meethere.unitTest.serviceTest.UserService;
+import com.proj.meethere.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

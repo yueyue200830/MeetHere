@@ -1,7 +1,7 @@
 package com.proj.meethere.controller;
 
 import com.proj.meethere.request.NewsRequest;
-import com.proj.meethere.unitTest.serviceTest.NewsService;
+import com.proj.meethere.service.NewsService;
 import com.alibaba.fastjson.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;

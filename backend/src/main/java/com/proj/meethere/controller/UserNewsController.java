@@ -1,7 +1,7 @@
-package com.proj.meethere.unitTest.controllerTest;
+package com.proj.meethere.controller;
 
 import com.proj.meethere.entity.News;
-import com.proj.meethere.unitTest.serviceTest.UserNewsService;
+import com.proj.meethere.service.UserNewsService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

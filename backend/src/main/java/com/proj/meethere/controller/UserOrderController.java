@@ -1,6 +1,6 @@
-package com.proj.meethere.unitTest.controllerTest;
+package com.proj.meethere.controller;
 
-import com.proj.meethere.unitTest.serviceTest.UserOrderService;
+import com.proj.meethere.service.UserOrderService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
