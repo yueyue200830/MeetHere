@@ -37,7 +37,7 @@ public class NewsController {
     @RequestMapping(value = "/modifyNews", method = RequestMethod.POST)
     @ResponseBody
     public int updateNews(@RequestBody NewsRequest newsRequest) throws SQLException {
-        System.out.println("noe modify news" );
+//        System.out.println("noe modify news" );
         return newsService.updateNews(newsRequest.getNewsContent(), newsRequest.getNewsTitle(), newsRequest.getNewsPhoto(), newsRequest.getId());
     }
 

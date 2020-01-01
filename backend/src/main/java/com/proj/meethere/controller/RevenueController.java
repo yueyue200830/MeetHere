@@ -49,7 +49,7 @@ public class RevenueController {
     @RequestMapping(value = "/modifyVenue", method = RequestMethod.POST)
     @ResponseBody
     public int modifyVenue(@RequestBody RevenueResponse revenueResponse) {
-        System.out.println(revenueResponse.getRvnPrice());
+        //System.out.println(revenueResponse.getRvnPrice());
         return revenueService.modifyRevenue(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());
     }
 

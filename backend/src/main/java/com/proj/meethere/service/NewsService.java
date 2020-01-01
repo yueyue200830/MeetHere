@@ -63,7 +63,7 @@ public class NewsService {
             return new ArrayList<NewsRequest>();
         } else {
             List<News> newsList = newsRepository.selectSpecificNews(id);
-            System.out.println(newsList.get(0).getId());
+//            System.out.println(newsList.get(0).getId());
             List<NewsRequest> newsRequestList = new ArrayList<>();
             for (News news : newsList) {
                 NewsRequest newsRequest = new NewsRequest();
@@ -88,7 +88,7 @@ public class NewsService {
         if(content == null || title == null || content.length() > 1000 || title.length() > 50) {
             return 0;
         }
-            System.out.println(content);
+//            System.out.println(content);
              return newsRepository.insertNews(content, photo, title);
     }
     public String getPhotoById(int id) throws SQLException, UnsupportedEncodingException {
