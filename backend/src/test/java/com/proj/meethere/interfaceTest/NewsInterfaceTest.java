@@ -82,7 +82,7 @@ public class NewsInterfaceTest {
     public void should_search_news() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         UriComponents uriComponents = UriComponentsBuilder.fromUriString("http://localhost:8081//searchNews/{id}").build();
-        URI uri = uriComponents.expand("115").encode().toUri();
+        URI uri = uriComponents.expand("9").encode().toUri();
         HttpGet httpGet = new HttpGet(uri);
         HttpResponse httpResponse = httpClient.execute(httpGet);
         InputStream inputStream = httpResponse.getEntity().getContent();
@@ -120,7 +120,7 @@ public class NewsInterfaceTest {
     public void should_select_photo_by_id() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         UriComponents uriComponents = UriComponentsBuilder.fromUriString("http://localhost:8081/getPhoto/{id}").build();
-        URI uri = uriComponents.expand("115").encode().toUri();
+        URI uri = uriComponents.expand("9").encode().toUri();
         HttpGet httpGet = new HttpGet(uri);
         HttpResponse httpResponse = httpClient.execute(httpGet);
         InputStream inputStream = httpResponse.getEntity().getContent();

@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RevenueController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.proj.meethere.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RevenueController (com.proj.meethere.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RevenueController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.proj.meethere.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import com.proj.meethere.request.RevenueRequest;
+<i>5</i>&nbsp;import com.proj.meethere.response.RevenueResponse;
+<i>6</i>&nbsp;import com.proj.meethere.service.RevenueService;
+<i>7</i>&nbsp;import com.proj.meethere.entity.Revenue;
+<i>8</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>9</i>&nbsp;import org.springframework.stereotype.Controller;
+<i>10</i>&nbsp;import org.springframework.web.bind.annotation.*;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * @Author Yiqing Tao
+<i>15</i>&nbsp; * @Date 2019-10-29
+<i>16</i>&nbsp; * Revenue Controller
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp;@Controller
+<i>19</i>&nbsp;@CrossOrigin(origins = &quot;*&quot;)
+<b class="fc"><i>20</i>&nbsp;public class RevenueController {</b>
+<i>21</i>&nbsp;    @Autowired
+<i>22</i>&nbsp;    private RevenueService revenueService;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @RequestMapping(value = &quot;/getVenue&quot;, method = RequestMethod.POST)
+<i>25</i>&nbsp;    @ResponseBody
+<i>26</i>&nbsp;    List&lt;Revenue&gt; getAllVenue() {
+<b class="fc"><i>27</i>&nbsp;       return revenueService.getAllRevenue();</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @RequestMapping(value = &quot;/searchVenue/{condition}&quot;, method = RequestMethod.GET)
+<i>31</i>&nbsp;    @ResponseBody
+<i>32</i>&nbsp;    public List&lt;Revenue&gt; searchVenue(@PathVariable String condition) {
+<b class="fc"><i>33</i>&nbsp;            int id = Integer.parseInt(condition);</b>
+<b class="fc"><i>34</i>&nbsp;            return revenueService.searchRevenue(Integer.parseInt(condition));</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    @RequestMapping(value = &quot;/addVenueManager&quot;, method = RequestMethod.POST)
+<i>39</i>&nbsp;    @ResponseBody
+<i>40</i>&nbsp;    public int addNewVenue(@RequestBody RevenueRequest revenueRequest) {
+<b class="fc"><i>41</i>&nbsp;        return revenueService.addRevenue(revenueRequest.getRvnIntro(), revenueRequest.getRvnPrice(), revenueRequest.getRvnName(), revenueRequest.getRvnRoomNum());</b>
+<i>42</i>&nbsp;    }
+<i>43</i>&nbsp;    @RequestMapping(value = &quot;/checkVenue/{temp}&quot;, method = RequestMethod.GET)
+<i>44</i>&nbsp;    @ResponseBody
+<i>45</i>&nbsp;    public List&lt;RevenueResponse&gt; checkVenue(@PathVariable String temp) {
+<b class="fc"><i>46</i>&nbsp;       return revenueService.getRevenue(Integer.parseInt(temp));</b>
+<i>47</i>&nbsp;    }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    @RequestMapping(value = &quot;/modifyVenue&quot;, method = RequestMethod.POST)
+<i>50</i>&nbsp;    @ResponseBody
+<i>51</i>&nbsp;    public int modifyVenue(@RequestBody RevenueResponse revenueResponse) {
+<i>52</i>&nbsp;        //System.out.println(revenueResponse.getRvnPrice());
+<b class="fc"><i>53</i>&nbsp;        return revenueService.modifyRevenue(revenueResponse.getRvnPrice(), revenueResponse.getRvnIntro(), revenueResponse.getId());</b>
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    @RequestMapping(value = &quot;/getVenueNameForChart&quot;, method = RequestMethod.POST)
+<i>57</i>&nbsp;    @ResponseBody
+<i>58</i>&nbsp;    public List&lt;String&gt; getVenueName() {
+<b class="fc"><i>59</i>&nbsp;        return revenueService.getVenueName();</b>
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    @RequestMapping(value = &quot;/getStatistic/{value}&quot;, method = RequestMethod.GET)
+<i>63</i>&nbsp;    @ResponseBody
+<i>64</i>&nbsp;    public List&lt;Integer&gt; getOrderNum(@PathVariable String value) {
+<b class="fc"><i>65</i>&nbsp;        return revenueService.getOrderNum(value);</b>
+<i>66</i>&nbsp;    }
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-02 15:38</div>
+</div>
+</body>
+</html>

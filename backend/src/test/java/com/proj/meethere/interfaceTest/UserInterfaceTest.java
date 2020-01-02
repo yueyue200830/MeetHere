@@ -63,7 +63,7 @@ public class UserInterfaceTest {
     public void admin_should_login() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String url = "http://localhost:8081/modifyManagerPassword";
-        String json = "{\"user_name\":\"momo\", \"oldPassword\":\"123456\",\"newPassword\":\"54321\",\"confirmPassword\":\"54321\"}";
+        String json = "{\"user_name\":\"pig\", \"oldPassword\":\"123\",\"newPassword\":\"momo-123456\",\"confirmPassword\":\"momo-123456\"}";
         HttpPost httpPost = new HttpPost(url);
         StringEntity requestEntity = new StringEntity(json, "utf-8");
         requestEntity.setContentEncoding("UTF-8");
@@ -73,7 +73,7 @@ public class UserInterfaceTest {
         InputStream inputStream = response.getEntity().getContent();
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
         assertAll(()->assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode()),
-                ()->assertTrue(result == 1 || result == 0));
+                ()->assertTrue(result == 1 || result == 0 || result == 2));
         httpClient.close();
     }
 
