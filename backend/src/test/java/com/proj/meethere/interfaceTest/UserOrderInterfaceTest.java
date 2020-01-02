@@ -62,7 +62,7 @@ public class UserOrderInterfaceTest {
         InputStream inputStream = response.getEntity().getContent();
         int result = Integer.parseInt(TestUtils.inputStream2String(inputStream));
 
-        assertTrue(result == 1 || result == 0);
+        assertTrue(result == 1 || result == 0 || result == -1);
 
         response.close();
     }
@@ -92,7 +92,7 @@ public class UserOrderInterfaceTest {
 
     @Test
     void should_return_all_order_of_specific_user() throws IOException, URISyntaxException {
-        int id = 1;
+        int id = 43;
         URI uri = new URIBuilder().setScheme("http")
                 .setHost("localhost:8081")
                 .setPath("/getMyOrder")

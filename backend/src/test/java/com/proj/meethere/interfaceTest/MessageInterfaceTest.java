@@ -50,7 +50,7 @@ public class MessageInterfaceTest {
     public void should_search_unapproved_message() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         UriComponents uriComponents = UriComponentsBuilder.fromUriString("http://localhost:8081/searchUnapproveMessage/{condition}").build();
-        URI uri = uriComponents.expand("1").encode().toUri();
+        URI uri = uriComponents.expand("31").encode().toUri();
         HttpGet httpGet = new HttpGet(uri);
         HttpResponse httpResponse = httpClient.execute(httpGet);
         InputStream inputStream = httpResponse.getEntity().getContent();

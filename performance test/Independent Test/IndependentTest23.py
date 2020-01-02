@@ -10,8 +10,7 @@ class UserBehavior(TaskSet):
     def login(self):
         global token
         params = {
-            "name" : "admin",
-            "password": "admin"
+            "login": "{\"name\" : \"admin\",\"password\": \"admin\"}"
         }
         response = self.client.get("/Login", params = params)
         #token = response.json()['token']
