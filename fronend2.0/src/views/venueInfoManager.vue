@@ -230,7 +230,7 @@
         this.$refs['dialogTypeForm'].validate((valid) => {
           if(valid && flag){
             this.loading = true;
-            console.log(this.dialogTypeForm);
+            // console.log(this.dialogTypeForm);
             modifyCheckResult(this.dialogTypeForm).then(data => {
               this.loading=false;
               if (data.data) {
