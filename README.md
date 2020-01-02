@@ -1,6 +1,6 @@
 # MeetHere
 
-## Overall
+## Overview
 
 这个项目由Springboot和Vue搭建而成，采用前后端分离框架，所有内容为本学期开发。
 
@@ -37,9 +37,13 @@ Tecent Cloud, Centos 7.6 64位
 
 #### Backend
 
+It is located at 'backend' folder.
+
 Use IDEA to run this project, it will configure it automatically.
 
 #### Frontend
+
+It is located at 'frontend' folder.
 
 Use npm:
 
@@ -59,9 +63,11 @@ yarn server --fix
 
 #### Unit Test
 
-For backend, use IDEA to run all tests.
+For backend, use IDEA to run all tests. It is located at 'backend/src/test' folder.
 
-For fronend, enter:
+For fronend, it is located at 'fronend2.0/tests/unit' folder.
+
+ enter:
 ```bash
 npm run test:unit
 ```
@@ -70,14 +76,15 @@ or
 yarn test:unit
 ```
 
-#### Integration Test
+#### Interface Test
 
-It is written in the backend project.
+It is written in the backend project. It is located at 'backend/src/test' folder.
 Use IDEA to run test.
 
 #### System Test
 
 For manager system test, it uses selenium + maven + allure + junit5.
+It is located at 'ManagerSystemTest' folder.
 
 To view report:
 
@@ -85,7 +92,7 @@ To view report:
 $./allure serve allure-results
 ```
 
-For user page system test, it uses nightwatch.
+For user page system test, it uses nightwatch. It is located at 'fronend2.0/tests/e2e' folder.
 
 To test it:
 
@@ -99,7 +106,7 @@ yarn test:e2e --fix
 
 #### Performance Test
 
-We use locus.
+We use locus. It is located at 'performance test' folder.
 
 ``` bash
 locust -f FILE_NAME.py --host=http://localhost:8081
