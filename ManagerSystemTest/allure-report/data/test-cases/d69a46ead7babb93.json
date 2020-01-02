@@ -1,0 +1,59 @@
+{
+  "uid" : "d69a46ead7babb93",
+  "name" : "wrongUpgradeUser()",
+  "fullName" : "WrongUpgradeUserTest.wrongUpgradeUser",
+  "historyId" : "b3f5c7759d75e9d81baefdc263902485",
+  "time" : {
+    "start" : 1577697584787,
+    "stop" : 1577697587902,
+    "duration" : 3115
+  },
+  "description" : "测试数据为第一行，第一行必须是管理员。弹出信息：该用户已经是管理员！",
+  "descriptionHtml" : "<p>测试数据为第一行，第一行必须是管理员。弹出信息：该用户已经是管理员！</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "错误地升级用户"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "6308@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "WrongUpgradeUserTest"
+  }, {
+    "name" : "testClass",
+    "value" : "WrongUpgradeUserTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "wrongUpgradeUser"
+  }, {
+    "name" : "suite",
+    "value" : "WrongUpgradeUserTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "d69a46ead7babb93.json",
+  "parameterValues" : [ ]
+}

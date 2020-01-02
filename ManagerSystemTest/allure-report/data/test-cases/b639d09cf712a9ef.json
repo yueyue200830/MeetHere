@@ -1,0 +1,59 @@
+{
+  "uid" : "b639d09cf712a9ef",
+  "name" : "searchUserWrongTwo()",
+  "fullName" : "SearchUserFailedTest.searchUserWrongTwo",
+  "historyId" : "e3c765e1cafee0ccaab0d8fd928cc06e",
+  "time" : {
+    "start" : 1577700156830,
+    "stop" : 1577700159810,
+    "duration" : 2980
+  },
+  "description" : "输入的ID数据库不存在，弹出信息:搜索失败",
+  "descriptionHtml" : "<p>输入的ID数据库不存在，弹出信息:搜索失败</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "搜索用户失败"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "9664@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "SearchUserFailedTest"
+  }, {
+    "name" : "testClass",
+    "value" : "SearchUserFailedTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "searchUserWrongTwo"
+  }, {
+    "name" : "suite",
+    "value" : "SearchUserFailedTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "b639d09cf712a9ef.json",
+  "parameterValues" : [ ]
+}

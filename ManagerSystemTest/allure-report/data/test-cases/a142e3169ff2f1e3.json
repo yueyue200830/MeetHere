@@ -1,0 +1,59 @@
+{
+  "uid" : "a142e3169ff2f1e3",
+  "name" : "wrongApproveOrder()",
+  "fullName" : "WrongApproveOrderTest.wrongApproveOrder",
+  "historyId" : "d9b264b0c942bf66278cfbb3bfab05f9",
+  "time" : {
+    "start" : 1577700286371,
+    "stop" : 1577700290225,
+    "duration" : 3854
+  },
+  "description" : "未选中订单点击审核通过按钮，弹出信息：选中数量为0条",
+  "descriptionHtml" : "<p>未选中订单点击审核通过按钮，弹出信息：选中数量为0条</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "错误地审核订单"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "9664@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "WrongApproveOrderTest"
+  }, {
+    "name" : "testClass",
+    "value" : "WrongApproveOrderTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "wrongApproveOrder"
+  }, {
+    "name" : "suite",
+    "value" : "WrongApproveOrderTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "a142e3169ff2f1e3.json",
+  "parameterValues" : [ ]
+}

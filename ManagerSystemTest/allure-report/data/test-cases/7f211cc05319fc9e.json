@@ -1,0 +1,59 @@
+{
+  "uid" : "7f211cc05319fc9e",
+  "name" : "modifyVenueFailedTwo()",
+  "fullName" : "ModifyVenueFailedTest.modifyVenueFailedTwo",
+  "historyId" : "6c83c97542a3800de1e47760434ef441",
+  "time" : {
+    "start" : 1577700044467,
+    "stop" : 1577700048748,
+    "duration" : 4281
+  },
+  "description" : "场馆价格输入字母，弹出信息：输入格式不正确！",
+  "descriptionHtml" : "<p>场馆价格输入字母，弹出信息：输入格式不正确！</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "修改场馆信息失败"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "9664@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "ModifyVenueFailedTest"
+  }, {
+    "name" : "testClass",
+    "value" : "ModifyVenueFailedTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "modifyVenueFailedTwo"
+  }, {
+    "name" : "suite",
+    "value" : "ModifyVenueFailedTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "7f211cc05319fc9e.json",
+  "parameterValues" : [ ]
+}

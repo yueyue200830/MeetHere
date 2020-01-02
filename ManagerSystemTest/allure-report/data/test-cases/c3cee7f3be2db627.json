@@ -1,0 +1,76 @@
+{
+  "uid" : "c3cee7f3be2db627",
+  "name" : "searchVenueSuccess()",
+  "fullName" : "SearchVenueSuccessTest.searchVenueSuccess",
+  "historyId" : "a66bb848ac53fd462e2ac54571f744e9",
+  "time" : {
+    "start" : 1577701844565,
+    "stop" : 1577701847709,
+    "duration" : 3144
+  },
+  "description" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "搜索场馆成功"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "19924@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "SearchVenueSuccessTest"
+  }, {
+    "name" : "testClass",
+    "value" : "SearchVenueSuccessTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "searchVenueSuccess"
+  }, {
+    "name" : "suite",
+    "value" : "SearchVenueSuccessTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "f48f70977718f3e",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577700215408,
+        "stop" : 1577700219060,
+        "duration" : 3652
+      }
+    }, {
+      "uid" : "929457ea030e0c5b",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577697379899,
+        "stop" : 1577697383536,
+        "duration" : 3637
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "c3cee7f3be2db627.json",
+  "parameterValues" : [ ]
+}

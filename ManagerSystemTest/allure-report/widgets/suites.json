@@ -1,0 +1,114 @@
+{
+  "total" : 39,
+  "items" : [ {
+    "uid" : "a37bfc24fed36c17ceebbf9b1d86a28b",
+    "name" : "AddVenueFailedTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 4,
+      "unknown" : 0,
+      "total" : 4
+    }
+  }, {
+    "uid" : "d79665dd480a02ec58e0819b64f87568",
+    "name" : "ModifyVenueFailedTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 3,
+      "unknown" : 0,
+      "total" : 3
+    }
+  }, {
+    "uid" : "b5373fffb01f6aa5061b0c75e912170e",
+    "name" : "AddNewsFailedTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    }
+  }, {
+    "uid" : "a11b05e6eaea2a9bfe12eaeadacd1a47",
+    "name" : "ChangeTablePageTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    }
+  }, {
+    "uid" : "341f0aec76fd4b404d0a3d6c0f2b8817",
+    "name" : "SearchMessageFailedTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    }
+  }, {
+    "uid" : "a76d8aa0dbdb17ef778440d5ba1b81a0",
+    "name" : "SearchOrderFailedTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    }
+  }, {
+    "uid" : "1fcf82ba1487812f20b3e3a96c24924b",
+    "name" : "SearchUserFailedTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    }
+  }, {
+    "uid" : "a9671474e50b6f8643ca9a872dd59831",
+    "name" : "SearchVenueFailedTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    }
+  }, {
+    "uid" : "ec432bf8d3ecec1e44594b1cdc3c5119",
+    "name" : "AddNewsSuccessTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    }
+  }, {
+    "uid" : "7fe1e59b2e93b39eff892262446a03b5",
+    "name" : "AddVenueSuccessTest",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    }
+  } ]
+}

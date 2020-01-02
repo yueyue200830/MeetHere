@@ -1,0 +1,58 @@
+{
+  "uid" : "337f0aadd42d79b",
+  "name" : "approveOrderSuccess()",
+  "fullName" : "ApproveOrderSuccessTest.approveOrderSuccess",
+  "historyId" : "894e3bcaccfd16796a6b58aedd34b1c2",
+  "time" : {
+    "start" : 1577696992941,
+    "stop" : 1577696997901,
+    "duration" : 4960
+  },
+  "description" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "审核通过订单成功"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "6308@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "ApproveOrderSuccessTest"
+  }, {
+    "name" : "testClass",
+    "value" : "ApproveOrderSuccessTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "approveOrderSuccess"
+  }, {
+    "name" : "suite",
+    "value" : "ApproveOrderSuccessTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "337f0aadd42d79b.json",
+  "parameterValues" : [ ]
+}
