@@ -28,7 +28,7 @@ public class UserController {
     @RequestMapping(value = "/managerLoginCheck", method = RequestMethod.POST)
     @ResponseBody
     public int checkPwd(@RequestBody UserRequest userRequest){
-        System.out.println("user check");
+//        System.out.println("user check");
         return userService.checkManagerValid(userRequest.getUser_name(), userRequest.getUser_key());
     }
 
@@ -41,7 +41,7 @@ public class UserController {
     @RequestMapping(value = "/getUser", method = RequestMethod.POST)
     @ResponseBody
     public List<UserResponse> getUser(){
-        System.out.println("receive get user");
+//        System.out.println("receive get user");
         return userService.getUserInfo();
     }
 

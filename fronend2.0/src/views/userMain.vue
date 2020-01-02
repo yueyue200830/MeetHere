@@ -22,26 +22,30 @@
       <el-row :gutter="10">
         <el-col
           :xs="24"
-          :sm="{span: 8, offset: 1}"
-          :md="{span: 8, offset: 1}"
-          :lg="{span: 6, offset: 2}"
-          :xl="{span: 5, offset: 3}"
+          :sm="{span: 8, offset: 2}"
+          :md="{span: 8, offset: 3}"
+          :lg="{span: 6, offset: 4}"
+          :xl="{span: 5, offset: 5}"
         >
           <div class="revenue-name">
-            <div class="revenue-card" v-for="r in revenue" :key="r" v-on:click="clickTest(r)">
+            <div class="revenue-card" v-for="r in revenues" :key="r.rvnName" v-on:click="clickTest(r)">
               <div class="revenue-card-body">
-                {{ r }}
+                {{ r.rvnName }}
               </div>
             </div>
           </div>
         </el-col>
-        <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="13">
-          <div class="revenue-image-div">
-            <el-image
-              class="revenue-image"
-              fit="contain"
-              src="https://www.bing.com/th?id=OHR.SheepCoteClod_ZH-CN7630556554_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"
-            />
+        <el-col
+          :xs="24"
+          :sm="{span: 11, offset: 0}"
+          :md="{span: 9, offset: 1}"
+          :lg="{span: 7, offset: 2}"
+          :xl="{span: 5, offset: 2}"
+        >
+          <div class="revenue-info-div">
+            <div class="revenue-info" v-if="revenues.length != 0">
+              {{ revenues[currentRevenue].rvnIntro }}
+            </div>
           </div>
         </el-col>
       </el-row>
@@ -91,24 +95,25 @@ export default {
   name: 'userMain',
   data () {
     return {
-      revenue: ['篮球馆', '足球馆', '乒乓球馆', '羽毛球馆'],
       loadingNews: false,
       newsList: [{
         newsPhoto: '',
         newsTitle: '',
         newsContent: ''
-      }]
+      }],
+      revenues: [],
+      currentRevenue: 0
     }
   },
   created: function () {
     this.loadingNews = true
     this.$http
-      .post('/app/getVenueName')
+      .post('/app/getVenueUserPage')
       .then(response => {
-        this.revenue = response.data[0]
+        this.revenues = response.data[0]
       })
       .catch(error => {
-        this.$message.error('加载场馆失败')
+        this.$message.error('获取场馆信息失败')
       })
     this.$http
       .post('/app/getNewsThree')
@@ -124,7 +129,12 @@ export default {
   },
   methods: {
     clickTest: function (r) {
-      console.log(r)
+      let i = 0
+      for (i = 0; i < this.revenues.length; i++) {
+        if (r === this.revenues[i])
+          break
+      }
+      this.currentRevenue = i
     }
   }
 }
@@ -152,13 +162,22 @@ export default {
     cursor:pointer;
   }
 
-  .revenue-image-div {
+  .revenue-info-div {
     margin: 10px;
+    height: 270px;
+    display: flex;
+    flex-direction: column;
   }
 
-  .revenue-image {
-    width: 100%;
-    height: 280px;
+  .revenue-info {
+    border: 1px solid #EBEEF5;
+    border-radius: 8px;
+    color: #303133;
+    transition: .3s;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+    padding: 10px;
+    margin: auto 10px;
+    max-width: 350px;
   }
 
   .main-title {

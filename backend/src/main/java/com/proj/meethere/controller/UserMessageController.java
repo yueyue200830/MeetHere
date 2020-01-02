@@ -31,7 +31,7 @@ public class UserMessageController {
         List<Message> latestMessages = userMessageService.selectMessagesPartial(10);
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(latestMessages);
-        System.out.println("新闻"+jsonArray.toString());
+//        System.out.println("新闻"+jsonArray.toString());
         return jsonArray.toString();
     }
 

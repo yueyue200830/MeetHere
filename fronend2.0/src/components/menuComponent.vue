@@ -129,6 +129,10 @@ export default {
     let self = this
     this.timer = setInterval(() => {
       self.now = moment().format('YYYY-MM-DD HH:mm:ss')
+      if(!this.$store.getters.hasManagerLoggedIn){
+        this.onAlertError("你的登录已到期，请重新登录！")
+        this.$router.push('/login')
+      }
     }, 1000)
     self.now = moment().format('YYYY-MM-DD HH:mm:ss')
   },

@@ -102,7 +102,7 @@ public class RevenueService {
      */
     public List<String> getVenueName() {
         List<String> result = revenueRepository.selectRevenueName();
-        System.out.println(result);
+//        System.out.println(result);
         return result;
     }
 
