@@ -35,11 +35,6 @@ public interface NewsRepository extends JpaRepository<News,Integer>{
     @Query(value = "select * from news where id = :id", nativeQuery = true)
     List<News> selectSpecificNews(@Param("id") int id);
 
-
-    @Query(value = "select * form news where id>=:first and id<=:last order by news_time desc", nativeQuery = true)
-    List<News> findNewsByScope(@Param("first") int first, @Param("last") int last);
-
-
     @Query(value = "select * from news order by news_time limit :count", nativeQuery = true)
     List<News> findNewsPartial(@Param("count") int count);
 
