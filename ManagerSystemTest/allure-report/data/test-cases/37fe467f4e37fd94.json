@@ -1,0 +1,59 @@
+{
+  "uid" : "37fe467f4e37fd94",
+  "name" : "addVenueSuccess()",
+  "fullName" : "AddVenueSuccessTest.addVenueSuccess",
+  "historyId" : "96057fbe15f32da150846d53e0bf4ba1",
+  "time" : {
+    "start" : 1577699785974,
+    "stop" : 1577699791364,
+    "duration" : 5390
+  },
+  "description" : "添加场馆成功",
+  "descriptionHtml" : "<p>添加场馆成功</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "添加场馆成功"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "9664@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "AddVenueSuccessTest"
+  }, {
+    "name" : "testClass",
+    "value" : "AddVenueSuccessTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "addVenueSuccess"
+  }, {
+    "name" : "suite",
+    "value" : "AddVenueSuccessTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "37fe467f4e37fd94.json",
+  "parameterValues" : [ ]
+}

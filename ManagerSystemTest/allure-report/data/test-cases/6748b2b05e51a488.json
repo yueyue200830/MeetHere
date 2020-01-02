@@ -1,0 +1,77 @@
+{
+  "uid" : "6748b2b05e51a488",
+  "name" : "deleteNewsSuccess()",
+  "fullName" : "DeleteNewsSuccessTest.deleteNewsSuccess",
+  "historyId" : "cc27d8c346e157dc79b9442725faa3db",
+  "time" : {
+    "start" : 1577701563805,
+    "stop" : 1577701568885,
+    "duration" : 5080
+  },
+  "description" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "删除新闻成功"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "19924@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "DeleteNewsSuccessTest"
+  }, {
+    "name" : "testClass",
+    "value" : "DeleteNewsSuccessTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "deleteNewsSuccess"
+  }, {
+    "name" : "suite",
+    "value" : "DeleteNewsSuccessTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "fa266dd80d2fe99",
+      "status" : "broken",
+      "statusDetails" : "Unable to locate element: .el-table__row:nth-child(1) .el-checkbox__inner\nFor documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'DESKTOP-26LM3D6', ip: '192.168.58.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_211'\nDriver info: org.openqa.selenium.firefox.FirefoxDriver\nCapabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 71.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:buildID: 20191202093317, moz:geckodriverVersion: 0.26.0, moz:headless: false, moz:processID: 832, moz:profile: C:\\Users\\admin\\AppData\\Loca..., moz:shutdownTimeout: 60000, moz:useNonSpecCompliantPointerOrigin: false, moz:webdriverClick: true, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, platformVersion: 10.0, rotatable: false, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}\nSession ID: 520b8a55-07b2-4167-b027-a8aa5ce0744a\n*** Element info: {Using=css selector, value=.el-table__row:nth-child(1) .el-checkbox__inner}",
+      "time" : {
+        "start" : 1577699945512,
+        "stop" : 1577699949340,
+        "duration" : 3828
+      }
+    }, {
+      "uid" : "31fa90be622d13a7",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577697121058,
+        "stop" : 1577697125314,
+        "duration" : 4256
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "6748b2b05e51a488.json",
+  "parameterValues" : [ ]
+}

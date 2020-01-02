@@ -1,0 +1,59 @@
+{
+  "uid" : "d5c101fff75ec26d",
+  "name" : "addNewsSuccess()",
+  "fullName" : "AddNewsSuccessTest.addNewsSuccess",
+  "historyId" : "fafc35b205b9397f2e969fff874b89de",
+  "time" : {
+    "start" : 1577699734412,
+    "stop" : 1577699740857,
+    "duration" : 6445
+  },
+  "description" : "添加新闻成功",
+  "descriptionHtml" : "<p>添加新闻成功</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "添加新闻成功"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "9664@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "AddNewsSuccessTest"
+  }, {
+    "name" : "testClass",
+    "value" : "AddNewsSuccessTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "addNewsSuccess"
+  }, {
+    "name" : "suite",
+    "value" : "AddNewsSuccessTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "d5c101fff75ec26d.json",
+  "parameterValues" : [ ]
+}

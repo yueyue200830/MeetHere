@@ -1,0 +1,59 @@
+{
+  "uid" : "8d320f47d92fa620",
+  "name" : "viewPictureFailed()",
+  "fullName" : "ViewPictureFailedTest.viewPictureFailed",
+  "historyId" : "7b6ea69de159860b01c0acb8bb3bf63e",
+  "time" : {
+    "start" : 1577700235360,
+    "stop" : 1577700239036,
+    "duration" : 3676
+  },
+  "description" : "测试的数据是第一条新闻，必须没有图片，否则测试失败。弹出信息：该条新闻没有图片",
+  "descriptionHtml" : "<p>测试的数据是第一条新闻，必须没有图片，否则测试失败。弹出信息：该条新闻没有图片</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "查看新闻图片失败"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "9664@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "ViewPictureFailedTest"
+  }, {
+    "name" : "testClass",
+    "value" : "ViewPictureFailedTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "viewPictureFailed"
+  }, {
+    "name" : "suite",
+    "value" : "ViewPictureFailedTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "8d320f47d92fa620.json",
+  "parameterValues" : [ ]
+}

@@ -1,0 +1,59 @@
+{
+  "uid" : "c7c01a99bc1adc70",
+  "name" : "wrongLogInOne()",
+  "fullName" : "WrongLogInOneTest.wrongLogInOne",
+  "historyId" : "7595339cc95e9865d678174caf4e3726",
+  "time" : {
+    "start" : 1577697499831,
+    "stop" : 1577697503606,
+    "duration" : 3775
+  },
+  "description" : "弹出信息：用户名与密码不匹配",
+  "descriptionHtml" : "<p>弹出信息：用户名与密码不匹配</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "错误地登录1"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "6308@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "WrongLogInOneTest"
+  }, {
+    "name" : "testClass",
+    "value" : "WrongLogInOneTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "wrongLogInOne"
+  }, {
+    "name" : "suite",
+    "value" : "WrongLogInOneTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "c7c01a99bc1adc70.json",
+  "parameterValues" : [ ]
+}

@@ -1,0 +1,84 @@
+{
+  "uid" : "fe58f7dfb4f2091d",
+  "name" : "changeTablePage()",
+  "fullName" : "ChangeTablePageTest.changeTablePage",
+  "historyId" : "ed3440caccd6ec49203bf7714108547c",
+  "time" : {
+    "start" : 1577697016180,
+    "stop" : 1577697019782,
+    "duration" : 3602
+  },
+  "description" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "description" : "",
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "下一页，上一页，输入页码跳转",
+      "time" : {
+        "start" : 1577697016203,
+        "stop" : 1577697019782,
+        "duration" : 3579
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "stepsCount" : 0,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 1,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "改变表格页码"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "6308@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "ChangeTablePageTest"
+  }, {
+    "name" : "testClass",
+    "value" : "ChangeTablePageTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "changeTablePage"
+  }, {
+    "name" : "suite",
+    "value" : "ChangeTablePageTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "fe58f7dfb4f2091d.json",
+  "parameterValues" : [ ]
+}

@@ -1,0 +1,77 @@
+{
+  "uid" : "c38953f843ed43c6",
+  "name" : "wrongModifyPasswordOne()",
+  "fullName" : "WrongModifyPasswordOneTest.wrongModifyPasswordOne",
+  "historyId" : "55e2ddb3b07ce2ba41903efe2ff0934f",
+  "time" : {
+    "start" : 1577702023803,
+    "stop" : 1577702030081,
+    "duration" : 6278
+  },
+  "description" : "弹出信息：两次密码不一致",
+  "descriptionHtml" : "<p>弹出信息：两次密码不一致</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "错误地修改密码1"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "19924@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "WrongModifyPasswordOneTest"
+  }, {
+    "name" : "testClass",
+    "value" : "WrongModifyPasswordOneTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "wrongModifyPasswordOne"
+  }, {
+    "name" : "suite",
+    "value" : "WrongModifyPasswordOneTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "abcfe77a6a9314ed",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577700384998,
+        "stop" : 1577700391001,
+        "duration" : 6003
+      }
+    }, {
+      "uid" : "b66b3264ac385de4",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577697533612,
+        "stop" : 1577697539190,
+        "duration" : 5578
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "c38953f843ed43c6.json",
+  "parameterValues" : [ ]
+}

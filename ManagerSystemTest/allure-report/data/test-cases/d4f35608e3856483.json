@@ -1,0 +1,76 @@
+{
+  "uid" : "d4f35608e3856483",
+  "name" : "searchUserSuccess()",
+  "fullName" : "SearchUserSuccessTest.searchUserSuccess",
+  "historyId" : "eb34fe92af3ec099c26c3d5f57466189",
+  "time" : {
+    "start" : 1577701802728,
+    "stop" : 1577701808132,
+    "duration" : 5404
+  },
+  "description" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "搜索用户成功"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "19924@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "SearchUserSuccessTest"
+  }, {
+    "name" : "testClass",
+    "value" : "SearchUserSuccessTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "searchUserSuccess"
+  }, {
+    "name" : "suite",
+    "value" : "SearchUserSuccessTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "a0f989661d31073e",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577700172845,
+        "stop" : 1577700178174,
+        "duration" : 5329
+      }
+    }, {
+      "uid" : "4cd5a031a60a2c28",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577697341288,
+        "stop" : 1577697347060,
+        "duration" : 5772
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "d4f35608e3856483.json",
+  "parameterValues" : [ ]
+}

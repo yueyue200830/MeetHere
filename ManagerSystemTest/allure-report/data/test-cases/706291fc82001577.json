@@ -1,0 +1,77 @@
+{
+  "uid" : "706291fc82001577",
+  "name" : "modifyVenueFailedOne()",
+  "fullName" : "ModifyVenueFailedTest.modifyVenueFailedOne",
+  "historyId" : "1dde233b76b340580181de1c38ee794",
+  "time" : {
+    "start" : 1577701663169,
+    "stop" : 1577701668183,
+    "duration" : 5014
+  },
+  "description" : "输入字符串过长，弹出信息：修改失败",
+  "descriptionHtml" : "<p>输入字符串过长，弹出信息：修改失败</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "修改场馆信息失败"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "19924@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "ModifyVenueFailedTest"
+  }, {
+    "name" : "testClass",
+    "value" : "ModifyVenueFailedTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "modifyVenueFailedOne"
+  }, {
+    "name" : "suite",
+    "value" : "ModifyVenueFailedTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "af8c66ea73952049",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577700039569,
+        "stop" : 1577700044455,
+        "duration" : 4886
+      }
+    }, {
+      "uid" : "3eacc820fba42f7e",
+      "status" : "passed",
+      "time" : {
+        "start" : 1577697209812,
+        "stop" : 1577697214676,
+        "duration" : 4864
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "706291fc82001577.json",
+  "parameterValues" : [ ]
+}

@@ -1,0 +1,59 @@
+{
+  "uid" : "e4f59fdcb2d96da0",
+  "name" : "searchVenueFailedTwo()",
+  "fullName" : "SearchVenueFailedTest.searchVenueFailedTwo",
+  "historyId" : "2cb55d3cc76f49f117ec663ab5ffb729",
+  "time" : {
+    "start" : 1577697364045,
+    "stop" : 1577697367924,
+    "duration" : 3879
+  },
+  "description" : "输入的ID数据库不存在，弹出信息:搜索失败",
+  "descriptionHtml" : "<p>输入的ID数据库不存在，弹出信息:搜索失败</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "搜索场馆失败"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "6308@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "SearchVenueFailedTest"
+  }, {
+    "name" : "testClass",
+    "value" : "SearchVenueFailedTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "searchVenueFailedTwo"
+  }, {
+    "name" : "suite",
+    "value" : "SearchVenueFailedTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "e4f59fdcb2d96da0.json",
+  "parameterValues" : [ ]
+}

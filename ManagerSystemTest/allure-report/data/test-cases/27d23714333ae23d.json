@@ -1,0 +1,59 @@
+{
+  "uid" : "27d23714333ae23d",
+  "name" : "wrongLogInTwo()",
+  "fullName" : "WrongLogInTwoTest.wrongLogInTwo",
+  "historyId" : "66e2b3a8dc76cf6b4862dc6f2fc02c35",
+  "time" : {
+    "start" : 1577700366174,
+    "stop" : 1577700369031,
+    "duration" : 2857
+  },
+  "description" : "弹出信息：用户名和密码不能为空！",
+  "descriptionHtml" : "<p>弹出信息：用户名和密码不能为空！</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "错误地登录2"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "9664@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "WrongLogInTwoTest"
+  }, {
+    "name" : "testClass",
+    "value" : "WrongLogInTwoTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "wrongLogInTwo"
+  }, {
+    "name" : "suite",
+    "value" : "WrongLogInTwoTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "27d23714333ae23d.json",
+  "parameterValues" : [ ]
+}

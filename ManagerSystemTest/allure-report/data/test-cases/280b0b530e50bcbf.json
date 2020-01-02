@@ -1,0 +1,59 @@
+{
+  "uid" : "280b0b530e50bcbf",
+  "name" : "checkOrderStatistic()",
+  "fullName" : "CheckOrderStatisticTest.checkOrderStatistic",
+  "historyId" : "44cefba65b58cada7fa47c2913332dab",
+  "time" : {
+    "start" : 1577699857840,
+    "stop" : 1577699863325,
+    "duration" : 5485
+  },
+  "description" : "输入不同日期查看各场馆订单数据",
+  "descriptionHtml" : "<p>输入不同日期查看各场馆订单数据</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "查看订单统计数据"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "9664@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "CheckOrderStatisticTest"
+  }, {
+    "name" : "testClass",
+    "value" : "CheckOrderStatisticTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "checkOrderStatistic"
+  }, {
+    "name" : "suite",
+    "value" : "CheckOrderStatisticTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "280b0b530e50bcbf.json",
+  "parameterValues" : [ ]
+}

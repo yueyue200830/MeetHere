@@ -1,0 +1,59 @@
+{
+  "uid" : "96de7089391caf32",
+  "name" : "wrongModifyPasswordThree()",
+  "fullName" : "WrongModifyPasswordThreeTest.wrongModifyPasswordThree",
+  "historyId" : "5aa2d40221e9e6b0e7a5afd35207afcd",
+  "time" : {
+    "start" : 1577697550430,
+    "stop" : 1577697556161,
+    "duration" : 5731
+  },
+  "description" : "输入新密码长度过长，弹出信息：修改密码失败，密码不能超过16个字符",
+  "descriptionHtml" : "<p>输入新密码长度过长，弹出信息：修改密码失败，密码不能超过16个字符</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "错误地修改密码3"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-26LM3D6"
+  }, {
+    "name" : "thread",
+    "value" : "6308@DESKTOP-26LM3D6.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "WrongModifyPasswordThreeTest"
+  }, {
+    "name" : "testClass",
+    "value" : "WrongModifyPasswordThreeTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "wrongModifyPasswordThree"
+  }, {
+    "name" : "suite",
+    "value" : "WrongModifyPasswordThreeTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "96de7089391caf32.json",
+  "parameterValues" : [ ]
+}
