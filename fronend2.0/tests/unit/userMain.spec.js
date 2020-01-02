@@ -14,7 +14,7 @@ const mock = new MockAdapter(localVue.prototype.$http);
 
 describe('userMain.vue', () => {
 
-  it('renders props.msg when passed', async () => {
+  it('test created function', async () => {
     let revenue = ['篮球馆', '足球场']
     let newsList = [{
       newsPhoto: 'test photo',
