@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     assignManager(temp){
-      console.log("用户id"+temp.id+" 用户角色:"+temp.userType);
+      // console.log("用户id"+temp.id+" 用户角色:"+temp.userType);
       if(temp.userType == "Admin"){
         this.onAlertError("该用户已经是管理员！")
       }else{

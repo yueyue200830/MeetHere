@@ -37,6 +37,7 @@ describe('userMain.vue', () => {
     await flushPromises();
     expect(wrapper.vm.revenues).to.eql(revenue)
     expect(wrapper.vm.newsList).to.eql(newsList)
+    mock.reset()
   })
 
   it('test created function', async () => {
@@ -54,5 +55,24 @@ describe('userMain.vue', () => {
     await flushPromises()
     wrapper.vm.clickTest(revenue[1])
     expect(wrapper.vm.currentRevenue).to.equal(1)
+    mock.reset()
+  })
+
+  it('test http error', async () => {
+    mock
+      .onPost('/app/getVenueUserPage')
+      .reply(500)
+    mock
+      .onPost('/app/getNewsThree')
+      .reply(500)
+    const wrapper = shallowMount(UserMain, {localVue})
+    await flushPromises();
+    expect(wrapper.vm.revenues).to.eql([])
+    expect(wrapper.vm.newsList).to.eql([{
+      newsPhoto: '',
+      newsTitle: '',
+      newsContent: ''
+    }])
+    mock.reset()
   })
 })
