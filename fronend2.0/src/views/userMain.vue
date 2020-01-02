@@ -28,9 +28,9 @@
           :xl="{span: 5, offset: 5}"
         >
           <div class="revenue-name">
-            <div class="revenue-card" v-for="r in revenue" :key="r" v-on:click="clickTest(r)">
+            <div class="revenue-card" v-for="r in revenues" :key="r.rvnName" v-on:click="clickTest(r)">
               <div class="revenue-card-body">
-                {{ r }}
+                {{ r.rvnName }}
               </div>
             </div>
           </div>
@@ -95,7 +95,6 @@ export default {
   name: 'userMain',
   data () {
     return {
-      revenue: ['篮球馆', '足球馆', '乒乓球馆', '羽毛球馆'],
       loadingNews: false,
       newsList: [{
         newsPhoto: '',
@@ -108,14 +107,6 @@ export default {
   },
   created: function () {
     this.loadingNews = true
-    this.$http
-      .post('/app/getVenueName')
-      .then(response => {
-        this.revenue = response.data[0]
-      })
-      .catch(error => {
-        this.$message.error('加载场馆失败')
-      })
     this.$http
       .post('/app/getVenueUserPage')
       .then(response => {
@@ -139,8 +130,8 @@ export default {
   methods: {
     clickTest: function (r) {
       let i = 0
-      for (i in this.revenue) {
-        if (r === this.revenue[i])
+      for (i = 0; i < this.revenues.length; i++) {
+        if (r === this.revenues[i])
           break
       }
       this.currentRevenue = i

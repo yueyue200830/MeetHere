@@ -50,8 +50,12 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import UserFooter from '@/components/userFooter.vue'
 export default {
   name: 'userLogin',
+  components: {
+    UserFooter
+  },
   data () {
     return {
       loginForm: {

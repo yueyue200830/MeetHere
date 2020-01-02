@@ -15,21 +15,44 @@ const mock = new MockAdapter(localVue.prototype.$http);
 describe('userMain.vue', () => {
 
   it('test created function', async () => {
-    let revenue = ['篮球馆', '足球场']
+    let revenue = [{
+      rvnName: '足球场',
+      rvnIntro: '测试',
+    }, {
+      rvnName: '游泳池',
+      rvnIntro: '测试',
+    }]
     let newsList = [{
       newsPhoto: 'test photo',
       newsTitle: 'test title',
       newsContent: 'test content'
     }]
     mock
-      .onPost('/app/getVenueName')
+      .onPost('/app/getVenueUserPage')
       .reply(200, [revenue])
     mock
       .onPost('/app/getNewsThree')
       .reply(200, newsList)
     const wrapper = shallowMount(UserMain, {localVue})
     await flushPromises();
-    expect(wrapper.vm.revenue).to.eql(revenue)
+    expect(wrapper.vm.revenues).to.eql(revenue)
     expect(wrapper.vm.newsList).to.eql(newsList)
+  })
+
+  it('test created function', async () => {
+    let revenue = [{
+      rvnName: '足球场',
+      rvnIntro: '测试',
+    }, {
+      rvnName: '游泳池',
+      rvnIntro: '测试',
+    }]
+    mock
+      .onPost('/app/getVenueUserPage')
+      .reply(200, [revenue])
+    const wrapper = shallowMount(UserMain, {localVue})
+    await flushPromises()
+    wrapper.vm.clickTest(revenue[1])
+    expect(wrapper.vm.currentRevenue).to.equal(1)
   })
 })
