@@ -43,7 +43,7 @@
                 <el-upload
 
                   class="upload-demo"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action=""
                   :on-change="handleChange"
                   :on-remove="handleRemove"
                   :on-preview="handlePreview"
