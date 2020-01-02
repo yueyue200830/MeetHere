@@ -167,7 +167,7 @@ export default {
       getCheckResultById(id).then(data => {
         this.loading = false
         if (data) {
-          console.log(data)
+          // console.log(data)
           this.dialogTypeForm.id = data.data[0].id
           this.dialogTypeForm.newsContent = data.data[0].newsContent
           this.dialogTypeForm.newsPhoto = data.data[0].newsPhoto
@@ -187,7 +187,7 @@ export default {
         if (data.data) {
           this.photoSrc = data.data
           this.showPhoto = true
-          console.log(this.photoSrc)
+          // console.log(this.photoSrc)
         } else {
           this.onAlertError('该条新闻没有图片')
         }
@@ -217,7 +217,7 @@ export default {
           this.loading = true
 
           if (this.dialogTypeForm.title == '修改新闻') {
-            console.log(this.dialogTypeForm.id)
+            // console.log(this.dialogTypeForm.id)
             modifyCheckResult(this.dialogTypeForm).then(data => {
               this.loading = false
               this.showDialogType = false
@@ -232,7 +232,7 @@ export default {
               }
             })
           } else {
-            console.log(this.dialogTypeForm.newsPhoto)
+            // console.log(this.dialogTypeForm.newsPhoto)
             addCheckResult(this.dialogTypeForm).then(data => {
               this.loading = false
               this.showDialogType = false
