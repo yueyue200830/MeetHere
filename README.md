@@ -46,13 +46,13 @@ Tecent Cloud, `Centos 7.6 64位`
 
 #### Backend
 
->> It is located at 'backend' folder.
+> It is located at 'backend' folder.
 
 Use IDEA to run this project, it will configure it automatically.
 
 #### Frontend
 
->> It is located at 'frontend' folder.
+> It is located at 'frontend' folder.
 
 - Use npm:
 
@@ -74,13 +74,13 @@ yarn server --fix
 
 - Backend
 
->> It is located at 'backend/src/test' folder.
+> It is located at 'backend/src/test' folder.
 
 Use IDEA to run all tests.
 
 - Frontend
 
->> It is located at 'fronend2.0/tests/unit' folder.
+> It is located at 'fronend2.0/tests/unit' folder.
 
  enter:
 ```bash
@@ -93,7 +93,7 @@ yarn test:unit
 
 #### Interface Test
 
->> It is located at 'backend/src/test' folder.
+> It is located at 'backend/src/test' folder.
 
 Use IDEA to run test.
 
@@ -101,7 +101,7 @@ Use IDEA to run test.
 
 - Manager System Test
 
->> It is located at 'ManagerSystemTest' folder.
+> It is located at 'ManagerSystemTest' folder.
 
  we use `Selenium` + `Maven` + `Allure` + `Junit5`.
 
@@ -129,7 +129,7 @@ yarn test:e2e --fix
 
 #### Performance Test
 
->> It is located at 'performance test' folder.
+> It is located at 'performance test' folder.
 
 We use `locus`.
 
