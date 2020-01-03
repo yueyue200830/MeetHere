@@ -1,5 +1,14 @@
 # MeetHere
 
+<p>
+  <a href="https://github.com/vuejs/vue">
+    <img src="https://img.shields.io/badge/vue-2.6.10-brightgreen.svg" alt="vue">
+  </a>
+  <a href="https://github.com/ElemeFE/element">
+    <img src="https://img.shields.io/badge/element--ui-2.13.0-brightgreen.svg" alt="element-ui">
+  </a>
+</p>
+
 ## Overview
 
 这个项目由Springboot和Vue搭建而成，采用前后端分离框架，所有内容为本学期开发。
@@ -12,24 +21,24 @@
 
 #### Backend
 
-SpringBoot 2.1.9
+`SpringBoot 2.1.9`
 
 #### Frontend
 
-Vue 2.6.10 + Axois + vuex + vue-router + element-ui
+`Vue 2.6.10` + `Axois` + `Vuex` + `Vue-router` + `element-ui`
 
-Created  by @vue/cli 4.1.1
+Created  by `@vue/cli 4.1.1`
 
 #### Database
 
-**Local** MySQL 8
+**Local:** `MySQL 8`
 
-**Server** MariaDB 10.1.43
+**Server:** `MariaDB 10.1.43`
 
 
 #### Server
 
-Tecent Cloud, Centos 7.6 64位
+Tecent Cloud, `Centos 7.6 64位`
 
 1 Core，2G Memory，1Mbps Brandwidth
 
@@ -37,22 +46,22 @@ Tecent Cloud, Centos 7.6 64位
 
 #### Backend
 
-It is located at 'backend' folder.
+>> It is located at 'backend' folder.
 
 Use IDEA to run this project, it will configure it automatically.
 
 #### Frontend
 
-It is located at 'frontend' folder.
+>> It is located at 'frontend' folder.
 
-Use npm:
+- Use npm:
 
 ```bash
 npm install
 npm run server --fix
 ```
 
-Use yarn:
+- Use yarn:
 
 ```bash
 yarn
@@ -63,9 +72,15 @@ yarn server --fix
 
 #### Unit Test
 
-For backend, use IDEA to run all tests. It is located at 'backend/src/test' folder.
+- Backend
 
-For fronend, it is located at 'fronend2.0/tests/unit' folder.
+>> It is located at 'backend/src/test' folder.
+
+Use IDEA to run all tests.
+
+- Frontend
+
+>> It is located at 'fronend2.0/tests/unit' folder.
 
  enter:
 ```bash
@@ -78,13 +93,17 @@ yarn test:unit
 
 #### Interface Test
 
-It is written in the backend project. It is located at 'backend/src/test' folder.
+>> It is located at 'backend/src/test' folder.
+
 Use IDEA to run test.
 
 #### System Test
 
-For manager system test, it uses selenium + maven + allure + junit5.
-It is located at 'ManagerSystemTest' folder.
+- Manager System Test
+
+>> It is located at 'ManagerSystemTest' folder.
+
+ we use `Selenium` + `Maven` + `Allure` + `Junit5`.
 
 To view report:
 
@@ -92,9 +111,13 @@ To view report:
 $./allure serve allure-results
 ```
 
-For user page system test, it uses nightwatch. It is located at 'fronend2.0/tests/e2e' folder.
+- User System Test
 
-To test it:
+>> It is located at 'fronend2.0/tests/e2e' folder.
+
+We uses `nightwatch`.
+
+To run test:
 
 ``` bash
 npm run test:e2e --fix
@@ -106,13 +129,13 @@ yarn test:e2e --fix
 
 #### Performance Test
 
-We use locus. It is located at 'performance test' folder.
+>> It is located at 'performance test' folder.
+
+We use `locus`.
 
 ``` bash
 locust -f FILE_NAME.py --host=http://localhost:8081
 ```
-
-
 
 ## Developer
 
